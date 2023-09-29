@@ -57,6 +57,8 @@ public class Joueur {
 	private int pacteSlup = 0;
 	private boolean bonPapiers = false;
 	private boolean nickoProcheJeannot = false;
+	private boolean cheatRaptorActif = false;
+	private boolean cheatToinouActif = false;
 
 	public Joueur(Player player) {
 		
@@ -570,6 +572,22 @@ public class Joueur {
 
 	public void setNickoProcheJeannot(boolean nickoProcheJeannot) {
 		this.nickoProcheJeannot = nickoProcheJeannot;
+	}
+
+	public boolean isCheatRaptorActif() {
+		return cheatRaptorActif;
+	}
+
+	public void setCheatRaptorActif(boolean cheatRaptorActif) {
+		this.cheatRaptorActif = cheatRaptorActif;
+	}
+
+	public boolean isCheatToinouActif() {
+		return cheatToinouActif;
+	}
+
+	public void setCheatToinouActif(boolean cheatToinouActif) {
+		this.cheatToinouActif = cheatToinouActif;
 	}
 	
 }

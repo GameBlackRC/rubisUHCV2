@@ -268,6 +268,11 @@ public class ItemCD extends BukkitRunnable {
             		joueur.getPlayer().setFlying(false);
             		joueur.setInvulnerable(false);
             		
+            	} else if(item == "vol_loup_cd") {
+            		
+            		joueur.getPlayer().sendMessage("Vous venez de récupérer votre super bateau");
+            		main.getCD().remove(Pouvoirs.LOUP_SUPERBATEAU);
+            		
             	} else if(item == "vol_loup_nf") {
             		
             		joueur.setNofall(false);

@@ -1523,7 +1523,7 @@ public class GameCycle extends BukkitRunnable {
         
         if(timer % 10 == 0) {
         	
-        	if(main.getCompo().contains(Roles.NICKOBOOP)) {
+        	if(main.getJoueurByRole(Roles.NICKOBOOP) != null && main.getJoueurByRole(Roles.JEANNOT) != null) {
         		
         		Nickoboop.checkProcheJeannot(main.getJoueurByRole(Roles.NICKOBOOP), main);
         		

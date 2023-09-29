@@ -11,6 +11,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import fr.gameblack.rcuhcv2.Joueur;
 import fr.gameblack.rcuhcv2.Main;
 import fr.gameblack.rcuhcv2.Orbe;
+import fr.gameblack.rcuhcv2.Pouvoirs;
 import fr.gameblack.rcuhcv2.orbes.Eau;
 import fr.gameblack.rcuhcv2.orbes.Feu;
 import fr.gameblack.rcuhcv2.orbes.Foudre;
@@ -35,6 +36,8 @@ public class Farmeurimmo {
     }
 
 	public static void commandCode(Joueur joueur, Joueur cible, Main main) {
+		
+		main.getCD().add(Pouvoirs.FARMEURIMMO_HACK);
 		
 		Random r = new Random();
         int nb = r.nextInt(100);

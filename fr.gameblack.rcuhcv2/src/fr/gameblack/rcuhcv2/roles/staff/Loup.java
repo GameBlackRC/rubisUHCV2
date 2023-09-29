@@ -9,6 +9,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import fr.gameblack.rcuhcv2.Joueur;
 import fr.gameblack.rcuhcv2.Main;
+import fr.gameblack.rcuhcv2.Pouvoirs;
 import fr.gameblack.rcuhcv2.Roles;
 import fr.gameblack.rcuhcv2.task.ItemCD;
 
@@ -31,6 +32,8 @@ public class Loup {
 	
 	public static void ItemSuperBateau(Joueur joueur, Main main) {
 		
+		main.getCD().add(Pouvoirs.LOUP_SUPERBATEAU);
+		
 		Random r = new Random();
         int nb = r.nextInt(100);
 		
@@ -40,23 +43,26 @@ public class Loup {
 		joueur.setInvulnerable(true);
 		
 		if(nb <= 10) {
-			
-			ItemCD cycle = new ItemCD(main, joueur, "vol_loup", 10, joueur, null, null, null);
+	        
+	        ItemCD cycle = new ItemCD(main, joueur, "vol_loup_pb", 5, joueur, null, null, null);
 	        cycle.runTaskTimer(main, 0, 20);
 	        
-	        ItemCD cycle2 = new ItemCD(main, joueur, "vol_loup_nf", 15, joueur, null, null, null);
+	        ItemCD cycle2 = new ItemCD(main, joueur, "vol_loup_nf", 8, joueur, null, null, null);
 	        cycle2.runTaskTimer(main, 0, 20);
 			
 		}
 		else {
 			
-			ItemCD cycle = new ItemCD(main, joueur, "vol_loup_pb", 5, joueur, null, null, null);
+			ItemCD cycle = new ItemCD(main, joueur, "vol_loup", 10, joueur, null, null, null);
 	        cycle.runTaskTimer(main, 0, 20);
 	        
-	        ItemCD cycle2 = new ItemCD(main, joueur, "vol_loup_nf", 10, joueur, null, null, null);
+	        ItemCD cycle2 = new ItemCD(main, joueur, "vol_loup_nf", 13, joueur, null, null, null);
 	        cycle2.runTaskTimer(main, 0, 20);
 			
 		}
+		
+		ItemCD cycle3 = new ItemCD(main, joueur, "vol_loup_cd", 300, joueur, null, null, null);
+        cycle3.runTaskTimer(main, 0, 20);
 		
 	}
 	

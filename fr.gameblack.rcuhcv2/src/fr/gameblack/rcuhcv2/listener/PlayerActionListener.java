@@ -11,6 +11,7 @@ import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerItemConsumeEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
@@ -49,14 +50,14 @@ public class PlayerActionListener implements Listener{
 			if(joueur.getRole() == Roles.JEANNOT && joueur.isJeannotPartageActif()) {
 				
 				Jeannot.PartageAbso(joueur, main);
-				joueur.getPlayer().getInventory().remove(Material.GOLDEN_APPLE);
+				joueur.getPlayer().getInventory().removeItem(new ItemStack(Material.GOLDEN_APPLE, 1));
 				event.setCancelled(true);
 				
 			}
 			
 			if(!joueur.isAbsoOn()) {
 				
-				joueur.getPlayer().getInventory().remove(Material.GOLDEN_APPLE);
+				joueur.getPlayer().getInventory().removeItem(new ItemStack(Material.GOLDEN_APPLE, 1));
 				
 				event.setCancelled(true);
 				

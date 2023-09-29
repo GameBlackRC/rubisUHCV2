@@ -13,6 +13,9 @@ import org.bukkit.inventory.ItemStack;
 import fr.gameblack.rcuhcv2.Joueur;
 import fr.gameblack.rcuhcv2.Main;
 import fr.gameblack.rcuhcv2.Orbe;
+import fr.gameblack.rcuhcv2.Pouvoirs;
+import fr.gameblack.rcuhcv2.roles.joueur.Raptor;
+import fr.gameblack.rcuhcv2.roles.joueur.Slup;
 import fr.gameblack.rcuhcv2.roles.staff.Loup;
 import fr.gameblack.rcuhcv2.roles.uhc.Malivol;
 
@@ -40,9 +43,21 @@ public class InteractListener implements Listener {
 
             Malivol.InteractCheat(joueur, main, true);
 
+        } else if (it.getType() == Material.NETHER_STAR && it.hasItemMeta() && it.getItemMeta().hasDisplayName() && it.getItemMeta().getDisplayName().equalsIgnoreCase("Rage")) {
+
+            Raptor.ItemRage(joueur, main);
+
+        } else if (it.getType() == Material.NETHER_STAR && it.hasItemMeta() && it.getItemMeta().hasDisplayName() && it.getItemMeta().getDisplayName().equalsIgnoreCase("Pactes")) {
+
+            Slup.interactPacte(joueur);
+
         } else if (it.getType() == Material.NETHER_STAR && it.hasItemMeta() && it.getItemMeta().hasDisplayName() && it.getItemMeta().getDisplayName().equalsIgnoreCase("Super bateau")) {
 
-            Loup.ItemSuperBateau(joueur, main);
+        	if(!main.getCD().contains(Pouvoirs.LOUP_SUPERBATEAU)) {
+        		
+        		Loup.ItemSuperBateau(joueur, main);
+        		
+        	}
 
         } else if (it.getType() == Material.SLIME_BALL && it.hasItemMeta() && it.getItemMeta().hasDisplayName() && it.getItemMeta().getDisplayName().equalsIgnoreCase("§4Orbe") && joueur.getOrbe() == Orbe.NONE) {
         	

@@ -2,7 +2,10 @@ package fr.gameblack.rcuhcv2.roles.joueur;
 
 import java.util.Random;
 
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
 import fr.gameblack.rcuhcv2.Joueur;
 import fr.gameblack.rcuhcv2.Main;
@@ -13,6 +16,12 @@ public class Raptor {
 	public static void Items(Joueur joueur) {
 		
 		Texte(joueur.getPlayer());
+		
+		ItemStack coffre = new ItemStack(Material.NETHER_STAR, 1);
+        ItemMeta coffreM = coffre.getItemMeta();
+        coffreM.setDisplayName("Rage");
+        coffre.setItemMeta(coffreM);
+        joueur.getPlayer().getInventory().addItem(coffre);
 		
 	}
 	

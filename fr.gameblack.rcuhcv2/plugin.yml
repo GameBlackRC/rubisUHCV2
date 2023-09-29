@@ -8,11 +8,15 @@ commands:
     description: Commande du role Jeannot
   rcpapier:
     description: Commande du role Nickoboop
+  rctrial:
+    description: Commande du role Slup
   rchack:
     description: Commande du role Farmeurimmo
   rcplay:
     description: Commande du role Trial
   rcmode:
+    description: Commande du role Trial
+  rcsacrifice:
     description: Commande du role Trial
   firstreflexgame:
     description: Null

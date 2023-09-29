@@ -1,5 +1,6 @@
-package fr.gameblack.rcuhcv2.commands.staff.trial;
+package fr.gameblack.rcuhcv2.commands.joueur.slup;
 
+import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -7,14 +8,13 @@ import org.bukkit.entity.Player;
 
 import fr.gameblack.rcuhcv2.Joueur;
 import fr.gameblack.rcuhcv2.Main;
-import fr.gameblack.rcuhcv2.Roles;
-import fr.gameblack.rcuhcv2.roles.staff.Trial;
+import fr.gameblack.rcuhcv2.roles.joueur.Slup;
 
-public class CommandMode implements CommandExecutor {
+public class CommandTrial implements CommandExecutor {
 	
 private Main main;
 	
-	public CommandMode(Main main) {
+	public CommandTrial(Main main) {
 		
 		this.main = main;
 		
@@ -28,18 +28,13 @@ private Main main;
         	Player player = (Player) sender;
         	Joueur joueur = main.getJoueur(player);
         	
-        	if(joueur.getRole() == Roles.TRIAL && joueur.getModeTrial() == "serieux") {
+        	Player cible_ = Bukkit.getPlayer(args[0]);
+        	
+        	if(cible_ != null) {
         		
-        		if(args[0].equalsIgnoreCase("coeur")) {
-        			
-        			Trial.CommandSacrifice(joueur, "coeur");
-        			
-        		}
-        		else if(args[0].equalsIgnoreCase("regen")) {
-        			
-        			Trial.CommandSacrifice(joueur, "regen");
-        			
-        		}
+        		Joueur cible = main.getJoueur(cible_);
+        	
+        		Slup.CommandTrial(joueur, cible);
         		
         	}
 

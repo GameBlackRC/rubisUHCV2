@@ -24,10 +24,12 @@ import fr.gameblack.rcuhcv2.commands.host.CommandRemoverole;
 import fr.gameblack.rcuhcv2.commands.host.CommandStart;
 import fr.gameblack.rcuhcv2.commands.joueur.jeannot.CommandPartage;
 import fr.gameblack.rcuhcv2.commands.joueur.nickoboop.CommandPapier;
+import fr.gameblack.rcuhcv2.commands.joueur.slup.CommandTrial;
 import fr.gameblack.rcuhcv2.commands.solo.farmeurimmo.CommandRCCode;
 import fr.gameblack.rcuhcv2.commands.staff.loup.CommandServeur;
 import fr.gameblack.rcuhcv2.commands.staff.trial.CommandFirstReflexGame;
 import fr.gameblack.rcuhcv2.commands.staff.trial.CommandPlay;
+import fr.gameblack.rcuhcv2.commands.staff.trial.CommandSacrifice;
 import fr.gameblack.rcuhcv2.commands.staff.trial.CommandMode;
 import fr.gameblack.rcuhcv2.listener.DamageListener;
 import fr.gameblack.rcuhcv2.listener.InteractListener;
@@ -107,10 +109,12 @@ public class Main extends JavaPlugin {
     	
     	getCommand("rcpartage").setExecutor(new CommandPartage(this));
     	getCommand("rcpapier").setExecutor(new CommandPapier(this));
+    	getCommand("rctrial").setExecutor(new CommandTrial(this));
     	
     	getCommand("rcplay").setExecutor(new CommandPlay(this));
     	getCommand("firstreflexgame").setExecutor(new CommandFirstReflexGame(this));
     	getCommand("rcmode").setExecutor(new CommandMode(this));
+    	getCommand("rcsacrifice").setExecutor(new CommandSacrifice(this));
     	getCommand("rcserveur").setExecutor(new CommandServeur(this));
     	
     	getCommand("rchack").setExecutor(new CommandRCCode(this));

@@ -74,7 +74,7 @@ public class DamageListener implements Listener {
             
             Joueur tueur = main.getJoueur(killer);
 
-            if (main.getState() == Statut.PVP_ON || !joueur.isInvulnerable() || !tueur.isInvulnerable()) {
+            if (main.getState() == Statut.PVP_ON || (!joueur.isInvulnerable() && !tueur.isInvulnerable())) {
 
             	if(joueur != tueur) {
             		
@@ -87,12 +87,14 @@ public class DamageListener implements Listener {
             			joueur.setComboSubi(0);
             			
             		}
-            		else if(joueur.getRole() == Roles.RAPTOR && joueur.getComboSubi() == 4) {
+            		else if(joueur.getRole() == Roles.RAPTOR && joueur.getComboSubi() == 4 && !joueur.isCheatRaptorActif()) {
             			
             			Raptor.cheat(joueur, main);
+            			joueur.setCheatRaptorActif(true);
             			
-            			if(tueur.getRole() == Roles.TOINOU) {
+            			if(tueur.getRole() == Roles.TOINOU && !joueur.isCheatToinouActif()) {
             				
+            				joueur.setCheatToinou(true);
             				Toinou.Cheat(tueur, main);
             				
             			}
