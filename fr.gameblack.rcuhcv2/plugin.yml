@@ -6,6 +6,8 @@ api-version: 1.12.2
 commands:
   rcpartage:
     description: Commande du role Jeannot
+  rcpapier:
+    description: Commande du role Nickoboop
   rchack:
     description: Commande du role Farmeurimmo
   rcplay:

@@ -55,6 +55,8 @@ public class Joueur {
 	private String modeTrial = null;
 	private int pourcentHack = 0;
 	private int pacteSlup = 0;
+	private boolean bonPapiers = false;
+	private boolean nickoProcheJeannot = false;
 
 	public Joueur(Player player) {
 		
@@ -109,26 +111,31 @@ public class Joueur {
 		if(role == Roles.RAPTOR) {
 			
 			Raptor.Items(this);
+			this.bonPapiers = true;
 			
 		}
 		else if(role == Roles.JEANNOT) {
 			
 			Jeannot.Items(this);
+			this.bonPapiers = true;
 			
 		}
 		else if(role == Roles.NICKOBOOP) {
 			
 			Nickoboop.Items(this);
+			this.bonPapiers = true;
 			
 		}
 		else if(role == Roles.SLUP) {
 			
 			Slup.Items(this);
+			this.bonPapiers = true;
 			
 		}
 		else if(role == Roles.JOKO) {
 			
 			Joko.Items(this);
+			this.bonPapiers = true;
 			
 		}
 		else if(role == Roles.TEAM) {
@@ -139,6 +146,8 @@ public class Joueur {
 		else if(role == Roles.GAMEBLACK) {
 			
 			GameBlack.Items(this);
+			
+			this.bonPapiers = true;
 			
 		}
 		else if(role == Roles.MAKA) {
@@ -189,6 +198,8 @@ public class Joueur {
 		else if(role == Roles.FARMEURIMMO) {
 			
 			Farmeurimmo.Items(this);
+			
+			this.bonPapiers = true;
 			
 		}
 		else if(role == Roles.KZOU) {
@@ -543,6 +554,22 @@ public class Joueur {
 
 	public void setPacteSlup(int pacteSlup) {
 		this.pacteSlup = pacteSlup;
+	}
+
+	public boolean isBonPapiers() {
+		return bonPapiers;
+	}
+
+	public void setBonPapiers(boolean bonPapiers) {
+		this.bonPapiers = bonPapiers;
+	}
+
+	public boolean isNickoProcheJeannot() {
+		return nickoProcheJeannot;
+	}
+
+	public void setNickoProcheJeannot(boolean nickoProcheJeannot) {
+		this.nickoProcheJeannot = nickoProcheJeannot;
 	}
 	
 }

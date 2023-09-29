@@ -43,6 +43,16 @@ public class DamageListener implements Listener {
 			}
 			
 		}
+		if(joueur.isBonPapiers() && tueur.getRole() != Roles.TRIAL && tueur.getRole() != Roles.MAKA && tueur.getRole() != Roles.MALIVOL) {
+			
+			tueur.setBonPapiers(true);
+			
+		}
+		else if(!joueur.isBonPapiers()) {
+			
+			tueur.setBonPapiers(false);
+			
+		}
 		
 	}
 	

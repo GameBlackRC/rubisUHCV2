@@ -11,6 +11,7 @@ import org.bukkit.inventory.ItemStack;
 
 import fr.gameblack.rcuhcv2.Joueur;
 import fr.gameblack.rcuhcv2.Main;
+import fr.gameblack.rcuhcv2.roles.joueur.Slup;
 
 public class InventoryInteractListener implements Listener {
 
@@ -109,6 +110,32 @@ public class InventoryInteractListener implements Listener {
 
             }
 
+        } else if(inv.getName().equalsIgnoreCase("§8Choix du pacte")) {
+        	
+        	event.setCancelled(true);
+        	Joueur joueur = main.getJoueur(player);
+        	
+        	switch (current.getType()) {
+        	
+        		case APPLE:
+        			
+        			Slup.choixPacte1(joueur);
+        			joueur.getPlayer().sendMessage("Vous avez choisi le pacte 1");
+        			
+        			break;
+        			
+        		case NETHERRACK:
+        			
+        			Slup.choixPacte2(joueur);
+        			joueur.getPlayer().sendMessage("Vous avez choisi le pacte 2");
+        			
+        			break;
+        			
+        		default:
+        			break;
+        	
+        	}
+        	
         } else if (inv.getName().equalsIgnoreCase("§8Création de la partie")) {
 
             event.setCancelled(true);

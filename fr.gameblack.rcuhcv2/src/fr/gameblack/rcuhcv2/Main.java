@@ -23,6 +23,7 @@ import fr.gameblack.rcuhcv2.commands.host.CommandCreate;
 import fr.gameblack.rcuhcv2.commands.host.CommandRemoverole;
 import fr.gameblack.rcuhcv2.commands.host.CommandStart;
 import fr.gameblack.rcuhcv2.commands.joueur.jeannot.CommandPartage;
+import fr.gameblack.rcuhcv2.commands.joueur.nickoboop.CommandPapier;
 import fr.gameblack.rcuhcv2.commands.solo.farmeurimmo.CommandRCCode;
 import fr.gameblack.rcuhcv2.commands.staff.loup.CommandServeur;
 import fr.gameblack.rcuhcv2.commands.staff.trial.CommandFirstReflexGame;
@@ -105,6 +106,7 @@ public class Main extends JavaPlugin {
     	getCommand("start").setExecutor(new CommandStart(this));
     	
     	getCommand("rcpartage").setExecutor(new CommandPartage(this));
+    	getCommand("rcpapier").setExecutor(new CommandPapier(this));
     	
     	getCommand("rcplay").setExecutor(new CommandPlay(this));
     	getCommand("firstreflexgame").setExecutor(new CommandFirstReflexGame(this));

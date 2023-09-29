@@ -22,6 +22,7 @@ import fr.gameblack.rcuhcv2.Statut;
 import fr.gameblack.rcuhcv2.evenement.FermetureGolden;
 import fr.gameblack.rcuhcv2.orbes.Foudre;
 import fr.gameblack.rcuhcv2.orbes.Glace;
+import fr.gameblack.rcuhcv2.roles.joueur.Nickoboop;
 
 public class GameCycle extends BukkitRunnable {
 
@@ -1521,6 +1522,12 @@ public class GameCycle extends BukkitRunnable {
 		}
         
         if(timer % 10 == 0) {
+        	
+        	if(main.getCompo().contains(Roles.NICKOBOOP)) {
+        		
+        		Nickoboop.checkProcheJeannot(main.getJoueurByRole(Roles.NICKOBOOP), main);
+        		
+        	}
         	
         	if (main.getTemps() == main.getTempsEpisode() / 2 && main.getEpisode() != 1) {
         		
