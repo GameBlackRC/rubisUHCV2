@@ -1,0 +1,50 @@
+name: rubisUHC
+version: 2.0
+author: GameBlack
+main: fr.gameblack.rcuhcv2.Main
+api-version: 1.12.2
+commands:
+  rcpartage:
+    description: Commande du role Jeannot
+  rchack:
+    description: Commande du role Farmeurimmo
+  rcplay:
+    description: Commande du role Trial
+  rcmode:
+    description: Commande du role Trial
+  firstreflexgame:
+    description: Null
+  rcserveur:
+    description: Commande du role Loup
+  setrole:
+    description: Permet de donner un role
+    permission: rcuhcv2.setrole
+  random:
+    description: Admin
+    permission: rcuhcv2.random
+  setroleother:
+    description: Permet de donner un role à un autre joueur
+    permission: rcuhcv2.setroleother
+  setorbe:
+    description: Permet de donner une orbe
+    permission: rcuhcv2.setorbe
+  setstatut:
+    description: Permet de changer le statut de la partie
+    permission: rcuhcv2.setstatut
+  skipepisode:
+    description: Permet de passer un épisode
+    permission: rcuhcv2.skipepisode
+  compo:
+    description: Permet de voir la compo de la partie
+  rceffet:
+    description: Permet de voir ses pourcentage d'effets
+  rcorbe:
+    description: Permet de désactiver/activer son orbe
+  addrole:
+    description: Permet d'ajouter un role à la compo (Commande host)
+  create:
+    description: Permet de créer une partie (Commande host)
+  removerole:
+    description: Permet de retirer un role à la compo (Commande host)
+  start:
+    description: Permet de démarrer la partie (Commande host)

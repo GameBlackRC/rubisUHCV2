@@ -1,0 +1,548 @@
+package fr.gameblack.rcuhcv2;
+
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.Player;
+
+import fr.gameblack.rcuhcv2.roles.joueur.Jeannot;
+import fr.gameblack.rcuhcv2.roles.joueur.Nickoboop;
+import fr.gameblack.rcuhcv2.roles.joueur.Raptor;
+import fr.gameblack.rcuhcv2.roles.joueur.Slup;
+import fr.gameblack.rcuhcv2.roles.joueur.Joko;
+import fr.gameblack.rcuhcv2.roles.staff.Team;
+import fr.gameblack.rcuhcv2.roles.staff.GameBlack;
+import fr.gameblack.rcuhcv2.roles.staff.Maka;
+import fr.gameblack.rcuhcv2.roles.staff.Trial;
+import fr.gameblack.rcuhcv2.roles.staff.Loup;
+import fr.gameblack.rcuhcv2.roles.staff.Captain;
+import fr.gameblack.rcuhcv2.roles.staff.Hekow;
+import fr.gameblack.rcuhcv2.roles.uhc.Malivol;
+import fr.gameblack.rcuhcv2.roles.uhc.Toinou;
+import fr.gameblack.rcuhcv2.roles.uhc.Obscur;
+import fr.gameblack.rcuhcv2.roles.uhc.Nonoboy;
+import fr.gameblack.rcuhcv2.roles.solo.Farmeurimmo;
+import fr.gameblack.rcuhcv2.roles.solo.Kzou;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class Joueur {
+	
+	private Player player;
+	private Roles role = Roles.NONE;
+	private Orbe orbe = Orbe.NONE;
+	private boolean orbe_actif = false;
+	private boolean malus_orbe_actif = false;
+	private int kill = 0;
+	private boolean invulnerable = true;
+	private Joueur lastHit;
+	private boolean respawn = false;
+	private double speed = 100;
+	private double force = 100;
+	private double resi = 110;
+	private boolean abso = true;
+	private boolean fire = false;
+	private boolean can_active_orbe = true;
+	private int malivol_cheat = 0;
+	private boolean antiKB = false;
+	private List<Pouvoirs> vol = new ArrayList<>();
+	private boolean jeannotPartageActif = false;
+	private boolean spec = false;
+	private String camp = "rien";
+	private int comboSubi = 0;
+	private boolean nofall = false;
+	private boolean cheatToinou = false;
+	private boolean CanFight = true;
+	private String modeTrial = null;
+	private int pourcentHack = 0;
+	private int pacteSlup = 0;
+
+	public Joueur(Player player) {
+		
+		this.player = player;
+		
+	}
+
+	public Player getPlayer() {
+		return player;
+	}
+	
+	public Roles getRole() {
+		
+		return role;
+		
+	}
+	
+	public String getCouleurCamp() {
+		
+		if(camp.equalsIgnoreCase("joueur")) {
+			
+			return "§a";
+			
+		}
+		else if(camp.equalsIgnoreCase("uhc")) {
+			
+			return "§2";
+			
+		}
+		else if(camp.equalsIgnoreCase("staff")) {
+			
+			return "§9";
+			
+		}
+		else if(camp.equalsIgnoreCase("duo")) {
+			
+			return "§5";
+			
+		}
+		else {
+			
+			return "§6";
+			
+		}
+		
+	}
+	
+	public void setRole(Roles role) {
+		
+		this.role = role;
+		this.camp = role.getCamp();
+		if(role == Roles.RAPTOR) {
+			
+			Raptor.Items(this);
+			
+		}
+		else if(role == Roles.JEANNOT) {
+			
+			Jeannot.Items(this);
+			
+		}
+		else if(role == Roles.NICKOBOOP) {
+			
+			Nickoboop.Items(this);
+			
+		}
+		else if(role == Roles.SLUP) {
+			
+			Slup.Items(this);
+			
+		}
+		else if(role == Roles.JOKO) {
+			
+			Joko.Items(this);
+			
+		}
+		else if(role == Roles.TEAM) {
+			
+			Team.Items(this);
+			
+		}
+		else if(role == Roles.GAMEBLACK) {
+			
+			GameBlack.Items(this);
+			
+		}
+		else if(role == Roles.MAKA) {
+			
+			Maka.Items(this);
+			
+		}
+		else if(role == Roles.TRIAL) {
+			
+			Trial.Items(this);
+			
+		}
+		else if(role == Roles.LOUP) {
+			
+			Loup.Items(this);
+			
+		}
+		else if(role == Roles.CAPTAIN) {
+			
+			Captain.Items(this);
+			
+		}
+		else if(role == Roles.HEKOW) {
+			
+			Hekow.Items(this);
+			
+		}
+		else if(role == Roles.MALIVOL) {
+			
+			Malivol.Items(this);
+			
+		}
+		else if(role == Roles.TOINOU) {
+			
+			Toinou.Items(this);
+			
+		}
+		else if(role == Roles.OBSCUR) {
+			
+			Obscur.Items(this);
+			
+		}
+		else if(role == Roles.NONOBOY) {
+			
+			Nonoboy.Items(this);
+			
+		}
+		else if(role == Roles.FARMEURIMMO) {
+			
+			Farmeurimmo.Items(this);
+			
+		}
+		else if(role == Roles.KZOU) {
+			
+			Kzou.Items(this);
+			
+		}
+		
+	}
+	
+	public Orbe getOrbe() {
+		
+		return orbe;
+		
+	}
+	
+	public void setOrbe(Orbe orbe) {
+		
+		this.orbe = orbe;
+		
+	}
+	
+	public boolean isOrbeActif() {
+		
+		return orbe_actif;
+		
+	}
+	
+	public void setStatutOrbe(boolean orbe_actif) {
+		
+		this.orbe_actif = orbe_actif;
+		
+	}
+	
+	public boolean isMalusOrbeActif() {
+		
+		return malus_orbe_actif;
+		
+	}
+	
+	public void setMalusOrbe(boolean malus_orbe_actif) {
+		
+		if(malus_orbe_actif) {
+			
+			this.can_active_orbe = false;
+			
+		}
+		else {
+			
+			this.can_active_orbe = true;
+			
+		}
+		
+		this.malus_orbe_actif = malus_orbe_actif;
+		
+	}
+	
+	public int getKill() {
+		
+		return kill;
+		
+	}
+	
+	public void addKill() {
+		
+		kill += 1;
+		
+	}
+	
+	public void removeKill() {
+		
+		kill -= 1;
+		
+	}
+	
+	public void resetKill() {
+		
+		kill = 0;
+		
+	}
+	
+	public void setKill(int kill) {
+		
+		this.kill = kill;
+		
+	}
+	
+	public boolean isInvulnerable() {
+		
+		return invulnerable;
+		
+	}
+	
+	public void setInvulnerable(boolean invulnerable) {
+		
+		this.invulnerable = invulnerable;
+		
+	}
+	
+	public Joueur getLastHit() {
+		
+		return lastHit;
+		
+	}
+	
+	public void setLastHit(Joueur joueur) {
+		
+		lastHit = joueur;
+		
+	}
+	
+	public boolean canRespawn() {
+		
+		return respawn;
+		
+	}
+	
+	public void setRespawn(boolean respawn) {
+		
+		this.respawn =  respawn;
+		
+	}
+
+	public double getSpeed() {
+		return speed;
+	}
+
+	public void setSpeed(double speed) {
+		this.speed = speed*100;
+	}
+	
+	public void addSpeed(double speed) {
+		this.speed += speed*100;
+	}
+	
+	public void removeSpeed(double speed) {
+		this.speed -= speed*100;
+	}
+
+	public double getForce() {
+		return force;
+	}
+
+	public void setForce(double force) {
+		this.force = force*100;
+	}
+	
+	public void addForce(double force) {
+		this.force += force*100;
+	}
+	
+	public void removeForce(double force) {
+		this.force -= force*100;
+	}
+
+	public double getResi() {
+		return resi;
+	}
+
+	public void setResi(double resi) {
+		this.resi = resi*100;
+	}
+	
+	public void addResi(double resi) {
+		this.resi += resi*100;
+	}
+	
+	public void removeResi(double resi) {
+		this.resi -= resi*100;
+	}
+
+	public boolean isAbsoOn() {
+		return abso;
+	}
+
+	public void setAbso(boolean abso) {
+		this.abso = abso;
+	}
+
+	public boolean isFireOn() {
+		return fire;
+	}
+
+	public void setFire(boolean fire) {
+		this.fire = fire;
+	}
+
+	public boolean canActiveOrbe() {
+		return can_active_orbe;
+	}
+
+	public void setCanActiveOrbe(boolean can_active_orbe) {
+		this.can_active_orbe = can_active_orbe;
+	}
+
+	public int getMalivolCheat() {
+		return malivol_cheat;
+	}
+
+	public void setMalivolCheat(int malivol_cheat) {
+		this.malivol_cheat = malivol_cheat;
+	}
+
+	public boolean isAntiKB() {
+		return antiKB;
+	}
+
+	public void setAntiKB(boolean antiKB) {
+		this.antiKB = antiKB;
+	}
+
+	public List<Pouvoirs> getVol() {
+		return vol;
+	}
+
+	public boolean isJeannotPartageActif() {
+		return jeannotPartageActif;
+	}
+
+	public void setJeannotPartageActif(boolean jeannotPartageActif) {
+		this.jeannotPartageActif = jeannotPartageActif;
+	}
+
+	public boolean isSpec() {
+		return spec;
+	}
+
+	public void setSpec(boolean spec) {
+		this.spec = spec;
+	}
+
+	public String getCamp() {
+		return camp;
+	}
+
+	public void setCamp(String camp) {
+		this.camp = camp;
+	}
+
+	public int getComboSubi() {
+		return comboSubi;
+	}
+
+	public void setComboSubi(int comboSubi) {
+		this.comboSubi = comboSubi;
+	}
+
+	public boolean isNofall() {
+		return nofall;
+	}
+
+	public void setNofall(boolean nofall) {
+		this.nofall = nofall;
+	}
+
+	public boolean isCheatToinou() {
+		return cheatToinou;
+	}
+
+	public void setCheatToinou(boolean cheatToinou) {
+		this.cheatToinou = cheatToinou;
+	}
+
+	public boolean canFight() {
+		return CanFight;
+	}
+
+	public void setCanFight(boolean canFight) {
+		CanFight = canFight;
+	}
+
+	public String getModeTrial() {
+		return modeTrial;
+	}
+
+	public void setModeTrial(String modeTrial) {
+		this.modeTrial = modeTrial;
+	}
+	
+	public boolean isFarmeurimmoProche(Main main) {
+		
+		for(Entity entity : player.getNearbyEntities(25, 25, 25)) {
+			
+			if(entity instanceof Player && main.getJoueur((Player)entity).getRole() == Roles.FARMEURIMMO) {
+				
+				return true;
+				
+			}
+			
+		}
+		
+		return false;
+		
+	}
+
+	public int getPourcentHack() {
+		return pourcentHack;
+	}
+
+	public void setPourcentHack(int pourcentHack) {
+		this.pourcentHack = pourcentHack;
+	}
+	
+	public void addPourcentHack(int nb) {
+		
+		if(role != Roles.FARMEURIMMO) {
+		
+			if(role != Roles.MAKA) {
+			
+				if(pourcentHack + nb >= 100) {
+					
+					if(pourcentHack != 100) {
+					
+						pourcentHack = 100;
+					
+					}
+					
+				}
+				else {
+					
+					pourcentHack += nb;
+					
+				}
+				
+			}
+			else {
+				
+				if(pourcentHack + nb >= 40) {
+					
+					if(pourcentHack != 40) {
+					
+						pourcentHack = 40;
+					
+					}
+					
+				}
+				else {
+					
+					pourcentHack += nb;
+					
+				}
+				
+			}
+			
+		}
+		
+	}
+
+	public int getPacteSlup() {
+		return pacteSlup;
+	}
+
+	public void setPacteSlup(int pacteSlup) {
+		this.pacteSlup = pacteSlup;
+	}
+	
+}
