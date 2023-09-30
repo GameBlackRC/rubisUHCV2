@@ -13,10 +13,13 @@ import org.bukkit.event.entity.EntityDamageEvent.DamageModifier;
 
 import fr.gameblack.rcuhcv2.Joueur;
 import fr.gameblack.rcuhcv2.Main;
+import fr.gameblack.rcuhcv2.Orbe;
 import fr.gameblack.rcuhcv2.Roles;
 import fr.gameblack.rcuhcv2.Statut;
+import fr.gameblack.rcuhcv2.orbes.Glace;
 import fr.gameblack.rcuhcv2.roles.joueur.Raptor;
 import fr.gameblack.rcuhcv2.roles.uhc.Toinou;
+import fr.gameblack.rcuhcv2.task.ItemCD;
 
 public class DamageListener implements Listener {
 	
@@ -78,8 +81,14 @@ public class DamageListener implements Listener {
 
             	if(joueur != tueur) {
             		
-            		joueur.addPourcentHack(2);
-            		tueur.addPourcentHack(2);
+            		joueur.addPourcentHack(2, main);
+            		tueur.addPourcentHack(2, main);
+            		
+            		if(tueur.getComboSubi() != 0) {
+            			
+            			tueur.setComboSubi(0);
+            			
+            		}
             		
             		if(tueur != joueur.getLastHit()) {
             	
@@ -91,6 +100,7 @@ public class DamageListener implements Listener {
             			
             			Raptor.cheat(joueur, main);
             			joueur.setCheatRaptorActif(true);
+            			joueur.setComboSubi(0);
             			
             			if(tueur.getRole() == Roles.TOINOU && !joueur.isCheatToinouActif()) {
             				
@@ -138,6 +148,12 @@ public class DamageListener implements Listener {
         			
         		}
                 
+                if (tueur.getOrbe() == Orbe.GLACE && tueur.isOrbeActif()) {
+
+                    Glace.Freeze(player);
+
+                }
+                
                 if(main.isDebug()) {
                 	
                 	System.out.println("Abso : " + event.getDamage(DamageModifier.ABSORPTION));
@@ -163,7 +179,7 @@ public class DamageListener implements Listener {
 
                 }
                 
-                if(joueur.isFireOn()) {
+                if(joueur.isFireOn() || (tueur.getOrbe() == Orbe.FEU && tueur.isOrbeActif())) {
                 	
                 	Random r = new Random();
                     int nb = r.nextInt(100);
@@ -180,6 +196,31 @@ public class DamageListener implements Listener {
 
                     event.setCancelled(true);
                     player.damage(damage);
+
+                }
+                
+                if (tueur.getRole() == Roles.JOKO && tueur.isJokoItemActif()) {
+
+                    if (joueur.getCube() != 0 && !main.getJokoStun().contains(joueur)) {
+
+                        Random r = new Random();
+                        int nb = r.nextInt(100);
+                        int pourcent = joueur.getCube() * 2;
+
+                        if (nb < pourcent + 1) {
+
+                        	joueur.Stun(10);
+                        	joueur.removeCube(main);
+                            main.getJokoStun().add(joueur);
+
+                            killer.sendMessage("Vous venez de stun " + player.getName());
+
+                            ItemCD cycle = new ItemCD(main, tueur, "stun", 10, joueur, null, null, null);
+                            cycle.runTaskTimer(main, 0, 20);
+
+                        }
+
+                    }
 
                 }
                 

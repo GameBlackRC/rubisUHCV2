@@ -1,7 +1,14 @@
 package fr.gameblack.rcuhcv2;
 
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
+import org.bukkit.scoreboard.DisplaySlot;
+import org.bukkit.scoreboard.Objective;
+import org.bukkit.scoreboard.Score;
+import org.bukkit.scoreboard.Scoreboard;
 
 import fr.gameblack.rcuhcv2.roles.joueur.Jeannot;
 import fr.gameblack.rcuhcv2.roles.joueur.Nickoboop;
@@ -26,6 +33,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Joueur {
+	
+	private static Scoreboard board_cube = Bukkit.getScoreboardManager().getNewScoreboard();
+	private static Scoreboard board_hack = Bukkit.getScoreboardManager().getNewScoreboard();
 	
 	private Player player;
 	private Roles role = Roles.NONE;
@@ -59,6 +69,8 @@ public class Joueur {
 	private boolean nickoProcheJeannot = false;
 	private boolean cheatRaptorActif = false;
 	private boolean cheatToinouActif = false;
+	private boolean jokoItemActif = false;
+	private int cube = 0;
 
 	public Joueur(Player player) {
 		
@@ -501,11 +513,18 @@ public class Joueur {
 		return pourcentHack;
 	}
 
-	public void setPourcentHack(int pourcentHack) {
+	public void setPourcentHack(int pourcentHack, Main main) {
 		this.pourcentHack = pourcentHack;
+		Objective objective_hack = board_hack.registerNewObjective("hack", "dummy");
+        objective_hack.setDisplaySlot(DisplaySlot.BELOW_NAME);
+        objective_hack.setDisplayName("%");
+        @SuppressWarnings("deprecation")
+		Score score = objective_hack.getScore(player);
+        score.setScore(cube);
+        main.getJoueurByRole(Roles.FARMEURIMMO).getPlayer().setScoreboard(board_cube);
 	}
 	
-	public void addPourcentHack(int nb) {
+	public void addPourcentHack(int nb, Main main) {
 		
 		if(role != Roles.FARMEURIMMO) {
 		
@@ -545,6 +564,45 @@ public class Joueur {
 				}
 				
 			}
+			
+			Objective objective_hack = board_hack.registerNewObjective("hack", "dummy");
+	        objective_hack.setDisplaySlot(DisplaySlot.BELOW_NAME);
+	        objective_hack.setDisplayName("%");
+	        @SuppressWarnings("deprecation")
+			Score score = objective_hack.getScore(player);
+	        score.setScore(cube);
+	        main.getJoueurByRole(Roles.FARMEURIMMO).getPlayer().setScoreboard(board_cube);
+			
+		}
+		
+	}
+	
+	public void removePourcentHack(int nb, Main main) {
+		
+		if(role != Roles.FARMEURIMMO) {
+			
+			if(pourcentHack - nb <= 100) {
+					
+				if(pourcentHack != 0) {
+					
+					pourcentHack = 0;
+					
+				}
+					
+			}
+			else {
+					
+				pourcentHack -= nb;
+					
+			}
+			
+			Objective objective_hack = board_hack.registerNewObjective("hack", "dummy");
+	        objective_hack.setDisplaySlot(DisplaySlot.BELOW_NAME);
+	        objective_hack.setDisplayName("%");
+	        @SuppressWarnings("deprecation")
+			Score score = objective_hack.getScore(player);
+	        score.setScore(cube);
+	        main.getJoueurByRole(Roles.FARMEURIMMO).getPlayer().setScoreboard(board_cube);
 			
 		}
 		
@@ -589,5 +647,89 @@ public class Joueur {
 	public void setCheatToinouActif(boolean cheatToinouActif) {
 		this.cheatToinouActif = cheatToinouActif;
 	}
+
+	public boolean isJokoItemActif() {
+		return jokoItemActif;
+	}
+
+	public void setJokoItemActif(boolean jokoItemActif) {
+		this.jokoItemActif = jokoItemActif;
+	}
+
+	public int getCube() {
+		return cube;
+	}
+
+	public void setCube(int cube, Main main) {
+		this.cube = cube;
+		Objective objective_cube = board_cube.registerNewObjective("cube", "dummy");
+        objective_cube.setDisplaySlot(DisplaySlot.PLAYER_LIST);
+        objective_cube.setDisplayName("cube");
+        @SuppressWarnings("deprecation")
+		Score score = objective_cube.getScore(player);
+        score.setScore(cube);
+        main.getJoueurByRole(Roles.JOKO).getPlayer().setScoreboard(board_cube);
+	}
+	
+	public void addCube(Main main) {
+		
+		this.cube += 1;
+		Objective objective_cube = board_cube.registerNewObjective("cube", "dummy");
+        objective_cube.setDisplaySlot(DisplaySlot.PLAYER_LIST);
+        objective_cube.setDisplayName("cube");
+        @SuppressWarnings("deprecation")
+		Score score = objective_cube.getScore(player);
+        score.setScore(cube);
+        main.getJoueurByRole(Roles.JOKO).getPlayer().setScoreboard(board_cube);
+		
+	}
+	
+	public void addCubes(int cube, Main main) {
+		
+		this.cube += cube;
+		Objective objective_cube = board_cube.registerNewObjective("cube", "dummy");
+        objective_cube.setDisplaySlot(DisplaySlot.PLAYER_LIST);
+        objective_cube.setDisplayName("cube");
+        @SuppressWarnings("deprecation")
+		Score score = objective_cube.getScore(player);
+        score.setScore(cube);
+        main.getJoueurByRole(Roles.JOKO).getPlayer().setScoreboard(board_cube);
+		
+	}
+	
+	public void removeCube(Main main) {
+		
+		this.cube -= 1;
+		Objective objective_cube = board_cube.registerNewObjective("cube", "dummy");
+        objective_cube.setDisplaySlot(DisplaySlot.PLAYER_LIST);
+        objective_cube.setDisplayName("cube");
+        @SuppressWarnings("deprecation")
+		Score score = objective_cube.getScore(player);
+        score.setScore(cube);
+        main.getJoueurByRole(Roles.JOKO).getPlayer().setScoreboard(board_cube);
+		
+	}
+	
+	public void removeCubes(int cube, Main main) {
+		
+		this.cube -= cube;
+		Objective objective_cube = board_cube.registerNewObjective("cube", "dummy");
+        objective_cube.setDisplaySlot(DisplaySlot.PLAYER_LIST);
+        objective_cube.setDisplayName("cube");
+        @SuppressWarnings("deprecation")
+		Score score = objective_cube.getScore(player);
+        score.setScore(cube);
+        main.getJoueurByRole(Roles.JOKO).getPlayer().setScoreboard(board_cube);
+		
+	}
+	
+    public void Stun(int timer) {
+
+        player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, timer*20, 100, false, false));
+        player.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, timer*20, 100, false, false));
+        player.addPotionEffect(new PotionEffect(PotionEffectType.JUMP, timer*20, 250, false, false));
+        invulnerable = true;
+
+    }
 	
 }

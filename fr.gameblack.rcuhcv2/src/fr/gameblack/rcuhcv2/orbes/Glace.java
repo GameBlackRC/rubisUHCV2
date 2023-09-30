@@ -15,14 +15,14 @@ public class Glace {
     public static void Effets(Joueur joueur, Main main) {
 
     	joueur.setStatutOrbe(true);
-    	joueur.addResi(0.05);
+    	joueur.addResi(0.03);
 
     }
 
     public static void RemoveEffets(Joueur joueur, Main main) {
 
     	joueur.setStatutOrbe(false);
-    	joueur.removeResi(0.05);
+    	joueur.removeResi(0.03);
 
     }
 

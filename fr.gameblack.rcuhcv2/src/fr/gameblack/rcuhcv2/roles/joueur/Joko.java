@@ -1,20 +1,91 @@
 package fr.gameblack.rcuhcv2.roles.joueur;
 
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
 import fr.gameblack.rcuhcv2.Joueur;
+import fr.gameblack.rcuhcv2.Main;
+import fr.gameblack.rcuhcv2.Pouvoirs;
+import fr.gameblack.rcuhcv2.task.ItemCD;
 
 public class Joko {
 
-	public static void Items(Joueur joueur) {
-		
-		Texte(joueur.getPlayer());
-		
-	}
-	
-	public static void Texte(Player player) {
+    public static void Items(Joueur joueur) {
 
-        player.sendMessage("____________________________________________________\n \nVous êtes §aJoko\n§rVous devez gagner avec le §acamp joueur§r\n \nVous avez l'effet speed I permanent\n \nA l'annonce des rôles, vous recevez un item nommé '§dSpeedCubing§r' vous permettant de recevoir 10% de speed supplémentaire pendant 1 minute.\nChaque coup que vous mettez pendant ce pouvoir à 2% de chance par rubik's cube, que le joueur taper soit stun\n \nA la fin de votre pouvoir, vous recevez 2% de speed permanent et, si vous avez stun au moins un joueur, vous pourrez, avec la commande /rcsteal, voler 3% de force ou 3% de resistance au premier joueur stun\n \nVous possèdez la commande /rccube qui permet de donner un cube à un joueur (5 minutes de cooldown)\n \n____________________________________________________");
+        Texte(joueur.getPlayer());
+        joueur.addSpeed(0.05);
+
+        ItemStack coffre = new ItemStack(Material.NETHER_STAR, 1);
+        ItemMeta coffreM = coffre.getItemMeta();
+        coffreM.setDisplayName("SpeedCubing");
+        coffre.setItemMeta(coffreM);
+        joueur.getPlayer().getInventory().addItem(coffre);
+
+    }
+
+    public static void InteractSpeedcubing(Joueur joueur, Main main) {
+
+        if (!main.getCD().contains(Pouvoirs.JOKO_CUBE)) {
+
+        	joueur.setJokoItemActif(true);
+            joueur.addSpeed(0.05);
+            ItemCD cycle = new ItemCD(main, joueur, "cube", 60, joueur, null, null, null);
+            cycle.runTaskTimer(main, 0, 20);
+            main.getCD().add(Pouvoirs.JOKO_CUBE);
+
+        } else {
+
+            joueur.getPlayer().sendMessage("Vous avez déjà utiliser ce pouvoir durant cet épisode");
+
+        }
+
+    }
+
+    public static void Texte(Player player) {
+
+        player.sendMessage("____________________________________________________\n \nVous êtes §aJoko\n§rVous devez gagner avec le §acamps rc§r\n \nVous avez l'effet speed I permanent\n \nA l'annonce des rôles, vous recevez un item nommé '§dSpeedCubing§r' vous permettant de recevoir 10% de speed supplémentaire pendant 1 minute.\nChaque coup que vous mettez pendant ce pouvoir à 2% de chance par rubik's cube, que le joueur taper soit stun\n \nA la fin de votre pouvoir, vous recevez 2% de speed permanent et, si vous avez stun au moins un joueur, vous pourrez, avec la commande /rcsteal, voler 3% de force ou 3% de resistance au premier joueur stun\n \nVous possèdez la commande /rccube qui permet de donner un cube à un joueur (5 minutes de cooldown)\n \nA chaque mort d'un membre du staff de Rubis Craft, vous recevez 3% de force supplémentaire\n \nLorsque GameBlack meurt, vous recevez 5% de force et 5% de résistance\n \n____________________________________________________");
+
+    }
+
+    public static void CommandCube(Joueur joueur, Joueur cible, Main main) {
+
+    	cible.addCube(main);
+        joueur.getPlayer().sendMessage(cible.getPlayer().getName() + " possède maintenant " + cible.getCube() + " rubik's cube");
+        main.getCD().add(Pouvoirs.JOKO_GIVECUBE);
+        ItemCD cycle = new ItemCD(main, joueur, "givecube", 300, cible, null, null, null);
+        cycle.runTaskTimer(main, 0, 20);
+
+    }
+
+    public static void CommandSteal(Joueur joueur, Main main, String effet) {
+
+        if (main.getJokoStun().size() != 0) {
+
+            Joueur cible = main.getJokoStun().get(0);
+
+            if (effet == "force") {
+
+            	cible.removeForce(0.01);
+            	joueur.addForce(0.01);
+            	main.getJokoStun().clear();
+                joueur.getPlayer().sendMessage("Vous avez voler 1% de force à " + cible.getPlayer().getName());
+
+            } else if (effet == "resi" || effet == "resistance") {
+            	
+            	cible.removeResi(0.01);
+            	joueur.addResi(0.01);
+            	main.getJokoStun().clear();
+                joueur.getPlayer().sendMessage("Vous avez voler 1% de résistance à " + cible.getPlayer().getName());
+
+            } else {
+
+                joueur.getPlayer().sendMessage("Merci de mettre un effet valide ('force', 'resi', 'resistance')");
+
+            }
+
+        }
 
     }
 	

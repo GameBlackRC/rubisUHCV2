@@ -8,8 +8,8 @@ public class Foudre {
 
     public static void Effets(Joueur joueur, Main main) {
 
-    	joueur.addForce(0.03);
-    	joueur.addSpeed(0.1);
+    	joueur.addForce(0.01);
+    	joueur.addSpeed(0.06);
     	joueur.setStatutOrbe(true);
 
     }
@@ -17,8 +17,8 @@ public class Foudre {
     public static void RemoveEffets(Joueur joueur, Main main) {
 
         joueur.setStatutOrbe(false);
-        joueur.removeForce(0.03);
-    	joueur.removeSpeed(0.1);
+        joueur.removeForce(0.01);
+    	joueur.removeSpeed(0.06);
 
     }
 

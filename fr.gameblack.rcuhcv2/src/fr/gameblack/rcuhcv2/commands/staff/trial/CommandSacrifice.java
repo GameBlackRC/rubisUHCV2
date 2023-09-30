@@ -24,30 +24,26 @@ private Main main;
 	
 	@Override
     public boolean onCommand(CommandSender sender, Command cmd, String msg, String[] args) {
-
+        
         if (sender instanceof Player) {
-            	
-            Player player = (Player) sender;
-            Joueur joueur = main.getJoueur(player);
-            	
-            if(joueur.getRole() == Roles.TRIAL && joueur.getModeTrial() == null) {
-            		
-            	if(args[0].equalsIgnoreCase("serieux")) {
-            			
-            		joueur.setModeTrial("serieux");
-            		Trial.ItemsSerieux(joueur);
-            		player.sendMessage("Vous avez choisi le mode sérieux");
-            			
-            	}
-            	else if(args[0].equalsIgnoreCase("fun")) {
-            			
-            		joueur.setModeTrial("fun");
-            		Trial.ItemsFun(joueur);
-            		player.sendMessage("Vous avez choisi le mode fun");
-            			
-            	}
-            		
-            }
+        	
+        	Player player = (Player) sender;
+        	Joueur joueur = main.getJoueur(player);
+        	
+        	if(joueur.getRole() == Roles.TRIAL && joueur.getModeTrial() == "serieux") {
+        		
+        		if(args[0].equalsIgnoreCase("coeur")) {
+        			
+        			Trial.CommandSacrifice(joueur, "coeur");
+        			
+        		}
+        		else if(args[0].equalsIgnoreCase("regen")) {
+        			
+        			Trial.CommandSacrifice(joueur, "regen");
+        			
+        		}
+        		
+        	}
 
         }
 

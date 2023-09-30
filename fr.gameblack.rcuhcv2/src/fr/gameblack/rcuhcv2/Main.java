@@ -23,6 +23,7 @@ import fr.gameblack.rcuhcv2.commands.host.CommandCreate;
 import fr.gameblack.rcuhcv2.commands.host.CommandRemoverole;
 import fr.gameblack.rcuhcv2.commands.host.CommandStart;
 import fr.gameblack.rcuhcv2.commands.joueur.jeannot.CommandPartage;
+import fr.gameblack.rcuhcv2.commands.joueur.joko.CommandCube;
 import fr.gameblack.rcuhcv2.commands.joueur.nickoboop.CommandPapier;
 import fr.gameblack.rcuhcv2.commands.joueur.slup.CommandTrial;
 import fr.gameblack.rcuhcv2.commands.solo.farmeurimmo.CommandRCCode;
@@ -57,6 +58,7 @@ public class Main extends JavaPlugin {
     private List<Joueur> joueurJeuTrial = new ArrayList<>();
     private boolean fermetureGolden = false;
     private boolean fermetureGoldenActif = false;
+    private List<Joueur> joko_stun = new ArrayList<>();
     
     @Override
     public void onEnable() {
@@ -110,6 +112,7 @@ public class Main extends JavaPlugin {
     	getCommand("rcpartage").setExecutor(new CommandPartage(this));
     	getCommand("rcpapier").setExecutor(new CommandPapier(this));
     	getCommand("rctrial").setExecutor(new CommandTrial(this));
+    	getCommand("rccube").setExecutor(new CommandCube(this));
     	
     	getCommand("rcplay").setExecutor(new CommandPlay(this));
     	getCommand("firstreflexgame").setExecutor(new CommandFirstReflexGame(this));
@@ -423,6 +426,14 @@ public class Main extends JavaPlugin {
 
 	public void setFermetureGoldenActif(boolean fermetureGoldenActif) {
 		this.fermetureGoldenActif = fermetureGoldenActif;
+	}
+
+	public List<Joueur> getJokoStun() {
+		return joko_stun;
+	}
+
+	public void setJokoStun(List<Joueur> joko_stun) {
+		this.joko_stun = joko_stun;
 	}
 	
 }

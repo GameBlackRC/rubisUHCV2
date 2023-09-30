@@ -288,6 +288,29 @@ public class ItemCD extends BukkitRunnable {
             		
             	}
             	
+            } else if (joueur.getRole() == Roles.JOKO) {
+
+                if (item == "cube") {
+
+                	joueur.removeSpeed(0.04);
+                	joueur.setJokoItemActif(false);
+                    player.sendMessage("Ton pouvoir est fini");
+                    if (!main.getJokoStun().isEmpty()) {
+
+                        player.sendMessage("Tu peux voler 3% de force ou de résistance à " + main.getJokoStun().get(0).getPlayer().getName() + " (pour choisir fait la commande /rcsteal <force|resi|resistance>)");
+
+                    }
+
+                } else if (item == "stun") {
+
+                    cible.setInvulnerable(false);
+
+                } else if (item == "givecube") {
+
+                    main.getCD().remove(Pouvoirs.JOKO_GIVECUBE);
+
+                }
+
             }
 
         }

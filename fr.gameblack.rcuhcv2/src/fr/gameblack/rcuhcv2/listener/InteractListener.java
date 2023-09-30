@@ -14,6 +14,7 @@ import fr.gameblack.rcuhcv2.Joueur;
 import fr.gameblack.rcuhcv2.Main;
 import fr.gameblack.rcuhcv2.Orbe;
 import fr.gameblack.rcuhcv2.Pouvoirs;
+import fr.gameblack.rcuhcv2.roles.joueur.Joko;
 import fr.gameblack.rcuhcv2.roles.joueur.Raptor;
 import fr.gameblack.rcuhcv2.roles.joueur.Slup;
 import fr.gameblack.rcuhcv2.roles.staff.Loup;
@@ -50,6 +51,10 @@ public class InteractListener implements Listener {
         } else if (it.getType() == Material.NETHER_STAR && it.hasItemMeta() && it.getItemMeta().hasDisplayName() && it.getItemMeta().getDisplayName().equalsIgnoreCase("Pactes")) {
 
             Slup.interactPacte(joueur);
+
+        } else if (it.getType() == Material.NETHER_STAR && it.hasItemMeta() && it.getItemMeta().hasDisplayName() && it.getItemMeta().getDisplayName().equalsIgnoreCase("SpeedCubing")) {
+
+            Joko.InteractSpeedcubing(joueur, main);
 
         } else if (it.getType() == Material.NETHER_STAR && it.hasItemMeta() && it.getItemMeta().hasDisplayName() && it.getItemMeta().getDisplayName().equalsIgnoreCase("Super bateau")) {
 

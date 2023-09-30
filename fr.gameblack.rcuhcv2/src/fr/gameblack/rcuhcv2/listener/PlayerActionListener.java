@@ -43,7 +43,7 @@ public class PlayerActionListener implements Listener{
 			
 			if(!joueur.isFarmeurimmoProche(main)) {
 			
-				joueur.addPourcentHack(10);
+				joueur.addPourcentHack(10, main);
 			
 			}
 			

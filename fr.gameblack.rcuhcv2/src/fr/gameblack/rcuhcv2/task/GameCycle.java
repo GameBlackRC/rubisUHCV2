@@ -1513,7 +1513,7 @@ public class GameCycle extends BukkitRunnable {
 				
 				if(!joueur.isSpec() && joueur.getRole() != Roles.FARMEURIMMO && joueur.getRole() != Roles.NONE) {
 					
-					joueur.addPourcentHack(1);
+					joueur.addPourcentHack(1, main);
 					
 				}
 				

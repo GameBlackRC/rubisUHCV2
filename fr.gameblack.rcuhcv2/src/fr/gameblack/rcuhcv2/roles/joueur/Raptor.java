@@ -33,7 +33,7 @@ public class Raptor {
 	
 	public static void ItemRage(Joueur joueur, Main main) {
 		
-		joueur.addForce(0.15);
+		joueur.addForce(0.10);
 		ItemCD cycle = new ItemCD(main, joueur, "rage_raptor", 60, joueur, null, null, null);
         cycle.runTaskTimer(main, 0, 20);
 		

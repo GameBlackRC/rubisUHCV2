@@ -10,6 +10,8 @@ commands:
     description: Commande du role Nickoboop
   rctrial:
     description: Commande du role Slup
+  rccube:
+    description: Commande du role Joko
   rchack:
     description: Commande du role Farmeurimmo
   rcplay:
