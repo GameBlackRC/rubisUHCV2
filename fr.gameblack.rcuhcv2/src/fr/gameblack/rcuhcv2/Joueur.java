@@ -514,57 +514,8 @@ public class Joueur {
 	}
 
 	public void setPourcentHack(int pourcentHack, Main main) {
-		this.pourcentHack = pourcentHack;
-		Objective objective_hack = board_hack.registerNewObjective("hack", "dummy");
-        objective_hack.setDisplaySlot(DisplaySlot.BELOW_NAME);
-        objective_hack.setDisplayName("%");
-        @SuppressWarnings("deprecation")
-		Score score = objective_hack.getScore(player);
-        score.setScore(cube);
-        main.getJoueurByRole(Roles.FARMEURIMMO).getPlayer().setScoreboard(board_cube);
-	}
-	
-	public void addPourcentHack(int nb, Main main) {
-		
-		if(role != Roles.FARMEURIMMO) {
-		
-			if(role != Roles.MAKA) {
-			
-				if(pourcentHack + nb >= 100) {
-					
-					if(pourcentHack != 100) {
-					
-						pourcentHack = 100;
-					
-					}
-					
-				}
-				else {
-					
-					pourcentHack += nb;
-					
-				}
-				
-			}
-			else {
-				
-				if(pourcentHack + nb >= 40) {
-					
-					if(pourcentHack != 40) {
-					
-						pourcentHack = 40;
-					
-					}
-					
-				}
-				else {
-					
-					pourcentHack += nb;
-					
-				}
-				
-			}
-			
+		if(main.getJoueurByRole(Roles.FARMEURIMMO) != null) {
+			this.pourcentHack = pourcentHack;
 			Objective objective_hack = board_hack.registerNewObjective("hack", "dummy");
 	        objective_hack.setDisplaySlot(DisplaySlot.BELOW_NAME);
 	        objective_hack.setDisplayName("%");
@@ -572,6 +523,62 @@ public class Joueur {
 			Score score = objective_hack.getScore(player);
 	        score.setScore(cube);
 	        main.getJoueurByRole(Roles.FARMEURIMMO).getPlayer().setScoreboard(board_cube);
+	        
+		}
+	}
+	
+	public void addPourcentHack(int nb, Main main) {
+		
+		if(main.getJoueurByRole(Roles.FARMEURIMMO) != null) {
+		
+			if(role != Roles.FARMEURIMMO) {
+			
+				if(role != Roles.MAKA) {
+				
+					if(pourcentHack + nb >= 100) {
+						
+						if(pourcentHack != 100) {
+						
+							pourcentHack = 100;
+						
+						}
+						
+					}
+					else {
+						
+						pourcentHack += nb;
+						
+					}
+					
+				}
+				else {
+					
+					if(pourcentHack + nb >= 40) {
+						
+						if(pourcentHack != 40) {
+						
+							pourcentHack = 40;
+						
+						}
+						
+					}
+					else {
+						
+						pourcentHack += nb;
+						
+					}
+					
+				}
+				
+				Objective objective_hack = board_hack.registerNewObjective("hack", "dummy");
+		        objective_hack.setDisplaySlot(DisplaySlot.BELOW_NAME);
+		        objective_hack.setDisplayName("%");
+		        @SuppressWarnings("deprecation")
+				Score score = objective_hack.getScore(player);
+		        score.setScore(cube);
+		        main.getJoueurByRole(Roles.FARMEURIMMO).getPlayer().setScoreboard(board_cube);
+				
+			}
 			
 		}
 		
@@ -579,30 +586,34 @@ public class Joueur {
 	
 	public void removePourcentHack(int nb, Main main) {
 		
-		if(role != Roles.FARMEURIMMO) {
-			
-			if(pourcentHack - nb <= 100) {
-					
-				if(pourcentHack != 0) {
-					
-					pourcentHack = 0;
-					
+		if(main.getJoueurByRole(Roles.FARMEURIMMO) != null) {
+		
+			if(role != Roles.FARMEURIMMO) {
+				
+				if(pourcentHack - nb <= 100) {
+						
+					if(pourcentHack != 0) {
+						
+						pourcentHack = 0;
+						
+					}
+						
 				}
-					
+				else {
+						
+					pourcentHack -= nb;
+						
+				}
+				
+				Objective objective_hack = board_hack.registerNewObjective("hack", "dummy");
+		        objective_hack.setDisplaySlot(DisplaySlot.BELOW_NAME);
+		        objective_hack.setDisplayName("%");
+		        @SuppressWarnings("deprecation")
+				Score score = objective_hack.getScore(player);
+		        score.setScore(cube);
+		        main.getJoueurByRole(Roles.FARMEURIMMO).getPlayer().setScoreboard(board_cube);
+				
 			}
-			else {
-					
-				pourcentHack -= nb;
-					
-			}
-			
-			Objective objective_hack = board_hack.registerNewObjective("hack", "dummy");
-	        objective_hack.setDisplaySlot(DisplaySlot.BELOW_NAME);
-	        objective_hack.setDisplayName("%");
-	        @SuppressWarnings("deprecation")
-			Score score = objective_hack.getScore(player);
-	        score.setScore(cube);
-	        main.getJoueurByRole(Roles.FARMEURIMMO).getPlayer().setScoreboard(board_cube);
 			
 		}
 		
