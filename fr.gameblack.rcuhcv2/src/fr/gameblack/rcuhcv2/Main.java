@@ -24,6 +24,7 @@ import fr.gameblack.rcuhcv2.commands.host.CommandRemoverole;
 import fr.gameblack.rcuhcv2.commands.host.CommandStart;
 import fr.gameblack.rcuhcv2.commands.joueur.jeannot.CommandPartage;
 import fr.gameblack.rcuhcv2.commands.joueur.joko.CommandCube;
+import fr.gameblack.rcuhcv2.commands.joueur.joko.CommandSteal;
 import fr.gameblack.rcuhcv2.commands.joueur.nickoboop.CommandPapier;
 import fr.gameblack.rcuhcv2.commands.joueur.slup.CommandTrial;
 import fr.gameblack.rcuhcv2.commands.solo.farmeurimmo.CommandRCCode;
@@ -113,6 +114,7 @@ public class Main extends JavaPlugin {
     	getCommand("rcpapier").setExecutor(new CommandPapier(this));
     	getCommand("rctrial").setExecutor(new CommandTrial(this));
     	getCommand("rccube").setExecutor(new CommandCube(this));
+    	getCommand("rcsteal").setExecutor(new CommandSteal(this));
     	
     	getCommand("rcplay").setExecutor(new CommandPlay(this));
     	getCommand("firstreflexgame").setExecutor(new CommandFirstReflexGame(this));
