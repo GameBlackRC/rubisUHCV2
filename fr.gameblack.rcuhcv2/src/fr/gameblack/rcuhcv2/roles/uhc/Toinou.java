@@ -18,9 +18,9 @@ public class Toinou {
 		
 		joueur.addSpeed(0.1);
 		joueur.setCheatToinou(true);
-		ItemCD cycle = new ItemCD(main, joueur, "speed_cheat_toinou", 120, joueur, null, null, null);
+		ItemCD cycle = new ItemCD(main, joueur, "speed_cheat_toinou", 120, joueur, null, null, null, null);
         cycle.runTaskTimer(main, 0, 20);
-        ItemCD cycle2 = new ItemCD(main, joueur, "force_cheat_toinou", 60, joueur, null, null, null);
+        ItemCD cycle2 = new ItemCD(main, joueur, "force_cheat_toinou", 60, joueur, null, null, null, null);
         cycle2.runTaskTimer(main, 0, 20);
 		
 	}

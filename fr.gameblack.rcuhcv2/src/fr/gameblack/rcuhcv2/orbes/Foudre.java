@@ -27,7 +27,7 @@ public class Foudre {
     	RemoveEffets(joueur, main);
     	joueur.removeSpeed(0.05);
     	joueur.setMalusOrbe(true);
-	    ItemCD cycle = new ItemCD(main, joueur, "foudre_malus", 60, joueur, null, null, null);
+	    ItemCD cycle = new ItemCD(main, joueur, "foudre_malus", 60, joueur, null, null, null, null);
 	    cycle.runTaskTimer(main, 0, 20);
 
     }

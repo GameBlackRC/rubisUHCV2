@@ -46,7 +46,7 @@ public class Farmeurimmo {
         	
         	//clear abso de la cible pendant 2min
         	cible.setAbso(false);
-        	ItemCD cycle = new ItemCD(main, joueur, "abso", 120, cible, null, null, null);
+        	ItemCD cycle = new ItemCD(main, joueur, "abso", 120, cible, null, null, null, null);
             cycle.runTaskTimer(main, 0, 20);
             joueur.getPlayer().sendMessage(cible.getPlayer().getDisplayName() + " ne peux plus recevoir d'absorption pendant 2 minutes");
         	
@@ -104,7 +104,7 @@ public class Farmeurimmo {
 
             }
         	
-        	ItemCD cycle = new ItemCD(main, joueur, "enchant_epee", 60, cible, null, null, epee_base);
+        	ItemCD cycle = new ItemCD(main, joueur, "enchant_epee", 60, cible, null, null, epee_base, null);
             cycle.runTaskTimer(main, 0, 20);
             joueur.getPlayer().sendMessage("L'enchantement de l'épée de " + cible.getPlayer().getDisplayName() + " a été modifier pendant 1 minute");
         	
@@ -116,7 +116,7 @@ public class Farmeurimmo {
         	if(nb2 == 1) {
         		
         		cible.removeForce(0.10);
-        		ItemCD cycle = new ItemCD(main, joueur, "add_force_farmeurimmo", 60, cible, null, null, null);
+        		ItemCD cycle = new ItemCD(main, joueur, "add_force_farmeurimmo", 60, cible, null, null, null, null);
                 cycle.runTaskTimer(main, 0, 20);
                 joueur.getPlayer().sendMessage(cible.getPlayer().getDisplayName() + " a perdu 10% de force pendant 1 minute");
         		
@@ -124,7 +124,7 @@ public class Farmeurimmo {
         	else if(nb2 == 2) {
         		
         		cible.removeResi(0.10);
-        		ItemCD cycle = new ItemCD(main, joueur, "add_resi_farmeurimmo", 60, cible, null, null, null);
+        		ItemCD cycle = new ItemCD(main, joueur, "add_resi_farmeurimmo", 60, cible, null, null, null, null);
                 cycle.runTaskTimer(main, 0, 20);
                 joueur.getPlayer().sendMessage(cible.getPlayer().getDisplayName() + " a perdu 10% de résistance pendant 1 minute");
         		
@@ -132,7 +132,7 @@ public class Farmeurimmo {
         	else {
         		
         		cible.removeSpeed(0.10);
-        		ItemCD cycle = new ItemCD(main, joueur, "add_speed_farmeurimmo", 60, cible, null, null, null);
+        		ItemCD cycle = new ItemCD(main, joueur, "add_speed_farmeurimmo", 60, cible, null, null, null, null);
                 cycle.runTaskTimer(main, 0, 20);
                 joueur.getPlayer().sendMessage(cible.getPlayer().getDisplayName() + " a perdu 10% de speed pendant 1 minute");
         		
@@ -142,7 +142,7 @@ public class Farmeurimmo {
         else if(nb <= 50) {
         	
         	//modif l'enchant de 2 pièces d'armure
-        	ItemCD cycle = new ItemCD(main, joueur, "enchant_armure", 60, cible, null, null, null);
+        	ItemCD cycle = new ItemCD(main, joueur, "enchant_armure", 60, cible, null, null, null, null);
             cycle.runTaskTimer(main, 0, 20);
             joueur.getPlayer().sendMessage("L'enchantement de 2 pièces d'armure de " + cible.getPlayer().getDisplayName() + " a été modifier pendant 1 minute");
         	
@@ -207,7 +207,7 @@ public class Farmeurimmo {
         		
         		cible.setCanActiveOrbe(false);
         		
-        		ItemCD cycle = new ItemCD(main, joueur, "desac_orbe", 60, cible, null, null, null);
+        		ItemCD cycle = new ItemCD(main, joueur, "desac_orbe", 60, cible, null, null, null, null);
                 cycle.runTaskTimer(main, 0, 20);
                 
                 joueur.getPlayer().sendMessage("L'orbe de " + cible.getPlayer().getDisplayName() + " est desactivé pendant 1 minute");
@@ -217,7 +217,7 @@ public class Farmeurimmo {
         		
         		cible.removeForce(0.05);
         		
-        		ItemCD cycle = new ItemCD(main, joueur, "effet_desac_orbe", 60, cible, null, null, null);
+        		ItemCD cycle = new ItemCD(main, joueur, "effet_desac_orbe", 60, cible, null, null, null, null);
                 cycle.runTaskTimer(main, 0, 20);
         		
         	}
@@ -227,7 +227,7 @@ public class Farmeurimmo {
         	
         	//retire 2 coeurs permanent pendant 1min
         	cible.getPlayer().setMaxHealth(cible.getPlayer().getMaxHealth()-4);
-        	ItemCD cycle = new ItemCD(main, joueur, "malus_coeur_farmeurimmo", 60, cible, null, null, null);
+        	ItemCD cycle = new ItemCD(main, joueur, "malus_coeur_farmeurimmo", 60, cible, null, null, null, null);
             cycle.runTaskTimer(main, 0, 20);
             joueur.getPlayer().sendMessage(cible.getPlayer().getDisplayName() + " perd 2 coeurs permanent pendant 1 minute");
         	
@@ -243,7 +243,7 @@ public class Farmeurimmo {
         		
         	}
         	
-        	ItemCD cycle = new ItemCD(main, joueur, "malus_feu_farmeurimmo", 60, cible, null, null, null);
+        	ItemCD cycle = new ItemCD(main, joueur, "malus_feu_farmeurimmo", 60, cible, null, null, null, null);
             cycle.runTaskTimer(main, 0, 20);
             joueur.getPlayer().sendMessage(cible.getPlayer().getDisplayName() + " peut être enflammer pendant 1 minute");
         	
@@ -251,7 +251,7 @@ public class Farmeurimmo {
         else {
         	
         	//l'arc du joueur est innutilisable (disparait de l'inv pendant 1min)
-        	ItemCD cycle = new ItemCD(main, joueur, "malus_bow_farmeurimmo", 60, cible, null, null, null);
+        	ItemCD cycle = new ItemCD(main, joueur, "malus_bow_farmeurimmo", 60, cible, null, null, null, null);
             cycle.runTaskTimer(main, 0, 20);
             joueur.getPlayer().sendMessage(cible.getPlayer().getDisplayName() + " ne peux plus utiliser son arc pendant 1 minute");
         	

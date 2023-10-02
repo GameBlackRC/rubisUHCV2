@@ -71,7 +71,7 @@ public class Slup {
 				
 			}
 			joueur.setInvulnerable(true);
-			ItemCD cycle = new ItemCD(main, joueur, "fakemort_slup", 300, joueur, null, null, null);
+			ItemCD cycle = new ItemCD(main, joueur, "fakemort_slup", 300, joueur, null, null, null, null);
 	        cycle.runTaskTimer(main, 0, 20);
 			
 		}

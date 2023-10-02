@@ -34,7 +34,7 @@ public class Raptor {
 	public static void ItemRage(Joueur joueur, Main main) {
 		
 		joueur.addForce(0.7);
-		ItemCD cycle = new ItemCD(main, joueur, "rage_raptor", 60, joueur, null, null, null);
+		ItemCD cycle = new ItemCD(main, joueur, "rage_raptor", 60, joueur, null, null, null, null);
         cycle.runTaskTimer(main, 0, 20);
 		
 	}
@@ -53,7 +53,7 @@ public class Raptor {
         	
         	//anti-kb pendant 5 secondes
         	joueur.setAntiKB(true);
-        	ItemCD cycle = new ItemCD(main, joueur, "antikb_raptor", 5, joueur, null, null, null);
+        	ItemCD cycle = new ItemCD(main, joueur, "antikb_raptor", 5, joueur, null, null, null, null);
             cycle.runTaskTimer(main, 0, 20);
         	
         }
@@ -61,7 +61,7 @@ public class Raptor {
         	
         	//10% de force pendant 1min
         	joueur.addForce(0.05);
-        	ItemCD cycle = new ItemCD(main, joueur, "force_raptor", 60, joueur, null, null, null);
+        	ItemCD cycle = new ItemCD(main, joueur, "force_raptor", 60, joueur, null, null, null, null);
             cycle.runTaskTimer(main, 0, 20);
         	
         }
@@ -69,7 +69,7 @@ public class Raptor {
         	
         	//5% de force pendant 1min
         	joueur.addForce(0.03);
-        	ItemCD cycle = new ItemCD(main, joueur, "5_force_raptor", 60, joueur, null, null, null);
+        	ItemCD cycle = new ItemCD(main, joueur, "5_force_raptor", 60, joueur, null, null, null, null);
             cycle.runTaskTimer(main, 0, 20);
         	
         }
@@ -77,7 +77,7 @@ public class Raptor {
         	
         	//5% de resi pendant 1min
         	joueur.addResi(0.03);
-        	ItemCD cycle = new ItemCD(main, joueur, "resi_raptor", 60, joueur, null, null, null);
+        	ItemCD cycle = new ItemCD(main, joueur, "resi_raptor", 60, joueur, null, null, null, null);
             cycle.runTaskTimer(main, 0, 20);
         	
         }
@@ -85,7 +85,7 @@ public class Raptor {
         	
         	//10% de speed pendant 1min
         	joueur.addSpeed(0.10);
-        	ItemCD cycle = new ItemCD(main, joueur, "speed_raptor", 60, joueur, null, null, null);
+        	ItemCD cycle = new ItemCD(main, joueur, "speed_raptor", 60, joueur, null, null, null, null);
             cycle.runTaskTimer(main, 0, 20);
         	
         }

@@ -46,24 +46,24 @@ public class Loup {
 		
 		if(nb <= 10) {
 	        
-	        ItemCD cycle = new ItemCD(main, joueur, "vol_loup_pb", 5, joueur, null, null, null);
+	        ItemCD cycle = new ItemCD(main, joueur, "vol_loup_pb", 5, joueur, null, null, null, null);
 	        cycle.runTaskTimer(main, 0, 20);
 	        
-	        ItemCD cycle2 = new ItemCD(main, joueur, "vol_loup_nf", 8, joueur, null, null, null);
+	        ItemCD cycle2 = new ItemCD(main, joueur, "vol_loup_nf", 8, joueur, null, null, null, null);
 	        cycle2.runTaskTimer(main, 0, 20);
 			
 		}
 		else {
 			
-			ItemCD cycle = new ItemCD(main, joueur, "vol_loup", 10, joueur, null, null, null);
+			ItemCD cycle = new ItemCD(main, joueur, "vol_loup", 10, joueur, null, null, null, null);
 	        cycle.runTaskTimer(main, 0, 20);
 	        
-	        ItemCD cycle2 = new ItemCD(main, joueur, "vol_loup_nf", 13, joueur, null, null, null);
+	        ItemCD cycle2 = new ItemCD(main, joueur, "vol_loup_nf", 13, joueur, null, null, null, null);
 	        cycle2.runTaskTimer(main, 0, 20);
 			
 		}
 		
-		ItemCD cycle3 = new ItemCD(main, joueur, "vol_loup_cd", 300, joueur, null, null, null);
+		ItemCD cycle3 = new ItemCD(main, joueur, "vol_loup_cd", 300, joueur, null, null, null, null);
         cycle3.runTaskTimer(main, 0, 20);
 		
 	}
@@ -83,7 +83,7 @@ public class Loup {
 			
 		}
 		
-		ItemCD cycle = new ItemCD(main, joueur, "serveur_loup", 30, joueur, null, joueurs, null);
+		ItemCD cycle = new ItemCD(main, joueur, "serveur_loup", 30, joueur, null, joueurs, null, null);
         cycle.runTaskTimer(main, 0, 20);
 		
 	}

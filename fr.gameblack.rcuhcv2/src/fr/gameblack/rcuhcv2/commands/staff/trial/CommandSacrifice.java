@@ -1,6 +1,5 @@
 package fr.gameblack.rcuhcv2.commands.staff.trial;
 
-import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -9,7 +8,6 @@ import org.bukkit.entity.Player;
 import fr.gameblack.rcuhcv2.Joueur;
 import fr.gameblack.rcuhcv2.Main;
 import fr.gameblack.rcuhcv2.Roles;
-import fr.gameblack.rcuhcv2.roles.joueur.Slup;
 import fr.gameblack.rcuhcv2.roles.staff.Trial;
 
 public class CommandSacrifice implements CommandExecutor {

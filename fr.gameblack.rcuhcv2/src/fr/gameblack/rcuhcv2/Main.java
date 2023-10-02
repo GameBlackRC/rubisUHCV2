@@ -1,5 +1,7 @@
 package fr.gameblack.rcuhcv2;
 
+import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
@@ -137,6 +139,194 @@ public class Main extends JavaPlugin {
     public void onDisable() {
 
 
+    }
+    
+    public void eliminate(Joueur joueur, boolean Kzou) {
+
+        Roles role = Roles.NONE;
+
+        if (Kzou) {
+
+        	//A refaire
+
+        } else {
+
+            role = joueur.getRole();
+
+        }
+        joueur.setOrbe(Orbe.NONE);
+        Bukkit.broadcastMessage("_________________________\n" + joueur.getPlayer().getName() + " est mort. Il était : \n" + role + "\n_________________________");
+        checkWin();
+        joueur.getPlayer().setGameMode(GameMode.SPECTATOR);
+
+        //MortCD cycle = new MortCD(this, player);
+        //cycle.runTaskTimer(this, 0, 20);
+    }
+    
+    public List<Joueur> getCampJoueur() {
+    	
+    	List<Joueur> camp_joueur = new ArrayList<>();
+    	
+    	for(Joueur joueur : joueurs) {
+    		
+    		if(joueur.getCamp() == "joueur" && !joueur.isMort()) {
+    			
+    			camp_joueur.add(joueur);
+    			
+    		}
+    		
+    	}
+    	
+    	return camp_joueur;
+    	
+    }
+    
+    public List<Joueur> getCampStaff() {
+    	
+    	List<Joueur> camp_staff = new ArrayList<>();
+    	
+    	for(Joueur joueur : joueurs) {
+    		
+    		if(joueur.getCamp() == "staff" && !joueur.isMort()) {
+    			
+    			camp_staff.add(joueur);
+    			
+    		}
+    		
+    	}
+    	
+    	return camp_staff;
+    	
+    }
+    
+    public List<Joueur> getCampUHC() {
+    	
+    	List<Joueur> camp_uhc = new ArrayList<>();
+    	
+    	for(Joueur joueur : joueurs) {
+    		
+    		if(joueur.getCamp() == "uhc" && !joueur.isMort()) {
+    			
+    			camp_uhc.add(joueur);
+    			
+    		}
+    		
+    	}
+    	
+    	return camp_uhc;
+    	
+    }
+    
+    public List<Joueur> getSolos() {
+    	
+    	List<Joueur> camp_solo = new ArrayList<>();
+    	
+    	for(Joueur joueur : joueurs) {
+    		
+    		if(joueur.getCamp() == "solo" && !joueur.isMort()) {
+    			
+    			camp_solo.add(joueur);
+    			
+    		}
+    		
+    	}
+    	
+    	return camp_solo;
+    	
+    }
+    
+    public List<Joueur> getDuo() {
+    	
+    	List<Joueur> camp_duo = new ArrayList<>();
+    	
+    	for(Joueur joueur : joueurs) {
+    		
+    		if(joueur.getCamp() == "duo" && !joueur.isMort()) {
+    			
+    			camp_duo.add(joueur);
+    			
+    		}
+    		
+    	}
+    	
+    	return camp_duo;
+    	
+    }
+    
+    public List<Joueur> getCampFarmeurimmo() {
+    	
+    	List<Joueur> camp_farmeurimmo = new ArrayList<>();
+    	
+    	for(Joueur joueur : joueurs) {
+    		
+    		if(joueur.getCamp() == "farmeurimmo" && !joueur.isMort()) {
+    			
+    			camp_farmeurimmo.add(joueur);
+    			
+    		}
+    		
+    	}
+    	
+    	return camp_farmeurimmo;
+    	
+    }
+    
+    public void checkWin() {
+
+        if (getCampStaff().isEmpty() && getCampUHC().isEmpty() && getCampFarmeurimmo().isEmpty() && getDuo().isEmpty() && getSolos().isEmpty()) {
+
+            Bukkit.broadcastMessage("Le camps Joueur remporte la partie !");
+            
+            reloadGame();
+
+        } else if (getCampJoueur().isEmpty() && getCampUHC().isEmpty() && getCampFarmeurimmo().isEmpty() && getDuo().isEmpty() && getSolos().isEmpty()) {
+
+            Bukkit.broadcastMessage("Le camps Staff remporte la partie !");
+            
+            reloadGame();
+
+        } else if (getCampJoueur().isEmpty() && getCampStaff().isEmpty() && getCampFarmeurimmo().isEmpty() && getDuo().isEmpty() && getSolos().isEmpty()) {
+
+            Bukkit.broadcastMessage("Le camps UHC remporte la partie !");
+            
+            reloadGame();
+
+        } else if (getCampJoueur().isEmpty() && getCampStaff().isEmpty() && getCampUHC().isEmpty() && getCampFarmeurimmo().isEmpty() && getSolos().isEmpty()) {
+
+            Bukkit.broadcastMessage("Le duo Slup - Trial remporte la partie !");
+            
+            reloadGame();
+
+        } else if (getCampJoueur().isEmpty() && getCampStaff().isEmpty() && getCampUHC().isEmpty() && getDuo().isEmpty() && getSolos().isEmpty()) {
+
+            Bukkit.broadcastMessage("Farmeurimmo remporte la partie !");
+            
+            reloadGame();
+
+        } else if (getCampJoueur().isEmpty() && getCampStaff().isEmpty() && getCampUHC().isEmpty() && getCampFarmeurimmo().isEmpty() && getDuo().isEmpty() && getSolos().size() == 1) {
+
+            if (getSolos().get(0).getRole() == Roles.TRIAL) {
+
+                Bukkit.broadcastMessage("Trial remporte la partie !");
+                
+                reloadGame();
+
+            } else if (getSolos().get(0).getRole() == Roles.KZOU) {
+
+                Bukkit.broadcastMessage("Kzou remporte la partie !");
+                
+                reloadGame();
+
+            }
+
+        }
+
+    }
+    
+    public void reloadGame() {
+    	
+    	
+    	
     }
     
     public List<Roles> getCompo() {

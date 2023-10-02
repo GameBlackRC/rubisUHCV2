@@ -72,6 +72,8 @@ public class Joueur {
 	private boolean cheatToinouActif = false;
 	private boolean jokoItemActif = false;
 	private int cube = 0;
+	private boolean opKzou = false;
+	private boolean mort = false;
 
 	public Joueur(Player player) {
 		
@@ -741,9 +743,25 @@ public class Joueur {
         player.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, timer*20, 100, false, false));
         player.addPotionEffect(new PotionEffect(PotionEffectType.JUMP, timer*20, 250, false, false));
         invulnerable = true;
-        ItemCD cycle = new ItemCD(main, this, "stun", timer, this, null, null, null);
+        ItemCD cycle = new ItemCD(main, this, "stun", timer, this, null, null, null, null);
         cycle.runTaskTimer(main, 0, 20);
 
     }
+
+	public boolean isOpKzou() {
+		return opKzou;
+	}
+
+	public void setOpKzou(boolean opKzou) {
+		this.opKzou = opKzou;
+	}
+
+	public boolean isMort() {
+		return mort;
+	}
+
+	public void setMort(boolean mort) {
+		this.mort = mort;
+	}
 	
 }

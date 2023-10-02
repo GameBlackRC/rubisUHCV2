@@ -97,11 +97,11 @@ public class Malivol {
 
                 }
                 if(pas_sacrifice) {
-                	ItemCD cycle = new ItemCD(main, joueur, "speedhack", 60, joueur, null, null, null);
+                	ItemCD cycle = new ItemCD(main, joueur, "speedhack", 60, joueur, null, null, null, null);
                 	cycle.runTaskTimer(main, 0, 20);
                 }
                 else {
-                	ItemCD cycle = new ItemCD(main, joueur, "speedhack", 30, joueur, null, null, null);
+                	ItemCD cycle = new ItemCD(main, joueur, "speedhack", 30, joueur, null, null, null, null);
                 	cycle.runTaskTimer(main, 0, 20);
                 }
             } else if (nb == 2) {
@@ -111,11 +111,11 @@ public class Malivol {
                 joueur.addResi(0.03);
                 joueur.setNofall(true);
                 if(pas_sacrifice) {
-                	ItemCD cycle = new ItemCD(main, joueur, "nofall", 60, joueur, null, null, null);
+                	ItemCD cycle = new ItemCD(main, joueur, "nofall", 60, joueur, null, null, null, null);
                 	cycle.runTaskTimer(main, 0, 20);
                 }
                 else {
-                	ItemCD cycle = new ItemCD(main, joueur, "nofall", 30, joueur, null, null, null);
+                	ItemCD cycle = new ItemCD(main, joueur, "nofall", 30, joueur, null, null, null, null);
                 	cycle.runTaskTimer(main, 0, 20);
                 }
 
@@ -124,11 +124,11 @@ public class Malivol {
                 joueur.addForce(0.10);
                 player.sendMessage("Vous venez d'activer votre cheat fullcrit");
                 if(pas_sacrifice) {
-                	ItemCD cycle = new ItemCD(main, joueur, "fullcrit", 60, joueur, null, null, null);
+                	ItemCD cycle = new ItemCD(main, joueur, "fullcrit", 60, joueur, null, null, null, null);
                 	cycle.runTaskTimer(main, 0, 20);
                 }
                 else {
-                	ItemCD cycle = new ItemCD(main, joueur, "fullcrit", 30, joueur, null, null, null);
+                	ItemCD cycle = new ItemCD(main, joueur, "fullcrit", 30, joueur, null, null, null, null);
                 	cycle.runTaskTimer(main, 0, 20);
                 }
             } else {
@@ -137,11 +137,11 @@ public class Malivol {
                 joueur.setAntiKB(true);
                 player.sendMessage("Vous venez d'activer votre cheat anti-kb");
                 if(pas_sacrifice) {
-                	ItemCD cycle = new ItemCD(main, joueur, "antikb", 60, joueur, null, null, null);
+                	ItemCD cycle = new ItemCD(main, joueur, "antikb", 60, joueur, null, null, null, null);
                 	cycle.runTaskTimer(main, 0, 20);
                 }
                 else {
-                	ItemCD cycle = new ItemCD(main, joueur, "antikb", 30, joueur, null, null, null);
+                	ItemCD cycle = new ItemCD(main, joueur, "antikb", 30, joueur, null, null, null, null);
                 	cycle.runTaskTimer(main, 0, 20);
                 }
             }

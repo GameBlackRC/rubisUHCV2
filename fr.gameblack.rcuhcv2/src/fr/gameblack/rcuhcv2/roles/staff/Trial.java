@@ -132,7 +132,7 @@ public class Trial {
 		gagnant.addSpeed(0.05);
 		gagnant.addResi(0.02);
 		perdant.removeSpeed(0.02);
-		ItemCD cycle = new ItemCD(main, gagnant, "speed_reflex_trial", 300, gagnant, null, null, null);
+		ItemCD cycle = new ItemCD(main, gagnant, "speed_reflex_trial", 300, gagnant, null, null, null, null);
         cycle.runTaskTimer(main, 0, 20);
 		
 	}
@@ -148,7 +148,7 @@ public class Trial {
 			j1.getPlayer().setMaxHealth(j1.getPlayer().getMaxHealth()-1);
 			j2.setNofall(true);
 			j2.addSpeed(0.03);
-			ItemCD cycle = new ItemCD(main, j2, "takaoni_trial", 300, j1, null, null, null);
+			ItemCD cycle = new ItemCD(main, j2, "takaoni_trial", 300, j1, null, null, null, null);
 	        cycle.runTaskTimer(main, 0, 20);
 			
 		}
@@ -158,7 +158,7 @@ public class Trial {
 			j2.getPlayer().setMaxHealth(j2.getPlayer().getMaxHealth()-1);
 			j1.setNofall(true);
 			j1.addSpeed(0.03);
-			ItemCD cycle = new ItemCD(main, j1, "takaoni_trial", 300, j2, null, null, null);
+			ItemCD cycle = new ItemCD(main, j1, "takaoni_trial", 300, j2, null, null, null, null);
 	        cycle.runTaskTimer(main, 0, 20);
 			
 		}
@@ -172,7 +172,7 @@ public class Trial {
 		perdant.removeSpeed(0.05);
 		gagnant.addForce(0.02);
 		gagnant.getPlayer().setMaxHealth(gagnant.getPlayer().getMaxHealth()+2);
-		ItemCD cycle = new ItemCD(main, gagnant, "soleil_trial", 300, perdant, null, null, null);
+		ItemCD cycle = new ItemCD(main, gagnant, "soleil_trial", 300, perdant, null, null, null, null);
         cycle.runTaskTimer(main, 0, 20);
 		
 	}

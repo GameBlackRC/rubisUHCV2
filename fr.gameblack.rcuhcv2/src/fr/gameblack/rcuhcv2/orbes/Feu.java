@@ -29,7 +29,7 @@ public class Feu {
     	RemoveEffets(joueur, main);
     	joueur.removeResi(0.05);
     	joueur.setMalusOrbe(true);
-        ItemCD cycle = new ItemCD(main, joueur, "feu_malus", 60, joueur, null, null, null);
+        ItemCD cycle = new ItemCD(main, joueur, "feu_malus", 60, joueur, null, null, null, null);
         cycle.runTaskTimer(main, 0, 20);
 
     }

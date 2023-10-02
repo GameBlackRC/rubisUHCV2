@@ -31,7 +31,7 @@ public class Glace {
     	RemoveEffets(joueur, main);
     	joueur.removeForce(0.05);
     	joueur.setMalusOrbe(true);
-        ItemCD cycle = new ItemCD(main, joueur, "glace_malus", 60, joueur, null, null, null);
+        ItemCD cycle = new ItemCD(main, joueur, "glace_malus", 60, joueur, null, null, null, null);
         cycle.runTaskTimer(main, 0, 20);
 
     }

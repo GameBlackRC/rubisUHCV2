@@ -31,7 +31,7 @@ public class Joko {
 
         	joueur.setJokoItemActif(true);
             joueur.addSpeed(0.05);
-            ItemCD cycle = new ItemCD(main, joueur, "cube", 60, joueur, null, null, null);
+            ItemCD cycle = new ItemCD(main, joueur, "cube", 60, joueur, null, null, null, null);
             cycle.runTaskTimer(main, 0, 20);
             main.getCD().add(Pouvoirs.JOKO_CUBE);
 
@@ -54,7 +54,7 @@ public class Joko {
     	cible.addCube(main);
         joueur.getPlayer().sendMessage(cible.getPlayer().getName() + " possède maintenant " + cible.getCube() + " rubik's cube");
         main.getCD().add(Pouvoirs.JOKO_GIVECUBE);
-        ItemCD cycle = new ItemCD(main, joueur, "givecube", 300, cible, null, null, null);
+        ItemCD cycle = new ItemCD(main, joueur, "givecube", 300, cible, null, null, null, null);
         cycle.runTaskTimer(main, 0, 20);
 
     }

@@ -4,7 +4,9 @@ import fr.gameblack.rcuhcv2.Joueur;
 import fr.gameblack.rcuhcv2.Main;
 import fr.gameblack.rcuhcv2.Pouvoirs;
 import fr.gameblack.rcuhcv2.Roles;
+import fr.gameblack.rcuhcv2.listener.DamageListener;
 
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
@@ -23,20 +25,18 @@ import java.util.List;
 
 public class ItemCD extends BukkitRunnable {
 
-    @SuppressWarnings("unused")
 	private Main main;
     private Player player;
     private String item;
     private int timer;
     private Joueur cible;
-    @SuppressWarnings("unused")
 	private EntityDamageByEntityEvent event;
-    @SuppressWarnings("unused")
 	private List<Joueur> players = new ArrayList<>();
     private Joueur joueur;
     private ItemStack item_;
+    private Location loc;
 
-    public ItemCD(Main main, Joueur joueur, String item, int timer, Joueur cible, EntityDamageByEntityEvent event, List<Joueur> players, ItemStack item_) {
+    public ItemCD(Main main, Joueur joueur, String item, int timer, Joueur cible, EntityDamageByEntityEvent event, List<Joueur> players, ItemStack item_, Location loc) {
         this.main = main;
         this.player = joueur.getPlayer();
         this.joueur = joueur;
@@ -46,12 +46,70 @@ public class ItemCD extends BukkitRunnable {
         this.event = event;
         this.players = players;
         this.item_ = item_;
+        this.loc = loc;
     }
 
     @Override
     public void run() {
     	
-    	if(item == "soleil_trial") {
+    	if (item == "mort") {
+
+                if (joueur.getRole() == Roles.KZOU) {
+
+                    if (joueur.isOpKzou()) {
+
+                    	joueur.setOpKzou(false);
+                        main.eliminate(cible, true);
+
+                    } else {
+
+                        main.eliminate(cible, false);
+
+                    }
+
+                } else {
+
+                    main.eliminate(cible, false);
+
+                }
+
+	            for (ItemStack item : cible.getPlayer().getInventory().getContents()) {
+	
+	            	if (item != null && item.getType() != Material.NETHER_STAR) {
+	
+	            		if (item.getItemMeta().hasEnchant(Enchantment.DEPTH_STRIDER)) {
+	
+	            			ItemMeta itemM = item.getItemMeta();
+	                        itemM.removeEnchant(Enchantment.DEPTH_STRIDER);
+	                        item.setItemMeta(itemM);
+	
+	            		}
+	
+	                    if (item.getItemMeta().hasEnchant(Enchantment.FIRE_ASPECT)) {
+	
+	                    	ItemMeta itemM = item.getItemMeta();
+	                        itemM.removeEnchant(Enchantment.FIRE_ASPECT);
+	                        item.setItemMeta(itemM);
+	
+	                    }
+	
+	                    if (item.getItemMeta().hasEnchant(Enchantment.ARROW_FIRE)) {
+	
+	                    	ItemMeta itemM = item.getItemMeta();
+	                        itemM.removeEnchant(Enchantment.ARROW_FIRE);
+	                        item.setItemMeta(itemM);
+	
+	                    }
+	
+	                    cible.getPlayer().getWorld().dropItemNaturally(loc, item);
+	
+	                }
+	
+	            }
+
+                DamageListener.Mort(cible, joueur, event, main);
+
+        } else if(item == "soleil_trial") {
         	
         	cible.addSpeed(0.05);
         	
