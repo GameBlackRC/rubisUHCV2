@@ -154,12 +154,13 @@ public class Autostart extends BukkitRunnable {
 	                pls.getInventory().addItem(new ItemStack(Material.COBBLESTONE, 64));
 	                pls.getInventory().addItem(new ItemStack(Material.COBBLESTONE, 64));
 	                pls.getInventory().addItem(new ItemStack(Material.DIAMOND, 1));
-	                pls.getInventory().addItem(new ItemStack(Material.LAVA_BUCKET, 1));
+	                pls.getInventory().addItem(new ItemStack(Material.LAVA_BUCKET, 2));
 	                pls.getInventory().addItem(new ItemStack(Material.WATER_BUCKET, 1));
 	                pls.getInventory().addItem(new ItemStack(Material.REDSTONE_BLOCK, 1));
 	                pls.getInventory().addItem(new ItemStack(Material.ICE, 1));
 	                pls.getInventory().addItem(new ItemStack(Material.OBSIDIAN, 2));
 	                pls.getInventory().addItem(new ItemStack(Material.IRON_BLOCK, 2));
+	                pls.getInventory().addItem(new ItemStack(Material.WORKBENCH, 1));
 
 	                pls.teleport(new Location(Bukkit.getWorld("world"), cos_x, 100, cos_y));
 	                

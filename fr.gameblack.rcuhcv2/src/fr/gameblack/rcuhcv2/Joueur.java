@@ -45,7 +45,7 @@ public class Joueur {
 	private boolean malus_orbe_actif = false;
 	private int kill = 0;
 	private boolean invulnerable = true;
-	private Joueur lastHit;
+	private Joueur lastHit = null;
 	private boolean respawn = false;
 	private double speed = 100;
 	private double force = 100;
@@ -88,6 +88,46 @@ public class Joueur {
 	public Roles getRole() {
 		
 		return role;
+		
+	}
+	
+	public void reset() {
+		
+		role = Roles.NONE;
+		orbe = Orbe.NONE;
+		orbe_actif = false;
+		malus_orbe_actif = false;
+		kill = 0;
+		invulnerable = true;
+		lastHit = null;
+		respawn = false;
+		speed = 100;
+		force = 100;
+		resi = 110;
+		abso = true;
+		fire = false;
+		can_active_orbe = true;
+		malivol_cheat = 0;
+		antiKB = false;
+		vol = new ArrayList<>();
+		jeannotPartageActif = false;
+		spec = false;
+		camp = "rien";
+		comboSubi = 0;
+		nofall = false;
+		cheatToinou = false;
+		CanFight = true;
+		modeTrial = null;
+		pourcentHack = 0;
+		pacteSlup = 0;
+		bonPapiers = false;
+		nickoProcheJeannot = false;
+		cheatRaptorActif = false;
+		cheatToinouActif = false;
+		jokoItemActif = false;
+		cube = 0;
+		opKzou = false;
+		mort = false;
 		
 	}
 	

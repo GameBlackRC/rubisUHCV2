@@ -325,7 +325,24 @@ public class Main extends JavaPlugin {
     
     public void reloadGame() {
     	
+    	for(Joueur joueur : joueurs) {
+    		
+    		joueur.reset();
+    		
+    	}
     	
+    	state = Statut.WAITING;
+    	debug = false;
+    	temps = 0;
+        episode = 1;
+        temps_episode = 600;
+        jour = false;
+        cd = new ArrayList<>();
+        jeuTrial = null;
+        joueurJeuTrial = new ArrayList<>();
+        fermetureGolden = false;
+        fermetureGoldenActif = false;
+        joko_stun = new ArrayList<>();
     	
     }
     
