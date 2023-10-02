@@ -22,6 +22,8 @@ public class Loup {
 		
 		Texte(joueur.getPlayer());
 		
+		joueur.addResi(0.02);
+		
 		ItemStack coffre = new ItemStack(Material.NETHER_STAR, 1);
         ItemMeta coffreM = coffre.getItemMeta();
         coffreM.setDisplayName("Super bateau");

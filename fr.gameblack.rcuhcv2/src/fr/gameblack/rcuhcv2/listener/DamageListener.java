@@ -71,13 +71,13 @@ public class DamageListener implements Listener {
             Entity damager = event.getDamager();
             Player killer = player;
 
-            double damage;
+            double damage = 0;
 
             if (damager instanceof Player) killer = (Player) damager;
             
             Joueur tueur = main.getJoueur(killer);
 
-            if (main.getState() == Statut.PVP_ON || (!joueur.isInvulnerable() && !tueur.isInvulnerable())) {
+            if (main.getState() == Statut.PVP_ON || (!joueur.isInvulnerable() || !tueur.isInvulnerable())) {
 
             	if(joueur != tueur) {
             		
@@ -133,21 +133,6 @@ public class DamageListener implements Listener {
                 	
                 }
                 
-                double damage_strenght = (event.getDamage(DamageModifier.BASE)*(tueur.getForce()/100))*0.9;
-                double armure = event.getDamage(DamageModifier.ARMOR)*0.9;
-                event.setDamage(DamageModifier.BASE, damage_strenght);
-                event.setDamage(DamageModifier.ARMOR,armure);
-                double resi = event.getDamage(DamageModifier.BASE)*((joueur.getResi()/100)-1);
-                event.setDamage(DamageModifier.RESISTANCE, -resi);
-                
-                damage = event.getFinalDamage();
-                
-                if(joueur.getRole() == Roles.RAPTOR && tueur.getRole() == Roles.TOINOU && tueur.isCheatToinou()) {
-        			
-        			damage *= 1.05;
-        			
-        		}
-                
                 if (tueur.getOrbe() == Orbe.GLACE && tueur.isOrbeActif()) {
 
                     Glace.Freeze(player);
@@ -178,6 +163,24 @@ public class DamageListener implements Listener {
                     }
 
                 }
+                else if(tueur != joueur) {
+                	
+                	double damage_strenght = (event.getDamage(DamageModifier.BASE)*(tueur.getForce()/100))*0.9;
+                    double armure = event.getDamage(DamageModifier.ARMOR);
+                    event.setDamage(DamageModifier.BASE, damage_strenght);
+                    event.setDamage(DamageModifier.ARMOR,armure);
+                    double resi = event.getDamage(DamageModifier.BASE)*((joueur.getResi()/100)-1);
+                    event.setDamage(DamageModifier.RESISTANCE, -resi);
+                	
+                }
+                
+                damage = event.getFinalDamage();
+                
+                if(joueur.getRole() == Roles.RAPTOR && tueur.getRole() == Roles.TOINOU && tueur.isCheatToinou()) {
+        			
+        			damage *= 1.03;
+        			
+        		}
                 
                 if(joueur.isFireOn() || (tueur.getOrbe() == Orbe.FEU && tueur.isOrbeActif())) {
                 	
@@ -209,7 +212,7 @@ public class DamageListener implements Listener {
 
                         if (nb < pourcent + 1) {
 
-                        	joueur.Stun(10);
+                        	joueur.Stun(10, main);
                         	joueur.removeCube(main);
                             main.getJokoStun().add(joueur);
 

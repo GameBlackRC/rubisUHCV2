@@ -24,6 +24,7 @@ import fr.gameblack.rcuhcv2.roles.staff.Captain;
 import fr.gameblack.rcuhcv2.roles.staff.Hekow;
 import fr.gameblack.rcuhcv2.roles.uhc.Malivol;
 import fr.gameblack.rcuhcv2.roles.uhc.Toinou;
+import fr.gameblack.rcuhcv2.task.ItemCD;
 import fr.gameblack.rcuhcv2.roles.uhc.Obscur;
 import fr.gameblack.rcuhcv2.roles.uhc.Nonoboy;
 import fr.gameblack.rcuhcv2.roles.solo.Farmeurimmo;
@@ -734,12 +735,14 @@ public class Joueur {
 		
 	}
 	
-    public void Stun(int timer) {
+    public void Stun(int timer, Main main) {
 
         player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, timer*20, 100, false, false));
         player.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, timer*20, 100, false, false));
         player.addPotionEffect(new PotionEffect(PotionEffectType.JUMP, timer*20, 250, false, false));
         invulnerable = true;
+        ItemCD cycle = new ItemCD(main, this, "stun", timer, this, null, null, null);
+        cycle.runTaskTimer(main, 0, 20);
 
     }
 	

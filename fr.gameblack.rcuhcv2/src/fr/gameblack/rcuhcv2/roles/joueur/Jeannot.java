@@ -15,6 +15,7 @@ public class Jeannot {
 	public static void Items(Joueur joueur) {
 		
 		Texte(joueur.getPlayer());
+		joueur.addForce(0.03);
 		
 	}
 	

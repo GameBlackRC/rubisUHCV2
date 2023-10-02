@@ -59,6 +59,13 @@ public class ItemCD extends BukkitRunnable {
 
         if (timer == 0) {
             cancel();
+            
+            if (item == "stun") {
+
+                cible.setInvulnerable(false);
+                
+            }
+            
             if (item == "foudre_malus") {
 
                 joueur.setMalusOrbe(false);
@@ -208,15 +215,15 @@ public class ItemCD extends BukkitRunnable {
             		
             	} else if(item == "force_raptor") {
             		
-            		joueur.removeForce(0.10);
+            		joueur.removeForce(0.05);
             		
             	} else if(item == "5_force_raptor") {
             		
-            		joueur.removeForce(0.05);
+            		joueur.removeForce(0.03);
             		
             	} else if(item == "resi_raptor") {
             		
-            		joueur.removeResi(0.05);
+            		joueur.removeResi(0.03);
             		
             	} else if(item == "speed_raptor") {
             		
@@ -224,7 +231,7 @@ public class ItemCD extends BukkitRunnable {
             		
             	} else if(item == "rage_raptor") {
             		
-            		joueur.removeForce(0.15);
+            		joueur.removeForce(0.7);
             		joueur.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION,400,0));
             		
             	}
@@ -300,10 +307,6 @@ public class ItemCD extends BukkitRunnable {
                         player.sendMessage("Tu peux voler 3% de force ou de résistance à " + main.getJokoStun().get(0).getPlayer().getName() + " (pour choisir fait la commande /rcsteal <force|resi|resistance>)");
 
                     }
-
-                } else if (item == "stun") {
-
-                    cible.setInvulnerable(false);
 
                 } else if (item == "givecube") {
 

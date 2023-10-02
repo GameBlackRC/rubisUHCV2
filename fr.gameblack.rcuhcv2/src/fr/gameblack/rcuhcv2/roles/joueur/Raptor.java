@@ -33,7 +33,7 @@ public class Raptor {
 	
 	public static void ItemRage(Joueur joueur, Main main) {
 		
-		joueur.addForce(0.10);
+		joueur.addForce(0.7);
 		ItemCD cycle = new ItemCD(main, joueur, "rage_raptor", 60, joueur, null, null, null);
         cycle.runTaskTimer(main, 0, 20);
 		
@@ -60,7 +60,7 @@ public class Raptor {
         else if(nb <= 35) {
         	
         	//10% de force pendant 1min
-        	joueur.addForce(0.10);
+        	joueur.addForce(0.05);
         	ItemCD cycle = new ItemCD(main, joueur, "force_raptor", 60, joueur, null, null, null);
             cycle.runTaskTimer(main, 0, 20);
         	
@@ -68,7 +68,7 @@ public class Raptor {
         else if(nb <= 55) {
         	
         	//5% de force pendant 1min
-        	joueur.addForce(0.05);
+        	joueur.addForce(0.03);
         	ItemCD cycle = new ItemCD(main, joueur, "5_force_raptor", 60, joueur, null, null, null);
             cycle.runTaskTimer(main, 0, 20);
         	
@@ -76,7 +76,7 @@ public class Raptor {
         else if(nb <= 75) {
         	
         	//5% de resi pendant 1min
-        	joueur.addResi(0.05);
+        	joueur.addResi(0.03);
         	ItemCD cycle = new ItemCD(main, joueur, "resi_raptor", 60, joueur, null, null, null);
             cycle.runTaskTimer(main, 0, 20);
         	
