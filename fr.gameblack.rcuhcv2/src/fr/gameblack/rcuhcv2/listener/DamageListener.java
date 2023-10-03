@@ -2,7 +2,9 @@ package fr.gameblack.rcuhcv2.listener;
 
 import java.util.Random;
 
+import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
+import org.bukkit.Location;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -34,15 +36,83 @@ public class DamageListener implements Listener {
 	
 	public static void Mort(Joueur joueur, Joueur tueur, EntityDamageByEntityEvent event, Main main) {
 		
-		if(tueur.getRole() == Roles.TRIAL && tueur.getModeTrial() == "serieux") {
+		if(joueur.getRole() == Roles.TRIAL && tueur.getRole() == Roles.KZOU && !joueur.isRespawnTrial()) {
 			
-			tueur.addForce(0.02);
+			joueur.setRespawnTrial(true);
 			
-			if(tueur.getCamp() == "duo" && main.getJoueurByRole(Roles.SLUP) != null) {
+			Random r = new Random();
+            int signe_x = r.nextInt(2);
+            int signe_y = r.nextInt(2);
+            int cos_x = r.nextInt(400);
+            cos_x += 200;
+            if (signe_x == 1) {
+                cos_x = -cos_x;
+            }
+
+            int cos_y = r.nextInt(400);
+            cos_y += 200;
+            if (signe_y == 1) {
+                cos_y = -cos_y;
+            }
+			
+			joueur.getPlayer().teleport(new Location(Bukkit.getWorld("world"), cos_x, 100, cos_y));
+			joueur.getPlayer().setMaxHealth(10);
+			joueur.getPlayer().setHealth(10);
+			
+			return;
+			
+		}
+		
+		if(joueur.getRole() == Roles.LOUP && main.getJoueurByRole(Roles.TRIAL) != null) {
+			
+			if(tueur.getCamp().equalsIgnoreCase("uhc")) {
+				
+				Joueur trial = main.getJoueurByRole(Roles.TRIAL);
 				
 				Joueur slup = main.getJoueurByRole(Roles.SLUP);
 				
-				slup.addForce(0.02);
+				if(trial.getCamp() == "duo" || (slup != null && slup.getPacteSlup() == 2 && ((main.getTemps() <= 600 && main.getEpisode() <= 3 && main.getMode() == "normal") || (main.getEpisode() < 2 && main.getMode() == "rapide")))) {
+					
+					if(trial.getCamp() == "duo") {
+						
+						trial.getPlayer().sendMessage("Un joueur du camp UHC vient de tuer Loup. Voici son pseudo : " + tueur.getPlayer().getName());
+						tueur.getPlayer().sendMessage("Trial vient de rejoindre votre camp. Pseudo de Trial : " + trial.getPlayer().getName());
+						
+					}
+					else {
+						
+						trial.getPlayer().sendMessage("Loup vient de mourrir. Vous devez désormais gagner avec Slup. Le tueur de Loup appartient au camp uhc, voici son pseudo : " + tueur.getPlayer().getName());
+						trial.setCamp("duo");
+						
+					}
+					
+				}
+				else {
+					
+					trial.setCamp("uhc");
+					trial.getPlayer().sendMessage("Un joueur du camp UHC vient de tuer Loup. Vous devez donc gagnez avec le camp UHC\nPseudo du tueur de Loup : " + tueur.getPlayer().getName());
+					tueur.getPlayer().sendMessage("Trial vient de rejoindre votre camp. Pseudo de Trial : " + trial.getPlayer().getName());
+					
+				}
+				
+			}
+			
+			
+		}
+		
+		if(tueur.getRole() == Roles.TRIAL) {
+			
+			if(tueur.getModeTrial() == "serieux") {
+			
+				tueur.addForce(0.02);
+				
+				if(tueur.getCamp() == "duo" && main.getJoueurByRole(Roles.SLUP) != null) {
+					
+					Joueur slup = main.getJoueurByRole(Roles.SLUP);
+					
+					slup.addForce(0.02);
+					
+				}
 				
 			}
 			

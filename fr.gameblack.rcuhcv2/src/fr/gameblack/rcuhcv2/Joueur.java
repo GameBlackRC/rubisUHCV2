@@ -74,6 +74,7 @@ public class Joueur {
 	private int cube = 0;
 	private boolean opKzou = false;
 	private boolean mort = false;
+	private boolean respawnTrial = false;
 
 	public Joueur(Player player) {
 		
@@ -128,6 +129,7 @@ public class Joueur {
 		cube = 0;
 		opKzou = false;
 		mort = false;
+		setRespawnTrial(false);
 		
 	}
 	
@@ -802,6 +804,14 @@ public class Joueur {
 
 	public void setMort(boolean mort) {
 		this.mort = mort;
+	}
+
+	public boolean isRespawnTrial() {
+		return respawnTrial;
+	}
+
+	public void setRespawnTrial(boolean respawnTrial) {
+		this.respawnTrial = respawnTrial;
 	}
 	
 }
