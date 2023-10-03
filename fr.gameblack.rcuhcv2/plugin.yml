@@ -26,6 +26,9 @@ commands:
     description: Null
   rcserveur:
     description: Commande du role Loup
+  createworld:
+    description: Permet de générer un nouveau monde
+    permission: rcuhcv2.createworld
   setrole:
     description: Permet de donner un role
     permission: rcuhcv2.setrole

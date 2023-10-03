@@ -3,6 +3,7 @@ package fr.gameblack.rcuhcv2;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
+import org.bukkit.World;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemFlag;
@@ -11,6 +12,7 @@ import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import fr.gameblack.rcuhcv2.commands.admin.CommandCreateWorld;
 import fr.gameblack.rcuhcv2.commands.admin.CommandEpisode;
 import fr.gameblack.rcuhcv2.commands.admin.CommandRandom;
 import fr.gameblack.rcuhcv2.commands.admin.CommandSetOrbe;
@@ -62,6 +64,7 @@ public class Main extends JavaPlugin {
     private boolean fermetureGolden = false;
     private boolean fermetureGoldenActif = false;
     private List<Joueur> joko_stun = new ArrayList<>();
+    private World world = null;
     
     @Override
     public void onEnable() {
@@ -102,6 +105,7 @@ public class Main extends JavaPlugin {
     	getCommand("setorbe").setExecutor(new CommandSetOrbe(this));
     	getCommand("setstatut").setExecutor(new CommandSetStatut(this));
     	getCommand("random").setExecutor(new CommandRandom());
+    	getCommand("createworld").setExecutor(new CommandCreateWorld(this));
     	
     	getCommand("compo").setExecutor(new CommandCompo(this));
     	getCommand("rceffet").setExecutor(new CommandEffet(this));
@@ -643,6 +647,14 @@ public class Main extends JavaPlugin {
 
 	public void setJokoStun(List<Joueur> joko_stun) {
 		this.joko_stun = joko_stun;
+	}
+
+	public World getWorld() {
+		return world;
+	}
+
+	public void setWorld(World world) {
+		this.world = world;
 	}
 	
 }

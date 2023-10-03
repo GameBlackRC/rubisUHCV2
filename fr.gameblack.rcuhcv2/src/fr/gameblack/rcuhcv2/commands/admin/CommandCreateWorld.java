@@ -1,5 +1,6 @@
 package fr.gameblack.rcuhcv2.commands.admin;
 
+import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.WorldCreator;
 import org.bukkit.WorldType;
@@ -24,11 +25,16 @@ public class CommandCreateWorld implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command arg1, String arg2, String[] arg3) {
 
         if (sender instanceof Player) {
+        	
+        	sender.sendMessage("Début de la génération du monde");
 
         	WorldCreator world_ = new WorldCreator("uhc").environment(Environment.NORMAL).type(WorldType.NORMAL).generateStructures(true).generator(new CustomChunkGenerator());
         	
         	World world = world_.createWorld();
-            sender.sendMessage("Début de la génération du monde");
+        	
+        	main.setWorld(world);
+        	
+        	Bukkit.broadcastMessage("Génération du monde '" + world.getName() + "' fini");
 
         }
 

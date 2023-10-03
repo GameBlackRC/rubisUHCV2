@@ -6,6 +6,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.World;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -60,6 +61,19 @@ public class Autostart extends BukkitRunnable {
             cos_y += 200;
             if (signe_y == 1) {
                 cos_y = -cos_y;
+            }
+            
+            World world;
+            
+            if(main.getWorld() == null) {
+            	
+            	world = Bukkit.getWorld("world");
+            	
+            }
+            else {
+            	
+            	world = main.getWorld();
+            	
             }
 
             for (Joueur j : main.getListJoueurs()) {
@@ -162,7 +176,7 @@ public class Autostart extends BukkitRunnable {
 	                pls.getInventory().addItem(new ItemStack(Material.IRON_BLOCK, 2));
 	                pls.getInventory().addItem(new ItemStack(Material.WORKBENCH, 1));
 
-	                pls.teleport(new Location(Bukkit.getWorld("world"), cos_x, 100, cos_y));
+	                pls.teleport(new Location(world, cos_x, 100, cos_y));
 	                
             	}
                 else {
@@ -196,7 +210,7 @@ public class Autostart extends BukkitRunnable {
 	                    cos_y = -cos_y;
 	                }
 
-	                pls.teleport(new Location(Bukkit.getWorld("world"), cos_x, 100, cos_y));
+	                pls.teleport(new Location(world, cos_x, 100, cos_y));
                 	
                 }
                 
