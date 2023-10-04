@@ -12,6 +12,7 @@ import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import fr.gameblack.rcuhcv2.commands.admin.CommandCheckWorld;
 import fr.gameblack.rcuhcv2.commands.admin.CommandCreateWorld;
 import fr.gameblack.rcuhcv2.commands.admin.CommandEpisode;
 import fr.gameblack.rcuhcv2.commands.admin.CommandRandom;
@@ -19,6 +20,8 @@ import fr.gameblack.rcuhcv2.commands.admin.CommandSetOrbe;
 import fr.gameblack.rcuhcv2.commands.admin.CommandSetRole;
 import fr.gameblack.rcuhcv2.commands.admin.CommandSetRoleOther;
 import fr.gameblack.rcuhcv2.commands.admin.CommandSetStatut;
+import fr.gameblack.rcuhcv2.commands.admin.CommandSpawnMinerais;
+import fr.gameblack.rcuhcv2.commands.admin.CommandTpWorld;
 import fr.gameblack.rcuhcv2.commands.game.CommandCompo;
 import fr.gameblack.rcuhcv2.commands.game.CommandEffet;
 import fr.gameblack.rcuhcv2.commands.game.CommandOrbe;
@@ -106,6 +109,9 @@ public class Main extends JavaPlugin {
     	getCommand("setstatut").setExecutor(new CommandSetStatut(this));
     	getCommand("random").setExecutor(new CommandRandom());
     	getCommand("createworld").setExecutor(new CommandCreateWorld(this));
+    	getCommand("spawnminerais").setExecutor(new CommandSpawnMinerais(this));
+    	getCommand("tpworld").setExecutor(new CommandTpWorld(this));
+    	getCommand("checkworld").setExecutor(new CommandCheckWorld(this));
     	
     	getCommand("compo").setExecutor(new CommandCompo(this));
     	getCommand("rceffet").setExecutor(new CommandEffet(this));
@@ -137,6 +143,12 @@ public class Main extends JavaPlugin {
     	
     	System.out.println("Le plugin viens de s'allumer");
     	setState(Statut.WAITING);
+    	
+    	if(Bukkit.getWorld("uhc") != null) {
+    		
+    		world = Bukkit.getWorld("uhc");
+    		
+    	}
     	
     }
     

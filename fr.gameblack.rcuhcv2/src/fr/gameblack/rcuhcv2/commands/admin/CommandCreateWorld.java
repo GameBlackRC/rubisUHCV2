@@ -28,13 +28,26 @@ public class CommandCreateWorld implements CommandExecutor {
         	
         	sender.sendMessage("Début de la génération du monde");
 
-        	WorldCreator world_ = new WorldCreator("uhc").environment(Environment.NORMAL).type(WorldType.NORMAL).generateStructures(true).generator(new CustomChunkGenerator());
+        	WorldCreator world_ = new WorldCreator("uhc");
         	
-        	World world = world_.createWorld();
+        	world_.environment(Environment.NORMAL);
+        	world_.type(WorldType.NORMAL);
+        	world_.generateStructures(true);
+        	world_.generator(new CustomChunkGenerator());
+        	
+        	Bukkit.createWorld(world_);
+        	
+        	World world = Bukkit.getWorld("uhc");
         	
         	main.setWorld(world);
         	
         	Bukkit.broadcastMessage("Génération du monde '" + world.getName() + "' fini");
+        	
+        	world.save();
+        	
+        	Bukkit.unloadWorld(world, true);
+        	
+        	Bukkit.getServer().spigot().restart();
 
         }
 

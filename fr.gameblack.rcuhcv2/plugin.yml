@@ -29,6 +29,15 @@ commands:
   createworld:
     description: Permet de générer un nouveau monde
     permission: rcuhcv2.createworld
+  spawnminerais:
+    description: Permet de faire apparaître un minerais
+    permission: rcuhcv2.spawnminerais
+  tpworld:
+    description: Permet de changer de monde
+    permission: rcuhcv2.tpworld
+  checkworld:
+    description: Permet de voir dans quel monde le joueur est
+    permission: rcuhcv2.checkworld
   setrole:
     description: Permet de donner un role
     permission: rcuhcv2.setrole
