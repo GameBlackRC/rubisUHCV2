@@ -163,6 +163,22 @@ public class Joueur {
 		
 	}
 	
+	public boolean isProche(Roles role, Main main) {
+		
+		for(Joueur joueur : main.getListJoueurs()) {
+			
+			if(joueur.getRole() == role) {
+				
+				return true;
+				
+			}
+			
+		}
+		
+		return false;
+		
+	}
+	
 	public void setRole(Roles role) {
 		
 		this.role = role;

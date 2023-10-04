@@ -237,10 +237,19 @@ public class DamageListener implements Listener {
                 else if(tueur != joueur) {
                 	
                 	double damage_strenght = (event.getDamage(DamageModifier.BASE)*(tueur.getForce()/100))*0.9;
-                    double armure = event.getDamage(DamageModifier.ARMOR)*0.9;
+                    double armure = event.getDamage(DamageModifier.ARMOR)*0.85;
                     event.setDamage(DamageModifier.BASE, damage_strenght);
                     event.setDamage(DamageModifier.ARMOR,armure);
-                    double resi = event.getDamage(DamageModifier.BASE)*((joueur.getResi()/100)-1);
+                    
+                    double res = joueur.getResi();
+                    
+                    if((main.getJoueurByRole(Roles.TEAM) != null && main.getJoueurByRole(Roles.FARMEURIMMO) != null) && main.getJoueurByRole(Roles.TEAM).isProche(Roles.FARMEURIMMO, main)) {
+                    
+                    	res *= 1.02;
+                    
+                    }
+                    
+                    double resi = event.getDamage(DamageModifier.BASE)*((res/100)-1);
                     event.setDamage(DamageModifier.RESISTANCE, -resi);
                 	
                 }

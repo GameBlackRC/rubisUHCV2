@@ -15,6 +15,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import fr.gameblack.rcuhcv2.commands.admin.CommandCheckWorld;
 import fr.gameblack.rcuhcv2.commands.admin.CommandCreateWorld;
 import fr.gameblack.rcuhcv2.commands.admin.CommandEpisode;
+import fr.gameblack.rcuhcv2.commands.admin.CommandFermetureGolden;
 import fr.gameblack.rcuhcv2.commands.admin.CommandRandom;
 import fr.gameblack.rcuhcv2.commands.admin.CommandSetOrbe;
 import fr.gameblack.rcuhcv2.commands.admin.CommandSetRole;
@@ -25,6 +26,7 @@ import fr.gameblack.rcuhcv2.commands.admin.CommandTpWorld;
 import fr.gameblack.rcuhcv2.commands.game.CommandCompo;
 import fr.gameblack.rcuhcv2.commands.game.CommandEffet;
 import fr.gameblack.rcuhcv2.commands.game.CommandOrbe;
+import fr.gameblack.rcuhcv2.commands.host.CommandAddAllRole;
 import fr.gameblack.rcuhcv2.commands.host.CommandAddrole;
 import fr.gameblack.rcuhcv2.commands.host.CommandCreate;
 import fr.gameblack.rcuhcv2.commands.host.CommandRemoverole;
@@ -112,11 +114,13 @@ public class Main extends JavaPlugin {
     	getCommand("spawnminerais").setExecutor(new CommandSpawnMinerais(this));
     	getCommand("tpworld").setExecutor(new CommandTpWorld(this));
     	getCommand("checkworld").setExecutor(new CommandCheckWorld(this));
+    	getCommand("fermeturegolden").setExecutor(new CommandFermetureGolden(this));
     	
     	getCommand("compo").setExecutor(new CommandCompo(this));
     	getCommand("rceffet").setExecutor(new CommandEffet(this));
     	getCommand("rcorbe").setExecutor(new CommandOrbe(this));
     	
+    	getCommand("addallrole").setExecutor(new CommandAddAllRole(this));
     	getCommand("addrole").setExecutor(new CommandAddrole(this));
     	getCommand("create").setExecutor(new CommandCreate(this));
     	getCommand("removerole").setExecutor(new CommandRemoverole(this));
@@ -147,6 +151,12 @@ public class Main extends JavaPlugin {
     	if(Bukkit.getWorld("uhc") != null) {
     		
     		world = Bukkit.getWorld("uhc");
+    		
+    	}
+    	
+    	for(Player player : Bukkit.getOnlinePlayers()) {
+    		
+    		addJoueur(player);
     		
     	}
     	

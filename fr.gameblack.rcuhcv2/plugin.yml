@@ -26,6 +26,9 @@ commands:
     description: Null
   rcserveur:
     description: Commande du role Loup
+  fermeturegolden:
+    description: Permet d'activer l'évènement "Fermeture de golden"
+    permission: rcuhcv2.fermeturegolden
   createworld:
     description: Permet de générer un nouveau monde
     permission: rcuhcv2.createworld
@@ -62,6 +65,8 @@ commands:
     description: Permet de voir ses pourcentage d'effets
   rcorbe:
     description: Permet de désactiver/activer son orbe
+  addallrole:
+    description: Permet d'ajouter tous les rôles fonctionnel à la compo
   addrole:
     description: Permet d'ajouter un role à la compo (Commande host)
   create:

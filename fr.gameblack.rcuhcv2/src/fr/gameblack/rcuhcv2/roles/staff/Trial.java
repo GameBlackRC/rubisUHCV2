@@ -24,8 +24,8 @@ public class Trial {
 	
 	public static void ItemsSerieux(Joueur joueur) {
 		
-		joueur.addResi(0.03);
-		joueur.addSpeed(0.1);
+		joueur.addResi(0.02);
+		joueur.addSpeed(0.03);
 		
 	}
 	
