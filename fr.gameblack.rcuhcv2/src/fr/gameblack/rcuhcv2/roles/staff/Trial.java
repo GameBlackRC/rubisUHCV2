@@ -103,6 +103,8 @@ public class Trial {
         if(nb == 0) {
         	
         	main.setJeuTrial("soleil");
+        	main.getJoueurJeuTrial().add(joueur);
+        	main.getJoueurJeuTrial().add(cible);
         	JeuCD cycle = new JeuCD(main, joueur, cible, "soleil", 60);
             cycle.runTaskTimer(main, 0, 20);
             joueur.getPlayer().sendMessage("soleil");
@@ -111,6 +113,8 @@ public class Trial {
         else if(nb == 1) {
         	
         	main.setJeuTrial("takaoni");
+        	main.getJoueurJeuTrial().add(joueur);
+        	main.getJoueurJeuTrial().add(cible);
         	JeuCD cycle = new JeuCD(main, joueur, cible, "takaoni", 18);
             cycle.runTaskTimer(main, 0, 20);
             joueur.getPlayer().sendMessage("takaoni");
@@ -119,6 +123,8 @@ public class Trial {
         else {
         	
         	main.setJeuTrial("reflex");
+        	main.getJoueurJeuTrial().add(joueur);
+        	main.getJoueurJeuTrial().add(cible);
         	JeuCD cycle = new JeuCD(main, joueur, cible, "reflex", 30);
             cycle.runTaskTimer(main, 0, 20);
             joueur.getPlayer().sendMessage("reflex");

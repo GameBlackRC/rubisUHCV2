@@ -109,6 +109,7 @@ public class PlayerActionListener implements Listener{
         			List<Joueur> joueurs = main.getJoueurJeuTrial();
         			joueurs.remove(joueur);
         			Trial.FinJeuSoleil(joueurs.get(0), joueur, main);
+        			main.getJoueurJeuTrial().clear();
         			
         		}
         		

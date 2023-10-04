@@ -237,7 +237,7 @@ public class DamageListener implements Listener {
                 else if(tueur != joueur) {
                 	
                 	double damage_strenght = (event.getDamage(DamageModifier.BASE)*(tueur.getForce()/100))*0.9;
-                    double armure = event.getDamage(DamageModifier.ARMOR);
+                    double armure = event.getDamage(DamageModifier.ARMOR)*0.9;
                     event.setDamage(DamageModifier.BASE, damage_strenght);
                     event.setDamage(DamageModifier.ARMOR,armure);
                     double resi = event.getDamage(DamageModifier.BASE)*((joueur.getResi()/100)-1);

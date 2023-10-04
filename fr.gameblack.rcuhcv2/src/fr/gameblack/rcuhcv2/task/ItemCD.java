@@ -52,64 +52,7 @@ public class ItemCD extends BukkitRunnable {
     @Override
     public void run() {
     	
-    	if (item == "mort") {
-
-                if (joueur.getRole() == Roles.KZOU) {
-
-                    if (joueur.isOpKzou()) {
-
-                    	joueur.setOpKzou(false);
-                        main.eliminate(cible, true);
-
-                    } else {
-
-                        main.eliminate(cible, false);
-
-                    }
-
-                } else {
-
-                    main.eliminate(cible, false);
-
-                }
-
-	            for (ItemStack item : cible.getPlayer().getInventory().getContents()) {
-	
-	            	if (item != null && item.getType() != Material.NETHER_STAR) {
-	
-	            		if (item.getItemMeta().hasEnchant(Enchantment.DEPTH_STRIDER)) {
-	
-	            			ItemMeta itemM = item.getItemMeta();
-	                        itemM.removeEnchant(Enchantment.DEPTH_STRIDER);
-	                        item.setItemMeta(itemM);
-	
-	            		}
-	
-	                    if (item.getItemMeta().hasEnchant(Enchantment.FIRE_ASPECT)) {
-	
-	                    	ItemMeta itemM = item.getItemMeta();
-	                        itemM.removeEnchant(Enchantment.FIRE_ASPECT);
-	                        item.setItemMeta(itemM);
-	
-	                    }
-	
-	                    if (item.getItemMeta().hasEnchant(Enchantment.ARROW_FIRE)) {
-	
-	                    	ItemMeta itemM = item.getItemMeta();
-	                        itemM.removeEnchant(Enchantment.ARROW_FIRE);
-	                        item.setItemMeta(itemM);
-	
-	                    }
-	
-	                    cible.getPlayer().getWorld().dropItemNaturally(loc, item);
-	
-	                }
-	
-	            }
-
-                DamageListener.Mort(cible, joueur, event, main);
-
-        } else if(item == "soleil_trial") {
+    	if(item == "soleil_trial" && timer == 285) {
         	
         	cible.addSpeed(0.05);
         	
@@ -117,6 +60,65 @@ public class ItemCD extends BukkitRunnable {
 
         if (timer == 0) {
             cancel();
+            
+            if (item == "mort") {
+
+        		if (joueur.getRole() == Roles.KZOU) {
+
+        			if (joueur.isOpKzou()) {
+
+        				joueur.setOpKzou(false);
+                        main.eliminate(cible, true);
+
+        			} else {
+
+        				main.eliminate(cible, false);
+
+                    }
+
+        		} else {
+
+                    main.eliminate(cible, false);
+
+                }
+
+    	        for (ItemStack item : cible.getPlayer().getInventory().getContents()) {
+    	
+    	        	if (item != null && item.getType() != Material.NETHER_STAR) {
+    	
+    	        		if (item.getItemMeta().hasEnchant(Enchantment.DEPTH_STRIDER)) {
+    	
+    	        			ItemMeta itemM = item.getItemMeta();
+    	                    itemM.removeEnchant(Enchantment.DEPTH_STRIDER);
+    	                    item.setItemMeta(itemM);
+    	
+    	            	}
+    	
+    	                if (item.getItemMeta().hasEnchant(Enchantment.FIRE_ASPECT)) {
+    	
+    	                   	ItemMeta itemM = item.getItemMeta();
+    	                    itemM.removeEnchant(Enchantment.FIRE_ASPECT);
+    	                    item.setItemMeta(itemM);
+    	
+    	                }
+    	
+    	                if (item.getItemMeta().hasEnchant(Enchantment.ARROW_FIRE)) {
+    	
+    	                   	ItemMeta itemM = item.getItemMeta();
+    	                    itemM.removeEnchant(Enchantment.ARROW_FIRE);
+    	                    item.setItemMeta(itemM);
+    	
+    	                }
+    	
+    	                cible.getPlayer().getWorld().dropItemNaturally(loc, item);
+    	
+    	        	}
+    	
+    	        }
+
+                DamageListener.Mort(cible, joueur, event, main);
+
+            }
             
             if (item == "stun") {
 
@@ -362,7 +364,7 @@ public class ItemCD extends BukkitRunnable {
                     player.sendMessage("Ton pouvoir est fini");
                     if (!main.getJokoStun().isEmpty()) {
 
-                        player.sendMessage("Tu peux voler 3% de force ou de résistance à " + main.getJokoStun().get(0).getPlayer().getName() + " (pour choisir fait la commande /rcsteal <force|resi|resistance>)");
+                        player.sendMessage("Tu peux voler 1% de force ou de résistance à " + main.getJokoStun().get(0).getPlayer().getName() + " (pour choisir fait la commande /rcsteal <force|resi|resistance>)");
 
                     }
 
