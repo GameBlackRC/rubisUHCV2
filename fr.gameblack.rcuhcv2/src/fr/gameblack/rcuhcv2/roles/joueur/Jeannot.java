@@ -37,6 +37,7 @@ public class Jeannot {
 			if(allie.getRole() == Roles.NICKOBOOP && allie.getPlayer().hasPotionEffect(PotionEffectType.ABSORPTION)) {
 				
 				if(allie.isAbsoOn()) {
+					allie.getPlayer().removePotionEffect(PotionEffectType.ABSORPTION);
 					allie.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.ABSORPTION, 2400, 1));
 				}
 				

@@ -75,6 +75,8 @@ public class Joueur {
 	private boolean opKzou = false;
 	private boolean mort = false;
 	private boolean respawnTrial = false;
+	private boolean choixGbCamp = false;
+	private boolean checkMalusEau = true;
 
 	public Joueur(Player player) {
 		
@@ -828,6 +830,22 @@ public class Joueur {
 
 	public void setRespawnTrial(boolean respawnTrial) {
 		this.respawnTrial = respawnTrial;
+	}
+
+	public boolean isChoixGbCamp() {
+		return choixGbCamp;
+	}
+
+	public void setChoixGbCamp(boolean choixGbCamp) {
+		this.choixGbCamp = choixGbCamp;
+	}
+
+	public boolean isCheckMalusEau() {
+		return checkMalusEau;
+	}
+
+	public void setCheckMalusEau(boolean checkMalusEau) {
+		this.checkMalusEau = checkMalusEau;
 	}
 	
 }

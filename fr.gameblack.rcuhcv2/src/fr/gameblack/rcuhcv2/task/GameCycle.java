@@ -1523,6 +1523,39 @@ public class GameCycle extends BukkitRunnable {
         
         if(timer % 10 == 0) {
         	
+        	if(main.getJoueurByRole(Roles.GAMEBLACK) != null && !main.getJoueurByRole(Roles.GAMEBLACK).isChoixGbCamp()) {
+        		
+        		Joueur gameblack = main.getJoueurByRole(Roles.GAMEBLACK);
+        		
+        		if(main.getJoueurByRole(Roles.MALIVOL) == null) {
+        			
+        			gameblack.setChoixGbCamp(true);
+        			
+        		}
+        		else if(main.getJoueurByRole(Roles.TEAM) == null && main.getJoueurByRole(Roles.MAKA) == null) {
+        			
+        			gameblack.setChoixGbCamp(true);
+        			gameblack.setCamp("uhc");
+        			
+        		}
+        		else {
+        			
+        			if(gameblack.isProche(Roles.MALIVOL, main)) {
+        				
+        				gameblack.setChoixGbCamp(true);
+        				gameblack.setCamp("uhc");
+        				
+        			}
+        			else if(gameblack.isProche(Roles.MAKA, main) || gameblack.isProche(Roles.TEAM, main)) {
+        				
+        				gameblack.setChoixGbCamp(true);
+        				
+        			}
+        			
+        		}
+        		
+        	}
+        	
         	if(main.getJoueurByRole(Roles.NICKOBOOP) != null && main.getJoueurByRole(Roles.JEANNOT) != null) {
         		
         		Nickoboop.checkProcheJeannot(main.getJoueurByRole(Roles.NICKOBOOP), main);

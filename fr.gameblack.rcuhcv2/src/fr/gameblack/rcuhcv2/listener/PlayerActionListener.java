@@ -1,6 +1,7 @@
 package fr.gameblack.rcuhcv2.listener;
 
 import java.util.List;
+import java.util.Random;
 
 import org.bukkit.GameMode;
 import org.bukkit.Material;
@@ -23,6 +24,7 @@ import fr.gameblack.rcuhcv2.Statut;
 import fr.gameblack.rcuhcv2.orbes.Feu;
 import fr.gameblack.rcuhcv2.roles.joueur.Jeannot;
 import fr.gameblack.rcuhcv2.roles.staff.Trial;
+import fr.gameblack.rcuhcv2.task.ItemCD;
 
 public class PlayerActionListener implements Listener{
 	
@@ -118,9 +120,22 @@ public class PlayerActionListener implements Listener{
 	        Material m = e.getPlayer().getLocation().getBlock().getType();
 	        if (m == Material.STATIONARY_WATER || m == Material.WATER) {
 	
-	            if (joueur.getOrbe() == Orbe.FEU && !joueur.isMalusOrbeActif() && joueur.isOrbeActif()) {
+	            if (joueur.getOrbe() == Orbe.FEU && !joueur.isMalusOrbeActif() && joueur.isOrbeActif() && !joueur.isCheckMalusEau()) {
 	
-	                Feu.Malus(joueur, main);
+	            	Random r = new Random();
+                    int nb = r.nextInt(100);
+                    
+                    if(nb <= 20) {
+	            	
+                    	Feu.Malus(joueur, main);
+	                
+                    }
+                    else {
+                    	
+                    	ItemCD cycle = new ItemCD(main, joueur, "check_malus_feu", 2, joueur, null, null, null, null);
+                        cycle.runTaskTimer(main, 0, 20);
+                    	
+                    }
 	
 	            }
 	

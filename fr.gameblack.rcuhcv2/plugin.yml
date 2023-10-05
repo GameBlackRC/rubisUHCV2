@@ -26,6 +26,8 @@ commands:
     description: Null
   rcserveur:
     description: Commande du role Loup
+  rcchangeorbe:
+    description: Commande du rôle GameBlack
   fermeturegolden:
     description: Permet d'activer l'évènement "Fermeture de golden"
     permission: rcuhcv2.fermeturegolden

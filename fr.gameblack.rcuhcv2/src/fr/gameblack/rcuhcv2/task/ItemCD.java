@@ -120,6 +120,12 @@ public class ItemCD extends BukkitRunnable {
 
             }
             
+            if(item == "check_malus_feu") {
+            	
+            	joueur.setCheckMalusEau(false);
+            	
+            }
+            
             if (item == "stun") {
 
                 cible.setInvulnerable(false);

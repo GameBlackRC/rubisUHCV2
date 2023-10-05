@@ -11,6 +11,7 @@ import org.bukkit.inventory.ItemStack;
 
 import fr.gameblack.rcuhcv2.Joueur;
 import fr.gameblack.rcuhcv2.Main;
+import fr.gameblack.rcuhcv2.Orbe;
 import fr.gameblack.rcuhcv2.roles.joueur.Slup;
 
 public class InventoryInteractListener implements Listener {
@@ -128,6 +129,50 @@ public class InventoryInteractListener implements Listener {
         			
         			Slup.choixPacte2(joueur);
         			joueur.getPlayer().sendMessage("Vous avez choisi le pacte 2");
+        			
+        			break;
+        			
+        		default:
+        			break;
+        	
+        	}
+        	
+        } else if(inv.getName().equalsIgnoreCase("§8Choix de l'orbe")) {
+        	
+        	event.setCancelled(true);
+        	Joueur joueur = main.getJoueur(player);
+        	
+        	switch (current.getType()) {
+        	
+        		case WATER_BUCKET:
+        			
+        			joueur.setOrbe(Orbe.EAU);
+        			joueur.setStatutOrbe(false);
+        			joueur.getPlayer().sendMessage("Vous avez choisi l'orbe d'eau");
+        			
+        			break;
+        			
+        		case LAVA_BUCKET:
+        			
+        			joueur.setOrbe(Orbe.FEU);
+        			joueur.setStatutOrbe(false);
+        			joueur.getPlayer().sendMessage("Vous avez choisi l'orbe de feu");
+        			
+        			break;
+        			
+        		case REDSTONE_BLOCK:
+        			
+        			joueur.setOrbe(Orbe.FOUDRE);
+        			joueur.setStatutOrbe(false);
+        			joueur.getPlayer().sendMessage("Vous avez choisi l'orbe de foudre");
+        			
+        			break;
+        			
+        		case ICE:
+        			
+        			joueur.setOrbe(Orbe.GLACE);
+        			joueur.setStatutOrbe(false);
+        			joueur.getPlayer().sendMessage("Vous avez choisi l'orbe de glace");
         			
         			break;
         			
