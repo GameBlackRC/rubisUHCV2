@@ -77,6 +77,7 @@ public class Joueur {
 	private boolean respawnTrial = false;
 	private boolean choixGbCamp = false;
 	private boolean checkMalusEau = true;
+	private boolean consoleGBActif = false;
 
 	public Joueur(Player player) {
 		
@@ -846,6 +847,14 @@ public class Joueur {
 
 	public void setCheckMalusEau(boolean checkMalusEau) {
 		this.checkMalusEau = checkMalusEau;
+	}
+
+	public boolean isConsoleGBActif() {
+		return consoleGBActif;
+	}
+
+	public void setConsoleGBActif(boolean consoleGBActif) {
+		this.consoleGBActif = consoleGBActif;
 	}
 	
 }

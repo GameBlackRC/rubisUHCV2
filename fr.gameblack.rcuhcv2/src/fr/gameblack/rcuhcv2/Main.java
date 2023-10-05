@@ -38,6 +38,8 @@ import fr.gameblack.rcuhcv2.commands.joueur.nickoboop.CommandPapier;
 import fr.gameblack.rcuhcv2.commands.joueur.slup.CommandTrial;
 import fr.gameblack.rcuhcv2.commands.solo.farmeurimmo.CommandRCCode;
 import fr.gameblack.rcuhcv2.commands.staff.gameblack.CommandChangeOrbe;
+import fr.gameblack.rcuhcv2.commands.staff.gameblack.CommandCheckOrbe;
+import fr.gameblack.rcuhcv2.commands.staff.gameblack.CommandConsole;
 import fr.gameblack.rcuhcv2.commands.staff.loup.CommandServeur;
 import fr.gameblack.rcuhcv2.commands.staff.trial.CommandFirstReflexGame;
 import fr.gameblack.rcuhcv2.commands.staff.trial.CommandPlay;
@@ -139,6 +141,8 @@ public class Main extends JavaPlugin {
     	getCommand("rcsacrifice").setExecutor(new CommandSacrifice(this));
     	getCommand("rcserveur").setExecutor(new CommandServeur(this));
     	getCommand("rcchangeorbe").setExecutor(new CommandChangeOrbe(this));
+    	getCommand("rccheckorbe").setExecutor(new CommandCheckOrbe(this));
+    	getCommand("rcconsole").setExecutor(new CommandConsole(this));
     	
     	getCommand("rchack").setExecutor(new CommandRCCode(this));
     	

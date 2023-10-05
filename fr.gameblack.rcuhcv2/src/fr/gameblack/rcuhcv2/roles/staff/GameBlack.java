@@ -2,14 +2,19 @@ package fr.gameblack.rcuhcv2.roles.staff;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
 import fr.gameblack.rcuhcv2.Joueur;
 import fr.gameblack.rcuhcv2.Main;
 import fr.gameblack.rcuhcv2.Orbe;
+import fr.gameblack.rcuhcv2.Pouvoirs;
+import fr.gameblack.rcuhcv2.task.ItemCD;
 
 public class GameBlack {
 	
@@ -25,6 +30,48 @@ public class GameBlack {
 		
 		joueur.addSpeed(0.05);
 		joueur.getPlayer().getInventory().addItem(orbes);
+		
+	}
+	
+	public static void ItemsUHC(Joueur joueur) {
+		
+		ItemStack coffre = new ItemStack(Material.NETHER_STAR, 1);
+        ItemMeta coffreM = coffre.getItemMeta();
+        coffreM.setDisplayName("Fuite");
+        coffre.setItemMeta(coffreM);
+        joueur.getPlayer().getInventory().addItem(coffre);
+		
+	}
+	
+	public static void InteractFuite(Joueur joueur, Main main) {
+		
+		if(!main.getCD().contains(Pouvoirs.GAMEBLACK_FUITE)) {
+			
+			joueur.setInvulnerable(true);
+			joueur.addSpeed(0.1);
+			for(Entity entity : joueur.getPlayer().getNearbyEntities(10, 10, 10)) {
+				
+				if(entity instanceof Player) {
+					
+					Player p = (Player) entity;
+					
+					p.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 100 , 0));
+					
+				}
+				
+			}
+			
+			main.getCD().add(Pouvoirs.GAMEBLACK_FUITE);
+			
+			ItemCD cycle = new ItemCD(main, joueur, "fuite", 60, joueur, null, null, null, null);
+	        cycle.runTaskTimer(main, 0, 20);
+	        
+		}
+		else {
+			
+			joueur.getPlayer().sendMessage("Ce pouvoir est en cooldown");
+			
+		}
 		
 	}
 	

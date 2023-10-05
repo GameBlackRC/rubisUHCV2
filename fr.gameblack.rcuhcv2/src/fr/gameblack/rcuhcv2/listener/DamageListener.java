@@ -3,6 +3,7 @@ package fr.gameblack.rcuhcv2.listener;
 import java.util.Random;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.entity.Arrow;
@@ -12,6 +13,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.event.entity.EntityDamageEvent.DamageModifier;
 
 import fr.gameblack.rcuhcv2.Joueur;
@@ -35,6 +37,40 @@ public class DamageListener implements Listener {
 	}
 	
 	public static void Mort(Joueur joueur, Joueur tueur, EntityDamageByEntityEvent event, Main main) {
+		
+		if(main.getJoueurByRole(Roles.GAMEBLACK) != null) {
+        	
+        	Joueur gb = main.getJoueurByRole(Roles.GAMEBLACK);
+        	
+        	Random r = new Random();
+            int nb = r.nextInt(100);
+        	
+        	if(joueur.getRole() == Roles.GAMEBLACK && gb.getCamp().equalsIgnoreCase("uhc")) {
+        		
+        		if(nb <= 5) {
+        			
+        			gb.addSpeed(0.01);
+        			
+        		}
+        		
+        	}
+        	
+        	if(main.getJoueurByRole(Roles.GAMEBLACK).isConsoleGBActif()) {
+	            
+	            if(nb <= 10) {
+	            	
+	            	gb.getPlayer().sendMessage("[CONSOLE]" + ChatColor.MAGIC + "aaaaa" + ChatColor.RESET + " vient de tuer " + ChatColor.MAGIC + "aaaaa");
+	            	
+	            }
+	            else {
+	            	
+	            	gb.getPlayer().sendMessage("[CONSOLE]" + tueur.getPlayer().getName() + " vient de tuer " + joueur.getPlayer().getName());
+	            	
+	            }
+	            
+        	}
+        	
+        }
 		
 		if(joueur.getRole() == Roles.TRIAL && tueur.getRole() == Roles.KZOU && !joueur.isRespawnTrial()) {
 			
@@ -148,7 +184,7 @@ public class DamageListener implements Listener {
             
             Joueur tueur = main.getJoueur(killer);
 
-            if (main.getState() == Statut.PVP_ON || (!joueur.isInvulnerable() || !tueur.isInvulnerable())) {
+            if (main.getState() == Statut.PVP_ON && !joueur.isInvulnerable() && !tueur.isInvulnerable()) {
 
             	if(joueur != tueur) {
             		
@@ -282,6 +318,26 @@ public class DamageListener implements Listener {
 
                 }
                 
+                if(main.getJoueurByRole(Roles.GAMEBLACK) != null && main.getJoueurByRole(Roles.GAMEBLACK).isConsoleGBActif()) {
+                	
+                	Joueur gb = main.getJoueurByRole(Roles.GAMEBLACK);
+                	
+                	Random r = new Random();
+                    int nb = r.nextInt(100);
+                    
+                    if(nb <= 80) {
+                    	
+                    	gb.getPlayer().sendMessage("[CONSOLE]" + ChatColor.MAGIC + "aaaaa" + ChatColor.RESET + " vient de mettre un coup à " + ChatColor.MAGIC + "aaaaa");
+                    	
+                    }
+                    else {
+                    	
+                    	gb.getPlayer().sendMessage("[CONSOLE]" + tueur.getPlayer().getName() + " vient de mettre un coup à " + joueur.getPlayer().getName());
+                    	
+                    }
+                	
+                }
+                
                 if (tueur.getRole() == Roles.JOKO && tueur.isJokoItemActif()) {
 
                     if (joueur.getCube() != 0 && !main.getJokoStun().contains(joueur)) {
@@ -338,6 +394,12 @@ public class DamageListener implements Listener {
         	Joueur joueur = main.getJoueur((Player) victim);
         	
         	if(joueur.isInvulnerable()) {
+        		
+        		event.setCancelled(true);
+        		
+        	}
+        	
+        	if(event.getCause() == DamageCause.FALL && joueur.isNofall()) {
         		
         		event.setCancelled(true);
         		

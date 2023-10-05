@@ -57,6 +57,12 @@ public class ItemCD extends BukkitRunnable {
         	cible.addSpeed(0.05);
         	
         }
+    	
+    	if(joueur.getRole() == Roles.GAMEBLACK && item == "fuite" && timer == 58) {
+    		
+    		joueur.setInvulnerable(false);
+    		
+    	}
 
         if (timer == 0) {
             cancel();
@@ -380,6 +386,18 @@ public class ItemCD extends BukkitRunnable {
 
                 }
 
+            } else if(joueur.getRole() == Roles.GAMEBLACK) {
+            	
+            	if(item == "console") {
+            		
+            		joueur.setConsoleGBActif(false);
+            		
+            	} else if(item == "fuite") {
+            		
+            		joueur.removeSpeed(0.1);
+            		
+            	}
+            	
             }
 
         }

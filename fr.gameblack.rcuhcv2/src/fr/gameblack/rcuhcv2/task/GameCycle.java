@@ -23,6 +23,7 @@ import fr.gameblack.rcuhcv2.evenement.FermetureGolden;
 import fr.gameblack.rcuhcv2.orbes.Foudre;
 import fr.gameblack.rcuhcv2.orbes.Glace;
 import fr.gameblack.rcuhcv2.roles.joueur.Nickoboop;
+import fr.gameblack.rcuhcv2.roles.staff.GameBlack;
 
 public class GameCycle extends BukkitRunnable {
 
@@ -1536,6 +1537,7 @@ public class GameCycle extends BukkitRunnable {
         			
         			gameblack.setChoixGbCamp(true);
         			gameblack.setCamp("uhc");
+        			GameBlack.ItemsUHC(gameblack);
         			
         		}
         		else {
@@ -1544,6 +1546,7 @@ public class GameCycle extends BukkitRunnable {
         				
         				gameblack.setChoixGbCamp(true);
         				gameblack.setCamp("uhc");
+        				GameBlack.ItemsUHC(gameblack);
         				
         			}
         			else if(gameblack.isProche(Roles.MAKA, main) || gameblack.isProche(Roles.TEAM, main)) {

@@ -27,6 +27,8 @@ public class CommandRandom implements CommandExecutor {
             TextComponent msg = new TextComponent("");
             msg.addExtra(c);
             ((Player) sender).spigot().sendMessage(msg);
+            
+            sender.sendMessage(ChatColor.MAGIC + "aaaa" + ChatColor.RESET + "aaaa");
 
         }
 

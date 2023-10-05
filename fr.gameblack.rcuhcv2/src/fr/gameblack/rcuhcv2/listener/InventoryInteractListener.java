@@ -12,6 +12,10 @@ import org.bukkit.inventory.ItemStack;
 import fr.gameblack.rcuhcv2.Joueur;
 import fr.gameblack.rcuhcv2.Main;
 import fr.gameblack.rcuhcv2.Orbe;
+import fr.gameblack.rcuhcv2.orbes.Eau;
+import fr.gameblack.rcuhcv2.orbes.Feu;
+import fr.gameblack.rcuhcv2.orbes.Foudre;
+import fr.gameblack.rcuhcv2.orbes.Glace;
 import fr.gameblack.rcuhcv2.roles.joueur.Slup;
 
 public class InventoryInteractListener implements Listener {
@@ -146,6 +150,30 @@ public class InventoryInteractListener implements Listener {
         	
         		case WATER_BUCKET:
         			
+        			if(joueur.getOrbe() == Orbe.EAU && joueur.isOrbeActif()) {
+        				
+        				Eau.RemoveEffets(joueur, main);
+        				
+        			}
+        			
+        			if(joueur.getOrbe() == Orbe.FEU && joueur.isOrbeActif()) {
+        				
+        				Feu.RemoveEffets(joueur, main);
+        				
+        			}
+        			
+        			if(joueur.getOrbe() == Orbe.GLACE && joueur.isOrbeActif()) {
+        				
+        				Glace.RemoveEffets(joueur, main);
+        				
+        			}
+        			
+        			if(joueur.getOrbe() == Orbe.FOUDRE && joueur.isOrbeActif()) {
+        				
+        				Foudre.RemoveEffets(joueur, main);
+        				
+        			}
+        			
         			joueur.setOrbe(Orbe.EAU);
         			joueur.setStatutOrbe(false);
         			joueur.getPlayer().sendMessage("Vous avez choisi l'orbe d'eau");
@@ -153,6 +181,30 @@ public class InventoryInteractListener implements Listener {
         			break;
         			
         		case LAVA_BUCKET:
+        			
+        			if(joueur.getOrbe() == Orbe.EAU && joueur.isOrbeActif()) {
+        				
+        				Eau.RemoveEffets(joueur, main);
+        				
+        			}
+        			
+        			if(joueur.getOrbe() == Orbe.FEU && joueur.isOrbeActif()) {
+        				
+        				Feu.RemoveEffets(joueur, main);
+        				
+        			}
+        			
+        			if(joueur.getOrbe() == Orbe.GLACE && joueur.isOrbeActif()) {
+        				
+        				Glace.RemoveEffets(joueur, main);
+        				
+        			}
+        			
+        			if(joueur.getOrbe() == Orbe.FOUDRE && joueur.isOrbeActif()) {
+        				
+        				Foudre.RemoveEffets(joueur, main);
+        				
+        			}
         			
         			joueur.setOrbe(Orbe.FEU);
         			joueur.setStatutOrbe(false);
@@ -162,6 +214,30 @@ public class InventoryInteractListener implements Listener {
         			
         		case REDSTONE_BLOCK:
         			
+        			if(joueur.getOrbe() == Orbe.EAU && joueur.isOrbeActif()) {
+        				
+        				Eau.RemoveEffets(joueur, main);
+        				
+        			}
+        			
+        			if(joueur.getOrbe() == Orbe.FEU && joueur.isOrbeActif()) {
+        				
+        				Feu.RemoveEffets(joueur, main);
+        				
+        			}
+        			
+        			if(joueur.getOrbe() == Orbe.GLACE && joueur.isOrbeActif()) {
+        				
+        				Glace.RemoveEffets(joueur, main);
+        				
+        			}
+        			
+        			if(joueur.getOrbe() == Orbe.FOUDRE && joueur.isOrbeActif()) {
+        				
+        				Foudre.RemoveEffets(joueur, main);
+        				
+        			}
+        			
         			joueur.setOrbe(Orbe.FOUDRE);
         			joueur.setStatutOrbe(false);
         			joueur.getPlayer().sendMessage("Vous avez choisi l'orbe de foudre");
@@ -169,6 +245,30 @@ public class InventoryInteractListener implements Listener {
         			break;
         			
         		case ICE:
+        			
+        			if(joueur.getOrbe() == Orbe.EAU && joueur.isOrbeActif()) {
+        				
+        				Eau.RemoveEffets(joueur, main);
+        				
+        			}
+        			
+        			if(joueur.getOrbe() == Orbe.FEU && joueur.isOrbeActif()) {
+        				
+        				Feu.RemoveEffets(joueur, main);
+        				
+        			}
+        			
+        			if(joueur.getOrbe() == Orbe.GLACE && joueur.isOrbeActif()) {
+        				
+        				Glace.RemoveEffets(joueur, main);
+        				
+        			}
+        			
+        			if(joueur.getOrbe() == Orbe.FOUDRE && joueur.isOrbeActif()) {
+        				
+        				Foudre.RemoveEffets(joueur, main);
+        				
+        			}
         			
         			joueur.setOrbe(Orbe.GLACE);
         			joueur.setStatutOrbe(false);

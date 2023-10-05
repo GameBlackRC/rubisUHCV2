@@ -68,7 +68,7 @@ public class CommandAddrole implements CommandExecutor {
                     main.getCompo().add(Roles.TEAM);
                     player.sendMessage("Tu as ajouté le rôle Team");
 
-                } else if ((args.length != 0 && args[0].equalsIgnoreCase("gameblack")) && (args.length != 0 && args[0].equalsIgnoreCase("game"))) {
+                } else if ((args.length != 0 && args[0].equalsIgnoreCase("gameblack")) || (args.length != 0 && args[0].equalsIgnoreCase("game"))) {
 
                     //ANTI KB -> A FAIRE
                 	
