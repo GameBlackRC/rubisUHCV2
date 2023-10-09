@@ -13,7 +13,7 @@ import fr.gameblack.rcuhcv2.roles.staff.Loup;
 
 public class CommandServeur implements CommandExecutor {
 	
-private Main main;
+	private Main main;
 	
 	public CommandServeur(Main main) {
 		

@@ -41,6 +41,7 @@ import fr.gameblack.rcuhcv2.commands.staff.gameblack.CommandChangeOrbe;
 import fr.gameblack.rcuhcv2.commands.staff.gameblack.CommandCheckOrbe;
 import fr.gameblack.rcuhcv2.commands.staff.gameblack.CommandConsole;
 import fr.gameblack.rcuhcv2.commands.staff.loup.CommandServeur;
+import fr.gameblack.rcuhcv2.commands.staff.maka.CommandForme;
 import fr.gameblack.rcuhcv2.commands.staff.trial.CommandFirstReflexGame;
 import fr.gameblack.rcuhcv2.commands.staff.trial.CommandPlay;
 import fr.gameblack.rcuhcv2.commands.staff.trial.CommandSacrifice;
@@ -147,6 +148,7 @@ public class Main extends JavaPlugin {
     	getCommand("rcchangeorbe").setExecutor(new CommandChangeOrbe(this));
     	getCommand("rccheckorbe").setExecutor(new CommandCheckOrbe(this));
     	getCommand("rcconsole").setExecutor(new CommandConsole(this));
+    	getCommand("rcforme").setExecutor(new CommandForme(this));
     	
     	getCommand("rchack").setExecutor(new CommandRCCode(this));
     	
