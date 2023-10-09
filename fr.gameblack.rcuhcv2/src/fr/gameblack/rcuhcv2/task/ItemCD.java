@@ -63,6 +63,12 @@ public class ItemCD extends BukkitRunnable {
     		joueur.setInvulnerable(false);
     		
     	}
+    	
+    	if(joueur.getRole() == Roles.KZOU && item == "ban") {
+    		
+    		cible.removeForce(0.05);
+    		
+    	}
 
         if (timer == 0) {
             cancel();
@@ -361,7 +367,7 @@ public class ItemCD extends BukkitRunnable {
             		
             		for(Joueur j : players) {
             			
-            			j.addForce(0.10);
+            			j.addForce(0.5);
             			
             		}
             		
@@ -395,6 +401,14 @@ public class ItemCD extends BukkitRunnable {
             	} else if(item == "fuite") {
             		
             		joueur.removeSpeed(0.1);
+            		
+            	}
+            	
+            } else if(joueur.getRole() == Roles.KZOU) {
+            	
+            	if(item == "ban") {
+            		
+            		cible.addForce(0.05);
             		
             	}
             	

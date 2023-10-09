@@ -70,21 +70,27 @@ public class Loup {
 	
 	public static void CommandServeur(Joueur joueur, Main main) {
 		
-		List<Joueur> joueurs = new ArrayList<>();
-		
-		for(Joueur j : main.getJoueurInGame()) {
+		if(!main.getCD().contains(Pouvoirs.LOUP_SERVEUR)) {
 			
-			if(j.getRole() != Roles.NONE && j.getRole() == Roles.TRIAL) {
+			main.getCD().add(Pouvoirs.LOUP_SERVEUR);
+		
+			List<Joueur> joueurs = new ArrayList<>();
+			
+			for(Joueur j : main.getJoueurInGame()) {
 				
-				j.removeForce(0.10);
-				joueurs.add(j);
+				if(j.getRole() != Roles.NONE && j.getRole() != Roles.TRIAL && j.getRole() != Roles.LOUP) {
+					
+					j.removeForce(0.05);
+					joueurs.add(j);
+					
+				}
 				
 			}
 			
+			ItemCD cycle = new ItemCD(main, joueur, "serveur_loup", 30, joueur, null, joueurs, null, null);
+	        cycle.runTaskTimer(main, 0, 20);
+	        
 		}
-		
-		ItemCD cycle = new ItemCD(main, joueur, "serveur_loup", 30, joueur, null, joueurs, null, null);
-        cycle.runTaskTimer(main, 0, 20);
 		
 	}
 	

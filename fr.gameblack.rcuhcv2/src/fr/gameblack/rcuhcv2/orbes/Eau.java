@@ -18,6 +18,7 @@ public class Eau {
     	
         joueur.setStatutOrbe(true);
         joueur.addSpeed(0.03);
+        joueur.setNofall(true);
 
         if (player.getInventory().getBoots().getType() != null) {
 
@@ -38,6 +39,8 @@ public class Eau {
     	joueur.setStatutOrbe(false);
     	
     	joueur.removeSpeed(0.03);
+    	
+    	joueur.setNofall(false);
 
         if (player.getInventory().getBoots().getType() != null) {
 

@@ -73,6 +73,7 @@ public class Joueur {
 	private boolean jokoItemActif = false;
 	private int cube = 0;
 	private boolean opKzou = false;
+	private int nbOpKzou = 0;
 	private boolean mort = false;
 	private boolean respawnTrial = false;
 	private boolean choixGbCamp = false;
@@ -815,6 +816,20 @@ public class Joueur {
 
 	public void setOpKzou(boolean opKzou) {
 		this.opKzou = opKzou;
+	}
+
+	public int getNbOpKzou() {
+		return nbOpKzou;
+	}
+
+	public void setNbOpKzou(int nbOpKzou) {
+		this.nbOpKzou = nbOpKzou;
+	}
+	
+	public void addNbOpKzou() {
+		
+		this.nbOpKzou += 1;
+		
 	}
 
 	public boolean isMort() {
