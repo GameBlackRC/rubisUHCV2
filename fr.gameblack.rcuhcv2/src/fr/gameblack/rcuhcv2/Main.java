@@ -73,6 +73,10 @@ public class Main extends JavaPlugin {
     private boolean fermetureGoldenActif = false;
     private List<Joueur> joko_stun = new ArrayList<>();
     private World world = null;
+    private Joueur malediction_gyomei = null;
+    private Joueur neko = null;
+    private int nbJoueursStaff = 0;
+    private Joueur tueurNeko = null;
     
     @Override
     public void onEnable() {
@@ -190,6 +194,8 @@ public class Main extends JavaPlugin {
         Bukkit.broadcastMessage("_________________________\n" + joueur.getPlayer().getName() + " est mort. Il était : \n" + role + "\n_________________________");
         checkWin();
         joueur.getPlayer().setGameMode(GameMode.SPECTATOR);
+        joueur.setMort(true);
+        joueur.setSpec(true);
 
         //MortCD cycle = new MortCD(this, player);
         //cycle.runTaskTimer(this, 0, 20);
@@ -412,7 +418,7 @@ public class Main extends JavaPlugin {
     	
     	for(Joueur joueur : joueurs) {
     		
-    		if(joueur.getRole() == role) {
+    		if(joueur.getRole() == role && !joueur.isMort()) {
     			
     			return joueur;
     			
@@ -683,6 +689,38 @@ public class Main extends JavaPlugin {
 
 	public void setWorld(World world) {
 		this.world = world;
+	}
+
+	public Joueur getMaledictionGyomei() {
+		return malediction_gyomei;
+	}
+
+	public void setMaledictionGyomei(Joueur malediction_gyomei) {
+		this.malediction_gyomei = malediction_gyomei;
+	}
+
+	public Joueur getNeko() {
+		return neko;
+	}
+
+	public void setNeko(Joueur neko) {
+		this.neko = neko;
+	}
+
+	public int getNbJoueursStaff() {
+		return nbJoueursStaff;
+	}
+
+	public void setNbJoueursStaff(int nbJoueursStaff) {
+		this.nbJoueursStaff = nbJoueursStaff;
+	}
+
+	public Joueur getTueurNeko() {
+		return tueurNeko;
+	}
+
+	public void setTueurNeko(Joueur tueurNeko) {
+		this.tueurNeko = tueurNeko;
 	}
 	
 }

@@ -14,6 +14,7 @@ import fr.gameblack.rcuhcv2.Joueur;
 import fr.gameblack.rcuhcv2.Main;
 import fr.gameblack.rcuhcv2.Orbe;
 import fr.gameblack.rcuhcv2.Pouvoirs;
+import fr.gameblack.rcuhcv2.Roles;
 import fr.gameblack.rcuhcv2.roles.joueur.Joko;
 import fr.gameblack.rcuhcv2.roles.joueur.Raptor;
 import fr.gameblack.rcuhcv2.roles.joueur.Slup;
@@ -82,8 +83,36 @@ public class InteractListener implements Listener {
 
             } else if (nb_ == 2) {
 
-            	joueur.setOrbe(Orbe.FEU);
-                player.sendMessage("Vous avez reçu l'orbe de feu. Vous pouvez l'activer avec la commande /rcorbe");
+            	nb_ = r.nextInt(3);
+            	
+            	if(joueur.getRole() != Roles.MAKA) {
+            	
+	            	joueur.setOrbe(Orbe.FEU);
+	                player.sendMessage("Vous avez reçu l'orbe de feu. Vous pouvez l'activer avec la commande /rcorbe");
+	                
+            	}
+            	else {
+            		
+            		if(nb_ == 1) {
+            			
+            			joueur.setOrbe(Orbe.EAU);
+                        player.sendMessage("Vous avez reçu l'orbe d'eau. Vous pouvez l'activer avec la commande /rcorbe");
+            			
+            		}
+            		else if(nb_ == 2) {
+            			
+            			joueur.setOrbe(Orbe.FOUDRE);
+                        player.sendMessage("Vous avez reçu l'orbe de foudre. Vous pouvez l'activer avec la commande /rcorbe");
+            			
+            		}
+            		else {
+            			
+            			joueur.setOrbe(Orbe.GLACE);
+                        player.sendMessage("Vous avez reçu l'orbe de glace. Vous pouvez l'activer avec la commande /rcorbe");
+            			
+            		}
+            		
+            	}
 
             } else if (nb_ == 3) {
 

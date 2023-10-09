@@ -1524,6 +1524,103 @@ public class GameCycle extends BukkitRunnable {
         
         if(timer % 10 == 0) {
         	
+        	if(main.getNeko().isProche(Roles.MAKA, main) && !main.getNeko().isSpeedProche()) {
+        		
+        		if(main.getNbJoueursStaff() == 6) {
+        			main.getNeko().addSpeed(0.01);
+        			main.getJoueurByRole(Roles.MAKA).addSpeed(0.01);
+        			main.getNeko().setSpeedProche(true);
+        			main.getJoueurByRole(Roles.MAKA).setSpeedProche(true);
+        		}
+        		else if(main.getNbJoueursStaff() == 5) {
+        			main.getNeko().addSpeed(0.02);
+        			main.getJoueurByRole(Roles.MAKA).addSpeed(0.02);
+        			main.getNeko().setSpeedProche(true);
+        			main.getJoueurByRole(Roles.MAKA).setSpeedProche(true);
+        		}
+        		else if(main.getNbJoueursStaff() == 4) {
+        			main.getNeko().addSpeed(0.05);
+        			main.getJoueurByRole(Roles.MAKA).addSpeed(0.05);
+        			main.getNeko().setSpeedProche(true);
+        			main.getJoueurByRole(Roles.MAKA).setSpeedProche(true);
+        		}
+        		else if(main.getNbJoueursStaff() == 3) {
+        			main.getNeko().addSpeed(0.07);
+        			main.getJoueurByRole(Roles.MAKA).addSpeed(0.07);
+        			main.getNeko().setSpeedProche(true);
+        			main.getJoueurByRole(Roles.MAKA).setSpeedProche(true);
+        		}
+        		else if(main.getNbJoueursStaff() == 2) {
+        			main.getNeko().addSpeed(0.1);
+        			main.getJoueurByRole(Roles.MAKA).addSpeed(0.1);
+        			main.getNeko().setSpeedProche(true);
+        			main.getJoueurByRole(Roles.MAKA).setSpeedProche(true);
+        		}
+        		else if(main.getNbJoueursStaff() == 1) {
+        			main.getNeko().addSpeed(0.15);
+        			main.getJoueurByRole(Roles.MAKA).addSpeed(0.15);
+        			main.getNeko().setSpeedProche(true);
+        			main.getJoueurByRole(Roles.MAKA).setSpeedProche(true);
+        		}
+        		
+        	}
+        	else if(!main.getNeko().isProche(Roles.MAKA, main) && main.getNeko().isSpeedProche()) {
+        		
+        		if(main.getNbJoueursStaff() == 6) {
+        			main.getNeko().removeSpeed(0.01);
+        			main.getJoueurByRole(Roles.MAKA).removeSpeed(0.01);
+        			main.getNeko().setSpeedProche(false);
+        			main.getJoueurByRole(Roles.MAKA).setSpeedProche(false);
+        		}
+        		else if(main.getNbJoueursStaff() == 5) {
+        			main.getNeko().removeSpeed(0.02);
+        			main.getJoueurByRole(Roles.MAKA).removeSpeed(0.02);
+        			main.getNeko().setSpeedProche(false);
+        			main.getJoueurByRole(Roles.MAKA).setSpeedProche(false);
+        		}
+        		else if(main.getNbJoueursStaff() == 4) {
+        			main.getNeko().removeSpeed(0.05);
+        			main.getJoueurByRole(Roles.MAKA).removeSpeed(0.05);
+        			main.getNeko().setSpeedProche(false);
+        			main.getJoueurByRole(Roles.MAKA).setSpeedProche(false);
+        		}
+        		else if(main.getNbJoueursStaff() == 3) {
+        			main.getNeko().removeSpeed(0.07);
+        			main.getJoueurByRole(Roles.MAKA).removeSpeed(0.07);
+        			main.getNeko().setSpeedProche(false);
+        			main.getJoueurByRole(Roles.MAKA).setSpeedProche(false);
+        		}
+        		else if(main.getNbJoueursStaff() == 2) {
+        			main.getNeko().removeSpeed(0.1);
+        			main.getJoueurByRole(Roles.MAKA).removeSpeed(0.1);
+        			main.getNeko().setSpeedProche(false);
+        			main.getJoueurByRole(Roles.MAKA).setSpeedProche(false);
+        		}
+        		else if(main.getNbJoueursStaff() == 1) {
+        			main.getNeko().removeSpeed(0.15);
+        			main.getJoueurByRole(Roles.MAKA).removeSpeed(0.15);
+        			main.getNeko().setSpeedProche(false);
+        			main.getJoueurByRole(Roles.MAKA).setSpeedProche(false);
+        		}
+        		
+        	}
+        	
+        	if(main.getJoueurByRole(Roles.MAKA) != null && main.getJoueurByRole(Roles.MAKA).getForme().equalsIgnoreCase("normal") && main.getJoueurByRole(Roles.MAKA).isProche(Roles.TEAM, main) && !main.getJoueurByRole(Roles.MAKA).isResiProche()) {
+        		
+        		Joueur maka = main.getJoueurByRole(Roles.MAKA);
+        		maka.addResi(0.02);
+        		maka.setResiProche(true);
+        		
+        	}
+        	
+        	if(main.getJoueurByRole(Roles.MAKA) != null && (!main.getJoueurByRole(Roles.MAKA).getForme().equalsIgnoreCase("normal") || !main.getJoueurByRole(Roles.MAKA).isProche(Roles.TEAM, main)) && main.getJoueurByRole(Roles.MAKA).isResiProche()) {
+        		
+        		Joueur maka = main.getJoueurByRole(Roles.MAKA);
+        		maka.removeResi(0.02);
+        		maka.setResiProche(false);
+        		
+        	}
+        	
         	if(main.getJoueurByRole(Roles.GAMEBLACK) != null && !main.getJoueurByRole(Roles.GAMEBLACK).isChoixGbCamp()) {
         		
         		Joueur gameblack = main.getJoueurByRole(Roles.GAMEBLACK);
@@ -1537,7 +1634,7 @@ public class GameCycle extends BukkitRunnable {
         			
         			gameblack.setChoixGbCamp(true);
         			gameblack.setCamp("uhc");
-        			GameBlack.ItemsUHC(gameblack);
+        			GameBlack.ItemsUHC(gameblack, main);
         			
         		}
         		else {
@@ -1546,7 +1643,7 @@ public class GameCycle extends BukkitRunnable {
         				
         				gameblack.setChoixGbCamp(true);
         				gameblack.setCamp("uhc");
-        				GameBlack.ItemsUHC(gameblack);
+        				GameBlack.ItemsUHC(gameblack, main);
         				
         			}
         			else if(gameblack.isProche(Roles.MAKA, main) || gameblack.isProche(Roles.TEAM, main)) {

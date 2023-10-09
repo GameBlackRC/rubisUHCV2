@@ -2,7 +2,11 @@ package fr.gameblack.rcuhcv2.orbes;
 
 import fr.gameblack.rcuhcv2.Joueur;
 import fr.gameblack.rcuhcv2.Main;
+import fr.gameblack.rcuhcv2.Roles;
 import fr.gameblack.rcuhcv2.task.ItemCD;
+
+import java.util.Random;
+
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -56,13 +60,20 @@ public class Eau {
 
     public static void Malus(Joueur joueur, Main main) {
     	
-    	Player player = joueur.getPlayer();
-    		
-    	RemoveEffets(joueur, main);
-        player.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, 1200, 0, false, false));
-        joueur.setMalusOrbe(true);
-        ItemCD cycle = new ItemCD(main, joueur, "eau_malus", 60, joueur, null, null, null, null);
-        cycle.runTaskTimer(main, 0, 20);
+    	Random r = new Random();
+        int nb = r.nextInt(100);
+    	
+    	if(joueur.getRole() != Roles.GAMEBLACK || (joueur.getRole() == Roles.GAMEBLACK && nb <= 50)) {
+    	
+	    	Player player = joueur.getPlayer();
+	    		
+	    	RemoveEffets(joueur, main);
+	        player.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, 1200, 0, false, false));
+	        joueur.setMalusOrbe(true);
+	        ItemCD cycle = new ItemCD(main, joueur, "eau_malus", 60, joueur, null, null, null, null);
+	        cycle.runTaskTimer(main, 0, 20);
+	        
+    	}
 
     }
 

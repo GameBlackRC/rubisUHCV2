@@ -6,6 +6,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -16,6 +17,7 @@ import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.event.entity.EntityDamageEvent.DamageModifier;
 
+import fr.gameblack.rcuhcv2.Classe;
 import fr.gameblack.rcuhcv2.Joueur;
 import fr.gameblack.rcuhcv2.Main;
 import fr.gameblack.rcuhcv2.Orbe;
@@ -42,18 +44,14 @@ public class DamageListener implements Listener {
         	
         	Joueur gb = main.getJoueurByRole(Roles.GAMEBLACK);
         	
-        	Random r = new Random();
-            int nb = r.nextInt(100);
-        	
-        	if(joueur.getRole() == Roles.GAMEBLACK && gb.getCamp().equalsIgnoreCase("uhc")) {
+        	if(joueur == gb && tueur == main.getMaledictionGyomei()) {
         		
-        		if(nb <= 5) {
-        			
-        			gb.addSpeed(0.01);
-        			
-        		}
+        		tueur.addForce(0.02);
         		
         	}
+        	
+        	Random r = new Random();
+            int nb = r.nextInt(100);
         	
         	if(main.getJoueurByRole(Roles.GAMEBLACK).isConsoleGBActif()) {
 	            
@@ -71,6 +69,67 @@ public class DamageListener implements Listener {
         	}
         	
         }
+		
+		if(main.getNeko() != null && joueur.getRole() == Roles.MAKA) {
+			
+			if(main.getNbJoueursStaff() == 5) {
+    			main.getNeko().addSpeed(0.01);
+    		}
+    		else if(main.getNbJoueursStaff() == 4) {
+    			main.getNeko().addSpeed(0.03);
+    		}
+    		else if(main.getNbJoueursStaff() == 3) {
+    			main.getNeko().addSpeed(0.05);
+    		}
+    		else if(main.getNbJoueursStaff() == 2) {
+    			main.getNeko().addSpeed(0.07);
+    		}
+    		else if(main.getNbJoueursStaff() == 1) {
+    			main.getNeko().addSpeed(0.07);
+    		}
+			
+		}
+		
+		if(main.getTueurNeko() == joueur && tueur.getRole() == Roles.MAKA) {
+			
+			if(tueur.getPlayer().getMaxHealth() <= 18) {
+				
+				tueur.getPlayer().setMaxHealth(18);
+				main.setTueurNeko(null);
+				tueur.addResi(0.02);
+				if(main.getNbJoueursStaff() == 6) {
+	    			tueur.addSpeed(0.01);
+	    		}
+				else if(main.getNbJoueursStaff() == 5) {
+	    			tueur.addSpeed(0.02);
+	    		}
+	    		else if(main.getNbJoueursStaff() == 4) {
+	    			tueur.addSpeed(0.05);
+	    		}
+	    		else if(main.getNbJoueursStaff() == 3) {
+	    			tueur.addSpeed(0.07);
+	    		}
+	    		else if(main.getNbJoueursStaff() == 2) {
+	    			tueur.addSpeed(0.1);
+	    		}
+	    		else if(main.getNbJoueursStaff() == 1) {
+	    			tueur.addSpeed(0.15);
+	    		}
+				
+			}
+			
+		}
+		
+		if(main.getJoueurByRole(Roles.MAKA) != null && main.getNeko() == joueur) {
+			
+			Joueur maka = main.getJoueurByRole(Roles.MAKA);
+			
+			maka.getPlayer().sendMessage("Neko vient de mourrir, vous perdrez donc 1 coeur permanent toutes les 5 minutes");
+			
+			ItemCD cycle = new ItemCD(main, joueur, "mortNeko", 300, joueur, null, null, null, null);
+	        cycle.runTaskTimer(main, 0, 20);
+			
+		}
 		
 		if(joueur.getRole() == Roles.TRIAL && tueur.getRole() == Roles.KZOU && !joueur.isRespawnTrial()) {
 			
@@ -267,12 +326,25 @@ public class DamageListener implements Listener {
                         killer = (Player) arrow.getShooter();
                         tueur = main.getJoueur(killer);
                         joueur.setLastHit(tueur);
+                        if(tueur.getRole() == Roles.GAMEBLACK && tueur.getClasseGB() == Classe.DISTANCE) {
+                        	
+                        	event.setDamage(event.getFinalDamage()*1.05);
+                        	
+                        }
                     }
 
                 }
                 else if(tueur != joueur) {
                 	
-                	double damage_strenght = (event.getDamage(DamageModifier.BASE)*(tueur.getForce()/100))*0.9;
+                	double force = tueur.getForce();
+                	
+                	if(tueur.getRole() == Roles.MAKA && ((tueur.getForme().equalsIgnoreCase("normal") && tueur.isProche(Roles.GAMEBLACK, main)) || (tueur.getForme().equalsIgnoreCase("simp") && joueur.isFrappeNeko()))) {
+                		
+                		force += 2;
+                		
+                	}
+                	
+                	double damage_strenght = (event.getDamage(DamageModifier.BASE)*(force/100))*0.9;
                     double armure = event.getDamage(DamageModifier.ARMOR)*0.85;
                     event.setDamage(DamageModifier.BASE, damage_strenght);
                     event.setDamage(DamageModifier.ARMOR,armure);
@@ -292,13 +364,44 @@ public class DamageListener implements Listener {
                 
                 damage = event.getFinalDamage();
                 
+                if(joueur.getRole() == Roles.GAMEBLACK && main.getJoueurByRole(Roles.GAMEBLACK).getCamp().equalsIgnoreCase("uhc")) {
+            		
+                	Random r = new Random();
+                    int nb = r.nextInt(100);
+                	
+            		if(nb <= 5) {
+            			
+            			main.getJoueurByRole(Roles.GAMEBLACK).addSpeed(0.01);
+            			
+            		}
+            		
+            	}
+                
+                if(joueur == main.getNeko()) {
+                	
+                	if(!main.getNeko().isProche(Roles.MAKA, main)) {
+                		
+                		main.getJoueurByRole(Roles.MAKA).getPlayer().sendMessage("Neko vient de recevoir un coup de " + tueur.getPlayer().getName());
+                		
+                	}
+                	
+                	if(!tueur.isFrappeNeko()) {
+                	
+	                	tueur.setFrappeNeko(true);
+	                	ItemCD cycle = new ItemCD(main, joueur, "frappe_neko", 10, tueur, null, null, null, null);
+	        	        cycle.runTaskTimer(main, 0, 20);
+	        	        
+                	}
+                	
+                }
+                
                 if(joueur.getRole() == Roles.RAPTOR && tueur.getRole() == Roles.TOINOU && tueur.isCheatToinou()) {
         			
         			damage *= 1.03;
         			
         		}
                 
-                if(joueur.isFireOn() || (tueur.getOrbe() == Orbe.FEU && tueur.isOrbeActif())) {
+                if(joueur.isFireOn() || (tueur.getOrbe() == Orbe.FEU && tueur.isOrbeActif()) || (tueur.getRole() == Roles.MAKA && tueur.getForme().equalsIgnoreCase("normal") && (tueur.getPlayer().getItemInHand().getType() == Material.DIAMOND_SWORD || tueur.getPlayer().getItemInHand().getType() == Material.IRON_SWORD))) {
                 	
                 	Random r = new Random();
                     int nb = r.nextInt(100);

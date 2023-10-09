@@ -79,6 +79,11 @@ public class Joueur {
 	private boolean choixGbCamp = false;
 	private boolean checkMalusEau = true;
 	private boolean consoleGBActif = false;
+	private Classe classeGB = null;
+	private String forme = "normal";
+	private boolean resiProche = false;
+	private boolean frappeNeko = false;
+	private boolean speedProche = false;
 
 	public Joueur(Player player) {
 		
@@ -169,12 +174,19 @@ public class Joueur {
 	
 	public boolean isProche(Roles role, Main main) {
 		
-		for(Joueur joueur : main.getListJoueurs()) {
+		for(Entity entity : player.getNearbyEntities(20, 20, 20)) {
 			
-			if(joueur.getRole() == role) {
+			if(entity instanceof Player) {
 				
-				return true;
-				
+				Player p = (Player) entity;
+				Joueur j = main.getJoueur(p);
+			
+				if(j.getRole() == role) {
+					
+					return true;
+					
+				}
+			
 			}
 			
 		}
@@ -896,6 +908,46 @@ public class Joueur {
 
 	public void setConsoleGBActif(boolean consoleGBActif) {
 		this.consoleGBActif = consoleGBActif;
+	}
+
+	public Classe getClasseGB() {
+		return classeGB;
+	}
+
+	public void setClasseGB(Classe classeGB) {
+		this.classeGB = classeGB;
+	}
+
+	public String getForme() {
+		return forme;
+	}
+
+	public void setForme(String forme) {
+		this.forme = forme;
+	}
+
+	public boolean isFrappeNeko() {
+		return frappeNeko;
+	}
+
+	public void setFrappeNeko(boolean frappeNeko) {
+		this.frappeNeko = frappeNeko;
+	}
+
+	public boolean isSpeedProche() {
+		return speedProche;
+	}
+
+	public void setSpeedProche(boolean speedProche) {
+		this.speedProche = speedProche;
+	}
+
+	public boolean isResiProche() {
+		return resiProche;
+	}
+
+	public void setResiProche(boolean resiProche) {
+		this.resiProche = resiProche;
 	}
 	
 }

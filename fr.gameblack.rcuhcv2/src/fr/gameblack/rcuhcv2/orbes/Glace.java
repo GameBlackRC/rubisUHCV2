@@ -2,6 +2,7 @@ package fr.gameblack.rcuhcv2.orbes;
 
 import fr.gameblack.rcuhcv2.Joueur;
 import fr.gameblack.rcuhcv2.Main;
+import fr.gameblack.rcuhcv2.Roles;
 import fr.gameblack.rcuhcv2.task.ItemCD;
 
 import org.bukkit.entity.Player;
@@ -28,11 +29,18 @@ public class Glace {
 
     public static void Malus(Joueur joueur, Main main) {
     	
-    	RemoveEffets(joueur, main);
-    	joueur.removeForce(0.05);
-    	joueur.setMalusOrbe(true);
-        ItemCD cycle = new ItemCD(main, joueur, "glace_malus", 60, joueur, null, null, null, null);
-        cycle.runTaskTimer(main, 0, 20);
+    	Random r = new Random();
+        int nb = r.nextInt(100);
+    	
+    	if(joueur.getRole() != Roles.GAMEBLACK || (joueur.getRole() == Roles.GAMEBLACK && nb <= 50)) {
+    	
+	    	RemoveEffets(joueur, main);
+	    	joueur.removeForce(0.05);
+	    	joueur.setMalusOrbe(true);
+	        ItemCD cycle = new ItemCD(main, joueur, "glace_malus", 60, joueur, null, null, null, null);
+	        cycle.runTaskTimer(main, 0, 20);
+	        
+    	}
 
     }
 
