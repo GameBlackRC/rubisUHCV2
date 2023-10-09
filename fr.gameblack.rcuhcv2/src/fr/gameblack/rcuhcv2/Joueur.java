@@ -581,6 +581,9 @@ public class Joueur {
 	public void setPourcentHack(int pourcentHack, Main main) {
 		if(main.getJoueurByRole(Roles.FARMEURIMMO) != null) {
 			this.pourcentHack = pourcentHack;
+			if(!board_cube.getObjectives().isEmpty()) {
+				board_cube.getObjective("cube").unregister();
+			}
 			Objective objective_hack = board_hack.registerNewObjective("hack", "dummy");
 	        objective_hack.setDisplaySlot(DisplaySlot.BELOW_NAME);
 	        objective_hack.setDisplayName("%");
@@ -635,6 +638,10 @@ public class Joueur {
 					
 				}
 				
+				if(!board_cube.getObjectives().isEmpty()) {
+					board_cube.getObjective("cube").unregister();
+				}
+				
 				Objective objective_hack = board_hack.registerNewObjective("hack", "dummy");
 		        objective_hack.setDisplaySlot(DisplaySlot.BELOW_NAME);
 		        objective_hack.setDisplayName("%");
@@ -668,6 +675,10 @@ public class Joueur {
 						
 					pourcentHack -= nb;
 						
+				}
+				
+				if(!board_hack.getObjectives().isEmpty()) {
+					board_hack.getObjective("hack").unregister();
 				}
 				
 				Objective objective_hack = board_hack.registerNewObjective("hack", "dummy");
@@ -738,6 +749,9 @@ public class Joueur {
 
 	public void setCube(int cube, Main main) {
 		this.cube = cube;
+		if(!board_cube.getObjectives().isEmpty()) {
+			board_cube.getObjective("cube").unregister();
+		}
 		Objective objective_cube = board_cube.registerNewObjective("cube", "dummy");
         objective_cube.setDisplaySlot(DisplaySlot.PLAYER_LIST);
         objective_cube.setDisplayName("cube");
@@ -750,6 +764,9 @@ public class Joueur {
 	public void addCube(Main main) {
 		
 		this.cube += 1;
+		if(!board_cube.getObjectives().isEmpty()) {
+			board_cube.getObjective("cube").unregister();
+		}
 		Objective objective_cube = board_cube.registerNewObjective("cube", "dummy");
         objective_cube.setDisplaySlot(DisplaySlot.PLAYER_LIST);
         objective_cube.setDisplayName("cube");
@@ -763,6 +780,9 @@ public class Joueur {
 	public void addCubes(int cube, Main main) {
 		
 		this.cube += cube;
+		if(!board_cube.getObjectives().isEmpty()) {
+			board_cube.getObjective("cube").unregister();
+		}
 		Objective objective_cube = board_cube.registerNewObjective("cube", "dummy");
         objective_cube.setDisplaySlot(DisplaySlot.PLAYER_LIST);
         objective_cube.setDisplayName("cube");
@@ -776,6 +796,9 @@ public class Joueur {
 	public void removeCube(Main main) {
 		
 		this.cube -= 1;
+		if(!board_cube.getObjectives().isEmpty()) {
+			board_cube.getObjective("cube").unregister();
+		}
 		Objective objective_cube = board_cube.registerNewObjective("cube", "dummy");
         objective_cube.setDisplaySlot(DisplaySlot.PLAYER_LIST);
         objective_cube.setDisplayName("cube");
@@ -789,6 +812,9 @@ public class Joueur {
 	public void removeCubes(int cube, Main main) {
 		
 		this.cube -= cube;
+		if(!board_cube.getObjectives().isEmpty()) {
+			board_cube.getObjective("cube").unregister();
+		}
 		Objective objective_cube = board_cube.registerNewObjective("cube", "dummy");
         objective_cube.setDisplaySlot(DisplaySlot.PLAYER_LIST);
         objective_cube.setDisplayName("cube");
