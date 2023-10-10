@@ -34,7 +34,8 @@ public class ItemCD extends BukkitRunnable {
 	private EntityDamageByEntityEvent event;
 	private List<Joueur> players = new ArrayList<>();
     private Joueur joueur;
-    private ItemStack item_;
+    @SuppressWarnings("unused")
+	private ItemStack item_;
     private Location loc;
 
     public ItemCD(Main main, Joueur joueur, String item, int timer, Joueur cible, EntityDamageByEntityEvent event, List<Joueur> players, ItemStack item_, Location loc) {
@@ -271,43 +272,38 @@ public class ItemCD extends BukkitRunnable {
 	            		
 	            	} else if(item == "enchant_epee") {
 	                	
-	                	if (cible.getPlayer().getInventory().contains(Material.DIAMOND_SWORD)) {
-	
-	                        int slot = -1;
-	                        int i = 0;
-	
-	                        for (ItemStack itemStack : cible.getPlayer().getInventory().getContents()) {
-	
+	            		if (joueur.getPlayer().getInventory().contains(Material.DIAMOND_SWORD) || joueur.getPlayer().getInventory().contains(Material.IRON_SWORD)) {
+
+	                        for (ItemStack itemStack : joueur.getPlayer().getInventory().getContents()) {
+
 	                            if (itemStack != null) {
-	                                if (itemStack.getType() == Material.DIAMOND_SWORD) {
-	
-	                                    slot = i;
-	
+	                                if (itemStack.getType() == Material.DIAMOND_SWORD || itemStack.getType() == Material.IRON_SWORD) {
+
+	                                    int niv = itemStack.getEnchantmentLevel(Enchantment.DAMAGE_ALL);
+	                                    niv += 2;
+	                                    
+	                                    itemStack.removeEnchantment(Enchantment.DAMAGE_ALL);
+	                                    itemStack.addEnchantment(Enchantment.DAMAGE_ALL, niv);
+
 	                                }
-	
+
 	                            }
-	                            i += 1;
-	
+
 	                        }
-	                        if (slot != -1) {
-	
-	                            cible.getPlayer().getInventory().setItem(slot, item_);
-	
-	                        }
-	
+
 	                    }
 	            		
 	            	} else if(item == "add_force_farmeurimmo") {
 	            		
-	            		cible.addForce(0.10);
+	            		cible.addForce(0.05);
 	            		
 	            	} else if(item == "add_speed_farmeurimmo") {
 	            		
-	            		cible.addSpeed(0.10);
+	            		cible.addSpeed(0.05);
 	            		
 	            	} else if(item == "add_resi_farmeurimmo") {
 	            		
-	            		cible.addResi(0.10);
+	            		cible.addResi(0.05);
 	            		
 	            	} else if(item == "enchant_armure") {
 	            		
@@ -331,7 +327,11 @@ public class ItemCD extends BukkitRunnable {
 	            		
 	            	} else if(item == "malus_bow_farmeurimmo") {
 	            		
-	            		
+	            		for(ItemStack item_ : cible.getPlayer().getInventory().getContents()) {
+	            			if(item_.getType() == Material.BARRIER) {
+	            				item_.setType(Material.BOW);
+	            			}
+	            		}
 	            		
 	            	}
 	            	

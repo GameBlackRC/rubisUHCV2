@@ -107,7 +107,8 @@ public class Trial {
         	main.getJoueurJeuTrial().add(cible);
         	JeuCD cycle = new JeuCD(main, joueur, cible, "soleil", 60);
             cycle.runTaskTimer(main, 0, 20);
-            joueur.getPlayer().sendMessage("soleil");
+            joueur.getPlayer().sendMessage("Le jeu choisi est soleil");
+            cible.getPlayer().sendMessage("Vous jouez à 1, 2, 3, soleil avec Trial, ne bougez plus !");
         	
         }
         else if(nb == 1) {
@@ -117,7 +118,8 @@ public class Trial {
         	main.getJoueurJeuTrial().add(cible);
         	JeuCD cycle = new JeuCD(main, joueur, cible, "takaoni", 18);
             cycle.runTaskTimer(main, 0, 20);
-            joueur.getPlayer().sendMessage("takaoni");
+            joueur.getPlayer().sendMessage("Le jeu choisi est takaoni");
+            cible.getPlayer().sendMessage("Vous jouez à takaoni avec Trial, montez le plus haut possible !");
         	
         }
         else {
@@ -127,7 +129,8 @@ public class Trial {
         	main.getJoueurJeuTrial().add(cible);
         	JeuCD cycle = new JeuCD(main, joueur, cible, "reflex", 30);
             cycle.runTaskTimer(main, 0, 20);
-            joueur.getPlayer().sendMessage("reflex");
+            joueur.getPlayer().sendMessage("Le jeu choisi est reflex");
+            cible.getPlayer().sendMessage("Vous jouez à reflex avec Trial, cliquez le plus rapidement sur le message qui va apparaître dans le chat !");
         	
         }
 		
@@ -174,7 +177,7 @@ public class Trial {
 	public static void FinJeuSoleil(Joueur gagnant, Joueur perdant, Main main) {
 		
 		gagnant.getPlayer().sendMessage("Vous avez gagner le jeu, vous pouvez désormais bouger");
-		gagnant.getPlayer().sendMessage("Vous avez perdu le jeu, vous pouvez désormais bouger");
+		perdant.getPlayer().sendMessage("Vous avez perdu le jeu, vous pouvez désormais bouger");
 		perdant.removeSpeed(0.05);
 		gagnant.addForce(0.02);
 		gagnant.getPlayer().setMaxHealth(gagnant.getPlayer().getMaxHealth()+2);

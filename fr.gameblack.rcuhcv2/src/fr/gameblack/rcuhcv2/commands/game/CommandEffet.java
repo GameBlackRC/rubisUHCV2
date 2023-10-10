@@ -28,7 +28,7 @@ public class CommandEffet implements CommandExecutor {
             double force = joueur.getForce() - 100;
             double resi = joueur.getResi() - 110;
 
-            player.sendMessage("Force : " + force + "%\nSpeed : " + speed + "%\nRésistance : " + resi + "%");
+            player.sendMessage("_______________________________\n \nForce : " + force + "%\nSpeed : " + speed + "%\nRésistance : " + resi + "%\n \n_______________________________");
 
         }
 

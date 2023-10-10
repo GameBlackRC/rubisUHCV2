@@ -22,20 +22,16 @@ public class CommandCompo implements CommandExecutor {
     public static void compoGUI(Player player) {
 
         Inventory inv_pacte = Bukkit.createInventory(null, 27, "§8Compo");
-        inv_pacte.setItem(3, Main.getItem(Material.DIAMOND_BLOCK, "Camp RC", ""));
-        inv_pacte.setItem(4, Main.getItem(Material.NETHER_BRICK, "Camp Démon", ""));
-        inv_pacte.setItem(5, Main.getItem(Material.GOLD_INGOT, "Solo", ""));
+        inv_pacte.setItem(1, Main.getItem(Material.DIAMOND_PICKAXE, "§aCamp Joueur", ""));
+        inv_pacte.setItem(3, Main.getItem(Material.COMMAND, "§9Camp Staff", ""));
+        inv_pacte.setItem(5, Main.getItem(Material.GOLDEN_APPLE, "§2Camp UHC", ""));
+        inv_pacte.setItem(7, Main.getItem(Material.GOLD_INGOT, "§6Solo", ""));
 
-        inv_pacte.setItem(9, Main.getItem(Material.CHEST, "GameBlack", ""));
-        inv_pacte.setItem(10, Main.getItem(Material.EMERALD_BLOCK, "Team", ""));
-        inv_pacte.setItem(11, Main.getItem(Material.QUARTZ_BLOCK, "Joko", ""));
-        inv_pacte.setItem(12, Main.getItem(Material.LAVA_BUCKET, "Maka", ""));
-        inv_pacte.setItem(13, Main.getItem(Material.DIAMOND_SWORD, "Toinou", ""));
-        inv_pacte.setItem(14, Main.getItem(Material.SUGAR, "Loup", ""));
-        inv_pacte.setItem(15, Main.getItem(Material.REDSTONE, "Raptor", ""));
-        inv_pacte.setItem(16, Main.getItem(Material.IRON_SWORD, "Guerrier", ""));
-        inv_pacte.setItem(17, Main.getItem(Material.BOW, "Archer", ""));
-        inv_pacte.setItem(18, Main.getItem(Material.GLASS, "Eclaireur", ""));
+        inv_pacte.setItem(9, Main.getItem(Material.REDSTONE_BLOCK, "§aRaptor", ""));
+        inv_pacte.setItem(10, Main.getItem(Material.DIAMOND_HOE, "§aJeannot", ""));
+        inv_pacte.setItem(11, Main.getItem(Material.PAPER, "§aNickoboop", ""));
+        inv_pacte.setItem(12, Main.getItem(Material.SLIME_BALL, "§aSlup", ""));
+        inv_pacte.setItem(13, Main.getItem(Material.QUARTZ_BLOCK, "§aJoko", ""));
 
         player.openInventory(inv_pacte);
 
@@ -54,7 +50,7 @@ public class CommandCompo implements CommandExecutor {
 
             } else {
 
-                String txt = "§aCamp Joueur :";
+                String txt = "_______________________________\n \n§aCamp Joueur :";
                 if ((main.getCompo().size() != 0 && main.getCompo().contains(Roles.RAPTOR))) {
 
                     txt += "\n §aRaptor§r(1)";
@@ -153,7 +149,7 @@ public class CommandCompo implements CommandExecutor {
 
                 }
 
-                sender.sendMessage(txt);
+                sender.sendMessage(txt + "\n \n_______________________________");
 
             }
 

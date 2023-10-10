@@ -43,6 +43,8 @@ public class CommandAddAllRole implements CommandExecutor {
                 main.getCompo().add(Roles.FARMEURIMMO);
                 main.getCompo().add(Roles.KZOU);
                 
+                player.sendMessage("Vous venez d'ajouter tous les rôles fonctionnel dans la compo");
+                
 
             }
 

@@ -6,7 +6,6 @@ import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 
 import fr.gameblack.rcuhcv2.Joueur;
 import fr.gameblack.rcuhcv2.Main;
@@ -44,7 +43,7 @@ public class Farmeurimmo {
         
         if (nb <= 10) {
         	
-        	//clear abso de la cible pendant 2min
+        	//clear abso de la cible pendant 2min (fonctionnel)
         	cible.setAbso(false);
         	ItemCD cycle = new ItemCD(main, joueur, "abso", 120, cible, null, null, null, null);
             cycle.runTaskTimer(main, 0, 20);
@@ -53,58 +52,42 @@ public class Farmeurimmo {
         }
         else if (nb <= 20) {
         	
-        	//déplacer l'épée et les pommes en dehors de la hotbar
-        	joueur.getPlayer().sendMessage("L'épée et les pommes d'or de " + cible.getPlayer().getDisplayName() + " ont été déplacer en dehors de sa hotbar");
+        	//connaître les pourcentages d'effets que le joueur possède ainsi que son orbe
+        	double speed = cible.getSpeed() - 100;
+            double force = cible.getForce() - 100;
+            double resi = cible.getResi() - 110;
+        	joueur.getPlayer().sendMessage("Effets du joueur " + cible.getPlayer().getName() + ": _______________________________\n \nForce : " + force + "%\nSpeed : " + speed + "%\nRésistance : " + resi + "%\n \n_______________________________\n \nOrbe : " + cible.getOrbe().toString());
         	
         }
         else if (nb <= 30) {
         	
-        	//modif l'enchant de l'épée
+        	//modif l'enchant de l'épée (BUG)
         	
-        	ItemStack epee_base = null;
-        	
-        	if (joueur.getPlayer().getInventory().contains(Material.DIAMOND_SWORD)) {
-
-                int slot = -1;
-                int i = 0;
+        	if (joueur.getPlayer().getInventory().contains(Material.DIAMOND_SWORD) || joueur.getPlayer().getInventory().contains(Material.IRON_SWORD)) {
 
                 for (ItemStack itemStack : joueur.getPlayer().getInventory().getContents()) {
 
                     if (itemStack != null) {
-                        if (itemStack.getType() == Material.DIAMOND_SWORD) {
+                        if (itemStack.getType() == Material.DIAMOND_SWORD || itemStack.getType() == Material.IRON_SWORD) {
 
-                            slot = i;
+                            int niv = itemStack.getEnchantmentLevel(Enchantment.DAMAGE_ALL);
+                            niv -= 2;
+                            if(niv < 1) {
+                            	niv = 0;
+                            }
+                            
+                            itemStack.removeEnchantment(Enchantment.DAMAGE_ALL);
+                            itemStack.addEnchantment(Enchantment.DAMAGE_ALL, niv);
 
                         }
 
                     }
-                    i += 1;
-
-                }
-                if (slot != -1) {
-                	
-                	epee_base = cible.getPlayer().getInventory().getItem(slot);
-
-                    ItemMeta epeeM = cible.getPlayer().getInventory().getItem(slot).getItemMeta();
-                    if(epeeM.hasEnchant(Enchantment.DAMAGE_ALL)) {
-                    	
-                    	int lvl_enchant = epeeM.getEnchantLevel(Enchantment.DAMAGE_ALL);
-                    	epeeM.removeEnchant(Enchantment.DAMAGE_ALL);
-                    	if(lvl_enchant > 1) {
-                    		
-                    		epeeM.addEnchant(Enchantment.DAMAGE_ALL, lvl_enchant-2, false);
-                    		
-                    	}
-                    	
-                    }
-                    ItemStack epee = cible.getPlayer().getInventory().getItem(slot);
-                    epee.setItemMeta(epeeM);
 
                 }
 
             }
         	
-        	ItemCD cycle = new ItemCD(main, joueur, "enchant_epee", 60, cible, null, null, epee_base, null);
+        	ItemCD cycle = new ItemCD(main, joueur, "enchant_epee", 60, cible, null, null, null, null);
             cycle.runTaskTimer(main, 0, 20);
             joueur.getPlayer().sendMessage("L'enchantement de l'épée de " + cible.getPlayer().getDisplayName() + " a été modifier pendant 1 minute");
         	
@@ -115,7 +98,7 @@ public class Farmeurimmo {
         	int nb2 = r.nextInt(3);
         	if(nb2 == 1) {
         		
-        		cible.removeForce(0.10);
+        		cible.removeForce(0.05);
         		ItemCD cycle = new ItemCD(main, joueur, "add_force_farmeurimmo", 60, cible, null, null, null, null);
                 cycle.runTaskTimer(main, 0, 20);
                 joueur.getPlayer().sendMessage(cible.getPlayer().getDisplayName() + " a perdu 10% de force pendant 1 minute");
@@ -123,7 +106,7 @@ public class Farmeurimmo {
         	}
         	else if(nb2 == 2) {
         		
-        		cible.removeResi(0.10);
+        		cible.removeResi(0.05);
         		ItemCD cycle = new ItemCD(main, joueur, "add_resi_farmeurimmo", 60, cible, null, null, null, null);
                 cycle.runTaskTimer(main, 0, 20);
                 joueur.getPlayer().sendMessage(cible.getPlayer().getDisplayName() + " a perdu 10% de résistance pendant 1 minute");
@@ -131,7 +114,7 @@ public class Farmeurimmo {
         	}
         	else {
         		
-        		cible.removeSpeed(0.10);
+        		cible.removeSpeed(0.05);
         		ItemCD cycle = new ItemCD(main, joueur, "add_speed_farmeurimmo", 60, cible, null, null, null, null);
                 cycle.runTaskTimer(main, 0, 20);
                 joueur.getPlayer().sendMessage(cible.getPlayer().getDisplayName() + " a perdu 10% de speed pendant 1 minute");
@@ -141,10 +124,8 @@ public class Farmeurimmo {
         }
         else if(nb <= 50) {
         	
-        	//modif l'enchant de 2 pièces d'armure
-        	ItemCD cycle = new ItemCD(main, joueur, "enchant_armure", 60, cible, null, null, null, null);
-            cycle.runTaskTimer(main, 0, 20);
-            joueur.getPlayer().sendMessage("L'enchantement de 2 pièces d'armure de " + cible.getPlayer().getDisplayName() + " a été modifier pendant 1 minute");
+        	//connaitre le camp du joueur
+        	joueur.getPlayer().sendMessage("Ce joueur fait partie du camp " + cible.getCamp());
         	
         }
         else if(nb <= 55) {
@@ -251,6 +232,11 @@ public class Farmeurimmo {
         else {
         	
         	//l'arc du joueur est innutilisable (disparait de l'inv pendant 1min)
+        	for(ItemStack item : cible.getPlayer().getInventory().getContents()) {
+        		if(item != null && item.getType() == Material.BOW) {
+        			item.setType(Material.BARRIER);
+        		}
+        	}
         	ItemCD cycle = new ItemCD(main, joueur, "malus_bow_farmeurimmo", 60, cible, null, null, null, null);
             cycle.runTaskTimer(main, 0, 20);
             joueur.getPlayer().sendMessage(cible.getPlayer().getDisplayName() + " ne peux plus utiliser son arc pendant 1 minute");

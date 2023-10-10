@@ -68,7 +68,7 @@ public class CommandRemoverole implements CommandExecutor {
                     main.getCompo().remove(Roles.TEAM);
                     player.sendMessage("Tu as ajouté le rôle Team");
 
-                } else if ((args.length != 0 && args[0].equalsIgnoreCase("gameblack")) && (args.length != 0 && args[0].equalsIgnoreCase("game"))) {
+                } else if ((args.length != 0 && args[0].equalsIgnoreCase("gameblack")) || (args.length != 0 && args[0].equalsIgnoreCase("game"))) {
 
                     //ANTI KB -> A FAIRE
                 	
