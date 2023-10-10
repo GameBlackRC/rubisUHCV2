@@ -21,7 +21,7 @@ public class Jeannot {
 	
 	public static void Texte(Player player) {
 
-        player.sendMessage("____________________________________________________\n \nVous êtes §aJeannot\n§rVous devez gagner avec le §acamp joueur§r\n \nAvec la commande /rcpartage, vous pouvez activer votre mode partage. Lorsque le mode partage est actif, vous ne recevez plus d'absorption de vos pommes d'or mais tout vos alliés en recoivent s'il n'en avais pas. Si Nickoboop avait déjà de l'absorption alors il monte jusqu'à 4 coeurs d'absorption\n \nVous connaissez Nickoboop\n \n____________________________________________________");
+        player.sendMessage("____________________________________________________\n \nVous êtes §aJeannot\n§rVous devez gagner avec le §acamp joueur§r\n \nVous avez 3% de force permanent\n \nAvec la commande /rcpartage, vous pouvez activer votre mode partage. Lorsque le mode partage est actif, vous ne recevez plus d'absorption de vos pommes d'or mais tout vos alliés en recoivent s'il n'en avais pas. Si Nickoboop avait déjà de l'absorption alors il monte jusqu'à 4 coeurs d'absorption\n \nVous connaissez Nickoboop\n \n____________________________________________________");
 
     }
 	

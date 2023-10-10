@@ -82,7 +82,7 @@ public class Nickoboop {
 	
 	public static void Texte(Player player) {
 
-        player.sendMessage("____________________________________________________\n \nVous êtes §aNickoboop\n§rVous devez gagner avec le §acamp joueur§r\n \nVous connaissez Jeannot\n \n____________________________________________________");
+        player.sendMessage("____________________________________________________\n \nVous êtes §aNickoboop\n§rVous devez gagner avec le §acamp joueur§r\n \nAvec la commande /rcpapier, vous pouvez, une fois par épisode, regarder les papiers d'un joueur\n \nVous recevez 3% de résistance proche de Jeannot\n \nVous connaissez Jeannot\n \n____________________________________________________");
 
     }
 
