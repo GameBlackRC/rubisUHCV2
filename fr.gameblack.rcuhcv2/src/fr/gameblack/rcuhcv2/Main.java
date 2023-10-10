@@ -37,6 +37,9 @@ import fr.gameblack.rcuhcv2.commands.joueur.joko.CommandSteal;
 import fr.gameblack.rcuhcv2.commands.joueur.nickoboop.CommandPapier;
 import fr.gameblack.rcuhcv2.commands.joueur.slup.CommandTrial;
 import fr.gameblack.rcuhcv2.commands.solo.farmeurimmo.CommandRCCode;
+import fr.gameblack.rcuhcv2.commands.solo.kzou.CommandBan;
+import fr.gameblack.rcuhcv2.commands.solo.kzou.CommandDisperse;
+import fr.gameblack.rcuhcv2.commands.solo.kzou.CommandOp;
 import fr.gameblack.rcuhcv2.commands.staff.gameblack.CommandChangeOrbe;
 import fr.gameblack.rcuhcv2.commands.staff.gameblack.CommandCheckOrbe;
 import fr.gameblack.rcuhcv2.commands.staff.gameblack.CommandConsole;
@@ -151,6 +154,9 @@ public class Main extends JavaPlugin {
     	getCommand("rcforme").setExecutor(new CommandForme(this));
     	
     	getCommand("rchack").setExecutor(new CommandRCCode(this));
+    	getCommand("rcban").setExecutor(new CommandBan(this));
+    	getCommand("rcdisperse").setExecutor(new CommandDisperse(this));
+    	getCommand("rcop").setExecutor(new CommandOp(this));
     	
     	getServer().getPluginManager().registerEvents(new PlayerActionListener(this), this);
     	getServer().getPluginManager().registerEvents(new DamageListener(this), this);

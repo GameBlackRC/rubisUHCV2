@@ -128,6 +128,7 @@ public class Autostart extends BukkitRunnable {
 	                ItemStack jambiere = new ItemStack(Material.IRON_LEGGINGS, 1);
 	                ItemMeta jambiereM = jambiere.getItemMeta();
 	                jambiereM.addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 3, false);
+	                jambiereM.addEnchant(Enchantment.DURABILITY, 3, false);
 	                jambiere.setItemMeta(jambiereM);
 	
 	                pls.getInventory().setLeggings(jambiere);
@@ -135,6 +136,7 @@ public class Autostart extends BukkitRunnable {
 	                ItemStack casque = new ItemStack(Material.IRON_HELMET, 1);
 	                ItemMeta casqueM = casque.getItemMeta();
 	                casqueM.addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 3, false);
+	                casqueM.addEnchant(Enchantment.DURABILITY, 3, false);
 	                casque.setItemMeta(casqueM);
 	
 	                pls.getInventory().setHelmet(casque);

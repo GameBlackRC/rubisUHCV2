@@ -16,6 +16,12 @@ commands:
     description: Commande du role Joko
   rchack:
     description: Commande du role Farmeurimmo
+  rcban:
+    description: Commande du role Kzou
+  rcdisperse:
+    description: Commande du role Kzou
+  rcop:
+    description: Commande du role Kzou
   rcplay:
     description: Commande du role Trial
   rcmode:
