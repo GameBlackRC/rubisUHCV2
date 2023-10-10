@@ -1544,7 +1544,7 @@ public class GameCycle extends BukkitRunnable {
         
         if(timer % 10 == 0) {
         	
-        	if(main.getNeko() != null && main.getNeko().isProche(Roles.MAKA, main) && !main.getNeko().isSpeedProche()) {
+        	if(main.getNeko() != null && !main.getNeko().isMort() && main.getNeko().isProche(Roles.MAKA, main) && !main.getNeko().isSpeedProche() && !main.getJoueurByRole(Roles.MAKA).isMort()) {
         		
         		if(main.getNbJoueursStaff() == 6) {
         			main.getNeko().addSpeed(0.01);

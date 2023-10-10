@@ -70,7 +70,7 @@ public class DamageListener implements Listener {
         	
         }
 		
-		if(main.getNeko() != null && joueur.getRole() == Roles.MAKA) {
+		if(main.getNeko() != null && joueur.getRole() == Roles.MAKA && !main.getNeko().isMort()) {
 			
 			if(main.getNbJoueursStaff() == 5) {
     			main.getNeko().addSpeed(0.01);
@@ -95,28 +95,29 @@ public class DamageListener implements Listener {
 			if(tueur.getPlayer().getMaxHealth() <= 18) {
 				
 				tueur.getPlayer().setMaxHealth(18);
-				main.setTueurNeko(null);
-				tueur.addResi(0.02);
-				if(main.getNbJoueursStaff() == 6) {
-	    			tueur.addSpeed(0.01);
-	    		}
-				else if(main.getNbJoueursStaff() == 5) {
-	    			tueur.addSpeed(0.02);
-	    		}
-	    		else if(main.getNbJoueursStaff() == 4) {
-	    			tueur.addSpeed(0.05);
-	    		}
-	    		else if(main.getNbJoueursStaff() == 3) {
-	    			tueur.addSpeed(0.07);
-	    		}
-	    		else if(main.getNbJoueursStaff() == 2) {
-	    			tueur.addSpeed(0.1);
-	    		}
-	    		else if(main.getNbJoueursStaff() == 1) {
-	    			tueur.addSpeed(0.15);
-	    		}
 				
 			}
+				
+			main.setTueurNeko(null);
+			tueur.addResi(0.02);
+			if(main.getNbJoueursStaff() == 6) {
+	    		tueur.addSpeed(0.01);
+	    	}
+			else if(main.getNbJoueursStaff() == 5) {
+	    		tueur.addSpeed(0.02);
+	    	}
+	    	else if(main.getNbJoueursStaff() == 4) {
+	    		tueur.addSpeed(0.05);
+	    	}
+	    	else if(main.getNbJoueursStaff() == 3) {
+	    		tueur.addSpeed(0.07);
+	    	}
+	    	else if(main.getNbJoueursStaff() == 2) {
+	    		tueur.addSpeed(0.1);
+	    	}
+	    	else if(main.getNbJoueursStaff() == 1) {
+	    		tueur.addSpeed(0.15);
+	    	}
 			
 		}
 		
