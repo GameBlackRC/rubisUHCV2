@@ -137,7 +137,17 @@ public class Joueur {
 		jokoItemActif = false;
 		cube = 0;
 		opKzou = false;
+		nbOpKzou = 0;
 		mort = false;
+		respawnTrial = false;
+		choixGbCamp = false;
+		checkMalusEau = false;
+		consoleGBActif = false;
+		classeGB = null;
+		forme = "normal";
+		resiProche = false;
+		frappeNeko = false;
+		speedProche = false;
 		setRespawnTrial(false);
 		
 	}

@@ -323,31 +323,31 @@ public class Main extends JavaPlugin {
 
             Bukkit.broadcastMessage("Le camps Joueur remporte la partie !");
             
-            reloadGame();
+            state = Statut.FINISH;
 
         } else if (getCampJoueur().isEmpty() && getCampUHC().isEmpty() && getCampFarmeurimmo().isEmpty() && getDuo().isEmpty() && getSolos().isEmpty()) {
 
             Bukkit.broadcastMessage("Le camps Staff remporte la partie !");
             
-            reloadGame();
+            state = Statut.FINISH;
 
         } else if (getCampJoueur().isEmpty() && getCampStaff().isEmpty() && getCampFarmeurimmo().isEmpty() && getDuo().isEmpty() && getSolos().isEmpty()) {
 
             Bukkit.broadcastMessage("Le camps UHC remporte la partie !");
             
-            reloadGame();
+            state = Statut.FINISH;
 
         } else if (getCampJoueur().isEmpty() && getCampStaff().isEmpty() && getCampUHC().isEmpty() && getCampFarmeurimmo().isEmpty() && getSolos().isEmpty()) {
 
             Bukkit.broadcastMessage("Le duo Slup - Trial remporte la partie !");
             
-            reloadGame();
+            state = Statut.FINISH;
 
         } else if (getCampJoueur().isEmpty() && getCampStaff().isEmpty() && getCampUHC().isEmpty() && getDuo().isEmpty() && getSolos().isEmpty()) {
 
             Bukkit.broadcastMessage("Farmeurimmo remporte la partie !");
             
-            reloadGame();
+            state = Statut.FINISH;
 
         } else if (getCampJoueur().isEmpty() && getCampStaff().isEmpty() && getCampUHC().isEmpty() && getCampFarmeurimmo().isEmpty() && getDuo().isEmpty() && getSolos().size() == 1) {
 
@@ -355,13 +355,13 @@ public class Main extends JavaPlugin {
 
                 Bukkit.broadcastMessage("Trial remporte la partie !");
                 
-                reloadGame();
+                state = Statut.FINISH;
 
             } else if (getSolos().get(0).getRole() == Roles.KZOU) {
 
                 Bukkit.broadcastMessage("Kzou remporte la partie !");
                 
-                reloadGame();
+                state = Statut.FINISH;
 
             }
 
@@ -389,6 +389,11 @@ public class Main extends JavaPlugin {
         fermetureGolden = false;
         fermetureGoldenActif = false;
         joko_stun = new ArrayList<>();
+        world = null;
+        malediction_gyomei = null;
+        neko = null;
+        nbJoueursStaff = 0;
+        tueurNeko = null;
     	
     }
     

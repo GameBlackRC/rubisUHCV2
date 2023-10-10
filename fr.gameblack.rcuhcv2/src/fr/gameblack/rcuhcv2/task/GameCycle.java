@@ -1508,6 +1508,14 @@ public class GameCycle extends BukkitRunnable {
 	@Override
     public void run() {
 		
+		if(main.getState() == Statut.FINISH) {
+			
+			main.reloadGame();
+			
+			cancel();
+			
+		}
+		
 		if(timer % 70 == 0 && ((main.getEpisode() > 2 && main.getTemps() > 1 && main.getMode().equalsIgnoreCase("normal")) || (main.getEpisode() >= 1 && main.getTemps() > 11 && main.getMode().equalsIgnoreCase("rapide")))) {
 			
 			for(Joueur joueur : main.getListJoueurs()) {
@@ -1524,7 +1532,7 @@ public class GameCycle extends BukkitRunnable {
         
         if(timer % 10 == 0) {
         	
-        	if(main.getNeko().isProche(Roles.MAKA, main) && !main.getNeko().isSpeedProche()) {
+        	if(main.getNeko() != null && main.getNeko().isProche(Roles.MAKA, main) && !main.getNeko().isSpeedProche()) {
         		
         		if(main.getNbJoueursStaff() == 6) {
         			main.getNeko().addSpeed(0.01);
@@ -1564,7 +1572,7 @@ public class GameCycle extends BukkitRunnable {
         		}
         		
         	}
-        	else if(!main.getNeko().isProche(Roles.MAKA, main) && main.getNeko().isSpeedProche()) {
+        	else if(main.getNeko() != null && !main.getNeko().isProche(Roles.MAKA, main) && main.getNeko().isSpeedProche()) {
         		
         		if(main.getNbJoueursStaff() == 6) {
         			main.getNeko().removeSpeed(0.01);
