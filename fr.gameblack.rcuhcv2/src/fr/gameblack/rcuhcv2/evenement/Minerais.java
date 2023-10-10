@@ -116,6 +116,8 @@ public class Minerais {
         	}
         	
         }
+        
+        joueur.getPlayer().sendMessage("Vous avez " + nb_allies + " alliés proche de vous");
 		
 	}
 	
@@ -130,8 +132,8 @@ public class Minerais {
 		}
 		
 		Random r = new Random();
-        int signe_x = r.nextInt(1);
-        int signe_z = r.nextInt(1);
+        int signe_x = r.nextInt(2);
+        int signe_z = r.nextInt(2);
         int cos_x = r.nextInt(200);
         cos_x += 150;
         if (signe_x == 1) {

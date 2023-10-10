@@ -57,12 +57,12 @@ public class DamageListener implements Listener {
 	            
 	            if(nb <= 10) {
 	            	
-	            	gb.getPlayer().sendMessage("[CONSOLE]" + ChatColor.MAGIC + "aaaaa" + ChatColor.RESET + " vient de tuer " + ChatColor.MAGIC + "aaaaa");
+	            	gb.getPlayer().sendMessage("[CONSOLE] " + ChatColor.MAGIC + "aaaaa" + ChatColor.RESET + " vient de tuer " + ChatColor.MAGIC + "aaaaa");
 	            	
 	            }
 	            else {
 	            	
-	            	gb.getPlayer().sendMessage("[CONSOLE]" + tueur.getPlayer().getName() + " vient de tuer " + joueur.getPlayer().getName());
+	            	gb.getPlayer().sendMessage("[CONSOLE] " + tueur.getPlayer().getName() + " vient de tuer " + joueur.getPlayer().getName());
 	            	
 	            }
 	            
@@ -123,6 +123,8 @@ public class DamageListener implements Listener {
 		if(main.getJoueurByRole(Roles.MAKA) != null && main.getNeko() == joueur) {
 			
 			Joueur maka = main.getJoueurByRole(Roles.MAKA);
+			
+			main.setTueurNeko(tueur);
 			
 			maka.getPlayer().sendMessage("Neko vient de mourrir, vous perdrez donc 1 coeur permanent toutes les 5 minutes");
 			

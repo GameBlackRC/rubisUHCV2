@@ -273,6 +273,18 @@ public class GameCycle extends BukkitRunnable {
         for (Joueur j : main.getListJoueurs()) {
         	
         	if(nombre > 0) {
+        		
+        		System.out.println("____________________________");
+            	
+            	System.out.println("taille : " + nombre);
+            	
+            	for(Roles role : compo) {
+            		
+            		System.out.println("Role : " + role.toString());
+            		
+            	}
+            	
+            	System.out.println("____________________________");
         	
 	        	Player pls = j.getPlayer();
 	
@@ -339,7 +351,7 @@ public class GameCycle extends BukkitRunnable {
         
         if((main.getEpisode() > 1 || (main.getEpisode() == 2 && main.getTemps() > 2)) || (main.getTemps() > 10 && main.getEpisode() >= 1 && main.getMode().equalsIgnoreCase("rapide"))) {
         	
-        	if(main.getCompo().contains(Roles.RAPTOR)) {
+        	if(main.getCompo().contains(Roles.RAPTOR) && main.getJoueurByRole(Roles.RAPTOR) != null) {
             	
             	if(!board_raptor.getObjectives().isEmpty()) {
             		board_raptor.getObjective("test").unregister();
@@ -397,7 +409,7 @@ public class GameCycle extends BukkitRunnable {
 		        
         	}
         	
-        	if(main.getCompo().contains(Roles.JEANNOT)) {
+        	if(main.getCompo().contains(Roles.JEANNOT)  && main.getJoueurByRole(Roles.JEANNOT) != null) {
             	
             	if(!board_jeannot.getObjectives().isEmpty()) {
             		board_jeannot.getObjective("test").unregister();
@@ -454,7 +466,7 @@ public class GameCycle extends BukkitRunnable {
 		        
         	}
         	
-        	if(main.getCompo().contains(Roles.NICKOBOOP)) {
+        	if(main.getCompo().contains(Roles.NICKOBOOP) && main.getJoueurByRole(Roles.NICKOBOOP) != null) {
 	                   	
             	if(!board_nickoboop.getObjectives().isEmpty()) {
             		board_nickoboop.getObjective("test").unregister();
@@ -511,7 +523,7 @@ public class GameCycle extends BukkitRunnable {
 		    
         	}
         	
-        	if(main.getCompo().contains(Roles.SLUP)) {
+        	if(main.getCompo().contains(Roles.SLUP) && main.getJoueurByRole(Roles.SLUP) != null) {
 	                    	
             	if(!board_slup.getObjectives().isEmpty()) {
             		board_slup.getObjective("test").unregister();
@@ -568,7 +580,7 @@ public class GameCycle extends BukkitRunnable {
 		        
         	}
         	
-        	if(main.getCompo().contains(Roles.JOKO)) {
+        	if(main.getCompo().contains(Roles.JOKO) && main.getJoueurByRole(Roles.JOKO) != null) {
 	                    	
             	if(!board_joko.getObjectives().isEmpty()) {
             		board_joko.getObjective("test").unregister();
@@ -625,7 +637,7 @@ public class GameCycle extends BukkitRunnable {
 		        
         	}
         	
-        	if(main.getCompo().contains(Roles.TEAM)) {
+        	if(main.getCompo().contains(Roles.TEAM) && main.getJoueurByRole(Roles.TEAM) != null) {
                    	
             	if(!board_team.getObjectives().isEmpty()) {
             		board_team.getObjective("test").unregister();
@@ -682,7 +694,7 @@ public class GameCycle extends BukkitRunnable {
 		        
         	}
         	
-        	if(main.getCompo().contains(Roles.GAMEBLACK)) {
+        	if(main.getCompo().contains(Roles.GAMEBLACK) && main.getJoueurByRole(Roles.GAMEBLACK) != null) {
             	
             	if(!board_gameblack.getObjectives().isEmpty()) {
             		board_gameblack.getObjective("test").unregister();
@@ -739,7 +751,7 @@ public class GameCycle extends BukkitRunnable {
 		        
         	}
         	
-        	if(main.getCompo().contains(Roles.MAKA)) {
+        	if(main.getCompo().contains(Roles.MAKA)  && main.getJoueurByRole(Roles.MAKA) != null) {
             	
             	if(!board_maka.getObjectives().isEmpty()) {
             		board_maka.getObjective("test").unregister();
@@ -796,7 +808,7 @@ public class GameCycle extends BukkitRunnable {
 		        
         	}
         	
-        	if(main.getCompo().contains(Roles.TRIAL)) {
+        	if(main.getCompo().contains(Roles.TRIAL) && main.getJoueurByRole(Roles.TRIAL) != null) {
 	        
         		if(!board_trial.getObjectives().isEmpty()) {
             		board_trial.getObjective("test").unregister();
@@ -853,7 +865,7 @@ public class GameCycle extends BukkitRunnable {
 		        
         	}
         	
-        	if(main.getCompo().contains(Roles.LOUP)) {
+        	if(main.getCompo().contains(Roles.LOUP) && main.getJoueurByRole(Roles.LOUP) != null) {
 	        
         		if(!board_loup.getObjectives().isEmpty()) {
             		board_loup.getObjective("test").unregister();
@@ -910,7 +922,7 @@ public class GameCycle extends BukkitRunnable {
 		        
         	}
         	
-        	if(main.getCompo().contains(Roles.CAPTAIN)) {
+        	if(main.getCompo().contains(Roles.CAPTAIN) && main.getJoueurByRole(Roles.CAPTAIN) != null) {
             	
             	if(!board_captain.getObjectives().isEmpty()) {
             		board_captain.getObjective("test").unregister();
@@ -967,7 +979,7 @@ public class GameCycle extends BukkitRunnable {
 		        
         	}
         	
-        	if(main.getCompo().contains(Roles.HEKOW)) {
+        	if(main.getCompo().contains(Roles.HEKOW) && main.getJoueurByRole(Roles.HEKOW) != null) {
             	
             	if(!board_hekow.getObjectives().isEmpty()) {
             		board_hekow.getObjective("test").unregister();
@@ -1024,7 +1036,7 @@ public class GameCycle extends BukkitRunnable {
 		        
         	}
         	
-        	if(main.getCompo().contains(Roles.MALIVOL)) {
+        	if(main.getCompo().contains(Roles.MALIVOL) && main.getJoueurByRole(Roles.MALIVOL) != null) {
             	
             	if(!board_malivol.getObjectives().isEmpty()) {
             		board_malivol.getObjective("test").unregister();
@@ -1109,7 +1121,7 @@ public class GameCycle extends BukkitRunnable {
 		        
         	}
         	
-        	if(main.getCompo().contains(Roles.TOINOU)) {
+        	if(main.getCompo().contains(Roles.TOINOU) && main.getJoueurByRole(Roles.TOINOU) != null) {
             	
             	if(!board_toinou.getObjectives().isEmpty()) {
             		board_toinou.getObjective("test").unregister();
@@ -1166,7 +1178,7 @@ public class GameCycle extends BukkitRunnable {
 		        
         	}
         	
-        	if(main.getCompo().contains(Roles.OBSCUR)) {
+        	if(main.getCompo().contains(Roles.OBSCUR) && main.getJoueurByRole(Roles.OBSCUR) != null) {
             	
             	if(!board_obscur.getObjectives().isEmpty()) {
             		board_obscur.getObjective("test").unregister();
@@ -1223,7 +1235,7 @@ public class GameCycle extends BukkitRunnable {
 		        
         	}
         	
-        	if(main.getCompo().contains(Roles.NONOBOY)) {
+        	if(main.getCompo().contains(Roles.NONOBOY) && main.getJoueurByRole(Roles.NONOBOY) != null) {
             	
             	if(!board_nonoboy.getObjectives().isEmpty()) {
             		board_nonoboy.getObjective("test").unregister();
@@ -1280,7 +1292,7 @@ public class GameCycle extends BukkitRunnable {
 		        
         	}
         	
-        	if(main.getCompo().contains(Roles.FARMEURIMMO)) {
+        	if(main.getCompo().contains(Roles.FARMEURIMMO) && main.getJoueurByRole(Roles.FARMEURIMMO) != null) {
             	
             	if(!board_farmeurimmo.getObjectives().isEmpty()) {
             		board_farmeurimmo.getObjective("test").unregister();
@@ -1337,7 +1349,7 @@ public class GameCycle extends BukkitRunnable {
 		        
         	}
         	
-        	if(main.getCompo().contains(Roles.KZOU)) {
+        	if(main.getCompo().contains(Roles.KZOU) && main.getJoueurByRole(Roles.KZOU) != null) {
             	
             	if(!board_kzou.getObjectives().isEmpty()) {
             		board_kzou.getObjective("test").unregister();
@@ -1403,7 +1415,7 @@ public class GameCycle extends BukkitRunnable {
         	//System.out.println("Joueur : " + player.getName());
         	//System.out.println("Role : " + joueur.getRole().toString());
         	
-        	if(joueur.getRole() == Roles.NONE) {
+        	if(joueur.getRole() == Roles.NONE || joueur.isMort()) {
         		
 	            player.setScoreboard(board_base);
 	            

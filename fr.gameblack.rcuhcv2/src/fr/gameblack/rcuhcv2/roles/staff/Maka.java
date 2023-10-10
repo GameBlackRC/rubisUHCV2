@@ -27,11 +27,13 @@ public class Maka {
 		
 		List<Joueur> campStaff = main.getCampStaff();
 		
+		campStaff.remove(joueur);
+		
         int nb = r.nextInt(campStaff.size());
 		
 		main.setNeko(campStaff.get(nb));
 		
-		main.setNbJoueursStaff(campStaff.size()-1);
+		main.setNbJoueursStaff(campStaff.size());
 		
 		joueur.getPlayer().sendMessage("Voici le pseudo de Neko : " + main.getNeko().getPlayer().getName());
 		

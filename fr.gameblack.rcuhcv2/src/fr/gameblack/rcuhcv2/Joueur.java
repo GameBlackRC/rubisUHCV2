@@ -191,7 +191,7 @@ public class Joueur {
 				Player p = (Player) entity;
 				Joueur j = main.getJoueur(p);
 			
-				if(j.getRole() == role) {
+				if(j.getRole() == role && !j.isMort()) {
 					
 					return true;
 					
