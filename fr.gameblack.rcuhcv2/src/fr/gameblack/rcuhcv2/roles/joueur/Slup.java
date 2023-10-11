@@ -62,19 +62,12 @@ public class Slup {
 	}
 	
 	public static void fakeMort(Joueur joueur, Main main) {
-		
-		for(Joueur j : main.getListJoueurs()) {
 			
-			if(!j.isSpec()) {
-				
-				j.getPlayer().hidePlayer(joueur.getPlayer());
-				
-			}
-			joueur.setInvulnerable(true);
-			ItemCD cycle = new ItemCD(main, joueur, "fakemort_slup", 300, joueur, null, null, null, null);
-	        cycle.runTaskTimer(main, 0, 20);
-			
-		}
+		joueur.hide(main);
+		Bukkit.broadcastMessage("_________________________\n" + joueur.getPlayer().getName() + " est mort. Il était : \nSLUP\n_________________________");
+		joueur.setInvulnerable(true);
+		ItemCD cycle = new ItemCD(main, joueur, "fakemort_slup", 300, joueur, null, null, null, null);
+		cycle.runTaskTimer(main, 0, 20);
 		
 	}
 	

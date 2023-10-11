@@ -8,6 +8,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import fr.gameblack.rcuhcv2.Joueur;
 import fr.gameblack.rcuhcv2.Main;
 import fr.gameblack.rcuhcv2.Pouvoirs;
+import fr.gameblack.rcuhcv2.task.GameCycle;
 import fr.gameblack.rcuhcv2.task.ItemCD;
 
 public class Joko {
@@ -51,7 +52,7 @@ public class Joko {
 
     public static void CommandCube(Joueur joueur, Joueur cible, Main main) {
 
-    	cible.addCube(main);
+    	cible.addCube(main, GameCycle.getScoreboardJoko());
         joueur.getPlayer().sendMessage(cible.getPlayer().getName() + " possède maintenant " + cible.getCube() + " rubik's cube");
         main.getCD().add(Pouvoirs.JOKO_GIVECUBE);
         ItemCD cycle = new ItemCD(main, joueur, "givecube", 300, cible, null, null, null, null);

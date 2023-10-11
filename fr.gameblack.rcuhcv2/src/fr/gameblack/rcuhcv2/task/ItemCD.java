@@ -98,7 +98,7 @@ public class ItemCD extends BukkitRunnable {
         	
         	if(item == "mortNeko") {
         		
-        		timer = 300;
+        		timer = 30;
         		joueur.getPlayer().setMaxHealth(joueur.getPlayer().getMaxHealth()-2);
         		
         	}

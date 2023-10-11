@@ -291,7 +291,19 @@ public class GameBlack {
 	
 	public static void Texte(Player player) {
 
-        player.sendMessage("____________________________________________________\n \nVous êtes §9GameBlack\n§rVous devez gagner avec le §9camp staff§r\n \nVous connaissez Trial\n \n____________________________________________________");
+        player.sendMessage("____________________________________________________\n \nVous êtes §9GameBlack\n§rVous devez gagner avec le §9camp staff§r\n \nVous avez 5% de speed permanent et vous recevez une orbe à l'annonce des rôles\n \nSi vous venez à croiser Malivol avant Team ou Maka, vous passez dans le camp UHC\n \nVous avez 50% de chance de ne pas recevoir le malus de votre orbe\n \nAvec la commande /rcchangeorbe, vous pouvez changer votre orbe\n \nAvec la commande /rccheckorbe <pseudo>, vous pouvez voir quelle orbe possède le joueur ciblé\n \nLorsque Kzou ban un joueur, vous recevez un message vous avertissant du ban et vous avez 25% de chance de connaître le pseudo du banni\n \nAvec la commande /rcconsole, vous pouvez voir la console pendant 30 secondes\nVous recevez un message pour chaque action parmi les suivants : un joueur frappe un autre joueur, un joueur tue un joueur, un joueur a un changemment d'effet, un joueur active son pouvoir.\nChaque action a une certaine chance d'avoir les pseudos brouiller\n \n____________________________________________________");
+
+    }
+	
+	public static void TexteUHC(Player player) {
+
+        player.sendMessage("____________________________________________________\n \nVous êtes §9GameBlack\n§rVous devez gagner avec le §2camp UHC§r\n \nVous avez 5% de speed permanent\n \nSi l'évènement 'Fermeture de Golden' se déclanche, vous avez 50% de chance de passer dans le camp Joueur\n \nVous avez 50% de chance de ne pas recevoir le malus de votre orbe\n \nAvec la commande /rcchangeorbe, vous pouvez changer votre orbe\n \nAvec l'item 'Fuite', vous devenez invulnérable et vous ne poupez plus mettre de coup pendant 2 secondes\nVous recevez 10% de speed pendant 1 minute\nLes joueur proche de vous recevront l'effet blindness pendant 10 secondes\nSi Toinou est proche de vous lors de l'utilisation, il reçoit 2% de force pendant 1 minute\n \nA chaque coup d'épée subi, vous avez 5% de chance de recevoir 1% de speed supplémentaire permanent\n \n____________________________________________________");
+
+    }
+	
+	public static void TexteJoueur(Player player) {
+
+        player.sendMessage("____________________________________________________\n \nVous êtes §9GameBlack\n§rVous devez gagner avec le §acamp joueur§r\n \nVous avez 5% de speed permanent\n \nSi l'évènement 'Fermeture de Golden' se déclanche, vous avez 50% de chance de passer dans le camp Joueur\n \nVous avez 50% de chance de ne pas recevoir le malus de votre orbe\n \nAvec la commande /rcchangeorbe, vous pouvez changer votre orbe\n \nAvec l'item 'Fuite', vous devenez invulnérable et vous ne poupez plus mettre de coup pendant 2 secondes\nVous recevez 10% de speed pendant 1 minute\nLes joueur proche de vous recevront l'effet blindness pendant 10 secondes\nSi Toinou est proche de vous lors de l'utilisation, il reçoit 2% de force pendant 1 minute\n \nA chaque coup d'épée subi, vous avez 5% de chance de recevoir 1% de speed supplémentaire permanent\n \n____________________________________________________");
 
     }
 

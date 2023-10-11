@@ -336,6 +336,14 @@ public class GameCycle extends BukkitRunnable {
         }
     	
     }
+    
+    public static Scoreboard getScoreboardFarmeurimmo() {
+    	return board_farmeurimmo;
+    }
+    
+    public static Scoreboard getScoreboardJoko() {
+    	return board_joko;
+    }
 
     public static void setScoreboard(Main main, int timer) {
     	
@@ -346,7 +354,7 @@ public class GameCycle extends BukkitRunnable {
         Objective objective_base = board_base.registerNewObjective("test", "dummy");
         objective_base.setDisplaySlot(DisplaySlot.SIDEBAR);
         objective_base.setDisplayName("RC UHC V2");
-        Score score1_base = objective_base.getScore("Durée: " + timer/10 + "s");
+        Score score1_base = objective_base.getScore("Durée: " + main.getTimerInTexte(timer));
         score1_base.setScore(1);
         
         if((main.getEpisode() > 1 || (main.getEpisode() == 2 && main.getTemps() > 2)) || (main.getTemps() > 10 && main.getEpisode() >= 1 && main.getMode().equalsIgnoreCase("rapide"))) {
@@ -361,7 +369,7 @@ public class GameCycle extends BukkitRunnable {
                 
 		        objective_raptor.setDisplaySlot(DisplaySlot.SIDEBAR);
 		        objective_raptor.setDisplayName("RC UHC V2");
-		        Score score1_raptor = objective_raptor.getScore("Durée: " + timer/10 + "s");
+		        Score score1_raptor = objective_raptor.getScore("Durée: " + main.getTimerInTexte(timer));
 		        score1_raptor.setScore(6);
 		        Joueur raptor = main.getJoueurByRole(Roles.RAPTOR);
 		        Score score2_raptor = objective_raptor.getScore("Role: " + raptor.getCouleurCamp() + "Raptor");
@@ -419,7 +427,7 @@ public class GameCycle extends BukkitRunnable {
                 
 		        objective_jeannot.setDisplaySlot(DisplaySlot.SIDEBAR);
 		        objective_jeannot.setDisplayName("RC UHC V2");
-		        Score score1_jeannot = objective_jeannot.getScore("Durée: " + timer/10 + "s");
+		        Score score1_jeannot = objective_jeannot.getScore("Durée: " + main.getTimerInTexte(timer));
 		        score1_jeannot.setScore(6);
 		        Joueur jeannot = main.getJoueurByRole(Roles.JEANNOT);
 		        Score score2_jeannot = objective_jeannot.getScore("Role: " + jeannot.getCouleurCamp() + "Jeannot");
@@ -476,7 +484,7 @@ public class GameCycle extends BukkitRunnable {
                 
 		        objective_nickoboop.setDisplaySlot(DisplaySlot.SIDEBAR);
 		        objective_nickoboop.setDisplayName("RC UHC V2");
-		        Score score1_nickoboop = objective_nickoboop.getScore("Durée: " + timer/10 + "s");
+		        Score score1_nickoboop = objective_nickoboop.getScore("Durée: " + main.getTimerInTexte(timer));
 		        score1_nickoboop.setScore(6);
 		        Joueur nickoboop = main.getJoueurByRole(Roles.NICKOBOOP);
 		        Score score2_nickoboop = objective_nickoboop.getScore("Role: " + nickoboop.getCouleurCamp() + "Nickoboop");
@@ -533,7 +541,7 @@ public class GameCycle extends BukkitRunnable {
                 
 		        objective_slup.setDisplaySlot(DisplaySlot.SIDEBAR);
 		        objective_slup.setDisplayName("RC UHC V2");
-		        Score score1_slup = objective_slup.getScore("Durée: " + timer/10 + "s");
+		        Score score1_slup = objective_slup.getScore("Durée: " + main.getTimerInTexte(timer));
 		        score1_slup.setScore(6);
 		        Joueur slup = main.getJoueurByRole(Roles.SLUP);
 		        Score score2_slup = objective_slup.getScore("Role: " + slup.getCouleurCamp() + "Slup");
@@ -582,7 +590,7 @@ public class GameCycle extends BukkitRunnable {
         	
         	if(main.getCompo().contains(Roles.JOKO) && main.getJoueurByRole(Roles.JOKO) != null) {
 	                    	
-            	if(!board_joko.getObjectives().isEmpty()) {
+            	if(!board_joko.getObjectives().isEmpty() && board_joko.getObjective("test") != null) {
             		board_joko.getObjective("test").unregister();
         		}
             		
@@ -590,7 +598,7 @@ public class GameCycle extends BukkitRunnable {
                 
 		        objective_joko.setDisplaySlot(DisplaySlot.SIDEBAR);
 		        objective_joko.setDisplayName("RC UHC V2");
-		        Score score1_joko = objective_joko.getScore("Durée: " + timer/10 + "s");
+		        Score score1_joko = objective_joko.getScore("Durée: " + main.getTimerInTexte(timer));
 		        score1_joko.setScore(6);
 		        Joueur joko = main.getJoueurByRole(Roles.JOKO);
 		        Score score2_joko = objective_joko.getScore("Role: " + joko.getCouleurCamp() + " Joko");
@@ -647,7 +655,7 @@ public class GameCycle extends BukkitRunnable {
                 
 		        objective_team.setDisplaySlot(DisplaySlot.SIDEBAR);
 		        objective_team.setDisplayName("RC UHC V2");
-		        Score score1_team = objective_team.getScore("Durée: " + timer/10 + "s");
+		        Score score1_team = objective_team.getScore("Durée: " + main.getTimerInTexte(timer));
 		        score1_team.setScore(6);
 		        Joueur team = main.getJoueurByRole(Roles.TEAM);
 		        Score score2_team = objective_team.getScore("Role: " + team.getCouleurCamp() + " Team");
@@ -704,7 +712,7 @@ public class GameCycle extends BukkitRunnable {
                 
 		        objective_gb.setDisplaySlot(DisplaySlot.SIDEBAR);
 		        objective_gb.setDisplayName("RC UHC V2");
-		        Score score1_gb = objective_gb.getScore("Durée: " + timer/10 + "s");
+		        Score score1_gb = objective_gb.getScore("Durée: " + main.getTimerInTexte(timer));
 		        score1_gb.setScore(6);
 		        Joueur gameblack = main.getJoueurByRole(Roles.GAMEBLACK);
 		        Score score2_gb = objective_gb.getScore("Role: " + gameblack.getCouleurCamp() + "GameBlack");
@@ -761,7 +769,7 @@ public class GameCycle extends BukkitRunnable {
                 
 		        objective_maka.setDisplaySlot(DisplaySlot.SIDEBAR);
 		        objective_maka.setDisplayName("RC UHC V2");
-		        Score score1_maka = objective_maka.getScore("Durée: " + timer/10 + "s");
+		        Score score1_maka = objective_maka.getScore("Durée: " + main.getTimerInTexte(timer));
 		        score1_maka.setScore(6);
 		        Joueur maka = main.getJoueurByRole(Roles.MAKA);
 		        Score score2_maka = objective_maka.getScore("Role: " + maka.getCouleurCamp() + "Maka");
@@ -818,7 +826,7 @@ public class GameCycle extends BukkitRunnable {
                 
 		        objective_trial.setDisplaySlot(DisplaySlot.SIDEBAR);
 		        objective_trial.setDisplayName("RC UHC V2");
-		        Score score1_trial = objective_trial.getScore("Durée: " + timer/10 + "s");
+		        Score score1_trial = objective_trial.getScore("Durée: " + main.getTimerInTexte(timer));
 		        score1_trial.setScore(6);
 		        Joueur trial = main.getJoueurByRole(Roles.TRIAL);
 		        Score score2_trial = objective_trial.getScore("Role: " + trial.getCouleurCamp() + "Trial");
@@ -875,7 +883,7 @@ public class GameCycle extends BukkitRunnable {
                 
 		        objective_loup.setDisplaySlot(DisplaySlot.SIDEBAR);
 		        objective_loup.setDisplayName("RC UHC V2");
-		        Score score1_loup = objective_loup.getScore("Durée: " + timer/10 + "s");
+		        Score score1_loup = objective_loup.getScore("Durée: " + main.getTimerInTexte(timer));
 		        score1_loup.setScore(6);
 		        Joueur loup = main.getJoueurByRole(Roles.LOUP);
 		        Score score2_loup = objective_loup.getScore("Role: " + loup.getCouleurCamp() + "Loup");
@@ -932,7 +940,7 @@ public class GameCycle extends BukkitRunnable {
                 
 		        objective_captain.setDisplaySlot(DisplaySlot.SIDEBAR);
 		        objective_captain.setDisplayName("RC UHC V2");
-		        Score score1_captain = objective_captain.getScore("Durée: " + timer/10 + "s");
+		        Score score1_captain = objective_captain.getScore("Durée: " + main.getTimerInTexte(timer));
 		        score1_captain.setScore(6);
 		        Joueur captain = main.getJoueurByRole(Roles.CAPTAIN);
 		        Score score2_captain = objective_captain.getScore("Role: " + captain.getCouleurCamp() + "Captain");
@@ -989,7 +997,7 @@ public class GameCycle extends BukkitRunnable {
                 
 		        objective_hekow.setDisplaySlot(DisplaySlot.SIDEBAR);
 		        objective_hekow.setDisplayName("RC UHC V2");
-		        Score score1_hekow = objective_hekow.getScore("Durée: " + timer/10 + "s");
+		        Score score1_hekow = objective_hekow.getScore("Durée: " + main.getTimerInTexte(timer));
 		        score1_hekow.setScore(6);
 		        Joueur hekow = main.getJoueurByRole(Roles.HEKOW);
 		        Score score2_hekow = objective_hekow.getScore("Role: " + hekow.getCouleurCamp() + "Hekow");
@@ -1046,7 +1054,7 @@ public class GameCycle extends BukkitRunnable {
                 
 		        objective_malivol.setDisplaySlot(DisplaySlot.SIDEBAR);
 		        objective_malivol.setDisplayName("RC UHC V2");
-		        Score score1_malivol = objective_malivol.getScore("Durée: " + timer/10 + "s");
+		        Score score1_malivol = objective_malivol.getScore("Durée: " + main.getTimerInTexte(timer));
 		        score1_malivol.setScore(6);
 		        Joueur malivol = main.getJoueurByRole(Roles.MALIVOL);
 		        Score score2_malivol = objective_malivol.getScore("Role: " + malivol.getCouleurCamp() + "Malivol");
@@ -1131,7 +1139,7 @@ public class GameCycle extends BukkitRunnable {
                 
 		        objective_toinou.setDisplaySlot(DisplaySlot.SIDEBAR);
 		        objective_toinou.setDisplayName("RC UHC V2");
-		        Score score1_toinou = objective_toinou.getScore("Durée: " + timer/10 + "s");
+		        Score score1_toinou = objective_toinou.getScore("Durée: " + main.getTimerInTexte(timer));
 		        score1_toinou.setScore(6);
 		        Joueur toinou = main.getJoueurByRole(Roles.TOINOU);
 		        Score score2_toinou = objective_toinou.getScore("Role: " + toinou.getCouleurCamp() + "Toinou");
@@ -1188,7 +1196,7 @@ public class GameCycle extends BukkitRunnable {
                 
 		        objective_obscur.setDisplaySlot(DisplaySlot.SIDEBAR);
 		        objective_obscur.setDisplayName("RC UHC V2");
-		        Score score1_obscur = objective_obscur.getScore("Durée: " + timer/10 + "s");
+		        Score score1_obscur = objective_obscur.getScore("Durée: " + main.getTimerInTexte(timer));
 		        score1_obscur.setScore(6);
 		        Joueur obscur = main.getJoueurByRole(Roles.OBSCUR);
 		        Score score2_obscur = objective_obscur.getScore("Role: " + obscur.getCouleurCamp() + "Obscur");
@@ -1245,7 +1253,7 @@ public class GameCycle extends BukkitRunnable {
                 
 		        objective_nonoboy.setDisplaySlot(DisplaySlot.SIDEBAR);
 		        objective_nonoboy.setDisplayName("RC UHC V2");
-		        Score score1_nonoboy = objective_nonoboy.getScore("Durée: " + timer/10 + "s");
+		        Score score1_nonoboy = objective_nonoboy.getScore("Durée: " + main.getTimerInTexte(timer));
 		        score1_nonoboy.setScore(6);
 		        Joueur nonoboy = main.getJoueurByRole(Roles.NONOBOY);
 		        Score score2_nonoboy = objective_nonoboy.getScore("Role: " + nonoboy.getCouleurCamp() + "Nonoboy");
@@ -1294,7 +1302,7 @@ public class GameCycle extends BukkitRunnable {
         	
         	if(main.getCompo().contains(Roles.FARMEURIMMO) && main.getJoueurByRole(Roles.FARMEURIMMO) != null) {
             	
-            	if(!board_farmeurimmo.getObjectives().isEmpty()) {
+            	if(!board_farmeurimmo.getObjectives().isEmpty() && board_farmeurimmo.getObjective("test") != null) {
             		board_farmeurimmo.getObjective("test").unregister();
         		}
             		
@@ -1302,7 +1310,7 @@ public class GameCycle extends BukkitRunnable {
                 
 		        objective_farmeurimmo.setDisplaySlot(DisplaySlot.SIDEBAR);
 		        objective_farmeurimmo.setDisplayName("RC UHC V2");
-		        Score score1_farmeurimmo = objective_farmeurimmo.getScore("Durée: " + timer/10 + "s");
+		        Score score1_farmeurimmo = objective_farmeurimmo.getScore("Durée: " + main.getTimerInTexte(timer));
 		        score1_farmeurimmo.setScore(6);
 		        Joueur farmeurimmo = main.getJoueurByRole(Roles.FARMEURIMMO);
 		        Score score2_farmeurimmo = objective_farmeurimmo.getScore("Role: " + farmeurimmo.getCouleurCamp() + "Farmeurimmo");
@@ -1358,8 +1366,8 @@ public class GameCycle extends BukkitRunnable {
             	Objective objective_kzou = board_kzou.registerNewObjective("test", "dummy");
                 
 		        objective_kzou.setDisplaySlot(DisplaySlot.SIDEBAR);
-		        objective_kzou.setDisplayName("RC UHC");
-		        Score score1_kzou = objective_kzou.getScore("Durée: " + timer/10 + "s");
+		        objective_kzou.setDisplayName("RC UHC V2");
+		        Score score1_kzou = objective_kzou.getScore("Durée: " + main.getTimerInTexte(timer));
 		        score1_kzou.setScore(2);
 		        Joueur kzou = main.getJoueurByRole(Roles.KZOU);
 		        Score score2_kzou = objective_kzou.getScore("Role: " + kzou.getCouleurCamp() + "Kzou");
@@ -1502,8 +1510,6 @@ public class GameCycle extends BukkitRunnable {
             }
         	else if(joueur.getRole() == Roles.FARMEURIMMO) {
         		
-        		System.out.println("c'est bien farmeurimmo");
-        		
 	            player.setScoreboard(board_farmeurimmo);
 	            
             }
@@ -1532,9 +1538,10 @@ public class GameCycle extends BukkitRunnable {
 			
 			for(Joueur joueur : main.getListJoueurs()) {
 				
-				if(!joueur.isSpec() && joueur.getRole() != Roles.FARMEURIMMO && joueur.getRole() != Roles.NONE) {
+				if(!joueur.isMort() && joueur.getRole() != Roles.FARMEURIMMO && joueur.getRole() != Roles.NONE && !joueur.isProche(Roles.FARMEURIMMO, main)) {
 					
-					joueur.addPourcentHack(1, main);
+					joueur.addPourcentHack(1, main, board_farmeurimmo);
+					System.out.println("+1% pour " + joueur.getPlayer().getName());
 					
 				}
 				

@@ -26,6 +26,7 @@ import fr.gameblack.rcuhcv2.Statut;
 import fr.gameblack.rcuhcv2.orbes.Glace;
 import fr.gameblack.rcuhcv2.roles.joueur.Raptor;
 import fr.gameblack.rcuhcv2.roles.uhc.Toinou;
+import fr.gameblack.rcuhcv2.task.GameCycle;
 import fr.gameblack.rcuhcv2.task.ItemCD;
 
 public class DamageListener implements Listener {
@@ -129,7 +130,7 @@ public class DamageListener implements Listener {
 			
 			maka.getPlayer().sendMessage("Neko vient de mourrir, vous perdrez donc 1 coeur permanent toutes les 5 minutes");
 			
-			ItemCD cycle = new ItemCD(main, joueur, "mortNeko", 300, joueur, null, null, null, null);
+			ItemCD cycle = new ItemCD(main, maka, "mortNeko", 30, maka, null, null, null, null);
 	        cycle.runTaskTimer(main, 0, 20);
 			
 		}
@@ -250,8 +251,8 @@ public class DamageListener implements Listener {
 
             	if(joueur != tueur) {
             		
-            		joueur.addPourcentHack(2, main);
-            		tueur.addPourcentHack(2, main);
+            		joueur.addPourcentHack(2, main, GameCycle.getScoreboardFarmeurimmo());
+            		tueur.addPourcentHack(2, main, GameCycle.getScoreboardFarmeurimmo());
             		
             		if(tueur.getComboSubi() != 0) {
             			
@@ -404,7 +405,7 @@ public class DamageListener implements Listener {
         			
         		}
                 
-                if(joueur.isFireOn() || (tueur.getOrbe() == Orbe.FEU && tueur.isOrbeActif()) || (tueur.getRole() == Roles.MAKA && tueur.getForme().equalsIgnoreCase("normal") && (tueur.getPlayer().getItemInHand().getType() == Material.DIAMOND_SWORD || tueur.getPlayer().getItemInHand().getType() == Material.IRON_SWORD))) {
+                if(joueur.isFireOn() || (tueur.getOrbe() == Orbe.FEU && tueur.isOrbeActif()) || (tueur.getRole() == Roles.MAKA && tueur.getForme().equalsIgnoreCase("normal"))) {
                 	
                 	Random r = new Random();
                     int nb = r.nextInt(100);
@@ -455,7 +456,7 @@ public class DamageListener implements Listener {
                         if (nb < pourcent + 1) {
 
                         	joueur.Stun(10, main);
-                        	joueur.removeCube(main);
+                        	joueur.removeCube(main, GameCycle.getScoreboardJoko());
                             main.getJokoStun().add(joueur);
 
                             killer.sendMessage("Vous venez de stun " + player.getName());

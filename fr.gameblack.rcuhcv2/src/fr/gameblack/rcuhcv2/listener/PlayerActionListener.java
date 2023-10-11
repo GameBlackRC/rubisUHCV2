@@ -24,6 +24,7 @@ import fr.gameblack.rcuhcv2.Statut;
 import fr.gameblack.rcuhcv2.orbes.Feu;
 import fr.gameblack.rcuhcv2.roles.joueur.Jeannot;
 import fr.gameblack.rcuhcv2.roles.staff.Trial;
+import fr.gameblack.rcuhcv2.task.GameCycle;
 import fr.gameblack.rcuhcv2.task.ItemCD;
 
 public class PlayerActionListener implements Listener{
@@ -45,7 +46,7 @@ public class PlayerActionListener implements Listener{
 			
 			if(!joueur.isFarmeurimmoProche(main)) {
 			
-				joueur.addPourcentHack(10, main);
+				joueur.addPourcentHack(10, main, GameCycle.getScoreboardFarmeurimmo());
 			
 			}
 			

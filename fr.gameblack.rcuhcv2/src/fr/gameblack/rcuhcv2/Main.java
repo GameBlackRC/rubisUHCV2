@@ -185,6 +185,38 @@ public class Main extends JavaPlugin {
 
     }
     
+    public String getTimerInTexte(int timer) {
+    	
+    	timer = timer/10;
+    	
+    	String texte = "";
+    	
+    	int minutes = timer - (timer%60);
+    	minutes = minutes/60;
+    	
+    	int heures = minutes - (minutes%60);
+    	heures = heures/60;
+    	
+    	int secondes = timer - (minutes*60 + (heures*60*60));
+    	
+    	if(heures != 0) {
+    		
+    		texte += heures + "h ";
+    		
+    	}
+    	
+    	if(minutes != 0 || heures != 0) {
+    		
+    		texte += minutes + "m ";
+    		
+    	}
+    	
+    	texte += secondes + "s";
+    	
+    	return texte;
+    	
+    }
+    
     public void eliminate(Joueur joueur, boolean Kzou) {
 
         Roles role = Roles.NONE;
@@ -204,6 +236,8 @@ public class Main extends JavaPlugin {
         joueur.getPlayer().setGameMode(GameMode.SPECTATOR);
         joueur.setMort(true);
         joueur.setSpec(true);
+        
+        joueur.hide(this);
 
         //MortCD cycle = new MortCD(this, player);
         //cycle.runTaskTimer(this, 0, 20);

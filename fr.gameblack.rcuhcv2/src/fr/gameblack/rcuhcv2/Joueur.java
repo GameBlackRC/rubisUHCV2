@@ -35,9 +35,6 @@ import java.util.List;
 
 public class Joueur {
 	
-	private static Scoreboard board_cube = Bukkit.getScoreboardManager().getNewScoreboard();
-	private static Scoreboard board_hack = Bukkit.getScoreboardManager().getNewScoreboard();
-	
 	private Player player;
 	private Roles role = Roles.NONE;
 	private Orbe orbe = Orbe.NONE;
@@ -600,24 +597,24 @@ public class Joueur {
 		return pourcentHack;
 	}
 
-	public void setPourcentHack(int pourcentHack, Main main) {
+	public void setPourcentHack(int pourcentHack, Main main, Scoreboard board_hack) {
 		if(main.getJoueurByRole(Roles.FARMEURIMMO) != null) {
 			this.pourcentHack = pourcentHack;
-			if(!board_cube.getObjectives().isEmpty()) {
-				board_cube.getObjective("cube").unregister();
+			if(!board_hack.getObjectives().isEmpty() && board_hack.getObjective("hack") != null) {
+				board_hack.getObjective("hack").unregister();
 			}
 			Objective objective_hack = board_hack.registerNewObjective("hack", "dummy");
 	        objective_hack.setDisplaySlot(DisplaySlot.BELOW_NAME);
 	        objective_hack.setDisplayName("%");
 	        @SuppressWarnings("deprecation")
 			Score score = objective_hack.getScore(player);
-	        score.setScore(cube);
-	        main.getJoueurByRole(Roles.FARMEURIMMO).getPlayer().setScoreboard(board_cube);
+	        score.setScore(pourcentHack);
+	        main.getJoueurByRole(Roles.FARMEURIMMO).getPlayer().setScoreboard(board_hack);
 	        
 		}
 	}
 	
-	public void addPourcentHack(int nb, Main main) {
+	public void addPourcentHack(int nb, Main main, Scoreboard board_hack) {
 		
 		if(main.getJoueurByRole(Roles.FARMEURIMMO) != null) {
 		
@@ -660,8 +657,8 @@ public class Joueur {
 					
 				}
 				
-				if(!board_cube.getObjectives().isEmpty()) {
-					board_cube.getObjective("cube").unregister();
+				if(!board_hack.getObjectives().isEmpty() && board_hack.getObjective("hack") != null) {
+					board_hack.getObjective("hack").unregister();
 				}
 				
 				Objective objective_hack = board_hack.registerNewObjective("hack", "dummy");
@@ -669,8 +666,9 @@ public class Joueur {
 		        objective_hack.setDisplayName("%");
 		        @SuppressWarnings("deprecation")
 				Score score = objective_hack.getScore(player);
-		        score.setScore(cube);
-		        main.getJoueurByRole(Roles.FARMEURIMMO).getPlayer().setScoreboard(board_cube);
+		        score.setScore(pourcentHack);
+		        main.getJoueurByRole(Roles.FARMEURIMMO).getPlayer().setScoreboard(board_hack);
+		        System.out.println("scoreboard ok");
 				
 			}
 			
@@ -678,7 +676,7 @@ public class Joueur {
 		
 	}
 	
-	public void removePourcentHack(int nb, Main main) {
+	public void removePourcentHack(int nb, Main main, Scoreboard board_hack) {
 		
 		if(main.getJoueurByRole(Roles.FARMEURIMMO) != null) {
 		
@@ -699,7 +697,7 @@ public class Joueur {
 						
 				}
 				
-				if(!board_hack.getObjectives().isEmpty()) {
+				if(!board_hack.getObjectives().isEmpty() && board_hack.getObjective("hack") != null) {
 					board_hack.getObjective("hack").unregister();
 				}
 				
@@ -708,8 +706,8 @@ public class Joueur {
 		        objective_hack.setDisplayName("%");
 		        @SuppressWarnings("deprecation")
 				Score score = objective_hack.getScore(player);
-		        score.setScore(cube);
-		        main.getJoueurByRole(Roles.FARMEURIMMO).getPlayer().setScoreboard(board_cube);
+		        score.setScore(pourcentHack);
+		        main.getJoueurByRole(Roles.FARMEURIMMO).getPlayer().setScoreboard(board_hack);
 				
 			}
 			
@@ -769,9 +767,9 @@ public class Joueur {
 		return cube;
 	}
 
-	public void setCube(int cube, Main main) {
+	public void setCube(int cube, Main main, Scoreboard board_cube) {
 		this.cube = cube;
-		if(!board_cube.getObjectives().isEmpty()) {
+		if(!board_cube.getObjectives().isEmpty() && board_cube.getObjective("cube") != null) {
 			board_cube.getObjective("cube").unregister();
 		}
 		Objective objective_cube = board_cube.registerNewObjective("cube", "dummy");
@@ -783,10 +781,10 @@ public class Joueur {
         main.getJoueurByRole(Roles.JOKO).getPlayer().setScoreboard(board_cube);
 	}
 	
-	public void addCube(Main main) {
+	public void addCube(Main main, Scoreboard board_cube) {
 		
 		this.cube += 1;
-		if(!board_cube.getObjectives().isEmpty()) {
+		if(!board_cube.getObjectives().isEmpty() && board_cube.getObjective("cube") != null) {
 			board_cube.getObjective("cube").unregister();
 		}
 		Objective objective_cube = board_cube.registerNewObjective("cube", "dummy");
@@ -799,10 +797,10 @@ public class Joueur {
 		
 	}
 	
-	public void addCubes(int cube, Main main) {
+	public void addCubes(int cube, Main main, Scoreboard board_cube) {
 		
 		this.cube += cube;
-		if(!board_cube.getObjectives().isEmpty()) {
+		if(!board_cube.getObjectives().isEmpty() && board_cube.getObjective("cube") != null) {
 			board_cube.getObjective("cube").unregister();
 		}
 		Objective objective_cube = board_cube.registerNewObjective("cube", "dummy");
@@ -815,10 +813,34 @@ public class Joueur {
 		
 	}
 	
-	public void removeCube(Main main) {
+	public void hide(Main main) {
+		
+		for(Joueur j : main.getListJoueurs()) {
+			
+			if(!j.isMort()) {
+				
+				j.getPlayer().hidePlayer(player);
+			
+			}
+			
+		}
+		
+	}
+	
+	public void show(Main main) {
+		
+		for(Joueur j : main.getListJoueurs()) {
+			
+			j.getPlayer().showPlayer(player);
+			
+		}
+		
+	}
+	
+	public void removeCube(Main main, Scoreboard board_cube) {
 		
 		this.cube -= 1;
-		if(!board_cube.getObjectives().isEmpty()) {
+		if(!board_cube.getObjectives().isEmpty() && board_cube.getObjective("cube") != null) {
 			board_cube.getObjective("cube").unregister();
 		}
 		Objective objective_cube = board_cube.registerNewObjective("cube", "dummy");
@@ -831,10 +853,10 @@ public class Joueur {
 		
 	}
 	
-	public void removeCubes(int cube, Main main) {
+	public void removeCubes(int cube, Main main, Scoreboard board_cube) {
 		
 		this.cube -= cube;
-		if(!board_cube.getObjectives().isEmpty()) {
+		if(!board_cube.getObjectives().isEmpty() && board_cube.getObjective("cube") != null) {
 			board_cube.getObjective("cube").unregister();
 		}
 		Objective objective_cube = board_cube.registerNewObjective("cube", "dummy");
