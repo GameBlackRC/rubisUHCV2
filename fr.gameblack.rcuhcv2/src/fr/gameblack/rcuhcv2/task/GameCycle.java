@@ -1534,6 +1534,52 @@ public class GameCycle extends BukkitRunnable {
 			
 		}
 		
+		if(timer % 200 == 0 && !main.getMaudit().isEmpty() && main.getNiv_maledition() != 3) {
+			
+			Joueur cible1 = main.getMaudit().get(0);
+			Joueur cible2 = main.getMaudit().get(1);
+			
+			if(!cible1.isProche(cible2.getRole(), main)) {
+				
+				if(cible1.getPlayer().getHealth() > 3) {
+					
+					cible1.getPlayer().setHealth(cible1.getPlayer().getHealth()-2);
+					
+				}
+				
+				if(cible2.getPlayer().getHealth() > 3) {
+					
+					cible2.getPlayer().setHealth(cible2.getPlayer().getHealth()-2);
+					
+				}
+				
+			}
+			
+		}
+		
+		if(timer % 150 == 0 && !main.getMaudit().isEmpty() && main.getNiv_maledition() == 3) {
+			
+			Joueur cible1 = main.getMaudit().get(0);
+			Joueur cible2 = main.getMaudit().get(1);
+			
+			if(!cible1.isProche(cible2.getRole(), main)) {
+				
+				if(cible1.getPlayer().getHealth() > 4) {
+					
+					cible1.getPlayer().setHealth(cible1.getPlayer().getHealth()-3);
+					
+				}
+				
+				if(cible2.getPlayer().getHealth() > 4) {
+					
+					cible2.getPlayer().setHealth(cible2.getPlayer().getHealth()-3);
+					
+				}
+				
+			}
+			
+		}
+		
 		if(timer % 70 == 0 && ((main.getEpisode() > 2 && main.getTemps() > 1 && main.getMode().equalsIgnoreCase("normal")) || (main.getEpisode() >= 1 && main.getTemps() > 11 && main.getMode().equalsIgnoreCase("rapide")))) {
 			
 			for(Joueur joueur : main.getListJoueurs()) {
@@ -1550,6 +1596,26 @@ public class GameCycle extends BukkitRunnable {
 		}
         
         if(timer % 10 == 0) {
+        	
+        	if(!main.getMaudit().isEmpty() && main.getNiv_maledition() > 1) {
+        		
+        		Joueur cible1 = main.getMaudit().get(0);
+    			Joueur cible2 = main.getMaudit().get(1);
+    			
+    			if(!cible1.isProche(cible2.getRole(), main)) {
+    				
+    				cible1.setAbso(false);
+    				cible2.setAbso(false);
+    				
+    			}
+    			else {
+    				
+    				cible1.setAbso(true);
+    				cible2.setAbso(true);
+    				
+    			}
+        		
+        	}
         	
         	if(main.getNeko() != null && !main.getNeko().isMort() && main.getNeko().isProche(Roles.MAKA, main) && !main.getNeko().isSpeedProche() && !main.getJoueurByRole(Roles.MAKA).isMort()) {
         		

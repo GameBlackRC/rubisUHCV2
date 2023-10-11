@@ -6,7 +6,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
-import org.bukkit.Material;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -70,6 +69,21 @@ public class DamageListener implements Listener {
         	}
         	
         }
+		
+		if(tueur.getRole() == Roles.OBSCUR) {
+			
+			if(tueur.getPlayer().getMaxHealth() <= 11) {
+				
+				tueur.getPlayer().setMaxHealth(tueur.getPlayer().getMaxHealth()+3);
+				
+			}
+			else {
+				
+				tueur.getPlayer().setMaxHealth(14);
+				
+			}
+			
+		}
 		
 		if(main.getNeko() != null && joueur.getRole() == Roles.MAKA && !main.getNeko().isMort()) {
 			

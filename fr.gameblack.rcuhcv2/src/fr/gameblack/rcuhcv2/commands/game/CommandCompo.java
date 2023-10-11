@@ -27,11 +27,11 @@ public class CommandCompo implements CommandExecutor {
         inv_pacte.setItem(5, Main.getItem(Material.GOLDEN_APPLE, "§2Camp UHC", ""));
         inv_pacte.setItem(7, Main.getItem(Material.GOLD_INGOT, "§6Solo", ""));
 
-        inv_pacte.setItem(9, Main.getItem(Material.REDSTONE_BLOCK, "§aRaptor", ""));
-        inv_pacte.setItem(10, Main.getItem(Material.DIAMOND_HOE, "§aJeannot", ""));
-        inv_pacte.setItem(11, Main.getItem(Material.PAPER, "§aNickoboop", ""));
-        inv_pacte.setItem(12, Main.getItem(Material.SLIME_BALL, "§aSlup", ""));
-        inv_pacte.setItem(13, Main.getItem(Material.QUARTZ_BLOCK, "§aJoko", ""));
+        inv_pacte.setItem(18, Main.getItem(Material.REDSTONE_BLOCK, "§aRaptor", ""));
+        inv_pacte.setItem(19, Main.getItem(Material.DIAMOND_HOE, "§aJeannot", ""));
+        inv_pacte.setItem(20, Main.getItem(Material.PAPER, "§aNickoboop", ""));
+        inv_pacte.setItem(21, Main.getItem(Material.SLIME_BALL, "§aSlup", ""));
+        inv_pacte.setItem(22, Main.getItem(Material.QUARTZ_BLOCK, "§aJoko", ""));
 
         player.openInventory(inv_pacte);
 

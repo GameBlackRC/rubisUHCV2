@@ -26,7 +26,17 @@ public class Kzou {
 
         if (!main.getCD().contains(Pouvoirs.KZOU_BAN)) {
 
-        	cible.Stun(30, main);
+        	if(cible.getRole() == Roles.NONOBOY) {
+        	
+        		cible.Stun(15, main);
+        		
+        	}
+        	else {
+        		
+        		cible.Stun(30, main);
+        		
+        	}
+        	
             Random r = new Random();
             int nb = r.nextInt(100);
             if (nb <= 5) {
@@ -52,7 +62,7 @@ public class Kzou {
             	}
             	
             }
-            ItemCD cycle = new ItemCD(main, joueur, "ban", 90, cible, null, null, null, null);
+            ItemCD cycle = new ItemCD(main, joueur, "ban", 45, cible, null, null, null, null);
             cycle.runTaskTimer(main, 0, 20);
             main.getCD().add(Pouvoirs.KZOU_BAN);
 

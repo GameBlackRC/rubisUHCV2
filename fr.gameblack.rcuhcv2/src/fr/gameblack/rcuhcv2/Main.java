@@ -35,6 +35,7 @@ import fr.gameblack.rcuhcv2.commands.joueur.jeannot.CommandPartage;
 import fr.gameblack.rcuhcv2.commands.joueur.joko.CommandCube;
 import fr.gameblack.rcuhcv2.commands.joueur.joko.CommandSteal;
 import fr.gameblack.rcuhcv2.commands.joueur.nickoboop.CommandPapier;
+import fr.gameblack.rcuhcv2.commands.joueur.slup.CommandMort;
 import fr.gameblack.rcuhcv2.commands.joueur.slup.CommandTrial;
 import fr.gameblack.rcuhcv2.commands.solo.farmeurimmo.CommandRCCode;
 import fr.gameblack.rcuhcv2.commands.solo.kzou.CommandBan;
@@ -48,6 +49,8 @@ import fr.gameblack.rcuhcv2.commands.staff.maka.CommandForme;
 import fr.gameblack.rcuhcv2.commands.staff.trial.CommandFirstReflexGame;
 import fr.gameblack.rcuhcv2.commands.staff.trial.CommandPlay;
 import fr.gameblack.rcuhcv2.commands.staff.trial.CommandSacrifice;
+import fr.gameblack.rcuhcv2.commands.uhc.obscur.CommandMaudit;
+import fr.gameblack.rcuhcv2.commands.uhc.toinou.CommandVacance;
 import fr.gameblack.rcuhcv2.commands.staff.trial.CommandMode;
 import fr.gameblack.rcuhcv2.listener.DamageListener;
 import fr.gameblack.rcuhcv2.listener.InteractListener;
@@ -81,6 +84,8 @@ public class Main extends JavaPlugin {
     private Joueur neko = null;
     private int nbJoueursStaff = 0;
     private Joueur tueurNeko = null;
+    private List<Joueur> maudit = new ArrayList<>();
+    private int niv_maledition = 0;
     
     @Override
     public void onEnable() {
@@ -140,6 +145,7 @@ public class Main extends JavaPlugin {
     	getCommand("rcpartage").setExecutor(new CommandPartage(this));
     	getCommand("rcpapier").setExecutor(new CommandPapier(this));
     	getCommand("rctrial").setExecutor(new CommandTrial(this));
+    	getCommand("rcmort").setExecutor(new CommandMort(this));
     	getCommand("rccube").setExecutor(new CommandCube(this));
     	getCommand("rcsteal").setExecutor(new CommandSteal(this));
     	
@@ -152,6 +158,9 @@ public class Main extends JavaPlugin {
     	getCommand("rccheckorbe").setExecutor(new CommandCheckOrbe(this));
     	getCommand("rcconsole").setExecutor(new CommandConsole(this));
     	getCommand("rcforme").setExecutor(new CommandForme(this));
+    	
+    	getCommand("rcvacance").setExecutor(new CommandVacance(this));
+    	getCommand("rcmaudit").setExecutor(new CommandMaudit(this));
     	
     	getCommand("rchack").setExecutor(new CommandRCCode(this));
     	getCommand("rcban").setExecutor(new CommandBan(this));
@@ -768,6 +777,22 @@ public class Main extends JavaPlugin {
 
 	public void setTueurNeko(Joueur tueurNeko) {
 		this.tueurNeko = tueurNeko;
+	}
+
+	public List<Joueur> getMaudit() {
+		return maudit;
+	}
+
+	public void setMaudit(List<Joueur> maudit) {
+		this.maudit = maudit;
+	}
+
+	public int getNiv_maledition() {
+		return niv_maledition;
+	}
+
+	public void setNiv_maledition(int niv_maledition) {
+		this.niv_maledition = niv_maledition;
 	}
 	
 }

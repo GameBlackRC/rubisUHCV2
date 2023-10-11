@@ -156,7 +156,7 @@ public class Malivol {
 
     public static void Texte(Player player) {
 
-        player.sendMessage("____________________________________________________\n \nVous êtes §2Malivol\n§rVous devez gagner avec le §2camp UHC§r\n \nVous avez l'effet haste I ainsi que 5% de speed permanent\n \nA l'annonce des rôles, vous recevez un item nommé 'Cheat' vous permettant d'activer un cheat parmis la liste suivante qui restent actif 1 minute :\n- SpeedHack : vous recevez 10% de speed et depth strider III\n- No fall : vous ne prenez plus de dégât de chute et vous recevez 3% de résistance supplémentaire\n- Full crit : vous recevez 10% de force\n- Anti KB : vous ne recevez plus de kb\n \n____________________________________________________");
+        player.sendMessage("____________________________________________________\n \nVous êtes §2Malivol\n§rVous devez gagner avec le §2camp UHC§r\n \nVous avez l'effet haste I ainsi que 5% de speed permanent\n \nA l'annonce des rôles, vous recevez un item nommé 'Cheat' vous permettant d'activer un cheat parmis la liste suivante qui restent actif 1 minute :\n- SpeedHack : vous recevez 10% de speed et depth strider III\n- No fall : vous ne prenez plus de dégât de chute et vous recevez 3% de résistance supplémentaire\n- Full crit : vous recevez 10% de force\n- Anti KB : vous ne recevez plus de kb\n \nA chaque spawn de minerais, vous avez 50% de chance de recevoir les coordonnées du minerais\n \n____________________________________________________");
 
     }
 	

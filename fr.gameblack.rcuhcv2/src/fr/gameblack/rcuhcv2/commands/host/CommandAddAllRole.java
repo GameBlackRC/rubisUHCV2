@@ -39,6 +39,8 @@ public class CommandAddAllRole implements CommandExecutor {
                 main.getCompo().add(Roles.LOUP);
                 
                 main.getCompo().add(Roles.MALIVOL);
+                main.getCompo().add(Roles.TOINOU);
+                main.getCompo().add(Roles.OBSCUR);
                 
                 main.getCompo().add(Roles.FARMEURIMMO);
                 main.getCompo().add(Roles.KZOU);

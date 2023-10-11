@@ -1,6 +1,5 @@
 package fr.gameblack.rcuhcv2;
 
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;

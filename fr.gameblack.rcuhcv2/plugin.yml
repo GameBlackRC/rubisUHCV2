@@ -10,6 +10,8 @@ commands:
     description: Commande du role Nickoboop
   rctrial:
     description: Commande du role Slup
+  rcmort:
+    description: Commande du role Slup
   rccube:
     description: Commande du role Joko
   rcsteal:
@@ -40,6 +42,10 @@ commands:
     description: Commande du role GameBlack
   rcforme:
     description: Commande du role Maka
+  rcvacance:
+    description: Commande du role Toinou
+  rcmaudit:
+    description: Commande du role Obscur
   fermeturegolden:
     description: Permet d'activer l'évènement "Fermeture de golden"
     permission: rcuhcv2.fermeturegolden

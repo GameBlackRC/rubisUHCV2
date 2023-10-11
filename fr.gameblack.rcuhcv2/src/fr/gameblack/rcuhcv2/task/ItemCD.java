@@ -163,39 +163,87 @@ public class ItemCD extends BukkitRunnable {
 	
 	                DamageListener.Mort(cible, joueur, event, main);
 	
-	            }
-	            
-	            if(item == "rubis_force") {
+	            } else if(item == "maudit_uhc_1") {
+            		
+            		joueur.removeForce(0.03);
+            		joueur.setAbso(true);
+            		cible.setAbso(true);
+            		cible.removeForce(0.03);
+            		main.getMaudit().clear();
+            		main.setNiv_maledition(0);
+            		
+            		
+            		
+            	} else if(item == "maudit_uhc_2") {
+            		
+            		joueur.removeSpeed(0.1);
+            		joueur.setAbso(true);
+            		cible.setAbso(true);
+            		cible.removeSpeed(0.1);
+            		main.getMaudit().clear();
+            		main.setNiv_maledition(0);
+            		
+            	} else if(item == "maudit_uhc_3") {
+            		
+            		joueur.removeSpeed(0.05);
+            		joueur.removeForce(0.03);
+            		joueur.setAbso(true);
+            		cible.setAbso(true);
+            		cible.removeSpeed(0.05);
+            		cible.removeForce(0.03);
+            		main.getMaudit().clear();
+            		main.setNiv_maledition(0);
+            		
+            	} else if(item == "maudit_autre_1"){
+            		
+            		joueur.addForce(0.02);
+            		joueur.setAbso(true);
+            		cible.setAbso(true);
+            		cible.addForce(0.02);
+            		main.getMaudit().clear();
+            		main.setNiv_maledition(0);
+            		
+            	} else if(item == "maudit_autre_2") {
+            		
+            		joueur.addSpeed(0.07);
+            		joueur.setAbso(true);
+            		cible.setAbso(true);
+            		cible.addSpeed(0.07);
+            		main.getMaudit().clear();
+            		main.setNiv_maledition(0);
+            		
+            	} else if(item == "maudit_autre_3") {
+            		
+            		joueur.addSpeed(0.05);
+            		joueur.addForce(0.02);
+            		joueur.setAbso(true);
+            		cible.setAbso(true);
+            		cible.addSpeed(0.05);
+            		cible.addForce(0.02);
+            		main.getMaudit().clear();
+            		main.setNiv_maledition(0);
+            		
+            	} else if(item == "rubis_force") {
 	            	
 	            	joueur.removeForce(0.02);
 	            	
-	            }
-	            
-	            if(item == "rubis_resi") {
+	            } else if(item == "rubis_resi") {
 	            	
 	            	joueur.removeResi(0.02);
 	            	
-	            }
-	            
-	            if(item == "rubis_speed") {
+	            } else if(item == "rubis_speed") {
 	            	
 	            	joueur.removeSpeed(0.02);
 	            	
-	            }
-	            
-	            if(item == "check_malus_feu") {
+	            } else if(item == "check_malus_feu") {
 	            	
 	            	joueur.setCheckMalusEau(false);
 	            	
-	            }
-	            
-	            if (item == "stun") {
+	            } else if (item == "stun") {
 	
 	                cible.setInvulnerable(false);
 	                
-	            }
-	            
-	            if (item == "foudre_malus") {
+	            } else if (item == "foudre_malus") {
 	
 	                joueur.setMalusOrbe(false);
 	                player.sendMessage("Le malus est terminé. Vous pouvez réactiver votre orbe avec la commande /rcorbe");
@@ -374,6 +422,11 @@ public class ItemCD extends BukkitRunnable {
 	            		
 	            		joueur.setCheatToinou(false);
 	            		
+	            	} else if(item == "vacance_toinou") {
+	            		
+	            		joueur.show(main);
+	            		joueur.setInvulnerable(false);
+	            		
 	            	}
 	            	
 	            } else if(joueur.getRole() == Roles.SLUP) {
@@ -494,6 +547,12 @@ public class ItemCD extends BukkitRunnable {
 	            } else if(joueur.getRole() == Roles.KZOU) {
 	            	
 	            	if(item == "ban") {
+	            		
+	            		if(cible.getRole() == Roles.NONOBOY) {
+	            			
+	            			cible.removeSpeed(0.1);
+	            			
+	            		}
 	            		
 	            		cible.addForce(0.05);
 	            		
