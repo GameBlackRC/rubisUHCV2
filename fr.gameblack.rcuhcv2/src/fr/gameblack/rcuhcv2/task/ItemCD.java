@@ -407,7 +407,7 @@ public class ItemCD extends BukkitRunnable {
 	            		
 	            	} else if(item == "rage_raptor") {
 	            		
-	            		joueur.removeForce(0.7);
+	            		joueur.removeForce(0.07);
 	            		joueur.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION,400,0));
 	            		
 	            	}
