@@ -381,6 +381,10 @@ public class ItemCD extends BukkitRunnable {
 	            			}
 	            		}
 	            		
+	            	} else if(item == "cd_hack_farmeurimmo") {
+	            		
+	            		main.getCD().remove(Pouvoirs.FARMEURIMMO_HACK);
+	            		
 	            	}
 	            	
 	            } else if(joueur.getRole() == Roles.RAPTOR) {

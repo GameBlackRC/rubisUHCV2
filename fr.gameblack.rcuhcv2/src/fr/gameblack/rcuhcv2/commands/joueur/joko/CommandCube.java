@@ -35,7 +35,7 @@ public class CommandCube implements CommandExecutor {
             	
             	Joueur cible = main.getJoueur(cible_);
 
-                if (joueur.getRole() == Roles.JOKO) {
+                if (joueur.getRole() == Roles.JOKO || (joueur.getRole() == Roles.FARMEURIMMO && joueur.getVol().contains(Pouvoirs.JOKO_CUBE))) {
 
                     if (!main.getCD().contains(Pouvoirs.JOKO_GIVECUBE)) {
 

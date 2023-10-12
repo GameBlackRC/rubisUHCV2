@@ -23,6 +23,7 @@ import fr.gameblack.rcuhcv2.roles.staff.Captain;
 import fr.gameblack.rcuhcv2.roles.staff.Hekow;
 import fr.gameblack.rcuhcv2.roles.uhc.Malivol;
 import fr.gameblack.rcuhcv2.roles.uhc.Toinou;
+import fr.gameblack.rcuhcv2.task.GameCycle;
 import fr.gameblack.rcuhcv2.task.ItemCD;
 import fr.gameblack.rcuhcv2.roles.uhc.Obscur;
 import fr.gameblack.rcuhcv2.roles.uhc.Nonoboy;
@@ -86,6 +87,7 @@ public class Joueur {
 	private int palierSlup = 0;
 	private boolean malusSlupActif = false;
 	private int timerPalierSlup = 0;
+	private boolean hack = false;
 
 	public Joueur(Player player) {
 		
@@ -157,6 +159,8 @@ public class Joueur {
 		slupBonusPalierActif = false;
 		palierSlup = 0;
 		malusSlupActif = false;
+		timerPalierSlup = 0;
+		hack = false;
 		
 	}
 	
@@ -180,6 +184,11 @@ public class Joueur {
 		else if(camp.equalsIgnoreCase("duo")) {
 			
 			return "§5";
+			
+		}
+		else if(camp.equalsIgnoreCase("farmeurimmo")) {
+			
+			return "§c";
 			
 		}
 		else {
@@ -822,6 +831,26 @@ public class Joueur {
 		Score score = objective_cube.getScore(player);
         score.setScore(cube);
         main.getJoueurByRole(Roles.JOKO).getPlayer().setScoreboard(board_cube);
+        
+        if(main.getJoueurByRole(Roles.FARMEURIMMO) != null && main.getJoueurByRole(Roles.FARMEURIMMO).getVol().contains(Pouvoirs.JOKO_CUBE)) {
+        	
+        	Scoreboard board_hack = GameCycle.getScoreboardFarmeurimmo();
+        	Objective objective_hack;
+    		if(board_hack.getObjectives().isEmpty() || board_hack.getObjective("cube") == null) {
+    			objective_hack = board_hack.registerNewObjective("cube", "dummy");
+    		}
+    		else {
+    			objective_hack = board_hack.getObjective("cube");
+    		}
+            objective_hack.setDisplaySlot(DisplaySlot.PLAYER_LIST);
+            objective_hack.setDisplayName("%");
+            @SuppressWarnings("deprecation")
+    		Score score_ = objective_hack.getScore(player);
+            score_.setScore(cube);
+            main.getJoueurByRole(Roles.FARMEURIMMO).getPlayer().setScoreboard(board_hack);
+        	
+        }
+        
 	}
 	
 	public void addCube(Main main, Scoreboard board_cube) {
@@ -840,6 +869,25 @@ public class Joueur {
 		Score score = objective_cube.getScore(player);
         score.setScore(cube);
         main.getJoueurByRole(Roles.JOKO).getPlayer().setScoreboard(board_cube);
+        
+        if(main.getJoueurByRole(Roles.FARMEURIMMO) != null && main.getJoueurByRole(Roles.FARMEURIMMO).getVol().contains(Pouvoirs.JOKO_CUBE)) {
+        	
+        	Scoreboard board_hack = GameCycle.getScoreboardFarmeurimmo();
+        	Objective objective_hack;
+    		if(board_hack.getObjectives().isEmpty() || board_hack.getObjective("cube") == null) {
+    			objective_hack = board_hack.registerNewObjective("cube", "dummy");
+    		}
+    		else {
+    			objective_hack = board_hack.getObjective("cube");
+    		}
+            objective_hack.setDisplaySlot(DisplaySlot.PLAYER_LIST);
+            objective_hack.setDisplayName("%");
+            @SuppressWarnings("deprecation")
+    		Score score_ = objective_hack.getScore(player);
+            score_.setScore(cube);
+            main.getJoueurByRole(Roles.FARMEURIMMO).getPlayer().setScoreboard(board_hack);
+        	
+        }
 		
 	}
 	
@@ -859,6 +907,25 @@ public class Joueur {
 		Score score = objective_cube.getScore(player);
         score.setScore(cube);
         main.getJoueurByRole(Roles.JOKO).getPlayer().setScoreboard(board_cube);
+        
+        if(main.getJoueurByRole(Roles.FARMEURIMMO) != null && main.getJoueurByRole(Roles.FARMEURIMMO).getVol().contains(Pouvoirs.JOKO_CUBE)) {
+        	
+        	Scoreboard board_hack = GameCycle.getScoreboardFarmeurimmo();
+        	Objective objective_hack;
+    		if(board_hack.getObjectives().isEmpty() || board_hack.getObjective("cube") == null) {
+    			objective_hack = board_hack.registerNewObjective("cube", "dummy");
+    		}
+    		else {
+    			objective_hack = board_hack.getObjective("cube");
+    		}
+            objective_hack.setDisplaySlot(DisplaySlot.PLAYER_LIST);
+            objective_hack.setDisplayName("%");
+            @SuppressWarnings("deprecation")
+    		Score score_ = objective_hack.getScore(player);
+            score_.setScore(cube);
+            main.getJoueurByRole(Roles.FARMEURIMMO).getPlayer().setScoreboard(board_hack);
+        	
+        }
 		
 	}
 	
@@ -902,6 +969,25 @@ public class Joueur {
 		Score score = objective_cube.getScore(player);
         score.setScore(cube);
         main.getJoueurByRole(Roles.JOKO).getPlayer().setScoreboard(board_cube);
+        
+        if(main.getJoueurByRole(Roles.FARMEURIMMO) != null && main.getJoueurByRole(Roles.FARMEURIMMO).getVol().contains(Pouvoirs.JOKO_CUBE)) {
+        	
+        	Scoreboard board_hack = GameCycle.getScoreboardFarmeurimmo();
+        	Objective objective_hack;
+    		if(board_hack.getObjectives().isEmpty() || board_hack.getObjective("cube") == null) {
+    			objective_hack = board_hack.registerNewObjective("cube", "dummy");
+    		}
+    		else {
+    			objective_hack = board_hack.getObjective("cube");
+    		}
+            objective_hack.setDisplaySlot(DisplaySlot.PLAYER_LIST);
+            objective_hack.setDisplayName("%");
+            @SuppressWarnings("deprecation")
+    		Score score_ = objective_hack.getScore(player);
+            score_.setScore(cube);
+            main.getJoueurByRole(Roles.FARMEURIMMO).getPlayer().setScoreboard(board_hack);
+        	
+        }
 		
 	}
 	
@@ -921,6 +1007,25 @@ public class Joueur {
 		Score score = objective_cube.getScore(player);
         score.setScore(cube);
         main.getJoueurByRole(Roles.JOKO).getPlayer().setScoreboard(board_cube);
+        
+        if(main.getJoueurByRole(Roles.FARMEURIMMO) != null && main.getJoueurByRole(Roles.FARMEURIMMO).getVol().contains(Pouvoirs.JOKO_CUBE)) {
+        	
+        	Scoreboard board_hack = GameCycle.getScoreboardFarmeurimmo();
+        	Objective objective_hack;
+    		if(board_hack.getObjectives().isEmpty() || board_hack.getObjective("cube") == null) {
+    			objective_hack = board_hack.registerNewObjective("cube", "dummy");
+    		}
+    		else {
+    			objective_hack = board_hack.getObjective("cube");
+    		}
+            objective_hack.setDisplaySlot(DisplaySlot.PLAYER_LIST);
+            objective_hack.setDisplayName("%");
+            @SuppressWarnings("deprecation")
+    		Score score_ = objective_hack.getScore(player);
+            score_.setScore(cube);
+            main.getJoueurByRole(Roles.FARMEURIMMO).getPlayer().setScoreboard(board_hack);
+        	
+        }
 		
 	}
 	
@@ -1126,6 +1231,14 @@ public class Joueur {
 	
 	public void addTimerPalierSlup() {
 		this.timerPalierSlup += 1;
+	}
+
+	public boolean isHack() {
+		return hack;
+	}
+
+	public void setHack(boolean hack) {
+		this.hack = hack;
 	}
 	
 }

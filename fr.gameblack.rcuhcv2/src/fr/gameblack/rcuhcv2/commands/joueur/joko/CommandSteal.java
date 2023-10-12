@@ -7,6 +7,7 @@ import org.bukkit.entity.Player;
 
 import fr.gameblack.rcuhcv2.Joueur;
 import fr.gameblack.rcuhcv2.Main;
+import fr.gameblack.rcuhcv2.Pouvoirs;
 import fr.gameblack.rcuhcv2.Roles;
 import fr.gameblack.rcuhcv2.roles.joueur.Joko;
 
@@ -25,7 +26,7 @@ public class CommandSteal implements CommandExecutor {
         
         Joueur joueur = main.getJoueur(player);
 
-        if (joueur.getRole() == Roles.JOKO) {
+        if (joueur.getRole() == Roles.JOKO || (joueur.getRole() == Roles.FARMEURIMMO && joueur.getVol().contains(Pouvoirs.JOKO_CUBE))) {
 
             if (args.length != 0) {
 

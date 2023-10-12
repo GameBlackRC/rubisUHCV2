@@ -8,6 +8,7 @@ import org.bukkit.entity.Player;
 
 import fr.gameblack.rcuhcv2.Joueur;
 import fr.gameblack.rcuhcv2.Main;
+import fr.gameblack.rcuhcv2.Pouvoirs;
 import fr.gameblack.rcuhcv2.Roles;
 import fr.gameblack.rcuhcv2.roles.solo.Kzou;
 
@@ -25,7 +26,7 @@ public class CommandBan implements CommandExecutor {
 		Player player = (Player) sender;
 		Joueur joueur = main.getJoueur(player);
 		
-		if(joueur.getRole() == Roles.KZOU || joueur.getRole() == Roles.TEST) {
+		if(joueur.getRole() == Roles.KZOU || joueur.getRole() == Roles.TEST || (joueur.getRole() == Roles.FARMEURIMMO && joueur.getVol().contains(Pouvoirs.KZOU_BAN))) {
 			
 			Player cible_ = Bukkit.getPlayer(args[0]);
 

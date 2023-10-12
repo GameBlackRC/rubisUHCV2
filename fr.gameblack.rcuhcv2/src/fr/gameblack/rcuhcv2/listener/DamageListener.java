@@ -20,6 +20,7 @@ import fr.gameblack.rcuhcv2.Classe;
 import fr.gameblack.rcuhcv2.Joueur;
 import fr.gameblack.rcuhcv2.Main;
 import fr.gameblack.rcuhcv2.Orbe;
+import fr.gameblack.rcuhcv2.Pouvoirs;
 import fr.gameblack.rcuhcv2.Roles;
 import fr.gameblack.rcuhcv2.Statut;
 import fr.gameblack.rcuhcv2.orbes.Glace;
@@ -216,6 +217,18 @@ public class DamageListener implements Listener {
 				
 			}
 			
+			
+		}
+		
+		if(tueur.getRole() == Roles.FARMEURIMMO && tueur.getVol().contains(Pouvoirs.TRIAL_FORCE_KILL)) {
+			
+			tueur.addForce(0.02);
+			
+		}
+		
+		if(tueur.getRole() == Roles.FARMEURIMMO && tueur.getVol().contains(Pouvoirs.OBSCUR_COEUR_KILL)) {
+			
+			tueur.getPlayer().setMaxHealth(tueur.getPlayer().getMaxHealth()+1);
 			
 		}
 		

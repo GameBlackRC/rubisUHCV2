@@ -1755,7 +1755,6 @@ public class GameCycle extends BukkitRunnable {
 				if(!joueur.isMort() && joueur.getRole() != Roles.FARMEURIMMO && joueur.getRole() != Roles.NONE && !joueur.isProche(Roles.FARMEURIMMO, main)) {
 					
 					joueur.addPourcentHack(1, main, board_farmeurimmo);
-					System.out.println("+1% pour " + joueur.getPlayer().getName());
 					
 				}
 				
@@ -2007,9 +2006,19 @@ public class GameCycle extends BukkitRunnable {
         		
         	}
         	
-        	if(main.getJoueurByRole(Roles.NICKOBOOP) != null && main.getJoueurByRole(Roles.JEANNOT) != null) {
+        	if(main.getJoueurByRole(Roles.JEANNOT) != null) {
         		
-        		Nickoboop.checkProcheJeannot(main.getJoueurByRole(Roles.NICKOBOOP), main);
+        		if(main.getJoueurByRole(Roles.NICKOBOOP) != null) {
+        		
+        			Nickoboop.checkProcheJeannot(main.getJoueurByRole(Roles.NICKOBOOP), main);
+        			
+        		}
+        		
+        		if(main.getJoueurByRole(Roles.FARMEURIMMO) != null && main.getJoueurByRole(Roles.FARMEURIMMO).getVol().contains(Pouvoirs.NICKOBOOP_PROCHE_JEANNOT)) {
+        			
+        			Nickoboop.checkProcheJeannot(main.getJoueurByRole(Roles.FARMEURIMMO), main);
+        			
+        		}
         		
         	}
         	
