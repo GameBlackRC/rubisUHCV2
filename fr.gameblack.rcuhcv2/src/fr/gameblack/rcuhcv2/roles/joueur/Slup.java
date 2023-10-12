@@ -10,6 +10,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import fr.gameblack.rcuhcv2.Joueur;
 import fr.gameblack.rcuhcv2.Main;
+import fr.gameblack.rcuhcv2.Pouvoirs;
 import fr.gameblack.rcuhcv2.Roles;
 import fr.gameblack.rcuhcv2.task.ItemCD;
 
@@ -23,8 +24,163 @@ public class Slup {
         ItemMeta coffreM = coffre.getItemMeta();
         coffreM.setDisplayName("Pactes");
         coffre.setItemMeta(coffreM);
+        
+        ItemStack coffre2 = new ItemStack(Material.NETHER_STAR, 1);
+        ItemMeta coffre2M = coffre2.getItemMeta();
+        coffre2M.setDisplayName("Slimetification");
+        coffre2.setItemMeta(coffre2M);
 
         joueur.getPlayer().getInventory().addItem(coffre);
+        joueur.getPlayer().getInventory().addItem(coffre2);
+		
+	}
+	
+	public static void commandSlime(Joueur joueur) {
+		
+		if(joueur.isSlupBonusPalierActif()) {
+			
+			joueur.setSlupBonusPalierActif(false);
+			
+			if(joueur.getPalierSlup() == 1) {
+				
+				joueur.removeForce(0.02);
+				
+			}
+			else if (joueur.getPalierSlup() == 2) {
+				
+				joueur.removeForce(0.03);
+				
+			}
+			else if(joueur.getPalierSlup() == 3) {
+				
+				joueur.removeForce(0.05);
+				
+			}
+			else if(joueur.getPalierSlup() == 4) {
+				
+				joueur.removeForce(0.07);
+				
+			}
+			
+			joueur.getPlayer().sendMessage("Vous avez désactiver votre bonus de palier, vos boules de slimes ne seront donc plus consommer");
+			
+		} else {
+			
+			joueur.setSlupBonusPalierActif(true);
+			
+			if(joueur.getPalierSlup() == 1) {
+				
+				joueur.addForce(0.02);
+				
+			}
+			else if (joueur.getPalierSlup() == 2) {
+				
+				joueur.addForce(0.03);
+				
+			}
+			else if(joueur.getPalierSlup() == 3) {
+				
+				joueur.addForce(0.05);
+				
+			}
+			else if(joueur.getPalierSlup() == 4) {
+				
+				joueur.addForce(0.07);
+				
+			}
+			
+			joueur.getPlayer().sendMessage("Vous avez activer votre bonus de palier");
+			
+		}
+		
+	}
+	
+	public static void interactDroitSlime(Joueur joueur, Main main) {
+		
+		if(!main.getCD().contains(Pouvoirs.SLUP_SLIME)) {
+			
+			main.getCD().add(Pouvoirs.SLUP_SLIME);
+			
+			main.setLocZoneSlup(joueur.getPlayer().getLocation());
+			
+			ItemCD cycle = new ItemCD(main, joueur, "slimezone_slup", 60, joueur, null, null, null, null);
+			cycle.runTaskTimer(main, 0, 20);
+			
+		}
+		else {
+			
+			joueur.getPlayer().sendMessage("Ce pouvoir est en cooldown");
+			
+		}
+		
+	}
+	
+	public static void interactGaucheSlime(Joueur joueur) {
+		
+		if(!joueur.isMalusSlupActif()) {
+		
+			if(joueur.getPalierSlup() == 0) {
+				
+				joueur.setPalierSlup(1);
+				joueur.setSlupBonusPalierActif(true);
+				joueur.addForce(0.02);
+				
+			}
+			else if(joueur.getPalierSlup() == 1) {
+				
+				joueur.setPalierSlup(2);
+				if(joueur.isSlupBonusPalierActif()) {
+					
+					joueur.addForce(0.01);
+					
+				}
+				else {
+					
+					joueur.setSlupBonusPalierActif(true);
+					joueur.addForce(0.03);
+					
+				}
+				
+			}
+			else if(joueur.getPalierSlup() == 2) {
+				
+				joueur.setPalierSlup(3);
+				if(joueur.isSlupBonusPalierActif()) {
+					
+					joueur.addForce(0.02);
+					
+				}
+				else {
+					
+					joueur.setSlupBonusPalierActif(true);
+					joueur.addForce(0.05);
+					
+				}
+				
+			}
+			else if(joueur.getPalierSlup() == 3 && joueur.getCamp().equalsIgnoreCase("duo")) {
+				
+				joueur.setPalierSlup(4);
+				if(joueur.isSlupBonusPalierActif()) {
+					
+					joueur.addForce(0.02);
+					
+				}
+				else {
+					
+					joueur.setSlupBonusPalierActif(true);
+					joueur.addForce(0.07);
+					
+				}
+				
+			}
+			
+		}
+		else {
+			
+			joueur.getPlayer().sendMessage("Tu ne peux pas passer de palier si tu n'as pas de boules de slime");
+			
+		}
 		
 	}
 	

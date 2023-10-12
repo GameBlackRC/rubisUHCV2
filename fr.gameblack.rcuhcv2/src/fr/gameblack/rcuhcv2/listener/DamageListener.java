@@ -70,6 +70,12 @@ public class DamageListener implements Listener {
         	
         }
 		
+		if(tueur.getRole() == Roles.SLUP) {
+			
+			tueur.addSlime(4);
+			
+		}
+		
 		if(tueur.getRole() == Roles.OBSCUR) {
 			
 			if(tueur.getPlayer().getMaxHealth() <= 11) {
@@ -437,6 +443,23 @@ public class DamageListener implements Listener {
                     event.setCancelled(true);
                     player.damage(damage);
 
+                }
+                
+                if(joueur.getRole() == Roles.SLUP && main.getLocZoneSlup() != null) {
+                	
+                	if(joueur.isInSlupZone(main)) {
+                		
+                		Random r = new Random();
+                        int nb = r.nextInt(100);
+                        
+                        if(nb <= 45) {
+                        	
+                        	event.setCancelled(true);
+                        	
+                        }
+                		
+                	}
+                	
                 }
                 
                 if(main.getJoueurByRole(Roles.GAMEBLACK) != null && main.getJoueurByRole(Roles.GAMEBLACK).isConsoleGBActif()) {

@@ -54,6 +54,19 @@ public class InteractListener implements Listener {
 
             Slup.interactPacte(joueur);
 
+        } else if (it.getType() == Material.NETHER_STAR && it.hasItemMeta() && it.getItemMeta().hasDisplayName() && it.getItemMeta().getDisplayName().equalsIgnoreCase("Slimetification")) {
+
+            if(action == Action.LEFT_CLICK_AIR || action == Action.LEFT_CLICK_BLOCK) {
+            	
+            	Slup.interactGaucheSlime(joueur);
+            	
+            }
+            else if(action == Action.RIGHT_CLICK_AIR || action == Action.RIGHT_CLICK_BLOCK) {
+            	
+            	Slup.interactDroitSlime(joueur, main);
+            	
+            } 
+
         } else if (it.getType() == Material.NETHER_STAR && it.hasItemMeta() && it.getItemMeta().hasDisplayName() && it.getItemMeta().getDisplayName().equalsIgnoreCase("SpeedCubing")) {
 
             Joko.InteractSpeedcubing(joueur, main);

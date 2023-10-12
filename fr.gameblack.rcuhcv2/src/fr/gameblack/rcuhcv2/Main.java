@@ -2,6 +2,7 @@ package fr.gameblack.rcuhcv2;
 
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.enchantments.Enchantment;
@@ -36,6 +37,7 @@ import fr.gameblack.rcuhcv2.commands.joueur.joko.CommandCube;
 import fr.gameblack.rcuhcv2.commands.joueur.joko.CommandSteal;
 import fr.gameblack.rcuhcv2.commands.joueur.nickoboop.CommandPapier;
 import fr.gameblack.rcuhcv2.commands.joueur.slup.CommandMort;
+import fr.gameblack.rcuhcv2.commands.joueur.slup.CommandSlime;
 import fr.gameblack.rcuhcv2.commands.joueur.slup.CommandTrial;
 import fr.gameblack.rcuhcv2.commands.solo.farmeurimmo.CommandRCCode;
 import fr.gameblack.rcuhcv2.commands.solo.kzou.CommandBan;
@@ -86,6 +88,7 @@ public class Main extends JavaPlugin {
     private Joueur tueurNeko = null;
     private List<Joueur> maudit = new ArrayList<>();
     private int niv_maledition = 0;
+    private Location locZoneSlup = null;
     
     @Override
     public void onEnable() {
@@ -146,6 +149,7 @@ public class Main extends JavaPlugin {
     	getCommand("rcpapier").setExecutor(new CommandPapier(this));
     	getCommand("rctrial").setExecutor(new CommandTrial(this));
     	getCommand("rcmort").setExecutor(new CommandMort(this));
+    	getCommand("rcslime").setExecutor(new CommandSlime(this));
     	getCommand("rccube").setExecutor(new CommandCube(this));
     	getCommand("rcsteal").setExecutor(new CommandSteal(this));
     	
@@ -416,7 +420,7 @@ public class Main extends JavaPlugin {
     	
     	for(Joueur joueur : joueurs) {
     		
-    		joueur.reset();
+    		joueur.reset(this);
     		
     	}
     	
@@ -437,6 +441,9 @@ public class Main extends JavaPlugin {
         neko = null;
         nbJoueursStaff = 0;
         tueurNeko = null;
+        maudit.clear();
+        niv_maledition = 0;
+        locZoneSlup = null;
     	
     }
     
@@ -458,7 +465,7 @@ public class Main extends JavaPlugin {
     	
     	for(Joueur joueur : joueurs) {
     		
-    		if(joueur.getRole() != Roles.NONE) {
+    		if(joueur.getRole() != Roles.NONE && !joueur.isMort()) {
     			
     			joueurs_in_game.add(joueur);
     			
@@ -793,6 +800,14 @@ public class Main extends JavaPlugin {
 
 	public void setNiv_maledition(int niv_maledition) {
 		this.niv_maledition = niv_maledition;
+	}
+
+	public Location getLocZoneSlup() {
+		return locZoneSlup;
+	}
+
+	public void setLocZoneSlup(Location locZoneSlup) {
+		this.locZoneSlup = locZoneSlup;
 	}
 	
 }

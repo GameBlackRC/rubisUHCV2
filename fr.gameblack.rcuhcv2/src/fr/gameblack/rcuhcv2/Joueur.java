@@ -80,6 +80,12 @@ public class Joueur {
 	private boolean resiProche = false;
 	private boolean frappeNeko = false;
 	private boolean speedProche = false;
+	private int slime = 0;
+	private boolean malusZoneSlup = false;
+	private boolean slupBonusPalierActif = false;
+	private int palierSlup = 0;
+	private boolean malusSlupActif = false;
+	private int timerPalierSlup = 0;
 
 	public Joueur(Player player) {
 		
@@ -97,7 +103,7 @@ public class Joueur {
 		
 	}
 	
-	public void reset() {
+	public void reset(Main main) {
 		
 		role = Roles.NONE;
 		orbe = Orbe.NONE;
@@ -145,6 +151,12 @@ public class Joueur {
 		frappeNeko = false;
 		speedProche = false;
 		setRespawnTrial(false);
+		slime = 0;
+		show(main);
+		malusZoneSlup = false;
+		slupBonusPalierActif = false;
+		palierSlup = 0;
+		malusSlupActif = false;
 		
 	}
 	
@@ -181,6 +193,29 @@ public class Joueur {
 	public boolean isProche(Roles role, Main main) {
 		
 		for(Entity entity : player.getNearbyEntities(20, 20, 20)) {
+			
+			if(entity instanceof Player) {
+				
+				Player p = (Player) entity;
+				Joueur j = main.getJoueur(p);
+			
+				if(j.getRole() == role && !j.isMort()) {
+					
+					return true;
+					
+				}
+			
+			}
+			
+		}
+		
+		return false;
+		
+	}
+	
+	public boolean isProche10(Roles role, Main main) {
+		
+		for(Entity entity : player.getNearbyEntities(10, 10, 10)) {
 			
 			if(entity instanceof Player) {
 				
@@ -1000,6 +1035,97 @@ public class Joueur {
 
 	public void setResiProche(boolean resiProche) {
 		this.resiProche = resiProche;
+	}
+
+	public int getSlime() {
+		return slime;
+	}
+
+	public void setSlime(int slime) {
+		this.slime = slime;
+	}
+	
+	public void addSlime(int slime) {
+		this.slime += slime;
+	}
+	
+	public void removeSlime(int slime) {
+		this.slime -= slime;
+	}
+
+	public boolean isMalusZoneSlup() {
+		return malusZoneSlup;
+	}
+
+	public void setMalusZoneSlup(boolean malusZoneSlup) {
+		this.malusZoneSlup = malusZoneSlup;
+	}
+	
+	public boolean isInSlupZone(Main main) {
+		if(player.getLocation().getX() < (main.getLocZoneSlup().getX() + 20) && player.getLocation().getX() > (main.getLocZoneSlup().getX() - 20) && player.getLocation().getY() < (main.getLocZoneSlup().getY() + 20) && player.getLocation().getY() > (main.getLocZoneSlup().getY() - 20) && player.getLocation().getZ() < (main.getLocZoneSlup().getZ() + 20) && player.getLocation().getZ() > (main.getLocZoneSlup().getZ() - 20)) {
+			
+			return true;
+			
+		}
+		else {
+			return false;
+		}
+	}
+
+	public boolean isSlupBonusPalierActif() {
+		return slupBonusPalierActif;
+	}
+
+	public void setSlupBonusPalierActif(boolean slupBonusPalierActif) {
+		this.slupBonusPalierActif = slupBonusPalierActif;
+	}
+
+	public int getPalierSlup() {
+		return palierSlup;
+	}
+
+	public void setPalierSlup(int palierSlup) {
+		this.palierSlup = palierSlup;
+	}
+
+	public boolean isMalusSlupActif() {
+		return malusSlupActif;
+	}
+
+	public void setMalusSlupActif(boolean malusSlupActif) {
+		this.malusSlupActif = malusSlupActif;
+	}
+	
+	public boolean hasNbSlime() {
+		
+		if(palierSlup < 4 && slime >= 1) {
+			
+			return true;
+			
+		}
+		else if(palierSlup == 4 && slime >= 2) {
+			
+			return true;
+			
+		}
+		else {
+			
+			return false;
+			
+		}
+		
+	}
+
+	public int getTimerPalierSlup() {
+		return timerPalierSlup;
+	}
+
+	public void setTimerPalierSlup(int timerPalierSlup) {
+		this.timerPalierSlup = timerPalierSlup;
+	}
+	
+	public void addTimerPalierSlup() {
+		this.timerPalierSlup += 1;
 	}
 	
 }

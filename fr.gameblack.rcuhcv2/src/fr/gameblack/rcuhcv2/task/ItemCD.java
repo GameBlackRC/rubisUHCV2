@@ -440,6 +440,21 @@ public class ItemCD extends BukkitRunnable {
 	            			
 	            		}
 	            		
+	            	} else if(item == "slimezone_slup") {
+	            		
+	            		main.setLocZoneSlup(null);
+	            		
+	            		for(Joueur j : main.getJoueurInGame()) {
+	            			
+	            			if(j.isMalusZoneSlup()) {
+	            				
+	            				j.setMalusZoneSlup(false);
+	            				j.addSpeed(0.05);
+	            				
+	            			}
+	            			
+	            		}
+	            		
 	            	}
 	            	
 	            } else if(joueur.getRole() == Roles.LOUP) {
