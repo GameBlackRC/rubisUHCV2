@@ -599,10 +599,13 @@ public class Joueur {
 	public void setPourcentHack(int pourcentHack, Main main, Scoreboard board_hack) {
 		if(main.getJoueurByRole(Roles.FARMEURIMMO) != null) {
 			this.pourcentHack = pourcentHack;
-			if(!board_hack.getObjectives().isEmpty() && board_hack.getObjective("hack") != null) {
-				board_hack.getObjective("hack").unregister();
+			Objective objective_hack;
+			if(board_hack.getObjectives().isEmpty() || board_hack.getObjective("hack") == null) {
+				objective_hack = board_hack.registerNewObjective("hack", "dummy");
 			}
-			Objective objective_hack = board_hack.registerNewObjective("hack", "dummy");
+			else {
+				objective_hack = board_hack.getObjective("hack");
+			}
 	        objective_hack.setDisplaySlot(DisplaySlot.BELOW_NAME);
 	        objective_hack.setDisplayName("%");
 	        @SuppressWarnings("deprecation")
@@ -656,18 +659,19 @@ public class Joueur {
 					
 				}
 				
-				if(!board_hack.getObjectives().isEmpty() && board_hack.getObjective("hack") != null) {
-					board_hack.getObjective("hack").unregister();
+				Objective objective_hack;
+				if(board_hack.getObjectives().isEmpty() || board_hack.getObjective("hack") == null) {
+					objective_hack = board_hack.registerNewObjective("hack", "dummy");
 				}
-				
-				Objective objective_hack = board_hack.registerNewObjective("hack", "dummy");
+				else {
+					objective_hack = board_hack.getObjective("hack");
+				}
 		        objective_hack.setDisplaySlot(DisplaySlot.BELOW_NAME);
 		        objective_hack.setDisplayName("%");
 		        @SuppressWarnings("deprecation")
 				Score score = objective_hack.getScore(player);
 		        score.setScore(pourcentHack);
 		        main.getJoueurByRole(Roles.FARMEURIMMO).getPlayer().setScoreboard(board_hack);
-		        System.out.println("scoreboard ok");
 				
 			}
 			
@@ -696,11 +700,13 @@ public class Joueur {
 						
 				}
 				
-				if(!board_hack.getObjectives().isEmpty() && board_hack.getObjective("hack") != null) {
-					board_hack.getObjective("hack").unregister();
+				Objective objective_hack;
+				if(board_hack.getObjectives().isEmpty() || board_hack.getObjective("hack") == null) {
+					objective_hack = board_hack.registerNewObjective("hack", "dummy");
 				}
-				
-				Objective objective_hack = board_hack.registerNewObjective("hack", "dummy");
+				else {
+					objective_hack = board_hack.getObjective("hack");
+				}
 		        objective_hack.setDisplaySlot(DisplaySlot.BELOW_NAME);
 		        objective_hack.setDisplayName("%");
 		        @SuppressWarnings("deprecation")
@@ -768,12 +774,15 @@ public class Joueur {
 
 	public void setCube(int cube, Main main, Scoreboard board_cube) {
 		this.cube = cube;
-		if(!board_cube.getObjectives().isEmpty() && board_cube.getObjective("cube") != null) {
-			board_cube.getObjective("cube").unregister();
+		Objective objective_cube;
+		if(board_cube.getObjectives().isEmpty() || board_cube.getObjective("cube") == null) {
+			objective_cube = board_cube.registerNewObjective("cube", "dummy");
 		}
-		Objective objective_cube = board_cube.registerNewObjective("cube", "dummy");
+		else {
+			objective_cube = board_cube.getObjective("cube");
+		}
         objective_cube.setDisplaySlot(DisplaySlot.PLAYER_LIST);
-        objective_cube.setDisplayName("cube");
+        objective_cube.setDisplayName("%");
         @SuppressWarnings("deprecation")
 		Score score = objective_cube.getScore(player);
         score.setScore(cube);
@@ -783,12 +792,15 @@ public class Joueur {
 	public void addCube(Main main, Scoreboard board_cube) {
 		
 		this.cube += 1;
-		if(!board_cube.getObjectives().isEmpty() && board_cube.getObjective("cube") != null) {
-			board_cube.getObjective("cube").unregister();
+		Objective objective_cube;
+		if(board_cube.getObjectives().isEmpty() || board_cube.getObjective("cube") == null) {
+			objective_cube = board_cube.registerNewObjective("cube", "dummy");
 		}
-		Objective objective_cube = board_cube.registerNewObjective("cube", "dummy");
+		else {
+			objective_cube = board_cube.getObjective("cube");
+		}
         objective_cube.setDisplaySlot(DisplaySlot.PLAYER_LIST);
-        objective_cube.setDisplayName("cube");
+        objective_cube.setDisplayName("%");
         @SuppressWarnings("deprecation")
 		Score score = objective_cube.getScore(player);
         score.setScore(cube);
@@ -799,12 +811,15 @@ public class Joueur {
 	public void addCubes(int cube, Main main, Scoreboard board_cube) {
 		
 		this.cube += cube;
-		if(!board_cube.getObjectives().isEmpty() && board_cube.getObjective("cube") != null) {
-			board_cube.getObjective("cube").unregister();
+		Objective objective_cube;
+		if(board_cube.getObjectives().isEmpty() || board_cube.getObjective("cube") == null) {
+			objective_cube = board_cube.registerNewObjective("cube", "dummy");
 		}
-		Objective objective_cube = board_cube.registerNewObjective("cube", "dummy");
+		else {
+			objective_cube = board_cube.getObjective("cube");
+		}
         objective_cube.setDisplaySlot(DisplaySlot.PLAYER_LIST);
-        objective_cube.setDisplayName("cube");
+        objective_cube.setDisplayName("%");
         @SuppressWarnings("deprecation")
 		Score score = objective_cube.getScore(player);
         score.setScore(cube);
@@ -839,12 +854,15 @@ public class Joueur {
 	public void removeCube(Main main, Scoreboard board_cube) {
 		
 		this.cube -= 1;
-		if(!board_cube.getObjectives().isEmpty() && board_cube.getObjective("cube") != null) {
-			board_cube.getObjective("cube").unregister();
+		Objective objective_cube;
+		if(board_cube.getObjectives().isEmpty() || board_cube.getObjective("cube") == null) {
+			objective_cube = board_cube.registerNewObjective("cube", "dummy");
 		}
-		Objective objective_cube = board_cube.registerNewObjective("cube", "dummy");
+		else {
+			objective_cube = board_cube.getObjective("cube");
+		}
         objective_cube.setDisplaySlot(DisplaySlot.PLAYER_LIST);
-        objective_cube.setDisplayName("cube");
+        objective_cube.setDisplayName("%");
         @SuppressWarnings("deprecation")
 		Score score = objective_cube.getScore(player);
         score.setScore(cube);
@@ -855,12 +873,15 @@ public class Joueur {
 	public void removeCubes(int cube, Main main, Scoreboard board_cube) {
 		
 		this.cube -= cube;
-		if(!board_cube.getObjectives().isEmpty() && board_cube.getObjective("cube") != null) {
-			board_cube.getObjective("cube").unregister();
+		Objective objective_cube;
+		if(board_cube.getObjectives().isEmpty() || board_cube.getObjective("cube") == null) {
+			objective_cube = board_cube.registerNewObjective("cube", "dummy");
 		}
-		Objective objective_cube = board_cube.registerNewObjective("cube", "dummy");
+		else {
+			objective_cube = board_cube.getObjective("cube");
+		}
         objective_cube.setDisplaySlot(DisplaySlot.PLAYER_LIST);
-        objective_cube.setDisplayName("cube");
+        objective_cube.setDisplayName("%");
         @SuppressWarnings("deprecation")
 		Score score = objective_cube.getScore(player);
         score.setScore(cube);
