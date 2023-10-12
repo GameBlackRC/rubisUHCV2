@@ -27,9 +27,6 @@ public class Jeannot {
 	
 	public static void PartageAbso(Joueur joueur, Main main) {
 		
-		if(joueur.isAbsoOn()) {
-			joueur.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.ABSORPTION, 2400, 0));
-		}
 		joueur.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 100, 1));
 		List<Joueur> allies = main.getJoueurInCamp("joueur");
 		for(Joueur allie : allies) {
@@ -46,6 +43,7 @@ public class Jeannot {
 				
 				if(allie.isAbsoOn()) {
 				
+					allie.getPlayer().removePotionEffect(PotionEffectType.ABSORPTION);
 					allie.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.ABSORPTION, 2400, 0));
 				
 				}
