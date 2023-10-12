@@ -40,6 +40,7 @@ import fr.gameblack.rcuhcv2.commands.joueur.slup.CommandMort;
 import fr.gameblack.rcuhcv2.commands.joueur.slup.CommandSlime;
 import fr.gameblack.rcuhcv2.commands.joueur.slup.CommandTrial;
 import fr.gameblack.rcuhcv2.commands.solo.farmeurimmo.CommandRCCode;
+import fr.gameblack.rcuhcv2.commands.solo.farmeurimmo.CommandVol;
 import fr.gameblack.rcuhcv2.commands.solo.kzou.CommandBan;
 import fr.gameblack.rcuhcv2.commands.solo.kzou.CommandDisperse;
 import fr.gameblack.rcuhcv2.commands.solo.kzou.CommandOp;
@@ -167,6 +168,7 @@ public class Main extends JavaPlugin {
     	getCommand("rcmaudit").setExecutor(new CommandMaudit(this));
     	
     	getCommand("rchack").setExecutor(new CommandRCCode(this));
+    	getCommand("rcvol").setExecutor(new CommandVol(this));
     	getCommand("rcban").setExecutor(new CommandBan(this));
     	getCommand("rcdisperse").setExecutor(new CommandDisperse(this));
     	getCommand("rcop").setExecutor(new CommandOp(this));

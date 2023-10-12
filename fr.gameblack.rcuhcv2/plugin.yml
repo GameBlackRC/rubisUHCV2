@@ -20,6 +20,8 @@ commands:
     description: Commande du role Joko
   rchack:
     description: Commande du role Farmeurimmo
+  rcvol:
+    description: Commande du role Farmeurimmo
   rcban:
     description: Commande du role Kzou
   rcdisperse:
