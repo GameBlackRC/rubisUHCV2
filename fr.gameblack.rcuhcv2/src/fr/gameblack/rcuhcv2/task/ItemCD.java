@@ -245,12 +245,14 @@ public class ItemCD extends BukkitRunnable {
 	                
 	            } else if (item == "foudre_malus") {
 	
+	            	joueur.addSpeed(0.05);
 	                joueur.setMalusOrbe(false);
+	                
 	                player.sendMessage("Le malus est terminé. Vous pouvez réactiver votre orbe avec la commande /rcorbe");
 	
 	            } else if (item == "eau_malus") {
 	
-	            	joueur.addSpeed(0.05);
+	            	joueur.addForce(0.05);
 	                joueur.setMalusOrbe(false);
 	                player.sendMessage("Le malus est terminé. Vous pouvez réactiver votre orbe avec la commande /rcorbe");
 	
@@ -262,7 +264,7 @@ public class ItemCD extends BukkitRunnable {
 	
 	            } else if (item == "glace_malus") {
 	
-	            	joueur.addForce(0.05);
+	            	joueur.addForce(0.02);
 	                joueur.setMalusOrbe(false);
 	                player.sendMessage("Le malus est terminé. Vous pouvez réactiver votre orbe avec la commande /rcorbe");
 	
@@ -322,7 +324,7 @@ public class ItemCD extends BukkitRunnable {
 	                	
 	            		if (joueur.getPlayer().getInventory().contains(Material.DIAMOND_SWORD) || joueur.getPlayer().getInventory().contains(Material.IRON_SWORD)) {
 
-	                        for (ItemStack itemStack : joueur.getPlayer().getInventory().getContents()) {
+	                        for (ItemStack itemStack : cible.getPlayer().getInventory().getContents()) {
 
 	                            if (itemStack != null) {
 	                                if (itemStack.getType() == Material.DIAMOND_SWORD || itemStack.getType() == Material.IRON_SWORD) {
@@ -489,7 +491,7 @@ public class ItemCD extends BukkitRunnable {
 	            		
 	            		for(Joueur j : players) {
 	            			
-	            			j.addForce(0.5);
+	            			j.addForce(0.05);
 	            			
 	            		}
 	            		

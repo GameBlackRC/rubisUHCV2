@@ -151,7 +151,7 @@ public class PlayerActionListener implements Listener{
 
         if (main.getState() == Statut.PVP_ON) {
 
-            event.setCancelled(true);
+            //event.setCancelled(true);
 
         }
 

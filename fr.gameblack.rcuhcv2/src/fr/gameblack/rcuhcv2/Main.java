@@ -27,6 +27,7 @@ import fr.gameblack.rcuhcv2.commands.admin.CommandTpWorld;
 import fr.gameblack.rcuhcv2.commands.game.CommandCompo;
 import fr.gameblack.rcuhcv2.commands.game.CommandEffet;
 import fr.gameblack.rcuhcv2.commands.game.CommandOrbe;
+import fr.gameblack.rcuhcv2.commands.game.CommandSeeall;
 import fr.gameblack.rcuhcv2.commands.host.CommandAddAllRole;
 import fr.gameblack.rcuhcv2.commands.host.CommandAddrole;
 import fr.gameblack.rcuhcv2.commands.host.CommandCreate;
@@ -135,6 +136,7 @@ public class Main extends JavaPlugin {
     	getCommand("tpworld").setExecutor(new CommandTpWorld(this));
     	getCommand("checkworld").setExecutor(new CommandCheckWorld(this));
     	getCommand("fermeturegolden").setExecutor(new CommandFermetureGolden(this));
+    	getCommand("seeall").setExecutor(new CommandSeeall(this));
     	
     	getCommand("compo").setExecutor(new CommandCompo(this));
     	getCommand("rceffet").setExecutor(new CommandEffet(this));
@@ -190,6 +192,7 @@ public class Main extends JavaPlugin {
     	for(Player player : Bukkit.getOnlinePlayers()) {
     		
     		addJoueur(player);
+    		
     		
     	}
     	
@@ -702,7 +705,9 @@ public class Main extends JavaPlugin {
 	public void addJoueur(Player player) {
 		
 		Joueur joueur = new Joueur(player);
+		joueur.show(this);
 		joueurs.add(joueur);
+		
 		
 	}
 	

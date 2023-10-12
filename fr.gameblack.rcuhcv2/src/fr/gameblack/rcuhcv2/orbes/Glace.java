@@ -32,16 +32,20 @@ public class Glace {
     	
     	Random r = new Random();
         int nb = r.nextInt(100);
+        
+        if(nb <= 25 && joueur.isOrbeActif()) {
     	
-    	if((joueur.getRole() != Roles.GAMEBLACK || (joueur.getRole() == Roles.GAMEBLACK && nb <= 50)) && !(joueur.getRole() == Roles.FARMEURIMMO && joueur.getVol().contains(Pouvoirs.GAMEBLACK_MALUS_ORBE))) {
-    	
-	    	RemoveEffets(joueur, main);
-	    	joueur.removeForce(0.05);
-	    	joueur.setMalusOrbe(true);
-	        ItemCD cycle = new ItemCD(main, joueur, "glace_malus", 60, joueur, null, null, null, null);
-	        cycle.runTaskTimer(main, 0, 20);
-	        
-    	}
+	    	if(joueur.isOrbeActif() && (joueur.getRole() != Roles.GAMEBLACK || (joueur.getRole() == Roles.GAMEBLACK && nb <= 50)) && !(joueur.getRole() == Roles.FARMEURIMMO && joueur.getVol().contains(Pouvoirs.GAMEBLACK_MALUS_ORBE))) {
+	    	
+		    	RemoveEffets(joueur, main);
+		    	joueur.removeForce(0.02);
+		    	joueur.setMalusOrbe(true);
+		        ItemCD cycle = new ItemCD(main, joueur, "glace_malus", 60, joueur, null, null, null, null);
+		        cycle.runTaskTimer(main, 0, 20);
+		        
+	    	}
+	    	
+        }
 
     }
 

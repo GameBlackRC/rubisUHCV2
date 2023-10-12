@@ -33,7 +33,7 @@ public class Jeannot {
 			
 			if(allie.getRole() == Roles.NICKOBOOP && allie.getPlayer().hasPotionEffect(PotionEffectType.ABSORPTION)) {
 				
-				if(allie.isAbsoOn()) {
+				if(allie.isAbsoOn() && allie.getRole() != Roles.JEANNOT) {
 					allie.getPlayer().removePotionEffect(PotionEffectType.ABSORPTION);
 					allie.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.ABSORPTION, 2400, 1));
 				}
@@ -41,7 +41,7 @@ public class Jeannot {
 			}
 			else if(allie.getPlayer().hasPotionEffect(PotionEffectType.ABSORPTION)){
 				
-				if(allie.isAbsoOn()) {
+				if(allie.isAbsoOn() && allie.getRole() != Roles.JEANNOT) {
 				
 					allie.getPlayer().removePotionEffect(PotionEffectType.ABSORPTION);
 					allie.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.ABSORPTION, 2400, 0));
@@ -51,7 +51,7 @@ public class Jeannot {
 			}
 			else {
 				
-				if(allie.isAbsoOn()) {
+				if(allie.isAbsoOn() && allie.getRole() != Roles.JEANNOT) {
 				
 					allie.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.ABSORPTION, 2400, 0));
 				

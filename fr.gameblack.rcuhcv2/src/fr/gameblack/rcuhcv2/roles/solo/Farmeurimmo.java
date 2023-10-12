@@ -244,7 +244,7 @@ public class Farmeurimmo {
 	        	
 	        	if (joueur.getPlayer().getInventory().contains(Material.DIAMOND_SWORD) || joueur.getPlayer().getInventory().contains(Material.IRON_SWORD)) {
 	
-	                for (ItemStack itemStack : joueur.getPlayer().getInventory().getContents()) {
+	                for (ItemStack itemStack : cible.getPlayer().getInventory().getContents()) {
 	
 	                    if (itemStack != null) {
 	                        if (itemStack.getType() == Material.DIAMOND_SWORD || itemStack.getType() == Material.IRON_SWORD) {

@@ -31,7 +31,7 @@ public class Foudre {
     	Random r = new Random();
         int nb = r.nextInt(100);
     	
-    	if((joueur.getRole() != Roles.GAMEBLACK || (joueur.getRole() == Roles.GAMEBLACK && nb <= 50)) && !(joueur.getRole() == Roles.FARMEURIMMO && joueur.getVol().contains(Pouvoirs.GAMEBLACK_MALUS_ORBE))) {
+    	if(joueur.isOrbeActif() && (joueur.getRole() != Roles.GAMEBLACK || (joueur.getRole() == Roles.GAMEBLACK && nb <= 50)) && !(joueur.getRole() == Roles.FARMEURIMMO && joueur.getVol().contains(Pouvoirs.GAMEBLACK_MALUS_ORBE))) {
     	
 	    	RemoveEffets(joueur, main);
 	    	joueur.removeSpeed(0.05);

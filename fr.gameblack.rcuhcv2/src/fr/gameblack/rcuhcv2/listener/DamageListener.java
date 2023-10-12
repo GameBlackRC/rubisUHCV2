@@ -406,7 +406,7 @@ public class DamageListener implements Listener {
                 	Random r = new Random();
                     int nb = r.nextInt(100);
                 	
-            		if(nb <= 5) {
+            		if(nb <= 1) {
             			
             			main.getJoueurByRole(Roles.GAMEBLACK).addSpeed(0.01);
             			
@@ -465,7 +465,7 @@ public class DamageListener implements Listener {
                 		Random r = new Random();
                         int nb = r.nextInt(100);
                         
-                        if(nb <= 45) {
+                        if(nb <= 10) {
                         	
                         	event.setCancelled(true);
                         	
@@ -550,6 +550,8 @@ public class DamageListener implements Listener {
         	
         	Joueur joueur = main.getJoueur((Player) victim);
         	
+        	Player player = (Player) victim;
+        	
         	if(joueur.isInvulnerable()) {
         		
         		event.setCancelled(true);
@@ -561,6 +563,16 @@ public class DamageListener implements Listener {
         		event.setCancelled(true);
         		
         	}
+        	
+        	if (player.getHealth() <= event.getFinalDamage()) {
+
+                ItemCD cycle = new ItemCD(main, joueur.getLastHit(), "mort", 10, joueur, null, null, null, joueur.getPlayer().getLocation());
+                cycle.runTaskTimer(main, 0, 20);
+                event.setDamage(0);
+                player.setGameMode(GameMode.SPECTATOR);
+                player.sendMessage("Vous êtes mort mais vous avez encore une chance de ressucité");
+
+            }
         	
         }
 

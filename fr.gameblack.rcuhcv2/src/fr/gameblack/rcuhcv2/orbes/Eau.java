@@ -12,8 +12,6 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.potion.PotionEffect;
-import org.bukkit.potion.PotionEffectType;
 
 public class Eau {
 
@@ -64,12 +62,10 @@ public class Eau {
     	Random r = new Random();
         int nb = r.nextInt(100);
     	
-    	if((joueur.getRole() != Roles.GAMEBLACK || (joueur.getRole() == Roles.GAMEBLACK && nb <= 50)) && !(joueur.getRole() == Roles.FARMEURIMMO && joueur.getVol().contains(Pouvoirs.GAMEBLACK_MALUS_ORBE))) {
-    	
-	    	Player player = joueur.getPlayer();
+    	if(joueur.isOrbeActif() && (joueur.getRole() != Roles.GAMEBLACK || (joueur.getRole() == Roles.GAMEBLACK && nb <= 50)) && !(joueur.getRole() == Roles.FARMEURIMMO && joueur.getVol().contains(Pouvoirs.GAMEBLACK_MALUS_ORBE))) {
 	    		
 	    	RemoveEffets(joueur, main);
-	        player.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, 1200, 0, false, false));
+	        joueur.removeForce(0.05);
 	        joueur.setMalusOrbe(true);
 	        ItemCD cycle = new ItemCD(main, joueur, "eau_malus", 60, joueur, null, null, null, null);
 	        cycle.runTaskTimer(main, 0, 20);
