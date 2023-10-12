@@ -160,6 +160,15 @@ public class ItemCD extends BukkitRunnable {
 	    	        	}
 	    	
 	    	        }
+	    	        
+	    	        cible.getPlayer().getWorld().dropItemNaturally(loc, cible.getPlayer().getInventory().getHelmet());
+	    	        cible.getPlayer().getWorld().dropItemNaturally(loc, cible.getPlayer().getInventory().getChestplate());
+	    	        cible.getPlayer().getWorld().dropItemNaturally(loc, cible.getPlayer().getInventory().getLeggings());
+	    	        ItemStack bottes = cible.getPlayer().getInventory().getBoots();
+	    	        if(bottes.containsEnchantment(Enchantment.DEPTH_STRIDER)) {
+	    	        	bottes.removeEnchantment(Enchantment.DEPTH_STRIDER);
+	    	        }
+	    	        cible.getPlayer().getWorld().dropItemNaturally(loc, bottes);
 	
 	                DamageListener.Mort(cible, joueur, event, main);
 	
