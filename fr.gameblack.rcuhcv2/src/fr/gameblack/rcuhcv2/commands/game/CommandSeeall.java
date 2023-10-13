@@ -1,5 +1,6 @@
 package fr.gameblack.rcuhcv2.commands.game;
 
+import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -21,9 +22,15 @@ public class CommandSeeall implements CommandExecutor {
 
         if (sender instanceof Player) {
 
-            for(Joueur j : main.getListHost()) {
+            for(Player p : Bukkit.getOnlinePlayers()) {
             	
-            	((Player) sender).showPlayer(j.getPlayer());
+            	Joueur j = main.getJoueur(p);
+            	
+            	if(!j.isInvisible() || j.isSpec()) {
+            	
+            		((Player) sender).showPlayer(p);
+            	
+            	}
             	
             }
 

@@ -88,6 +88,7 @@ public class Joueur {
 	private boolean malusSlupActif = false;
 	private int timerPalierSlup = 0;
 	private boolean hack = false;
+	private boolean invisible = false;
 
 	public Joueur(Player player) {
 		
@@ -1239,6 +1240,14 @@ public class Joueur {
 
 	public void setHack(boolean hack) {
 		this.hack = hack;
+	}
+
+	public boolean isInvisible() {
+		return invisible;
+	}
+
+	public void setInvisible(boolean invisible) {
+		this.invisible = invisible;
 	}
 	
 }

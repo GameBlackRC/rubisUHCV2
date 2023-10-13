@@ -84,24 +84,17 @@ public class Malivol {
             int nb = r.nextInt(4);
 
             if (nb == 1) {
-                joueur.setMalivolCheat(1);
-                player.sendMessage("Vous venez d'activer votre cheat speedhack");
-                joueur.addSpeed(0.1);
-                if (player.getInventory().getBoots().getType() != null) {
-
-                    ItemMeta epeeM = player.getInventory().getBoots().getItemMeta();
-                    epeeM.addEnchant(Enchantment.DEPTH_STRIDER, 3, false);
-                    ItemStack epee = player.getInventory().getBoots();
-                    epee.setItemMeta(epeeM);
-                    player.getInventory().setBoots(epee);
-
-                }
+            	
+                joueur.setMalivolCheat(4);
+                //plus de kb et plus de resi
+                joueur.setAntiKB(true);
+                player.sendMessage("Vous venez d'activer votre cheat anti-kb");
                 if(pas_sacrifice) {
-                	ItemCD cycle = new ItemCD(main, joueur, "speedhack", 60, joueur, null, null, null, null);
+                	ItemCD cycle = new ItemCD(main, joueur, "antikb", 30, joueur, null, null, null, null);
                 	cycle.runTaskTimer(main, 0, 20);
                 }
                 else {
-                	ItemCD cycle = new ItemCD(main, joueur, "speedhack", 30, joueur, null, null, null, null);
+                	ItemCD cycle = new ItemCD(main, joueur, "antikb", 15, joueur, null, null, null, null);
                 	cycle.runTaskTimer(main, 0, 20);
                 }
             } else if (nb == 2) {
@@ -132,16 +125,25 @@ public class Malivol {
                 	cycle.runTaskTimer(main, 0, 20);
                 }
             } else {
-                joueur.setMalivolCheat(4);
-                //plus de kb et plus de resi
-                joueur.setAntiKB(true);
-                player.sendMessage("Vous venez d'activer votre cheat anti-kb");
+            	
+            	joueur.setMalivolCheat(1);
+                player.sendMessage("Vous venez d'activer votre cheat speedhack");
+                joueur.addSpeed(0.1);
+                if (player.getInventory().getBoots().getType() != null) {
+
+                    ItemMeta epeeM = player.getInventory().getBoots().getItemMeta();
+                    epeeM.addEnchant(Enchantment.DEPTH_STRIDER, 3, false);
+                    ItemStack epee = player.getInventory().getBoots();
+                    epee.setItemMeta(epeeM);
+                    player.getInventory().setBoots(epee);
+
+                }
                 if(pas_sacrifice) {
-                	ItemCD cycle = new ItemCD(main, joueur, "antikb", 60, joueur, null, null, null, null);
+                	ItemCD cycle = new ItemCD(main, joueur, "speedhack", 60, joueur, null, null, null, null);
                 	cycle.runTaskTimer(main, 0, 20);
                 }
                 else {
-                	ItemCD cycle = new ItemCD(main, joueur, "antikb", 30, joueur, null, null, null, null);
+                	ItemCD cycle = new ItemCD(main, joueur, "speedhack", 30, joueur, null, null, null, null);
                 	cycle.runTaskTimer(main, 0, 20);
                 }
             }

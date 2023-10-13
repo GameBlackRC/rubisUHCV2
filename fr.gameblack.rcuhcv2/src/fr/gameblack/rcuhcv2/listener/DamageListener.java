@@ -41,6 +41,8 @@ public class DamageListener implements Listener {
 	
 	public static void Mort(Joueur joueur, Joueur tueur, EntityDamageByEntityEvent event, Main main) {
 		
+		tueur.addKill();
+		
 		if(main.getJoueurByRole(Roles.GAMEBLACK) != null) {
         	
         	Joueur gb = main.getJoueurByRole(Roles.GAMEBLACK);
@@ -79,14 +81,14 @@ public class DamageListener implements Listener {
 		
 		if(tueur.getRole() == Roles.OBSCUR) {
 			
-			if(tueur.getPlayer().getMaxHealth() <= 11) {
+			if(tueur.getPlayer().getMaxHealth() <= 21) {
 				
 				tueur.getPlayer().setMaxHealth(tueur.getPlayer().getMaxHealth()+3);
 				
 			}
 			else {
 				
-				tueur.getPlayer().setMaxHealth(14);
+				tueur.getPlayer().setMaxHealth(24);
 				
 			}
 			
