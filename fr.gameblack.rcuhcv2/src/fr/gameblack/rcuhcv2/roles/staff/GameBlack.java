@@ -48,6 +48,8 @@ public class GameBlack {
         coffre.setItemMeta(coffreM);
         joueur.getPlayer().getInventory().addItem(coffre);
         
+        TexteUHC(joueur.getPlayer());
+        
         Random r = new Random();
         int nb = r.nextInt(100);
         
@@ -297,7 +299,7 @@ public class GameBlack {
 	
 	public static void TexteUHC(Player player) {
 
-        player.sendMessage("____________________________________________________\n \nVous êtes §9GameBlack\n§rVous devez gagner avec le §2camp UHC§r\n \nVous avez 5% de speed permanent\n \nSi l'évènement 'Fermeture de Golden' se déclanche, vous avez 50% de chance de passer dans le camp Joueur\n \nVous avez 50% de chance de ne pas recevoir le malus de votre orbe\n \nAvec la commande /rcchangeorbe, vous pouvez changer votre orbe\n \nAvec l'item 'Fuite', vous devenez invulnérable et vous ne poupez plus mettre de coup pendant 2 secondes\nVous recevez 10% de speed pendant 1 minute\nLes joueur proche de vous recevront l'effet blindness pendant 10 secondes\nSi Toinou est proche de vous lors de l'utilisation, il reçoit 2% de force pendant 1 minute\n \nA chaque coup d'épée subi, vous avez 5% de chance de recevoir 1% de speed supplémentaire permanent\n \n____________________________________________________");
+        player.sendMessage("____________________________________________________\n \nVous êtes §9GameBlack\n§rVous devez gagner avec le §2camp UHC§r\n \nVous avez 5% de speed permanent\n \nSi l'évènement 'Fermeture de Golden' se déclanche, vous avez 50% de chance de passer dans le camp Joueur\n \nVous avez 50% de chance de ne pas recevoir le malus de votre orbe\n \nAvec la commande /rcchangeorbe, vous pouvez changer votre orbe\n \nAvec l'item 'Fuite', vous devenez invulnérable et vous ne pouvez plus mettre de coup pendant 2 secondes\nVous recevez 10% de speed pendant 1 minute\nLes joueur proche de vous recevront l'effet blindness pendant 10 secondes\nSi Toinou est proche de vous lors de l'utilisation, il reçoit 2% de force pendant 1 minute\n \nA chaque coup d'épée subi, vous avez 5% de chance de recevoir 1% de speed supplémentaire permanent\n \n____________________________________________________");
 
     }
 	

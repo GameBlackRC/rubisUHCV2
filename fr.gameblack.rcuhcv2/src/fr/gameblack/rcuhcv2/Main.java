@@ -26,6 +26,7 @@ import fr.gameblack.rcuhcv2.commands.admin.CommandSpawnMinerais;
 import fr.gameblack.rcuhcv2.commands.admin.CommandTpWorld;
 import fr.gameblack.rcuhcv2.commands.game.CommandCompo;
 import fr.gameblack.rcuhcv2.commands.game.CommandEffet;
+import fr.gameblack.rcuhcv2.commands.game.CommandInfo;
 import fr.gameblack.rcuhcv2.commands.game.CommandOrbe;
 import fr.gameblack.rcuhcv2.commands.game.CommandSeeall;
 import fr.gameblack.rcuhcv2.commands.host.CommandAddAllRole;
@@ -141,6 +142,7 @@ public class Main extends JavaPlugin {
     	getCommand("compo").setExecutor(new CommandCompo(this));
     	getCommand("rceffet").setExecutor(new CommandEffet(this));
     	getCommand("rcorbe").setExecutor(new CommandOrbe(this));
+    	getCommand("rcinfo").setExecutor(new CommandInfo(this));
     	
     	getCommand("addallrole").setExecutor(new CommandAddAllRole(this));
     	getCommand("addrole").setExecutor(new CommandAddrole(this));

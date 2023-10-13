@@ -96,7 +96,7 @@ public class Loup {
 	
 	public static void Texte(Player player) {
 
-        player.sendMessage("____________________________________________________\n \nVous êtes §9Loup\n§rVous devez gagner avec le §9camp staff§r\n \n____________________________________________________");
+        player.sendMessage("____________________________________________________\n \nVous êtes §9Loup\n§rVous devez gagner avec le §9camp staff§r\n \nA l'annonce des rôles, vous recevez un item nommé 'Super bateau' qui vous permet de voler pendant 10secondes\nIl y a 10% de chance que la durée de vol soit de 5 secondes. Dans ce cas vous recevrez le message 'Flying is not enable on this server' à la fin du vol\n \nAvec la commande /rcserveur, si Trial est proche de vous, tous les joueurs de la partie, sauf vous et Trial, perdent 5% de force pendant 30 secondes\n \n____________________________________________________");
 
     }
 

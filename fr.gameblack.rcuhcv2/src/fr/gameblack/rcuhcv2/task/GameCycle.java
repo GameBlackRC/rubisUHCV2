@@ -392,9 +392,14 @@ public class GameCycle extends BukkitRunnable {
         objective_base.setDisplaySlot(DisplaySlot.SIDEBAR);
         objective_base.setDisplayName("RC UHC V2");
         Score score1_base = objective_base.getScore("Durée: " + main.getTimerInTexte(timer));
-        score1_base.setScore(2);
+        score1_base.setScore(3);
+        Score scoreep_base = objective_base.getScore("Episode : " + main.getEpisode());
+        scoreep_base.setScore(2);
         Score score2_base = objective_base.getScore("Joueurs : " + main.getListJoueurs().size() );
         score2_base.setScore(1);
+        Objective objective_hp = board_base.registerNewObjective("hp", "health");
+        objective_hp.setDisplaySlot(DisplaySlot.BELOW_NAME);
+        objective_hp.setDisplayName("HP");
         
         if((main.getEpisode() > 1 || (main.getEpisode() == 2 && main.getTemps() > 2)) || (main.getTemps() > 10 && main.getEpisode() >= 1 && main.getMode().equalsIgnoreCase("rapide"))) {
         	

@@ -14,7 +14,7 @@ public class Team {
 	
 	public static void Texte(Player player) {
 
-        player.sendMessage("____________________________________________________\n \nVous êtes §9Team\n§rVous devez gagner avec le §9camp staff§r\n \n____________________________________________________");
+        player.sendMessage("____________________________________________________\n \nVous êtes §9Team\n§rVous devez gagner avec le §9camp staff§r\n \nVous recevez 2% de résistance supplémentaire lorsque vous êtes proche de Farmeurimmo (invisible avec le /rceffet)\n \n____________________________________________________");
 
     }
 

@@ -153,7 +153,7 @@ public class Obscur {
 	
 	public static void Texte(Player player) {
 
-        player.sendMessage("____________________________________________________\n \nVous êtes §2Obscur\n§rVous devez gagner avec le §2camp UHC§r\n \n____________________________________________________");
+        player.sendMessage("____________________________________________________\n \nVous êtes §2Obscur\n§rVous devez gagner avec le §2camp UHC§r\n \nVous avez 3% de force permanent\n \nAvec la commande /rcmaudit <pseudo> <pseudo> <niveau>, vous pourrez maudire 2 joueurs du même camps. Le bonus et le malus dépendent du camps et du niveaux :\n \nPour le camps UHC :\n- Niveau 1 : 3% de force supplémentaire pour les 2 joueurs pendant 3 minutes\n- Niveau 2 : 10% de speed supplémentaire pour les 2 joueurs pendant 2 minutes\n- Niveau 3 : 3% de force et 5% de speed supplémentaire pour les 2 joueurs pendant 2 minutes\n \nPour les autres camps :\n- Niveau 1 : 2% de force en moins pour les 2 joueurs pendant 2 minutes\n- Niveau 2 : 7% de speed en moins pour les 2 joueurs pendant 2 minutes\n- Niveau 3 : 2% de force et 5% de speed en moins pour les 2 joueurs pendant 1 minute\n \nVous perdrez des coeurs permanent en fonction du niveau de la malédiction :\n- Niveau 1 : 1 coeur\n- Niveau 2 : 2 coeurs permanent\n- Niveau 3 : 3 coeurs permanent\n \nA chaque kill, vous recevrez 1.5 coeur supplémentaire (maximum : 12 coeurs)\n \n____________________________________________________");
 
     }
 

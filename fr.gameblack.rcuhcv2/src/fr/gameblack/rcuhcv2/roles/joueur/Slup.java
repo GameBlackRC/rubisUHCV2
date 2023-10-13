@@ -204,7 +204,8 @@ public class Slup {
 				cible.setCamp("duo");
 				joueur.setCamp("duo");
 				joueur.getPlayer().sendMessage("Vous avez trouvé Trial, vous devez désormais gagner ensemble");
-				joueur.addResi(0.05);
+				joueur.addResi(0.02);
+				joueur.addSpeed(0.05);
 				
 			}
 			else {
@@ -278,7 +279,7 @@ public class Slup {
 	
 	public static void Texte(Player player) {
 
-        player.sendMessage("____________________________________________________\n \nVous êtes §aSlup\n§rVous devez gagner avec le §acamp joueur§r\n \nA l'annonce des rôles, vous recevez un coffre nommé 'Pacte' vous permettant de choisir entre 2 pactes :\n - Pacte 1 : Vous gagnez avec le camp joueur et recevez 5% de speed supplémentaire\n- Pacte 2 : Si vous trouvez Trial avant 50 minutes de jeu ave cla commande /rctrial <pseudo>, vous gagnez en duo avec lui et recevez 5% de force et de speed sinon vous rester dans le camp joueur\n \nSi vous avez choisi le pacte 2, de la 40ème à la 45ème minutes, vous recevez un message toutes le sminutes vous informant si vous êtes proche de Trial. Si Loup vient à mourrir avant 50 minutes et que vous avez choisis le pacte 2, vous gagnez avec Trial et vous recevez 5% de force et de speed supplémentaire\n \nAvec la commande /rcmort, vous devenez invisible pendant 5 minutes. Durant ce laps de temps vous êtes invulnérable et vous ne pouvez mettre aucun coup. Votre message de mort apparait dans le chat et vous serez invisible dans la liste des joueurs (TAB) pendant que vous êtes invisible\n \n____________________________________________________");
+        player.sendMessage("____________________________________________________\n \nVous êtes §aSlup\n§rVous devez gagner avec le §acamp joueur§r\n \nA l'annonce des rôles, vous recevez un coffre nommé 'Pacte' vous permettant de choisir entre 2 pactes :\n - Pacte 1 : Vous gagnez avec le camp joueur et recevez 5% de speed supplémentaire\n- Pacte 2 : Si vous trouvez Trial avant 50 minutes de jeu avec la commande /rctrial <pseudo>, vous gagnez en duo avec lui et recevez 5% de force et de speed sinon vous restez dans le camp joueur\n \nSi vous avez choisi le pacte 2, de la 40ème à la 45ème minutes, vous recevez un message toutes les minutes vous informant si vous êtes proche de Trial. Si Loup vient à mourrir avant 50 minutes et que vous avez choisis le pacte 2, vous gagnez avec Trial et vous recevez 2% de résistance et 5% de speed supplémentaire\n \nAvec la commande /rcmort, vous devenez invisible pendant 5 minutes. Durant ce laps de temps vous êtes invulnérable et vous ne pouvez mettre aucun coup. Votre message de mort apparait dans le chat et vous serez invisible dans la liste des joueurs (TAB) pendant que vous êtes invisible\n \nA l'annonce des rôles, vous recevez un item nommé 'Slimetification'.\n  Avec un clique gauche sur cet item, il peut augmenter son palier de force. S'il n'a plus assez de boules de slimes, il perd son bonus et perd de la speed en fonction du palier\n  Avec un clique droit sur cet item, il créer une zone de 20 blocs. Tous les joueurs à l'intérieur ne fesant pas partie de votre camp (joueur ou duo) perdront 5% de speed. Deplus, vous avez 10% de chance d'éviter les coups reçu. La zone dure 1 minute\n \n____________________________________________________");
 
     }
 
