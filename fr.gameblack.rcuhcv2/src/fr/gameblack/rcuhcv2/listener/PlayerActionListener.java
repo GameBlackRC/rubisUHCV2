@@ -80,7 +80,7 @@ public class PlayerActionListener implements Listener{
 			main.addJoueur(event.getPlayer());
 			
 		}
-		else if(main.getJoueur(event.getPlayer()) == null) {
+		else if(main.getJoueurByPseudo(event.getPlayer().getName()) == null) {
 			
 			event.getPlayer().setGameMode(GameMode.SPECTATOR);
 			main.addJoueur(event.getPlayer());

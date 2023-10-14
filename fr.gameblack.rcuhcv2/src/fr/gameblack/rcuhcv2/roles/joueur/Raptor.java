@@ -34,9 +34,14 @@ public class Raptor {
 	
 	public static void ItemRage(Joueur joueur, Main main) {
 		
-		joueur.addForce(0.07);
-		ItemCD cycle = new ItemCD(main, joueur, "rage_raptor", 20, joueur, null, null, null, null);
-        cycle.runTaskTimer(main, 0, 20);
+		if(!main.getCD().contains(Pouvoirs.RAPTOR_RAGE)) {
+		
+			main.getCD().add(Pouvoirs.RAPTOR_RAGE);
+			joueur.addForce(0.07);
+			ItemCD cycle = new ItemCD(main, joueur, "rage_raptor", 20, joueur, null, null, null, null);
+	        cycle.runTaskTimer(main, 0, 20);
+	        
+		}
 		
 	}
 

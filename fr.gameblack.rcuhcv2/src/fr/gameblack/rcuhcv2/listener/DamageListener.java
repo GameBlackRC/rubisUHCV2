@@ -286,8 +286,14 @@ public class DamageListener implements Listener {
 
             	if(joueur != tueur) {
             		
-            		joueur.addPourcentHack(2, main, GameCycle.getScoreboardFarmeurimmo());
-            		tueur.addPourcentHack(2, main, GameCycle.getScoreboardFarmeurimmo());
+            		Random r = new Random();
+                    int nb = r.nextInt(100);
+                    
+                    if(nb <= 75) {
+            		
+	            		joueur.addPourcentHack(2, main, GameCycle.getScoreboardFarmeurimmo());
+	            		
+                    }
             		
             		if(tueur.getComboSubi() != 0) {
             			

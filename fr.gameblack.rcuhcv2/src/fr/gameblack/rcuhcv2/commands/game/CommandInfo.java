@@ -32,7 +32,7 @@ public class CommandInfo implements CommandExecutor {
             }
             else if(joueur.getRole() == Roles.FARMEURIMMO) {
             	
-            	player.sendMessage("_______________________________\n \nListe des effets du /rchack :\n \n- 10% : empêche le joueur de recevoir de l'absorption pendant 2 minutes\n-10% : connaitre les pourcentages d'effets du joueur ainsi que son orbe\n- 10% : enlever 2 niveaux de tranchant de l'épée de la cible\n 10% : retire 10% d'un effet aléatoire à la cible\n- 10% : connaitre le camp de la cible\n- 5% : activer le malus de l'orbe de la cible\n \n_______________________________");
+            	player.sendMessage("_______________________________\n \nListe des effets du /rchack :\n \n- 15% : désactive l'orbe du joueur pendant 1 minute\n- 10% : empêche le joueur de recevoir de l'absorption pendant 2 minutes\n-10% : connaitre les pourcentages d'effets du joueur ainsi que son orbe\n- 10% : enlever 2 niveaux de tranchant de l'épée de la cible\n 10% : retire 10% d'un effet aléatoire à la cible\n- 10% : connaitre le camp de la cible\n- 10% : retire 2 coeurs permanent à la cible pendant 1 minute\n- 10% : chaque coup que la cible subi à 10% de chance de l'enflammer pendanr 2 minutes\n- 10% : l'arc de la cible n'est plus utilisable pendant 30 secondes\n- 5% : activer le malus de l'orbe de la cible\n \n_______________________________");
             	
             }
 

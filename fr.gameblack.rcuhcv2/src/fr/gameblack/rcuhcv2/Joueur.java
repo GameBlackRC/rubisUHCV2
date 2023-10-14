@@ -89,6 +89,7 @@ public class Joueur {
 	private int timerPalierSlup = 0;
 	private boolean hack = false;
 	private boolean invisible = false;
+	private int utilisationSacrificeTrial = 0;
 
 	public Joueur(Player player) {
 		
@@ -1248,6 +1249,18 @@ public class Joueur {
 
 	public void setInvisible(boolean invisible) {
 		this.invisible = invisible;
+	}
+
+	public int getUtilisationSacrificeTrial() {
+		return utilisationSacrificeTrial;
+	}
+
+	public void setUtilisationSacrificeTrial(int utilisationSacrificeTrial) {
+		this.utilisationSacrificeTrial = utilisationSacrificeTrial;
+	}
+	
+	public void addUtilisationSacrificeTrial() {
+		this.utilisationSacrificeTrial += 1;
 	}
 	
 }

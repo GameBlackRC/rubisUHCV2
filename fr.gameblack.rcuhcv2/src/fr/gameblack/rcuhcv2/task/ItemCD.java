@@ -82,6 +82,14 @@ public class ItemCD extends BukkitRunnable {
         	
         }
     	
+    	if(item == "soleil" && timer == 30) {
+    		
+    		main.setJeuTrial("soleil");
+    		joueur.getPlayer().sendMessage("Le jeu 1, 2, 3 soleil commence !");
+    		cible.getPlayer().sendMessage("Le jeu 1, 2, 3 soleil commence !");
+    		
+    	}
+    	
     	if(joueur.getRole() == Roles.GAMEBLACK && item == "fuite" && timer == 58) {
     		
     		joueur.setInvulnerable(false);
@@ -291,7 +299,17 @@ public class ItemCD extends BukkitRunnable {
 	            	
 	            	joueur.removeForce(0.02);
 	            	
+	            } else if(item == "soleil") {
+	            	
+	            	joueur.setInvulnerable(false);
+	            	cible.setInvulnerable(false);
+	            	cible.getPlayer().sendMessage("Le jeu est fini");
+	            	joueur.getPlayer().sendMessage("Le jeu est fini");
+	            	main.setJeuTrial(null);
+	            	main.getJoueurJeuTrial().clear();
+	            	
 	            } else if (joueur.getRole() == Roles.MALIVOL || joueur.getVol().contains(Pouvoirs.MALIVOL_CHEAT) && joueur.getMalivolCheat() != 0) {
+
 	
 	                if (item == "speedhack") {
 	
@@ -441,6 +459,7 @@ public class ItemCD extends BukkitRunnable {
 	            		
 	            		joueur.show(main);
 	            		joueur.setInvulnerable(false);
+	            		joueur.setInvisible(false);
 	            		
 	            	}
 	            	
@@ -452,6 +471,7 @@ public class ItemCD extends BukkitRunnable {
 	            			
 	            			j.getPlayer().showPlayer(joueur.getPlayer());
 	            			joueur.setInvulnerable(false);
+	            			joueur.setInvisible(false);
 	            			
 	            		}
 	            		

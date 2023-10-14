@@ -245,6 +245,11 @@ public class GameCycle extends BukkitRunnable {
     		main.getCD().remove(Pouvoirs.RAPTOR_RAGE);
     		
     	}
+    	else if(main.getCD().contains(Pouvoirs.TRIAL_JEU)) {
+    		
+    		main.getCD().remove(Pouvoirs.TRIAL_JEU);
+    		
+    	}
     	else if(main.getCD().contains(Pouvoirs.FARMEURIMMO_HACK)) {
     		
     		main.getCD().remove(Pouvoirs.FARMEURIMMO_HACK);
@@ -364,6 +369,15 @@ public class GameCycle extends BukkitRunnable {
         	
         }
         
+        if(main.getCompo().contains(Roles.MALIVOL) && main.getCompo().contains(Roles.TOINOU)) {
+        	
+        	Joueur malivol = main.getJoueurByRole(Roles.MALIVOL);
+        	Joueur toinou = main.getJoueurByRole(Roles.TOINOU);
+        	
+        	malivol.getPlayer().sendMessage("Toinou : " + toinou.getPlayer().getName());
+        	
+        }
+        
         if(main.getCompo().contains(Roles.TRIAL) && main.getCompo().contains(Roles.LOUP)) {
         	
         	Joueur trial = main.getJoueurByRole(Roles.TRIAL);
@@ -384,6 +398,8 @@ public class GameCycle extends BukkitRunnable {
 
     public static void setScoreboard(Main main, int timer) {
     	
+    	Objective objective_hp = board_base.getObjective("hp");
+    	
     	if(!board_base.getObjectives().isEmpty()) {
 			board_base.getObjective("test").unregister();
 		}
@@ -397,7 +413,9 @@ public class GameCycle extends BukkitRunnable {
         scoreep_base.setScore(2);
         Score score2_base = objective_base.getScore("Joueurs : " + main.getListJoueurs().size() );
         score2_base.setScore(1);
-        Objective objective_hp = board_base.registerNewObjective("hp", "health");
+        if(objective_hp == null) {
+        	objective_hp = board_base.registerNewObjective("hp", "health");
+        }
         objective_hp.setDisplaySlot(DisplaySlot.BELOW_NAME);
         objective_hp.setDisplayName("HP");
         
@@ -609,15 +627,17 @@ public class GameCycle extends BukkitRunnable {
 		        objective_slup.setDisplaySlot(DisplaySlot.SIDEBAR);
 		        objective_slup.setDisplayName("RC UHC V2");
 		        Score score1_slup = objective_slup.getScore("Durée: " + main.getTimerInTexte(timer));
-		        score1_slup.setScore(7);
+		        score1_slup.setScore(8);
 		        Score scoreep_slup = objective_slup.getScore("Episode : " + main.getEpisode());
-		        scoreep_slup.setScore(6);
+		        scoreep_slup.setScore(7);
 		        Score scorej_slup = objective_slup.getScore("Joueurs : " + main.getListJoueurs().size() );
-		        scorej_slup.setScore(5);
+		        scorej_slup.setScore(6);
 		        Score scorekill_slup = objective_slup.getScore("Kill : " + slup.getKill() );
-		        scorekill_slup.setScore(4);
+		        scorekill_slup.setScore(5);
 		        Score score2_slup = objective_slup.getScore("Role: " + slup.getCouleurCamp() + "Slup");
-		        score2_slup.setScore(3);
+		        score2_slup.setScore(4);
+		        Score scoreslime_slup = objective_slup.getScore("Slime: " + slup.getSlime());
+		        scoreslime_slup.setScore(3);
 		        Score score3_slup;
 		        if(slup.getOrbe() == Orbe.EAU) {
 		        	

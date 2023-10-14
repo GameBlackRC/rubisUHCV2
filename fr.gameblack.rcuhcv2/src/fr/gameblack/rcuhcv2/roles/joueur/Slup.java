@@ -20,6 +20,8 @@ public class Slup {
 		
 		Texte(joueur.getPlayer());
 		
+		joueur.addSlime(5);
+		
 		ItemStack coffre = new ItemStack(Material.NETHER_STAR, 1);
         ItemMeta coffreM = coffre.getItemMeta();
         coffreM.setDisplayName("Pactes");
@@ -101,6 +103,8 @@ public class Slup {
 			
 			main.getCD().add(Pouvoirs.SLUP_SLIME);
 			
+			joueur.getPlayer().sendMessage("Vous venez d'utiliser votre item");
+			
 			main.setLocZoneSlup(joueur.getPlayer().getLocation());
 			
 			ItemCD cycle = new ItemCD(main, joueur, "slimezone_slup", 60, joueur, null, null, null, null);
@@ -121,12 +125,16 @@ public class Slup {
 		
 			if(joueur.getPalierSlup() == 0) {
 				
+				joueur.getPlayer().sendMessage("Vous passez le palier 1");
+				
 				joueur.setPalierSlup(1);
 				joueur.setSlupBonusPalierActif(true);
 				joueur.addForce(0.02);
 				
 			}
 			else if(joueur.getPalierSlup() == 1) {
+				
+				joueur.getPlayer().sendMessage("Vous passez le palier 2");
 				
 				joueur.setPalierSlup(2);
 				if(joueur.isSlupBonusPalierActif()) {
@@ -144,6 +152,8 @@ public class Slup {
 			}
 			else if(joueur.getPalierSlup() == 2) {
 				
+				joueur.getPlayer().sendMessage("Vous passez le palier 3");
+				
 				joueur.setPalierSlup(3);
 				if(joueur.isSlupBonusPalierActif()) {
 					
@@ -159,6 +169,8 @@ public class Slup {
 				
 			}
 			else if(joueur.getPalierSlup() == 3 && joueur.getCamp().equalsIgnoreCase("duo")) {
+				
+				joueur.getPlayer().sendMessage("Vous passez le palier 4");
 				
 				joueur.setPalierSlup(4);
 				if(joueur.isSlupBonusPalierActif()) {
@@ -223,6 +235,7 @@ public class Slup {
 		joueur.hide(main);
 		Bukkit.broadcastMessage("_________________________\n" + joueur.getPlayer().getName() + " est mort. Il était : \nSLUP\n_________________________");
 		joueur.setInvulnerable(true);
+		joueur.setInvisible(true);
 		ItemCD cycle = new ItemCD(main, joueur, "fakemort_slup", 300, joueur, null, null, null, null);
 		cycle.runTaskTimer(main, 0, 20);
 		

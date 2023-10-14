@@ -25,14 +25,18 @@ import fr.gameblack.rcuhcv2.commands.admin.CommandSetStatut;
 import fr.gameblack.rcuhcv2.commands.admin.CommandSpawnMinerais;
 import fr.gameblack.rcuhcv2.commands.admin.CommandTpWorld;
 import fr.gameblack.rcuhcv2.commands.game.CommandCompo;
+import fr.gameblack.rcuhcv2.commands.game.CommandDoc;
 import fr.gameblack.rcuhcv2.commands.game.CommandEffet;
 import fr.gameblack.rcuhcv2.commands.game.CommandInfo;
+import fr.gameblack.rcuhcv2.commands.game.CommandList;
+import fr.gameblack.rcuhcv2.commands.game.CommandMe;
 import fr.gameblack.rcuhcv2.commands.game.CommandOrbe;
 import fr.gameblack.rcuhcv2.commands.game.CommandSeeall;
 import fr.gameblack.rcuhcv2.commands.host.CommandAddAllRole;
 import fr.gameblack.rcuhcv2.commands.host.CommandAddrole;
 import fr.gameblack.rcuhcv2.commands.host.CommandCreate;
 import fr.gameblack.rcuhcv2.commands.host.CommandRemoverole;
+import fr.gameblack.rcuhcv2.commands.host.CommandRl;
 import fr.gameblack.rcuhcv2.commands.host.CommandStart;
 import fr.gameblack.rcuhcv2.commands.joueur.jeannot.CommandPartage;
 import fr.gameblack.rcuhcv2.commands.joueur.joko.CommandCube;
@@ -41,6 +45,7 @@ import fr.gameblack.rcuhcv2.commands.joueur.nickoboop.CommandPapier;
 import fr.gameblack.rcuhcv2.commands.joueur.slup.CommandMort;
 import fr.gameblack.rcuhcv2.commands.joueur.slup.CommandSlime;
 import fr.gameblack.rcuhcv2.commands.joueur.slup.CommandTrial;
+import fr.gameblack.rcuhcv2.commands.solo.farmeurimmo.CommandCamp;
 import fr.gameblack.rcuhcv2.commands.solo.farmeurimmo.CommandRCCode;
 import fr.gameblack.rcuhcv2.commands.solo.farmeurimmo.CommandVol;
 import fr.gameblack.rcuhcv2.commands.solo.kzou.CommandBan;
@@ -138,17 +143,21 @@ public class Main extends JavaPlugin {
     	getCommand("checkworld").setExecutor(new CommandCheckWorld(this));
     	getCommand("fermeturegolden").setExecutor(new CommandFermetureGolden(this));
     	getCommand("seeall").setExecutor(new CommandSeeall(this));
+    	getCommand("rcrl").setExecutor(new CommandRl(this));
     	
     	getCommand("compo").setExecutor(new CommandCompo(this));
     	getCommand("rceffet").setExecutor(new CommandEffet(this));
     	getCommand("rcorbe").setExecutor(new CommandOrbe(this));
     	getCommand("rcinfo").setExecutor(new CommandInfo(this));
+    	getCommand("rcme").setExecutor(new CommandMe(this));
+    	getCommand("rclist").setExecutor(new CommandList(this));
     	
     	getCommand("addallrole").setExecutor(new CommandAddAllRole(this));
     	getCommand("addrole").setExecutor(new CommandAddrole(this));
     	getCommand("create").setExecutor(new CommandCreate(this));
     	getCommand("removerole").setExecutor(new CommandRemoverole(this));
     	getCommand("start").setExecutor(new CommandStart(this));
+    	getCommand("doc").setExecutor(new CommandDoc());
     	
     	getCommand("rcpartage").setExecutor(new CommandPartage(this));
     	getCommand("rcpapier").setExecutor(new CommandPapier(this));
@@ -173,6 +182,7 @@ public class Main extends JavaPlugin {
     	
     	getCommand("rchack").setExecutor(new CommandRCCode(this));
     	getCommand("rcvol").setExecutor(new CommandVol(this));
+    	getCommand("rccamp").setExecutor(new CommandCamp(this));
     	getCommand("rcban").setExecutor(new CommandBan(this));
     	getCommand("rcdisperse").setExecutor(new CommandDisperse(this));
     	getCommand("rcop").setExecutor(new CommandOp(this));
@@ -612,6 +622,22 @@ public class Main extends JavaPlugin {
     	for(Joueur joueur : joueurs) {
     		
     		if(player == joueur.getPlayer()) {
+    			
+    			return joueur;
+    			
+    		}
+    		
+    	}
+    	
+    	return null;
+    	
+    }
+    
+    public Joueur getJoueurByPseudo(String pseudo) {
+    	
+    	for(Joueur joueur : joueurs) {
+    		
+    		if(joueur.getPlayer().getName().equalsIgnoreCase(pseudo)) {
     			
     			return joueur;
     			

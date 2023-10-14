@@ -28,6 +28,7 @@ public class Toinou {
 	public static void CommandVacance(Joueur joueur, Main main) {
 		
 		joueur.setInvulnerable(true);
+		joueur.setInvisible(true);
 		joueur.hide(main);
 		ItemCD cycle = new ItemCD(main, joueur, "vacance_toinou", 120, joueur, null, null, null, null);
         cycle.runTaskTimer(main, 0, 20);

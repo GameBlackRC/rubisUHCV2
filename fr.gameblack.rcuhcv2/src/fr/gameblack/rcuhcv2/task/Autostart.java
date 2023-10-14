@@ -47,36 +47,36 @@ public class Autostart extends BukkitRunnable {
         }
     	
         else if(timer == 0) {
-        	
-        	Random r = new Random();
-            int signe_x = r.nextInt(2);
-            int signe_y = r.nextInt(2);
-            int cos_x = r.nextInt(800);
-            cos_x += 200;
-            if (signe_x == 1) {
-                cos_x = -cos_x;
-            }
-
-            int cos_y = r.nextInt(800);
-            cos_y += 200;
-            if (signe_y == 1) {
-                cos_y = -cos_y;
-            }
-            
-            World world;
-            
-            if(main.getWorld() == null) {
-            	
-            	world = Bukkit.getWorld("world");
-            	
-            }
-            else {
-            	
-            	world = main.getWorld();
-            	
-            }
 
             for (Joueur j : main.getListJoueurs()) {
+            	
+            	Random r = new Random();
+                int signe_x = r.nextInt(2);
+                int signe_y = r.nextInt(2);
+                int cos_x = r.nextInt(100);
+                cos_x += 200;
+                if (signe_x == 1) {
+                    cos_x = -cos_x;
+                }
+
+                int cos_y = r.nextInt(100);
+                cos_y += 200;
+                if (signe_y == 1) {
+                    cos_y = -cos_y;
+                }
+                
+                World world;
+                
+                if(main.getWorld() == null) {
+                	
+                	world = Bukkit.getWorld("world");
+                	
+                }
+                else {
+                	
+                	world = main.getWorld();
+                	
+                }
             	
             	Player pls = j.getPlayer();
 
@@ -220,13 +220,13 @@ public class Autostart extends BukkitRunnable {
 
             }
             
-            int nb = r.nextInt(100);
+            //int nb = r.nextInt(100);
             
-            if(nb <= 10) {
+            //if(nb <= 10) {
             	
-            	main.setFermetureGolden(true);
+            	//main.setFermetureGolden(true);
             	
-            }
+            //}
 
             main.setState(Statut.PVP_OFF);
             

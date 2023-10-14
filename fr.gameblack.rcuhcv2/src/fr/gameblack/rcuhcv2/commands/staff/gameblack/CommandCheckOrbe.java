@@ -33,6 +33,8 @@ public class CommandCheckOrbe implements CommandExecutor {
             if (cible_ != null) {
             	
             	if(!main.getCD().contains(Pouvoirs.GAMEBLACK_CHECKORBE)) {
+            		
+            		main.getCD().add(Pouvoirs.GAMEBLACK_CHECKORBE);
             	
 	            	Joueur cible = main.getJoueur(cible_);
 	

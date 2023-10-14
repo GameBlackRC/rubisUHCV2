@@ -80,16 +80,27 @@ public class Trial {
 	
 	public static void CommandSacrifice(Joueur joueur, String choix) {
 		
-		if(choix.equalsIgnoreCase("coeur")) {
+		if(joueur.getUtilisationSacrificeTrial() < 4) {
 			
-			joueur.removeForce(0.04);
-			joueur.getPlayer().setMaxHealth(joueur.getPlayer().getMaxHealth() + 1);
+			joueur.addUtilisationSacrificeTrial();
+		
+			if(choix.equalsIgnoreCase("coeur")) {
+				
+				joueur.removeForce(0.04);
+				joueur.getPlayer().setMaxHealth(joueur.getPlayer().getMaxHealth() + 1);
+				
+			}
+			else {
+				
+				joueur.removeForce(0.04);
+				joueur.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.HEAL, 1, 0));
+				
+			}
 			
 		}
 		else {
 			
-			joueur.removeForce(0.04);
-			joueur.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.HEAL, 1, 0));
+			joueur.getPlayer().sendMessage("Vous ne pouvez plus utiliser ce pouvoir");
 			
 		}
 		
@@ -99,16 +110,17 @@ public class Trial {
 		
 		Random r = new Random();
         int nb = r.nextInt(3);
+        joueur.setInvulnerable(true);
+        cible.setInvulnerable(true);
         
         if(nb == 0) {
         	
-        	main.setJeuTrial("soleil");
         	main.getJoueurJeuTrial().add(joueur);
         	main.getJoueurJeuTrial().add(cible);
-        	JeuCD cycle = new JeuCD(main, joueur, cible, "soleil", 60);
+        	JeuCD cycle = new JeuCD(main, joueur, cible, "soleil", 33);
             cycle.runTaskTimer(main, 0, 20);
             joueur.getPlayer().sendMessage("Le jeu choisi est soleil");
-            cible.getPlayer().sendMessage("Vous jouez à 1, 2, 3, soleil avec Trial, ne bougez plus !");
+            cible.getPlayer().sendMessage("Vous jouez à 1, 2, 3, soleil avec Trial, ne bougez plus ! Le je se lance dans 3 secondes");
         	
         }
         else if(nb == 1) {
@@ -116,7 +128,7 @@ public class Trial {
         	main.setJeuTrial("takaoni");
         	main.getJoueurJeuTrial().add(joueur);
         	main.getJoueurJeuTrial().add(cible);
-        	JeuCD cycle = new JeuCD(main, joueur, cible, "takaoni", 18);
+        	JeuCD cycle = new JeuCD(main, joueur, cible, "takaoni", 8);
             cycle.runTaskTimer(main, 0, 20);
             joueur.getPlayer().sendMessage("Le jeu choisi est takaoni");
             cible.getPlayer().sendMessage("Vous jouez à takaoni avec Trial, montez le plus haut possible !");
@@ -143,6 +155,10 @@ public class Trial {
 		perdant.removeSpeed(0.02);
 		ItemCD cycle = new ItemCD(main, gagnant, "speed_reflex_trial", 300, gagnant, null, null, null, null);
         cycle.runTaskTimer(main, 0, 20);
+        gagnant.setInvulnerable(false);
+    	perdant.setInvulnerable(false);
+    	main.setJeuTrial(null);
+    	main.getJoueurJeuTrial().clear();
 		
 	}
 	
@@ -159,6 +175,10 @@ public class Trial {
 			j2.addSpeed(0.03);
 			ItemCD cycle = new ItemCD(main, j2, "takaoni_trial", 300, j1, null, null, null, null);
 	        cycle.runTaskTimer(main, 0, 20);
+	        j1.setInvulnerable(false);
+	    	j2.setInvulnerable(false);
+	    	main.setJeuTrial(null);
+	    	main.getJoueurJeuTrial().clear();
 			
 		}
 		else {
@@ -169,6 +189,10 @@ public class Trial {
 			j1.addSpeed(0.03);
 			ItemCD cycle = new ItemCD(main, j1, "takaoni_trial", 300, j2, null, null, null, null);
 	        cycle.runTaskTimer(main, 0, 20);
+	        j1.setInvulnerable(false);
+	    	j2.setInvulnerable(false);
+	    	main.setJeuTrial(null);
+	    	main.getJoueurJeuTrial().clear();
 			
 		}
 		
@@ -183,6 +207,10 @@ public class Trial {
 		gagnant.getPlayer().setMaxHealth(gagnant.getPlayer().getMaxHealth()+2);
 		ItemCD cycle = new ItemCD(main, gagnant, "soleil_trial", 300, perdant, null, null, null, null);
         cycle.runTaskTimer(main, 0, 20);
+        gagnant.setInvulnerable(false);
+    	perdant.setInvulnerable(false);
+    	main.setJeuTrial(null);
+    	main.getJoueurJeuTrial().clear();
 		
 	}
 	

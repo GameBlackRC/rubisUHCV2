@@ -209,10 +209,134 @@ public class Farmeurimmo {
 		}
 		
 	}
+	
+	public static void commandCamp(Joueur joueur, Joueur cible, Main main) {
+		
+		if(cible.isHack() && cible.getPourcentHack() >= 100) {
+			
+			cible.setCamp("farmeurimmo");
+			cible.getPlayer().sendMessage("Farmeurimmo vient de changer votre camp, vous devez désormais gagner avec lui");
+			joueur.getPlayer().sendMessage(cible.getPlayer().getName() + " doit désormais gagner avec vous");
+			
+			if(cible.getRole() == Roles.RAPTOR) {
+	        	
+		        ItemStack coffre = new ItemStack(Material.NETHER_STAR, 1);
+		        ItemMeta coffreM = coffre.getItemMeta();
+		        coffreM.setDisplayName("Rage");
+		        coffre.setItemMeta(coffreM);
+		        cible.getPlayer().getInventory().remove(coffre);
+		        cible.getPlayer().sendMessage("Vous venez donc de perdre votre pouvoir 'Rage'");
+				
+			} else if(cible.getRole() == Roles.JEANNOT) {
+				
+				cible.removeForce(0.03);
+				cible.getPlayer().sendMessage("Vous venez donc de perdre 3% de force");
+				
+			} else if(cible.getRole() == Roles.NICKOBOOP) {
+				
+				cible.getPlayer().sendMessage("Vous ne recevez donc plus votre résistance proche de Jeannot");
+				
+			} else if(cible.getRole() == Roles.SLUP) {
+				
+				cible.removeSpeed(0.05);
+				cible.getPlayer().sendMessage("Vous perdez donc 5% de speed");
+				
+			} else if(cible.getRole() == Roles.JOKO) {
+				
+				ItemStack coffre = new ItemStack(Material.NETHER_STAR, 1);
+		        ItemMeta coffreM = coffre.getItemMeta();
+		        coffreM.setDisplayName("SpeedCubing");
+		        coffre.setItemMeta(coffreM);
+		        cible.getPlayer().getInventory().remove(coffre);
+				cible.getPlayer().sendMessage("Vous perdez donc votre pouvoir 'SpeedCubing'");
+				
+			} else if(cible.getRole() == Roles.TEAM) {
+				
+				cible.removeResi(0.03);
+				cible.getPlayer().sendMessage("Vous perdez donc 3% de résistance");
+				
+			} else if(cible.getRole() == Roles.GAMEBLACK) {
+				
+				if(cible.getCamp().equalsIgnoreCase("staff")) {
+					
+					cible.getPlayer().sendMessage("Vous recevez donc à 100% le malus de votre orbe");
+					
+				} else if(cible.getCamp().equalsIgnoreCase("joueur")) {
+					
+					cible.removeSpeed(0.05);
+					cible.getPlayer().sendMessage("Vous perdez donc 5% de speed");
+					
+				} else if(cible.getCamp().equalsIgnoreCase("uhc")) {
+					
+					ItemStack coffre = new ItemStack(Material.NETHER_STAR, 1);
+			        ItemMeta coffreM = coffre.getItemMeta();
+			        coffreM.setDisplayName("Fuite");
+			        coffre.setItemMeta(coffreM);
+			        cible.getPlayer().getInventory().remove(coffre);
+					cible.getPlayer().sendMessage("Vous perdez donc votre pouvoir 'Fuite'");
+					
+				}
+				
+			} else if(cible.getRole() == Roles.TRIAL) {
+				
+				if(cible.getModeTrial().equalsIgnoreCase("fun")) {
+					
+					cible.removeForce(0.02);
+					cible.getPlayer().sendMessage("Vous perdez donc 2% de force");
+					
+				} else {
+					
+					cible.getPlayer().sendMessage("Vous ne gagnez donc plus 2% de force à chaque kill");
+					
+				}
+				
+			} else if(cible.getRole() == Roles.LOUP) {
+				
+				cible.getPlayer().sendMessage("Vous perdez donc votre pouvoir 'Super bateau'");
+				
+				ItemStack coffre = new ItemStack(Material.NETHER_STAR, 1);
+		        ItemMeta coffreM = coffre.getItemMeta();
+		        coffreM.setDisplayName("Super bateau");
+		        coffre.setItemMeta(coffreM);
+		        cible.getPlayer().getInventory().remove(coffre);
+				
+			} else if(cible.getRole() == Roles.MALIVOL) {
+				
+				cible.getPlayer().sendMessage("Vous perdez donc votre pouvoir 'Cheat'");
+				
+				ItemStack coffre = new ItemStack(Material.NETHER_STAR, 1);
+		        ItemMeta coffreM = coffre.getItemMeta();
+		        coffreM.setDisplayName("Cheat");
+		        coffre.setItemMeta(coffreM);
+
+		        cible.getPlayer().getInventory().remove(coffre);
+				
+			} else if(cible.getRole() == Roles.TOINOU) {
+				
+				cible.getPlayer().sendMessage("Vous perdez donc la commande /rcvacance");
+				
+			} else if(cible.getRole() == Roles.OBSCUR) {
+				
+				cible.getPlayer().sendMessage("Vous ne recevez donc plus les coeurs supplémentaires lors d'un kill");
+				
+			} else if(cible.getRole() == Roles.KZOU) {
+				
+				cible.getPlayer().sendMessage("Vous perdez donc la commande /rcban");
+				
+			}
+			
+		}
+		else {
+			
+			joueur.getPlayer().sendMessage("Vous ne pouvez pas encore modifier le camp de ce joueur");
+			
+		}
+		
+	}
 
 	public static void commandCode(Joueur joueur, Joueur cible, Main main) {
 		
-		if(cible.getPourcentHack() >= 50) {
+		if(cible.getPourcentHack() >= 50 && !cible.isHack()) {
 		
 			main.getCD().add(Pouvoirs.FARMEURIMMO_HACK);
 			cible.removePourcentHack(50, main, GameCycle.getScoreboardFarmeurimmo());

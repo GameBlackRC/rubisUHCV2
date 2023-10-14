@@ -8,6 +8,7 @@ import org.bukkit.entity.Player;
 
 import fr.gameblack.rcuhcv2.Joueur;
 import fr.gameblack.rcuhcv2.Main;
+import fr.gameblack.rcuhcv2.Pouvoirs;
 import fr.gameblack.rcuhcv2.Roles;
 import fr.gameblack.rcuhcv2.roles.staff.Trial;
 
@@ -34,7 +35,18 @@ private Main main;
 
             if (cible_ != null && (joueur.getRole() == Roles.TRIAL && joueur.getModeTrial() == "fun")) {
             	
-            	Trial.CommandPlay(joueur, cible, main);
+            	if(main.getCD().contains(Pouvoirs.TRIAL_JEU)) {
+            		
+            		main.getCD().add(Pouvoirs.TRIAL_JEU);
+            	
+            		Trial.CommandPlay(joueur, cible, main);
+            		
+            	}
+            	else {
+            		
+            		player.sendMessage("Ce pouvoir est en cooldown");
+            		
+            	}
             	
             }
             else {
