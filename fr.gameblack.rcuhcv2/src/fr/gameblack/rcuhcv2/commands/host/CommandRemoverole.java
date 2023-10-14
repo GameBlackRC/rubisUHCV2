@@ -32,24 +32,24 @@ public class CommandRemoverole implements CommandExecutor {
                     //FINI
                 	
                     main.getCompo().remove(Roles.RAPTOR);
-                    player.sendMessage("Tu as ajouté le rôle Raptor");
+                    player.sendMessage("Tu as retiré le rôle Raptor");
 
                 } else if (args.length != 0 && args[0].equalsIgnoreCase("jeannot")) {
 
                     //KILL RC -> A FAIRE
                 	
                     main.getCompo().remove(Roles.JEANNOT);
-                    player.sendMessage("Tu as ajouté le rôle Jeannot");
+                    player.sendMessage("Tu as retiré le rôle Jeannot");
 
                 } else if (args.length != 0 && args[0].equalsIgnoreCase("nickoboop")) {
 
                     main.getCompo().remove(Roles.NICKOBOOP);
-                    player.sendMessage("Tu as ajouté le rôle Nickoboop");
+                    player.sendMessage("Tu as retiré le rôle Nickoboop");
 
                 } else if (args.length != 0 && args[0].equalsIgnoreCase("slup")) {
 
                     main.getCompo().remove(Roles.SLUP);
-                    player.sendMessage("Tu as ajouté le rôle Slup");
+                    player.sendMessage("Tu as retiré le rôle Slup");
 
                 } else if (args.length != 0 && args[0].equalsIgnoreCase("joko")) {
 
@@ -59,66 +59,66 @@ public class CommandRemoverole implements CommandExecutor {
                     //KILL TRONCONEUSE -> A FAIRE
                 	
                     main.getCompo().remove(Roles.JOKO);
-                    player.sendMessage("Tu as ajouté le rôle Joko");
+                    player.sendMessage("Tu as retiré le rôle Joko");
 
                 } else if (args.length != 0 && args[0].equalsIgnoreCase("team")) {
 
                     //FINI
                 	
                     main.getCompo().remove(Roles.TEAM);
-                    player.sendMessage("Tu as ajouté le rôle Team");
+                    player.sendMessage("Tu as retiré le rôle Team");
 
                 } else if ((args.length != 0 && args[0].equalsIgnoreCase("gameblack")) || (args.length != 0 && args[0].equalsIgnoreCase("game"))) {
 
                     //ANTI KB -> A FAIRE
                 	
                     main.getCompo().remove(Roles.GAMEBLACK);
-                    player.sendMessage("Tu as ajouté le rôle GameBlack");
+                    player.sendMessage("Tu as retiré le rôle GameBlack");
 
                 } else if (args.length != 0 && args[0].equalsIgnoreCase("maka")) {
 
                     //FINI
                 	
                     main.getCompo().remove(Roles.MAKA);
-                    player.sendMessage("Tu as ajouté le rôle Maka");
+                    player.sendMessage("Tu as retiré le rôle Maka");
 
                 } else if (args.length != 0 && args[0].equalsIgnoreCase("trial")) {
 
                     //FINI
                 	
                     main.getCompo().remove(Roles.TRIAL);
-                    player.sendMessage("Tu as ajouté le rôle Trial");
+                    player.sendMessage("Tu as retiré le rôle Trial");
 
                 } else if (args.length != 0 && args[0].equalsIgnoreCase("loup")) {
 
                     main.getCompo().remove(Roles.LOUP);
-                    player.sendMessage("Tu as ajouté le rôle Loup");
+                    player.sendMessage("Tu as retiré le rôle Loup");
 
                 } else if (args.length != 0 && args[0].equalsIgnoreCase("captain")) {
 
                     //ARMURE INVINCIBLE -> ?
                 	
                     main.getCompo().remove(Roles.CAPTAIN);
-                    player.sendMessage("Tu as ajouté le rôle Captain");
+                    player.sendMessage("Tu as retiré le rôle Captain");
 
                 } else if (args.length != 0 && args[0].equalsIgnoreCase("hekow")) {
 
                     //FINI
                 	
                     main.getCompo().remove(Roles.HEKOW);
-                    player.sendMessage("Tu as ajouté le rôle Hekow");
+                    player.sendMessage("Tu as retiré le rôle Hekow");
 
                 } else if (args.length != 0 && args[0].equalsIgnoreCase("malivol")) {
 
                     //FINI
                 	
                     main.getCompo().remove(Roles.MALIVOL);
-                    player.sendMessage("Tu as ajouté le rôle Malivol");
+                    player.sendMessage("Tu as retiré le rôle Malivol");
 
                 } else if (args.length != 0 && args[0].equalsIgnoreCase("toinou")) {
 
                     main.getCompo().remove(Roles.TOINOU);
-                    player.sendMessage("Tu as ajouté le rôle Toinou");
+                    player.sendMessage("Tu as retiré le rôle Toinou");
 
                 } else if (args.length != 0 && args[0].equalsIgnoreCase("obscur")) {
 
@@ -127,7 +127,7 @@ public class CommandRemoverole implements CommandExecutor {
                     //INF -> A FAIRE
                 	
                     main.getCompo().remove(Roles.OBSCUR);
-                    player.sendMessage("Tu as ajouté le rôle Obscur");
+                    player.sendMessage("Tu as retiré le rôle Obscur");
 
                 } else if (args.length != 0 && args[0].equalsIgnoreCase("nonoboy")) {
 
@@ -135,23 +135,23 @@ public class CommandRemoverole implements CommandExecutor {
                     //KILL JOUEUR -> A FAIRE
                 	
                     main.getCompo().remove(Roles.NONOBOY);
-                    player.sendMessage("Tu as ajouté le rôle Nonoboy");
+                    player.sendMessage("Tu as retiré le rôle Nonoboy");
 
                 } else if (args.length != 0 && args[0].equalsIgnoreCase("farmeurimmo")) {
 
                     //CONNAIT 1 DEMON -> A FAIRE
                 	
                     main.getCompo().remove(Roles.FARMEURIMMO);
-                    player.sendMessage("Tu as ajouté le rôle Farmeurimmo");
+                    player.sendMessage("Tu as retiré le rôle Farmeurimmo");
 
                 } else if (args.length != 0 && args[0].equalsIgnoreCase("kzou")) {
 
                     main.getCompo().remove(Roles.KZOU);
-                    player.sendMessage("Tu as ajouté le rôle Kzou");
+                    player.sendMessage("Tu as retiré le rôle Kzou");
 
                 } else {
 
-                    player.sendMessage("Non");
+                    player.sendMessage("Le rôle n'existe pas");
 
                 }
 

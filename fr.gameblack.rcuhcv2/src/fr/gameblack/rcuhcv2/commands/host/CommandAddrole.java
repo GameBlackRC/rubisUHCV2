@@ -151,7 +151,7 @@ public class CommandAddrole implements CommandExecutor {
 
                 } else {
 
-                    player.sendMessage("Non");
+                    player.sendMessage("Le rôle n'existe pas");
 
                 }
 
