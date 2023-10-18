@@ -289,7 +289,7 @@ public class DamageListener implements Listener {
             		Random r = new Random();
                     int nb = r.nextInt(100);
                     
-                    if(nb <= 75) {
+                    if(nb <= 50) {
             		
 	            		joueur.addPourcentHack(2, main, GameCycle.getScoreboardFarmeurimmo());
 	            		
@@ -414,7 +414,7 @@ public class DamageListener implements Listener {
                 	Random r = new Random();
                     int nb = r.nextInt(100);
                 	
-            		if(nb <= 1) {
+            		if(nb <= 2) {
             			
             			main.getJoueurByRole(Roles.GAMEBLACK).addSpeed(0.01);
             			

@@ -23,48 +23,52 @@ public class CommandRCCode implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String msg, String[] args) {
 
-        Player player = (Player) sender;
-        Joueur joueur = main.getJoueur(player);
-
-        if (joueur.getRole() == Roles.FARMEURIMMO || joueur.getRole() == Roles.TEST) {
-        	
-        	Player cible_ = Bukkit.getPlayer(args[0]);
-
-            if (cible_ != null) {
-            	
-            	if(!main.getCD().contains(Pouvoirs.FARMEURIMMO_HACK)) {
-            	
-	            	Joueur cible = main.getJoueur(cible_);
-	            	
-	            	if(cible.getRole() != Roles.MAKA) {
+    	//if(main.isV2Actif()) {
+    	
+	        Player player = (Player) sender;
+	        Joueur joueur = main.getJoueur(player);
 	
-	            		Farmeurimmo.commandCode(joueur, cible, main);
-	            		
+	        if (joueur.getRole() == Roles.FARMEURIMMO || joueur.getRole() == Roles.TEST) {
+	        	
+	        	Player cible_ = Bukkit.getPlayer(args[0]);
+	
+	            if (cible_ != null) {
+	            	
+	            	if(!main.getCD().contains(Pouvoirs.FARMEURIMMO_HACK)) {
+	            	
+		            	Joueur cible = main.getJoueur(cible_);
+		            	
+		            	if(cible.getRole() != Roles.MAKA) {
+		
+		            		Farmeurimmo.commandCode(joueur, cible, main);
+		            		
+		            	}
+		            	else {
+		            		
+		            		player.sendMessage("Vous ne pouvez pas hacker cette cible");
+		            		
+		            	}
+		            	
 	            	}
 	            	else {
 	            		
-	            		player.sendMessage("Vous ne pouvez pas hacker cette cible");
+	            		player.sendMessage("Ce pouvoir est en cooldown");
 	            		
 	            	}
 	            	
-            	}
-            	else {
-            		
-            		player.sendMessage("Ce pouvoir est en cooldown");
-            		
-            	}
-            	
-            } else {
-
-                player.sendMessage("Merci de donner le pseudo de la cible (/rccode <pseudo>");
-
-            }
-
-        } else {
-
-        	player.sendMessage("Vous n'avez pas le bon rôle");
-
-        }
+	            } else {
+	
+	                player.sendMessage("Merci de donner le pseudo de la cible (/rccode <pseudo>");
+	
+	            }
+	
+	        } else {
+	
+	        	player.sendMessage("Vous n'avez pas le bon rôle");
+	
+	        }
+	        
+    	//}
 
         return false;
     }

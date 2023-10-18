@@ -331,7 +331,7 @@ public class ItemCD extends BukkitRunnable {
 	
 	                } else if (item == "fullcrit") {
 	
-	                	joueur.removeForce(0.10);
+	                	joueur.removeForce(0.07);
 	
 	                } else if (item == "antikb") {
 	

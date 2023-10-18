@@ -23,41 +23,45 @@ public class CommandCheckOrbe implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String msg, String[] args) {
 
-        Player player = (Player) sender;
-        Joueur joueur = main.getJoueur(player);
-
-        if ((joueur.getRole() == Roles.GAMEBLACK && joueur.getCamp().equalsIgnoreCase("staff")) || joueur.getRole() == Roles.TEST) {
-        	
-        	Player cible_ = Bukkit.getPlayer(args[0]);
-
-            if (cible_ != null) {
-            	
-            	if(!main.getCD().contains(Pouvoirs.GAMEBLACK_CHECKORBE)) {
-            		
-            		main.getCD().add(Pouvoirs.GAMEBLACK_CHECKORBE);
-            	
-	            	Joueur cible = main.getJoueur(cible_);
+    	//if(main.isV2Actif()) {
+    	
+	        Player player = (Player) sender;
+	        Joueur joueur = main.getJoueur(player);
 	
-	            	GameBlack.commandCheckOrbe(joueur, cible);
+	        if ((joueur.getRole() == Roles.GAMEBLACK && joueur.getCamp().equalsIgnoreCase("staff")) || joueur.getRole() == Roles.TEST) {
+	        	
+	        	Player cible_ = Bukkit.getPlayer(args[0]);
+	
+	            if (cible_ != null) {
 	            	
-            	}
-            	else {
-            		
-            		player.sendMessage("Ce pouvoir est en cooldown");
-            		
-            	}
-            	
-            } else {
-
-                player.sendMessage("Merci de donner le pseudo de la cible (/rccode <pseudo>");
-
-            }
-
-        } else {
-
-        	player.sendMessage("Vous n'avez pas le bon rôle");
-
-        }
+	            	if(!main.getCD().contains(Pouvoirs.GAMEBLACK_CHECKORBE)) {
+	            		
+	            		main.getCD().add(Pouvoirs.GAMEBLACK_CHECKORBE);
+	            	
+		            	Joueur cible = main.getJoueur(cible_);
+		
+		            	GameBlack.commandCheckOrbe(joueur, cible);
+		            	
+	            	}
+	            	else {
+	            		
+	            		player.sendMessage("Ce pouvoir est en cooldown");
+	            		
+	            	}
+	            	
+	            } else {
+	
+	                player.sendMessage("Merci de donner le pseudo de la cible (/rccode <pseudo>");
+	
+	            }
+	
+	        } else {
+	
+	        	player.sendMessage("Vous n'avez pas le bon rôle");
+	
+	        }
+	        
+    	//}
 
         return false;
     }

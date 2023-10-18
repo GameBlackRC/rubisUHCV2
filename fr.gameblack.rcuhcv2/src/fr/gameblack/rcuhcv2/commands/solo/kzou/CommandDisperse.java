@@ -22,20 +22,24 @@ public class CommandDisperse implements CommandExecutor {
 	@Override
     public boolean onCommand(CommandSender sender, Command cmd, String msg, String[] args) {
 		
-		Player player = (Player) sender;
-		Joueur joueur = main.getJoueur(player);
+		//if(main.isV2Actif()) {
 		
-		if(joueur.getRole() == Roles.KZOU || joueur.getRole() == Roles.TEST) {
+			Player player = (Player) sender;
+			Joueur joueur = main.getJoueur(player);
 			
-			Player cible_ = Bukkit.getPlayer(args[0]);
-
-            if (cible_ != null) {
-            	
-            	Kzou.CommandDisperse(joueur, main.getJoueur(cible_), main);
-            	
-            }
+			if(joueur.getRole() == Roles.KZOU || joueur.getRole() == Roles.TEST) {
+				
+				Player cible_ = Bukkit.getPlayer(args[0]);
+	
+	            if (cible_ != null) {
+	            	
+	            	Kzou.CommandDisperse(joueur, main.getJoueur(cible_), main);
+	            	
+	            }
+				
+			}
 			
-		}
+		//}
 		
 		return false;
 		

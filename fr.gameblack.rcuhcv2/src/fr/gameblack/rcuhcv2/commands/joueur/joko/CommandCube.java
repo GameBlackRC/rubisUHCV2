@@ -23,47 +23,51 @@ public class CommandCube implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String msg, String[] args) {
 
-        Player player = (Player) sender;
-        
-        Joueur joueur = main.getJoueur(player);
-
-        if (args.length != 0) {
-
-            Player cible_ = Bukkit.getPlayer(args[0]);
-
-            if (cible_ != null) {
-            	
-            	Joueur cible = main.getJoueur(cible_);
-
-                if (joueur.getRole() == Roles.JOKO || (joueur.getRole() == Roles.FARMEURIMMO && joueur.getVol().contains(Pouvoirs.JOKO_CUBE))) {
-
-                    if (!main.getCD().contains(Pouvoirs.JOKO_GIVECUBE)) {
-
-                        Joko.CommandCube(joueur, cible, main);
-
-                    } else {
-
-                        player.sendMessage("Attendez 5 minutes avant de réutiliser cette commande");
-
-                    }
-
-                } else {
-
-                    player.sendMessage("Vous n'avez pas le bon rôle");
-
-                }
-
-            } else {
-
-                player.sendMessage("Merci de mettre un pseudo valide");
-
-            }
-
-        } else {
-
-            player.sendMessage("Merci de mettre un pseudo (/rccube <pseudo>");
-
-        }
+    	//if(main.isV2Actif()) {
+    	
+	        Player player = (Player) sender;
+	        
+	        Joueur joueur = main.getJoueur(player);
+	
+	        if (args.length != 0) {
+	
+	            Player cible_ = Bukkit.getPlayer(args[0]);
+	
+	            if (cible_ != null) {
+	            	
+	            	Joueur cible = main.getJoueur(cible_);
+	
+	                if (joueur.getRole() == Roles.JOKO || (joueur.getRole() == Roles.FARMEURIMMO && joueur.getVol().contains(Pouvoirs.JOKO_CUBE))) {
+	
+	                    if (!main.getCD().contains(Pouvoirs.JOKO_GIVECUBE)) {
+	
+	                        Joko.CommandCube(joueur, cible, main);
+	
+	                    } else {
+	
+	                        player.sendMessage("Attendez 5 minutes avant de réutiliser cette commande");
+	
+	                    }
+	
+	                } else {
+	
+	                    player.sendMessage("Vous n'avez pas le bon rôle");
+	
+	                }
+	
+	            } else {
+	
+	                player.sendMessage("Merci de mettre un pseudo valide");
+	
+	            }
+	
+	        } else {
+	
+	            player.sendMessage("Merci de mettre un pseudo (/rccube <pseudo>");
+	
+	        }
+	        
+    	//}
 
         return false;
     }

@@ -36,7 +36,6 @@ public class InteractListener implements Listener {
         Player player = event.getPlayer();
         Joueur joueur = main.getJoueur(player);
         
-        @SuppressWarnings("unused")
         Action action = event.getAction();
         ItemStack it = event.getItem();
 

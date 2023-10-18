@@ -5,7 +5,15 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import fr.gameblack.rcuhcv2.Main;
+
 public class CommandDoc implements CommandExecutor {
+	
+	private Main main;
+	
+	public CommandDoc(Main main) {
+		this.main = main;
+	}
 
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String msg, String[] args) {

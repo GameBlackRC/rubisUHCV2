@@ -42,165 +42,169 @@ public class CommandSetRoleOther implements CommandExecutor {
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String msg, String[] args) {
 		
-		Player player = (Player) sender;
-		Joueur joueur = main.getJoueur(player);
-
-        player.setMaxHealth(20);
-        if (player.hasPotionEffect(PotionEffectType.INCREASE_DAMAGE))
-            player.removePotionEffect(PotionEffectType.INCREASE_DAMAGE);
-        if (player.hasPotionEffect(PotionEffectType.DAMAGE_RESISTANCE))
-            player.removePotionEffect(PotionEffectType.DAMAGE_RESISTANCE);
-        if (player.hasPotionEffect(PotionEffectType.HEALTH_BOOST))
-            player.removePotionEffect(PotionEffectType.HEALTH_BOOST);
-        if (player.hasPotionEffect(PotionEffectType.SPEED)) player.removePotionEffect(PotionEffectType.SPEED);
-        if (player.hasPotionEffect(PotionEffectType.WEAKNESS)) player.removePotionEffect(PotionEffectType.WEAKNESS);
-        if (player.hasPotionEffect(PotionEffectType.SLOW)) player.removePotionEffect(PotionEffectType.SLOW);
-        if (player.hasPotionEffect(PotionEffectType.FAST_DIGGING))
-            player.removePotionEffect(PotionEffectType.FAST_DIGGING);
-        if (player.hasPotionEffect(PotionEffectType.JUMP)) player.removePotionEffect(PotionEffectType.JUMP);
-        if (player.hasPotionEffect(PotionEffectType.SLOW_DIGGING))
-            player.removePotionEffect(PotionEffectType.SLOW_DIGGING);
-        
-        Player cible_ = Bukkit.getPlayer(args[0]);
-
-        if (cible_ != null) {
-        	
-        	Joueur cible = main.getJoueur(cible_);
-
-	        if (args.length > 1 && args[1].equalsIgnoreCase("farmeurimmo")) {
+		//if(main.isV2Actif()) {
+		
+			Player player = (Player) sender;
+			Joueur joueur = main.getJoueur(player);
 	
-	            cible.setRole(Roles.FARMEURIMMO);
-	            Farmeurimmo.Items(joueur);
-	            cible_.sendMessage("Vous êtes désormais le rôle Farmeurimmo");
-	            
-	        }
-	        else if (args.length > 1 && args[1].equalsIgnoreCase("test")) {
+	        player.setMaxHealth(20);
+	        if (player.hasPotionEffect(PotionEffectType.INCREASE_DAMAGE))
+	            player.removePotionEffect(PotionEffectType.INCREASE_DAMAGE);
+	        if (player.hasPotionEffect(PotionEffectType.DAMAGE_RESISTANCE))
+	            player.removePotionEffect(PotionEffectType.DAMAGE_RESISTANCE);
+	        if (player.hasPotionEffect(PotionEffectType.HEALTH_BOOST))
+	            player.removePotionEffect(PotionEffectType.HEALTH_BOOST);
+	        if (player.hasPotionEffect(PotionEffectType.SPEED)) player.removePotionEffect(PotionEffectType.SPEED);
+	        if (player.hasPotionEffect(PotionEffectType.WEAKNESS)) player.removePotionEffect(PotionEffectType.WEAKNESS);
+	        if (player.hasPotionEffect(PotionEffectType.SLOW)) player.removePotionEffect(PotionEffectType.SLOW);
+	        if (player.hasPotionEffect(PotionEffectType.FAST_DIGGING))
+	            player.removePotionEffect(PotionEffectType.FAST_DIGGING);
+	        if (player.hasPotionEffect(PotionEffectType.JUMP)) player.removePotionEffect(PotionEffectType.JUMP);
+	        if (player.hasPotionEffect(PotionEffectType.SLOW_DIGGING))
+	            player.removePotionEffect(PotionEffectType.SLOW_DIGGING);
+	        
+	        Player cible_ = Bukkit.getPlayer(args[0]);
 	
-	            cible.setRole(Roles.TEST);
-	            cible_.sendMessage("Vous êtes désormais le rôle Test");
-	            
-	        }
-	        else if (args.length > 1 && args[1].equalsIgnoreCase("malivol")) {
+	        if (cible_ != null) {
 	        	
-	        	cible.setRole(Roles.MALIVOL);
-	        	Malivol.Items(joueur);
-	        	cible_.sendMessage("Vous êtes désormais le rôle Malivol");
-	        	
-	        }
-	        else if (args.length > 1 && args[1].equalsIgnoreCase("raptor")) {
-	        	
-	        	cible.setRole(Roles.RAPTOR);
-	        	Raptor.Items(joueur);
-	        	cible_.sendMessage("Vous êtes désormais le rôle Raptor");
-	        	
-	        }
-	        else if (args.length > 1 && args[1].equalsIgnoreCase("jeannot")) {
-	        	
-	        	cible.setRole(Roles.JEANNOT);
-	        	Jeannot.Items(joueur);
-	        	cible_.sendMessage("Vous êtes désormais le rôle Jeannot");
-	        	
-	        }
-	        else if (args.length > 1 && args[1].equalsIgnoreCase("nickoboop")) {
-	        	
-	        	cible.setRole(Roles.NICKOBOOP);
-	        	Nickoboop.Items(joueur);
-	        	cible_.sendMessage("Vous êtes désormais le rôle Nickoboop");
-	        	
-	        }
-	        else if (args.length > 1 && args[1].equalsIgnoreCase("slup")) {
-	        	
-	        	cible.setRole(Roles.SLUP);
-	        	Slup.Items(joueur);
-	        	cible_.sendMessage("Vous êtes désormais le rôle Slup");
-	        	
-	        }
-	        else if (args.length > 1 && args[1].equalsIgnoreCase("joko")) {
-	        	
-	        	cible.setRole(Roles.JOKO);
-	        	Joko.Items(joueur);
-	        	cible_.sendMessage("Vous êtes désormais le rôle Joko");
-	        	
-	        }
-	        else if (args.length > 1 && args[1].equalsIgnoreCase("team")) {
-	        	
-	        	cible.setRole(Roles.TEAM);
-	        	Team.Items(joueur);
-	        	cible_.sendMessage("Vous êtes désormais le rôle Team");
-	        	
-	        }
-	        else if (args.length > 1 && args[1].equalsIgnoreCase("gameblack")) {
-	        	
-	        	cible.setRole(Roles.GAMEBLACK);
-	        	GameBlack.Items(joueur);
-	        	cible_.sendMessage("Vous êtes désormais le rôle GameBlack");
-	        	
-	        }
-	        else if (args.length > 1 && args[1].equalsIgnoreCase("maka")) {
-	        	
-	        	cible.setRole(Roles.MAKA);
-	        	Maka.Items(joueur);
-	        	cible_.sendMessage("Vous êtes désormais le rôle Maka");
-	        	
-	        }
-	        else if (args.length > 1 && args[1].equalsIgnoreCase("trial")) {
-	        	
-	        	cible.setRole(Roles.TRIAL);
-	        	Trial.Items(joueur);
-	        	cible_.sendMessage("Vous êtes désormais le rôle Trial");
-	        	
-	        }
-	        else if (args.length > 1 && args[1].equalsIgnoreCase("loup")) {
-	        	
-	        	cible.setRole(Roles.LOUP);
-	        	Loup.Items(joueur);
-	        	cible_.sendMessage("Vous êtes désormais le rôle Loup");
-	        	
-	        }
-	        else if (args.length > 1 && args[1].equalsIgnoreCase("captain")) {
-	        	
-	        	cible.setRole(Roles.CAPTAIN);
-	        	Captain.Items(joueur);
-	        	cible_.sendMessage("Vous êtes désormais le rôle Captain");
-	        	
-	        }
-	        else if (args.length > 1 && args[1].equalsIgnoreCase("hekow")) {
-	        	
-	        	cible.setRole(Roles.HEKOW);
-	        	Hekow.Items(joueur);
-	        	cible_.sendMessage("Vous êtes désormais le rôle Hekow");
-	        	
-	        }
-	        else if (args.length > 1 && args[1].equalsIgnoreCase("toinou")) {
-	        	
-	        	cible.setRole(Roles.TOINOU);
-	        	Toinou.Items(joueur);
-	        	cible_.sendMessage("Vous êtes désormais le rôle Toinou");
-	        	
-	        }
-	        else if (args.length > 1 && args[1].equalsIgnoreCase("obscur")) {
-	        	
-	        	cible.setRole(Roles.OBSCUR);
-	        	Obscur.Items(joueur);
-	        	cible_.sendMessage("Vous êtes désormais le rôle Obscur");
-	        	
-	        }
-	        else if (args.length > 1 && args[1].equalsIgnoreCase("nonoboy")) {
-	        	
-	        	cible.setRole(Roles.NONOBOY);
-	        	Nonoboy.Items(joueur);
-	        	cible_.sendMessage("Vous êtes désormais le rôle Nonoboy");
-	        	
-	        }
-	        else if (args.length > 1 && args[1].equalsIgnoreCase("kzou")) {
-	        	
-	        	cible.setRole(Roles.KZOU);
-	        	Kzou.Items(joueur);
-	        	cible_.sendMessage("Vous êtes désormais le rôle Kzou");
-	        	
+	        	Joueur cible = main.getJoueur(cible_);
+	
+		        if (args.length > 1 && args[1].equalsIgnoreCase("farmeurimmo")) {
+		
+		            cible.setRole(Roles.FARMEURIMMO);
+		            Farmeurimmo.Items(joueur);
+		            cible_.sendMessage("Vous êtes désormais le rôle Farmeurimmo");
+		            
+		        }
+		        else if (args.length > 1 && args[1].equalsIgnoreCase("test")) {
+		
+		            cible.setRole(Roles.TEST);
+		            cible_.sendMessage("Vous êtes désormais le rôle Test");
+		            
+		        }
+		        else if (args.length > 1 && args[1].equalsIgnoreCase("malivol")) {
+		        	
+		        	cible.setRole(Roles.MALIVOL);
+		        	Malivol.Items(joueur);
+		        	cible_.sendMessage("Vous êtes désormais le rôle Malivol");
+		        	
+		        }
+		        else if (args.length > 1 && args[1].equalsIgnoreCase("raptor")) {
+		        	
+		        	cible.setRole(Roles.RAPTOR);
+		        	Raptor.Items(joueur);
+		        	cible_.sendMessage("Vous êtes désormais le rôle Raptor");
+		        	
+		        }
+		        else if (args.length > 1 && args[1].equalsIgnoreCase("jeannot")) {
+		        	
+		        	cible.setRole(Roles.JEANNOT);
+		        	Jeannot.Items(joueur);
+		        	cible_.sendMessage("Vous êtes désormais le rôle Jeannot");
+		        	
+		        }
+		        else if (args.length > 1 && args[1].equalsIgnoreCase("nickoboop")) {
+		        	
+		        	cible.setRole(Roles.NICKOBOOP);
+		        	Nickoboop.Items(joueur);
+		        	cible_.sendMessage("Vous êtes désormais le rôle Nickoboop");
+		        	
+		        }
+		        else if (args.length > 1 && args[1].equalsIgnoreCase("slup")) {
+		        	
+		        	cible.setRole(Roles.SLUP);
+		        	Slup.Items(joueur);
+		        	cible_.sendMessage("Vous êtes désormais le rôle Slup");
+		        	
+		        }
+		        else if (args.length > 1 && args[1].equalsIgnoreCase("joko")) {
+		        	
+		        	cible.setRole(Roles.JOKO);
+		        	Joko.Items(joueur);
+		        	cible_.sendMessage("Vous êtes désormais le rôle Joko");
+		        	
+		        }
+		        else if (args.length > 1 && args[1].equalsIgnoreCase("team")) {
+		        	
+		        	cible.setRole(Roles.TEAM);
+		        	Team.Items(joueur);
+		        	cible_.sendMessage("Vous êtes désormais le rôle Team");
+		        	
+		        }
+		        else if (args.length > 1 && args[1].equalsIgnoreCase("gameblack")) {
+		        	
+		        	cible.setRole(Roles.GAMEBLACK);
+		        	GameBlack.Items(joueur);
+		        	cible_.sendMessage("Vous êtes désormais le rôle GameBlack");
+		        	
+		        }
+		        else if (args.length > 1 && args[1].equalsIgnoreCase("maka")) {
+		        	
+		        	cible.setRole(Roles.MAKA);
+		        	Maka.Items(joueur);
+		        	cible_.sendMessage("Vous êtes désormais le rôle Maka");
+		        	
+		        }
+		        else if (args.length > 1 && args[1].equalsIgnoreCase("trial")) {
+		        	
+		        	cible.setRole(Roles.TRIAL);
+		        	Trial.Items(joueur);
+		        	cible_.sendMessage("Vous êtes désormais le rôle Trial");
+		        	
+		        }
+		        else if (args.length > 1 && args[1].equalsIgnoreCase("loup")) {
+		        	
+		        	cible.setRole(Roles.LOUP);
+		        	Loup.Items(joueur);
+		        	cible_.sendMessage("Vous êtes désormais le rôle Loup");
+		        	
+		        }
+		        else if (args.length > 1 && args[1].equalsIgnoreCase("captain")) {
+		        	
+		        	cible.setRole(Roles.CAPTAIN);
+		        	Captain.Items(joueur);
+		        	cible_.sendMessage("Vous êtes désormais le rôle Captain");
+		        	
+		        }
+		        else if (args.length > 1 && args[1].equalsIgnoreCase("hekow")) {
+		        	
+		        	cible.setRole(Roles.HEKOW);
+		        	Hekow.Items(joueur);
+		        	cible_.sendMessage("Vous êtes désormais le rôle Hekow");
+		        	
+		        }
+		        else if (args.length > 1 && args[1].equalsIgnoreCase("toinou")) {
+		        	
+		        	cible.setRole(Roles.TOINOU);
+		        	Toinou.Items(joueur);
+		        	cible_.sendMessage("Vous êtes désormais le rôle Toinou");
+		        	
+		        }
+		        else if (args.length > 1 && args[1].equalsIgnoreCase("obscur")) {
+		        	
+		        	cible.setRole(Roles.OBSCUR);
+		        	Obscur.Items(joueur);
+		        	cible_.sendMessage("Vous êtes désormais le rôle Obscur");
+		        	
+		        }
+		        else if (args.length > 1 && args[1].equalsIgnoreCase("nonoboy")) {
+		        	
+		        	cible.setRole(Roles.NONOBOY);
+		        	Nonoboy.Items(joueur);
+		        	cible_.sendMessage("Vous êtes désormais le rôle Nonoboy");
+		        	
+		        }
+		        else if (args.length > 1 && args[1].equalsIgnoreCase("kzou")) {
+		        	
+		        	cible.setRole(Roles.KZOU);
+		        	Kzou.Items(joueur);
+		        	cible_.sendMessage("Vous êtes désormais le rôle Kzou");
+		        	
+		        }
+		        
 	        }
 	        
-        }
+		//}
 		
 		return false;
 		

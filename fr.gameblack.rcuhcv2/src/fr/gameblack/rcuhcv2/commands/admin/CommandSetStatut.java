@@ -21,36 +21,40 @@ public class CommandSetStatut implements CommandExecutor {
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String msg, String[] args) {
 		
-		if (args.length != 0 && args[0].equalsIgnoreCase("pvp_on")) {
+		//if(main.isV2Actif()) {
+		
+			if (args.length != 0 && args[0].equalsIgnoreCase("pvp_on")) {
+				
+				main.setState(Statut.PVP_ON);
+				Bukkit.broadcastMessage("Etat de la partie : PVP activé");
+				
+			}
+			else if (args.length != 0 && args[0].equalsIgnoreCase("pvp_off")) {
+				
+				main.setState(Statut.PVP_OFF);
+				Bukkit.broadcastMessage("Etat de la partie : PVP désactivé");
+				
+			}
+			else if (args.length != 0 && args[0].equalsIgnoreCase("waiting")) {
+				
+				main.setState(Statut.WAITING);
+				Bukkit.broadcastMessage("Etat de la partie : Attente");
+				
+			}
+			else if (args.length != 0 && args[0].equalsIgnoreCase("starting")) {
+				
+				main.setState(Statut.STARTING);
+				Bukkit.broadcastMessage("Etat de la partie : Lancement");
+				
+			}
+			else if (args.length != 0 && args[0].equalsIgnoreCase("finish")) {
+				
+				main.setState(Statut.FINISH);
+				Bukkit.broadcastMessage("Etat de la partie : Fin");
+				
+			}
 			
-			main.setState(Statut.PVP_ON);
-			Bukkit.broadcastMessage("Etat de la partie : PVP activé");
-			
-		}
-		else if (args.length != 0 && args[0].equalsIgnoreCase("pvp_off")) {
-			
-			main.setState(Statut.PVP_OFF);
-			Bukkit.broadcastMessage("Etat de la partie : PVP désactivé");
-			
-		}
-		else if (args.length != 0 && args[0].equalsIgnoreCase("waiting")) {
-			
-			main.setState(Statut.WAITING);
-			Bukkit.broadcastMessage("Etat de la partie : Attente");
-			
-		}
-		else if (args.length != 0 && args[0].equalsIgnoreCase("starting")) {
-			
-			main.setState(Statut.STARTING);
-			Bukkit.broadcastMessage("Etat de la partie : Lancement");
-			
-		}
-		else if (args.length != 0 && args[0].equalsIgnoreCase("finish")) {
-			
-			main.setState(Statut.FINISH);
-			Bukkit.broadcastMessage("Etat de la partie : Fin");
-			
-		}
+		//}
 		
 		return false;
 		

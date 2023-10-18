@@ -4,6 +4,9 @@ import java.util.Random;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.block.Block;
+import org.bukkit.block.BlockFace;
+import org.bukkit.block.BlockState;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
@@ -69,6 +72,33 @@ public class GameBlack {
 	        main.getMaledictionGyomei().getPlayer().sendMessage("Vous venez de recevoir " + joueur.getPlayer().getName() + " pour cible. SI vous parvenez à le tuer, vous recevrez 2% de force supplémentaire");
         	
         }
+		
+	}
+	
+	@SuppressWarnings("deprecation")
+	public static void bedwarsLancement(Joueur joueur, Main main) {
+		
+		Block bloc1 = main.getWorld().getBlockAt(200, 100, 200);
+		
+		Block bloc2 = main.getWorld().getBlockAt(200, 100, -200);
+
+        BlockState bedFoot = bloc1.getState();
+        BlockState bedHead = bedFoot.getBlock().getRelative(BlockFace.SOUTH).getState();
+        bedFoot.setType(Material.BED_BLOCK);
+        bedHead.setType(Material.BED_BLOCK);
+        bedFoot.setRawData((byte) 0x0);
+        bedHead.setRawData((byte) 0x8);
+        bedFoot.update(true, false);
+        bedHead.update(true, true);
+        
+        BlockState bedFoot2 = bloc2.getState();
+        BlockState bedHead2 = bedFoot2.getBlock().getRelative(BlockFace.SOUTH).getState();
+        bedFoot2.setType(Material.BED_BLOCK);
+        bedHead2.setType(Material.BED_BLOCK);
+        bedFoot2.setRawData((byte) 0x0);
+        bedHead2.setRawData((byte) 0x8);
+        bedFoot2.update(true, false);
+        bedHead2.update(true, true);
 		
 	}
 	

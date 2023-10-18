@@ -35,7 +35,7 @@ private Main main;
 
             if (cible_ != null && (joueur.getRole() == Roles.TRIAL && joueur.getModeTrial() == "fun")) {
             	
-            	if(main.getCD().contains(Pouvoirs.TRIAL_JEU)) {
+            	if(!main.getCD().contains(Pouvoirs.TRIAL_JEU)) {
             		
             		main.getCD().add(Pouvoirs.TRIAL_JEU);
             	

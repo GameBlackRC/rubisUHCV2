@@ -20,25 +20,29 @@ public class CommandPartage implements CommandExecutor {
 	@Override
     public boolean onCommand(CommandSender sender, Command cmd, String msg, String[] args) {
 		
-		Player player = (Player) sender;
-		Joueur joueur = main.getJoueur(player);
+		//if(main.isV2Actif()) {
 		
-		if(joueur.getRole() == Roles.JEANNOT || joueur.getRole() == Roles.TEST) {
+			Player player = (Player) sender;
+			Joueur joueur = main.getJoueur(player);
 			
-			if(joueur.isJeannotPartageActif()) {
+			if(joueur.getRole() == Roles.JEANNOT || joueur.getRole() == Roles.TEST) {
 				
-				joueur.setJeannotPartageActif(false);
-				player.sendMessage("Vous ne partagez plus votre absorption");
+				if(joueur.isJeannotPartageActif()) {
+					
+					joueur.setJeannotPartageActif(false);
+					player.sendMessage("Vous ne partagez plus votre absorption");
+					
+				}
+				else {
+					
+					joueur.setJeannotPartageActif(true);
+					player.sendMessage("Vous partagez désormais votre absorption");
+					
+				}
 				
 			}
-			else {
-				
-				joueur.setJeannotPartageActif(true);
-				player.sendMessage("Vous partagez désormais votre absorption");
-				
-			}
 			
-		}
+		//}
 		
 		return false;
 		

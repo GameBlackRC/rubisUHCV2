@@ -89,7 +89,7 @@ public class Main extends JavaPlugin {
     private boolean fermetureGolden = false;
     private boolean fermetureGoldenActif = false;
     private List<Joueur> joko_stun = new ArrayList<>();
-    private World world = null;
+    private World world = Bukkit.getWorld("world");
     private Joueur malediction_gyomei = null;
     private Joueur neko = null;
     private int nbJoueursStaff = 0;
@@ -97,6 +97,7 @@ public class Main extends JavaPlugin {
     private List<Joueur> maudit = new ArrayList<>();
     private int niv_maledition = 0;
     private Location locZoneSlup = null;
+    private boolean V2Actif = true;
     
     @Override
     public void onEnable() {
@@ -157,7 +158,7 @@ public class Main extends JavaPlugin {
     	getCommand("create").setExecutor(new CommandCreate(this));
     	getCommand("removerole").setExecutor(new CommandRemoverole(this));
     	getCommand("start").setExecutor(new CommandStart(this));
-    	getCommand("doc").setExecutor(new CommandDoc());
+    	getCommand("doc").setExecutor(new CommandDoc(this));
     	
     	getCommand("rcpartage").setExecutor(new CommandPartage(this));
     	getCommand("rcpapier").setExecutor(new CommandPapier(this));
@@ -843,6 +844,14 @@ public class Main extends JavaPlugin {
 
 	public void setLocZoneSlup(Location locZoneSlup) {
 		this.locZoneSlup = locZoneSlup;
+	}
+
+	public boolean isV2Actif() {
+		return V2Actif;
+	}
+
+	public void setV2Actif(boolean v2Actif) {
+		V2Actif = v2Actif;
 	}
 	
 }

@@ -22,39 +22,43 @@ public class CommandVol implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String msg, String[] args) {
 
-        Player player = (Player) sender;
-        Joueur joueur = main.getJoueur(player);
-
-        if (joueur.getRole() == Roles.FARMEURIMMO || joueur.getRole() == Roles.TEST) {
-        	
-        	Player cible_ = Bukkit.getPlayer(args[0]);
-
-            if (cible_ != null) {
-            	
-	            Joueur cible = main.getJoueur(cible_);
-	            	
-	            if(cible.getRole() != Roles.MAKA) {
+    	//if(main.isV2Actif()) {
+    	
+	        Player player = (Player) sender;
+	        Joueur joueur = main.getJoueur(player);
 	
-	            	Farmeurimmo.commandSteal(joueur, cible, main);
-	            		
+	        if (joueur.getRole() == Roles.FARMEURIMMO || joueur.getRole() == Roles.TEST) {
+	        	
+	        	Player cible_ = Bukkit.getPlayer(args[0]);
+	
+	            if (cible_ != null) {
+	            	
+		            Joueur cible = main.getJoueur(cible_);
+		            	
+		            if(cible.getRole() != Roles.MAKA) {
+		
+		            	Farmeurimmo.commandSteal(joueur, cible, main);
+		            		
+		            }
+		            else {
+		            		
+		            	player.sendMessage("Vous ne pouvez pas voler cette cible");
+		            		
+		            }
+	            	
+	            } else {
+	
+	                player.sendMessage("Merci de donner le pseudo de la cible (/rccode <pseudo>");
+	
 	            }
-	            else {
-	            		
-	            	player.sendMessage("Vous ne pouvez pas voler cette cible");
-	            		
-	            }
-            	
-            } else {
-
-                player.sendMessage("Merci de donner le pseudo de la cible (/rccode <pseudo>");
-
-            }
-
-        } else {
-
-        	player.sendMessage("Vous n'avez pas le bon rôle");
-
-        }
+	
+	        } else {
+	
+	        	player.sendMessage("Vous n'avez pas le bon rôle");
+	
+	        }
+	        
+    	//}
 
         return false;
     }

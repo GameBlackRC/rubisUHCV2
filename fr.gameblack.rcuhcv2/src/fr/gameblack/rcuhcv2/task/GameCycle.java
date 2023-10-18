@@ -1773,7 +1773,7 @@ public class GameCycle extends BukkitRunnable {
 			
 		}
 		
-		if(timer % 70 == 0 && ((main.getEpisode() > 2 && main.getTemps() > 1 && main.getMode().equalsIgnoreCase("normal")) || (main.getEpisode() >= 1 && main.getTemps() > 11 && main.getMode().equalsIgnoreCase("rapide")))) {
+		if(timer % 140 == 0 && ((main.getEpisode() > 2 && main.getTemps() > 1 && main.getMode().equalsIgnoreCase("normal")) || (main.getEpisode() >= 1 && main.getTemps() > 11 && main.getMode().equalsIgnoreCase("rapide")))) {
 			
 			for(Joueur joueur : main.getListJoueurs()) {
 				

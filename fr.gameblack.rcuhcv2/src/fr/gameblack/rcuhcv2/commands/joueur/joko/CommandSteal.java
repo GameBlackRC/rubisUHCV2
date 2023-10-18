@@ -22,33 +22,37 @@ public class CommandSteal implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String msg, String[] args) {
 
-        Player player = (Player) sender;
-        
-        Joueur joueur = main.getJoueur(player);
-
-        if (joueur.getRole() == Roles.JOKO || (joueur.getRole() == Roles.FARMEURIMMO && joueur.getVol().contains(Pouvoirs.JOKO_CUBE))) {
-
-            if (args.length != 0) {
-
-                if (args[0].equalsIgnoreCase("force")) {
-                    Joko.CommandSteal(joueur, main, "force");
-
-                } else if (args[0].equalsIgnoreCase("resi") || args[0].equalsIgnoreCase("resistance")) {
-                    Joko.CommandSteal(joueur, main, "resi");
-
-                }
-
-            } else {
-
-                player.sendMessage("Merci de mettre l'effet que vous souhaitez voler (/rcsteal <force|resi|resistance>)");
-
-            }
-
-        } else {
-
-            player.sendMessage("Vous n'avez pas le bon rôle");
-
-        }
+    	//if(main.isV2Actif()) {
+    	
+	        Player player = (Player) sender;
+	        
+	        Joueur joueur = main.getJoueur(player);
+	
+	        if (joueur.getRole() == Roles.JOKO || (joueur.getRole() == Roles.FARMEURIMMO && joueur.getVol().contains(Pouvoirs.JOKO_CUBE))) {
+	
+	            if (args.length != 0) {
+	
+	                if (args[0].equalsIgnoreCase("force")) {
+	                    Joko.CommandSteal(joueur, main, "force");
+	
+	                } else if (args[0].equalsIgnoreCase("resi") || args[0].equalsIgnoreCase("resistance")) {
+	                    Joko.CommandSteal(joueur, main, "resi");
+	
+	                }
+	
+	            } else {
+	
+	                player.sendMessage("Merci de mettre l'effet que vous souhaitez voler (/rcsteal <force|resi|resistance>)");
+	
+	            }
+	
+	        } else {
+	
+	            player.sendMessage("Vous n'avez pas le bon rôle");
+	
+	        }
+	        
+    	//}
 
         return false;
     }

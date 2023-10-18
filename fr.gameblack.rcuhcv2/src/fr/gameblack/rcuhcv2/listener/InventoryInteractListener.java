@@ -281,6 +281,42 @@ public class InventoryInteractListener implements Listener {
         	
         	}
         	
+        } else if(inv.getName().equalsIgnoreCase("§8Création de la partie - Séléction version")) {
+        	
+        	event.setCancelled(true);
+        	Joueur joueur = main.getJoueur(player);
+        	
+        	switch(current.getType()) {
+        	
+        		case NETHERRACK:
+        			
+        			if(main.getHostBase() == null) {
+        				
+        				main.setHostBase(joueur);
+        				main.setV2Actif(false);
+        				
+        			}
+        			break;
+        		
+        		case GOLDEN_APPLE:
+        			
+        			if(main.getHostBase() == null) {
+        				
+        				main.setV2Actif(true);
+        				main.setHostBase(joueur);
+        				player.closeInventory();
+        				Inventory inv_pacte = Bukkit.createInventory(null, 27, "§8Création de la partie");
+        				inv_pacte.setItem(11, Main.getItem(Material.SUGAR, "Rapide", "Le stuff est directement give au début de la partie. \nCertains rôles changent pour s'adapter à ce mode"));
+    	                inv_pacte.setItem(15, Main.getItem(Material.DIAMOND_PICKAXE, "Normal", "C'est le mode de jeu de base avec du minage\net aucun changement de rôles"));
+    	                player.openInventory(inv_pacte);
+    	                
+        			}
+        			break;
+        			
+        		default: break;
+        	
+        	}
+        	
         } else if (inv.getName().equalsIgnoreCase("§8Création de la partie")) {
 
             event.setCancelled(true);
@@ -291,9 +327,8 @@ public class InventoryInteractListener implements Listener {
 
                 case SUGAR:
 
-                	if (main.getHostBase() == null) {
+                	if (main.getHostBase() == joueur) {
                 		
-                		main.setHostBase(joueur);
                 		main.setMode("rapide");
                 		player.sendMessage("Vous avez selectionner le mode rapide");
                 		
@@ -308,9 +343,8 @@ public class InventoryInteractListener implements Listener {
 
                 case DIAMOND_PICKAXE:
 
-                	if (main.getHostBase() == null) {
+                	if (main.getHostBase() == joueur) {
                 		
-                		main.setHostBase(joueur);
                 		main.setMode("normal");
                 		player.sendMessage("Vous avez selectionner le mode normal");
                 		

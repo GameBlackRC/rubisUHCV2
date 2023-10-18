@@ -114,7 +114,7 @@ public class Malivol {
 
             } else if (nb == 3) {
                 joueur.setMalivolCheat(3);
-                joueur.addForce(0.10);
+                joueur.addForce(0.07);
                 player.sendMessage("Vous venez d'activer votre cheat fullcrit");
                 if(pas_sacrifice) {
                 	ItemCD cycle = new ItemCD(main, joueur, "fullcrit", 60, joueur, null, null, null, null);

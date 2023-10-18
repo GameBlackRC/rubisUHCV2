@@ -21,14 +21,18 @@ public class CommandOp implements CommandExecutor {
 	@Override
     public boolean onCommand(CommandSender sender, Command cmd, String msg, String[] args) {
 		
-		Player player = (Player) sender;
-		Joueur joueur = main.getJoueur(player);
+		//if(main.isV2Actif()) {
 		
-		if(joueur.getRole() == Roles.KZOU || joueur.getRole() == Roles.TEST) {
-            	
-            Kzou.CommandOP(joueur, main);
+			Player player = (Player) sender;
+			Joueur joueur = main.getJoueur(player);
 			
-		}
+			if(joueur.getRole() == Roles.KZOU || joueur.getRole() == Roles.TEST) {
+	            	
+	            Kzou.CommandOP(joueur, main);
+				
+			}
+			
+		//}
 		
 		return false;
 		

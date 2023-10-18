@@ -23,20 +23,24 @@ public class CommandBan implements CommandExecutor {
 	@Override
     public boolean onCommand(CommandSender sender, Command cmd, String msg, String[] args) {
 		
-		Player player = (Player) sender;
-		Joueur joueur = main.getJoueur(player);
+		//if(main.isV2Actif()) {
 		
-		if(joueur.getRole() == Roles.KZOU || joueur.getRole() == Roles.TEST || (joueur.getRole() == Roles.FARMEURIMMO && joueur.getVol().contains(Pouvoirs.KZOU_BAN))) {
+			Player player = (Player) sender;
+			Joueur joueur = main.getJoueur(player);
 			
-			Player cible_ = Bukkit.getPlayer(args[0]);
-
-            if (cible_ != null) {
-            	
-            	Kzou.CommandBan(joueur, main.getJoueur(cible_), main);
-            	
-            }
+			if(joueur.getRole() == Roles.KZOU || joueur.getRole() == Roles.TEST || (joueur.getRole() == Roles.FARMEURIMMO && joueur.getVol().contains(Pouvoirs.KZOU_BAN))) {
+				
+				Player cible_ = Bukkit.getPlayer(args[0]);
+	
+	            if (cible_ != null) {
+	            	
+	            	Kzou.CommandBan(joueur, main.getJoueur(cible_), main);
+	            	
+	            }
+				
+			}
 			
-		}
+		//}
 		
 		return false;
 		

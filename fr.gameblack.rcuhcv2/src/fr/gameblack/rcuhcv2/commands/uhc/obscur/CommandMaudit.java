@@ -22,53 +22,57 @@ public class CommandMaudit implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String msg, String[] args) {
 
-    	Player player = (Player) sender;
+    	//if(main.isV2Actif()) {
     	
-    	Joueur joueur = main.getJoueur(player);
-
-        if (args.length >= 3) {
-
-            Player cible1_ = Bukkit.getPlayer(args[0]);
-            
-            Joueur cible1 = main.getJoueur(cible1_);
-            
-            Player cible2_ = Bukkit.getPlayer(args[1]);
-            
-            Joueur cible2 = main.getJoueur(cible2_);
-            
-            int niveau = Integer.parseInt(args[2]);
-
-            if (cible1 != null && cible2 != null && args[2] != null && niveau > 0 && niveau < 4) {
-
-                if (joueur.getRole() == Roles.OBSCUR) {
-
-                    if (main.getNiv_maledition() == 0) {
-                    	
-                    		Obscur.CommandMaudit(joueur, cible1, cible2, main, niveau);
-
-                    } else {
-
-                        player.sendMessage("Vous avez déjà une malédiction en cours");
-
-                    }
-
-                } else {
-
-                    player.sendMessage("Vous n'avez pas le bon rôle");
-
-                }
-
-            } else {
-
-                player.sendMessage("Merci de mettre un pseudo valide");
-
-            }
-
-        } else {
-
-            player.sendMessage("Merci de donner le pseudo de la cible (/rcmaudit <pseudo1> <pseudo2> <1|2|3>");
-
-        }
+	    	Player player = (Player) sender;
+	    	
+	    	Joueur joueur = main.getJoueur(player);
+	
+	        if (args.length >= 3) {
+	
+	            Player cible1_ = Bukkit.getPlayer(args[0]);
+	            
+	            Joueur cible1 = main.getJoueur(cible1_);
+	            
+	            Player cible2_ = Bukkit.getPlayer(args[1]);
+	            
+	            Joueur cible2 = main.getJoueur(cible2_);
+	            
+	            int niveau = Integer.parseInt(args[2]);
+	
+	            if (cible1 != null && cible2 != null && args[2] != null && niveau > 0 && niveau < 4) {
+	
+	                if (joueur.getRole() == Roles.OBSCUR) {
+	
+	                    if (main.getNiv_maledition() == 0) {
+	                    	
+	                    		Obscur.CommandMaudit(joueur, cible1, cible2, main, niveau);
+	
+	                    } else {
+	
+	                        player.sendMessage("Vous avez déjà une malédiction en cours");
+	
+	                    }
+	
+	                } else {
+	
+	                    player.sendMessage("Vous n'avez pas le bon rôle");
+	
+	                }
+	
+	            } else {
+	
+	                player.sendMessage("Merci de mettre un pseudo valide");
+	
+	            }
+	
+	        } else {
+	
+	            player.sendMessage("Merci de donner le pseudo de la cible (/rcmaudit <pseudo1> <pseudo2> <1|2|3>");
+	
+	        }
+	        
+    	//}
 
         return false;
 
