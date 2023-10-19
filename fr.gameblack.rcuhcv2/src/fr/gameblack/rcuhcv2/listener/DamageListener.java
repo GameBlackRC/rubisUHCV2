@@ -300,7 +300,7 @@ public class DamageListener implements Listener {
 		
 		if(tueur.getRole() == Roles.TRIAL) {
 			
-			if(tueur.getModeTrial() == "serieux") {
+			if(tueur.getModeTrial(main) == "serieux") {
 			
 				tueur.addForce(0.02);
 				

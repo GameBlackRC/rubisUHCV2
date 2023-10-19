@@ -5,6 +5,7 @@ import java.util.Random;
 import java.util.ArrayList;
 
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -2126,40 +2127,74 @@ public class GameCycle extends BukkitRunnable {
             	});
 	            
         	}
+            
+            for (Joueur joueur : main.getJoueurInGame()) {
+    	    	
+    	    	Player player = joueur.getPlayer();
+    	    	
+    	    	if(joueur.isCorrompu()) {
+    	    		
+    	    		List<Joueur> corruption = new ArrayList<>();
+    	    		
+    	    		for(Entity entity : player.getNearbyEntities(20, 20, 20)) {
+    	    			
+    	    			if(entity instanceof Player) {
+    	    				
+    	    				Player pls = (Player) entity;
+    	    				Joueur j = main.getJoueur(pls);
+    	    				if(!j.isCorrompuIndirect()) {
+    	    					
+    	    					j.setCorrompuIndirect(true);
+    	    					j.removeForce(0.02);
+    	    					
+    	    				}
+    	    				corruption.add(j);
+    	    				
+    	    			}
+    	    			
+    	    		}
+    	    		
+    	    		for(Joueur j : main.getJoueurInGame()) {
+    	    			
+    	    			if(!corruption.contains(j) && j.isCorrompuIndirect()) {
+    	    				
+    	    				j.addForce(0.02);
+    	    				
+    	    			}
+    	    			
+    	    		}
+    	    		
+    	    	}
+    	
+    	    	if (player.getFireTicks() > 0) {
+    	
+    	    		if (joueur.getOrbe() == Orbe.GLACE && !joueur.isMalusOrbeActif()) {
+    	
+    	    			Glace.Malus(joueur, main);
+    	
+    	    		}
+    	
+    	    	}
+    	
+    	        if (player.hasPotionEffect(PotionEffectType.SLOW)) {
+    	
+    	        	if (joueur.getOrbe() == Orbe.FOUDRE && !joueur.isMalusOrbeActif()) {
+    	
+    	        		Foudre.Malus(joueur, main);
+    	
+    	            }
+    	
+    	        }
+    	
+    	        if (player.getWalkSpeed() != 0.2 * (joueur.getSpeed()/100)) {
+    	
+    	        	player.setWalkSpeed((float) (0.2 * (joueur.getSpeed())/100));
+    	
+    	        }
+    	
+    	    }
         	
         }
-
-	    for (Joueur joueur : main.getJoueurInGame()) {
-	    	
-	    	Player player = joueur.getPlayer();
-	
-	    	if (player.getFireTicks() > 0) {
-	
-	    		if (joueur.getOrbe() == Orbe.GLACE && !joueur.isMalusOrbeActif()) {
-	
-	    			Glace.Malus(joueur, main);
-	
-	    		}
-	
-	    	}
-	
-	        if (player.hasPotionEffect(PotionEffectType.SLOW)) {
-	
-	        	if (joueur.getOrbe() == Orbe.FOUDRE && !joueur.isMalusOrbeActif()) {
-	
-	        		Foudre.Malus(joueur, main);
-	
-	            }
-	
-	        }
-	
-	        if (player.getWalkSpeed() != 0.2 * (joueur.getSpeed()/100)) {
-	
-	        	player.setWalkSpeed((float) (0.2 * (joueur.getSpeed())/100));
-	
-	        }
-	
-	    }
 
         timer++;
 

@@ -100,6 +100,7 @@ public class Main extends JavaPlugin {
     private boolean V2Actif = true;
     private Joueur advBedwars = null;
     private String modeTrial = null;
+    private boolean zoneBenihimeActif = false;
     
     @Override
     public void onEnable() {
@@ -215,6 +216,11 @@ public class Main extends JavaPlugin {
     
     public void onDisable() {
 
+    	for(Joueur host : hosts) {
+    		
+    		Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(), "lp user " + host.getPlayer().getName() + " parent remove host");
+    		
+    	}
 
     }
     
@@ -667,9 +673,12 @@ public class Main extends JavaPlugin {
 	}
 
 	public void setHostBase(Joueur host) {
+		
 		if(hosts.isEmpty()) {
 			
 			hosts.add(host);
+			
+			Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(), "lp user " + host.getPlayer().getName() + " parent add host");
 			
 		}
 		else if(hosts.contains(host)) {
@@ -686,6 +695,8 @@ public class Main extends JavaPlugin {
 		}
 		else {
 			
+			Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(), "lp user " + host.getPlayer().getName() + " parent add host");
+			
 			Joueur host2 = hosts.get(0);
 			hosts.set(0, host);
 			hosts.add(host2);
@@ -697,6 +708,8 @@ public class Main extends JavaPlugin {
 		
 		if(!hosts.contains(joueur)) {
 			
+			Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(), "lp user " + joueur.getPlayer().getName() + " parent add host");
+			
 			hosts.add(joueur);
 			
 		}
@@ -706,6 +719,8 @@ public class Main extends JavaPlugin {
 	public void removeHost(Joueur joueur) {
 		
 		if(hosts.contains(joueur)) {
+			
+			Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(), "lp user " + joueur.getPlayer().getName() + " parent remove host");
 			
 			hosts.remove(joueur);
 			
@@ -870,6 +885,14 @@ public class Main extends JavaPlugin {
 
 	public void setModeTrial(String modeTrial) {
 		this.modeTrial = modeTrial;
+	}
+
+	public boolean isZoneBenihimeActif() {
+		return zoneBenihimeActif;
+	}
+
+	public void setZoneBenihimeActif(boolean zoneBenihimeActif) {
+		this.zoneBenihimeActif = zoneBenihimeActif;
 	}
 	
 }

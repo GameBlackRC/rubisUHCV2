@@ -20,6 +20,7 @@ import fr.gameblack.rcuhcv2.roles.joueur.Raptor;
 import fr.gameblack.rcuhcv2.roles.joueur.Slup;
 import fr.gameblack.rcuhcv2.roles.staff.GameBlack;
 import fr.gameblack.rcuhcv2.roles.staff.Loup;
+import fr.gameblack.rcuhcv2.roles.staff.Trial;
 import fr.gameblack.rcuhcv2.roles.uhc.Malivol;
 
 public class InteractListener implements Listener {
@@ -65,6 +66,14 @@ public class InteractListener implements Listener {
             	Slup.interactDroitSlime(joueur, main);
             	
             } 
+
+        } else if (it.getType() == Material.NETHER_STAR && it.hasItemMeta() && it.getItemMeta().hasDisplayName() && it.getItemMeta().getDisplayName().equalsIgnoreCase("Benihime Aratame")) {
+
+            Trial.ItemBenihimeAratame(joueur, main);
+
+        } else if (it.getType() == Material.NETHER_STAR && it.hasItemMeta() && it.getItemMeta().hasDisplayName() && it.getItemMeta().getDisplayName().equalsIgnoreCase("Sakashima Yokoshima")) {
+
+            Trial.ItemSakashimaYokoshima(joueur, main);
 
         } else if (it.getType() == Material.NETHER_STAR && it.hasItemMeta() && it.getItemMeta().hasDisplayName() && it.getItemMeta().getDisplayName().equalsIgnoreCase("SpeedCubing")) {
 

@@ -2,7 +2,9 @@ package fr.gameblack.rcuhcv2.roles.staff;
 
 import java.util.Random;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -11,10 +13,16 @@ import org.bukkit.potion.PotionEffectType;
 
 import fr.gameblack.rcuhcv2.Joueur;
 import fr.gameblack.rcuhcv2.Main;
+import fr.gameblack.rcuhcv2.Roles;
 import fr.gameblack.rcuhcv2.task.ItemCD;
 import fr.gameblack.rcuhcv2.task.JeuCD;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Trial {
+	
+	private static int nbUtilisationCorruption = 0;
 	
 	public static void Items(Joueur joueur) {
 		
@@ -214,9 +222,104 @@ public class Trial {
 		
 	}
 	
-	public static void ItemBenihimeAratame(Joueur joueur) {
+	public static void ItemSakashimaYokoshima(Joueur joueur, Main main) {
 		
+		List<Joueur> inZone = new ArrayList<>();
+		List<String> skin = new ArrayList<>();
 		
+		for(Entity entity : joueur.getPlayer().getNearbyEntities(45, 45, 45)) {
+			
+			if(entity instanceof Player) {
+				
+				Player pls = (Player) entity;
+				Joueur j = main.getJoueur(pls);
+				
+				j.setInZoneSkinTrial(true);
+				inZone.add(j);
+				skin.add(j.getPlayer().getName());
+				
+			}
+			
+		}
+		
+		for(Joueur j : inZone) {
+			
+			Random r = new Random();
+	        int nb = r.nextInt(skin.size());
+	        	        
+	        Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(), "skin set " + j.getPlayer().getName() + " " + skin.get(nb));
+			
+	        skin.remove(nb);
+	        
+		}
+		
+	}
+	
+	public static void ItemBenihimeAratame(Joueur joueur, Main main) {
+		
+		main.setZoneBenihimeActif(true);
+		
+		ItemCD cycle = new ItemCD(main, joueur, "benihimeAratame_trial", 60, joueur, null, null, null, null);
+        cycle.runTaskTimer(main, 0, 20);
+		
+	}
+	
+	public static void checkZoneBenihimeAratame(Main main) {
+		
+		Joueur trial = main.getJoueurByRole(Roles.TRIAL);
+		
+		if(trial != null) {
+			
+			List<Joueur> inZone = new ArrayList<>();
+			
+			for(Entity entity : trial.getPlayer().getNearbyEntities(20, 20, 20)) {
+				
+				if(entity instanceof Player) {
+					
+					Player pls = (Player) entity;
+					Joueur joueur = main.getJoueur(pls);
+					
+					if(!joueur.isInZoneBenihime()) {
+						
+						joueur.setInZoneBenihime(true);
+						joueur.removeForce(0.02);
+						trial.addSpeed(0.01);
+						trial.addForce(0.01);
+						
+					}
+					
+					inZone.add(joueur);
+					
+				}
+				
+			}
+			
+			for(Joueur j : main.getJoueurInGame()) {
+				
+				if(!inZone.contains(j) && j.isInZoneBenihime()) {
+					
+					j.setInZoneBenihime(false);
+					j.addForce(0.02);
+					trial.removeSpeed(0.01);
+					trial.removeForce(0.01);
+					
+				}
+				
+			}
+			
+		}
+		
+	}
+	
+	public static void commandCorruptionAmes(Joueur joueur, Joueur cible, Main main) {
+		
+		nbUtilisationCorruption += 1;
+		
+		cible.setCorrompu(true);
+		cible.removeForce(0.02);
+		cible.removeSpeed(0.03);
+		ItemCD cycle = new ItemCD(main, joueur, "corruption_trial", 600, cible, null, null, null, null);
+        cycle.runTaskTimer(main, 0, 20);
 		
 	}
 	
@@ -225,5 +328,9 @@ public class Trial {
         player.sendMessage("____________________________________________________\n \nVous êtes §9Trial\n§rVous devez gagner avec le §9camp staff§r\n \nAvec la commande /rcmode <serieux/fun>, vous pouvez choisir votre mode qui définira vos pouvoirs durant la totalité de la partie\n \nMode Sérieux :\nVous recevez 2% de résistance et 3% de speed permanent\nA chaque kill effectuer, vous obtenez 2% de force supplémentaire (Slup reçoit aussi 2% de force si vous êtes en duo avec lui)\nAvec la commande /rcsacrifice <coeur|regen>, vous perdez 4% de force permanent et vous gagnez 1 coeur permanent ou vous régénérer 2 coeurs\n \nMode fun :\nVous recevez 2% de speed et 2% de force permanent\n \nAvec la commande /rcplay <pseudo>, vous pouvez lancer un jeu avec un autre joueur (pour voir les jeux et les bonus/malus à recevoir, faites la commande /rcinfo). Vous et le joueur choisi seront invulnérables et ne pourrez pas mettre de coup.\n \nLorsque Loup vient à mourrir par un membre du camp UHC, si Slup a choisi le pacte 2 et qu'il n'est pas passé définitivement dans le camp joueur, vous devez gagnez avec lui, vous recevrez le pseudo du tueur de Loup et le tueur de Loup recevra votre pseudo. Sinon vous passez dans le camp UHC et vous recevez le pseudo du tueur de Loup et le tueur recevra votre pseudo.\n \n Si l'évènement 'Fermeture de Golden' vient à se déclancher, vous serez averti et si vous êtes dans le camp UHC lorsque l'évènement se déclance, vous devrez désormais gagner seul et vos pouvoirs changent\n \n____________________________________________________");
 
     }
+
+	public static int getNbUtilisationCorruption() {
+		return nbUtilisationCorruption;
+	}
 
 }

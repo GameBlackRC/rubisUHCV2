@@ -5,6 +5,7 @@ import java.util.Random;
 import fr.gameblack.rcuhcv2.Joueur;
 import fr.gameblack.rcuhcv2.Main;
 import fr.gameblack.rcuhcv2.Roles;
+import fr.gameblack.rcuhcv2.roles.staff.GameBlack;
 import fr.gameblack.rcuhcv2.roles.staff.Trial;
 
 public class FermetureGolden {
@@ -16,16 +17,19 @@ public class FermetureGolden {
 		
 		if(main.getCompo().contains(Roles.TRIAL)) {
 			
+			Random r = new Random();
+            int nb = r.nextInt(100);
+			
 			Joueur trial = main.getJoueurByRole(Roles.TRIAL);
 			
 			trial.getPlayer().sendMessage("Golden ferme ses portes");
 			
-			if(main.getJoueurByRole(Roles.TRIAL).getCamp() == "uhc") {
+			if(main.getJoueurByRole(Roles.TRIAL).getCamp() == "uhc" && nb <= 50) {
 				
 				trial.setCamp("solo");
 				trial.getPlayer().sendMessage("Vous devez désormais gagner seul");
 				
-				if(trial.getModeTrial().equalsIgnoreCase("fun")) {
+				if(main.getModeTrial().equalsIgnoreCase("fun")) {
 				
 					Trial.ItemsFunSolo(trial);
 				
@@ -39,14 +43,15 @@ public class FermetureGolden {
 			}
 			
 		}
-		if(main.getCompo().contains(Roles.GAMEBLACK) && main.getJoueurByRole(Roles.GAMEBLACK).getCamp() == "uhc") {
+		if(main.getJoueurByRole(Roles.GAMEBLACK) != null && main.getJoueurByRole(Roles.GAMEBLACK).getCamp() == "uhc") {
 			
 			Random r = new Random();
-            int nb = r.nextInt(2);
+            int nb = r.nextInt(100);
             
-            if(nb == 1) {
+            if(nb <= 50) {
             	
             	main.getJoueurByRole(Roles.GAMEBLACK).setCamp("joueur");
+            	GameBlack.itemJoueur(main.getJoueurByRole(Roles.GAMEBLACK), main);
             	main.getJoueurByRole(Roles.GAMEBLACK).getPlayer().sendMessage("Golden ferme ses portes. Vous passez dans le camp joueur");
             	
             }

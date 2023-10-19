@@ -83,6 +83,9 @@ public class GameBlack {
 		generationLit(main);
 		joueur.getPlayer().sendMessage("Vous lancez une partie de Bedwars avec " + adv.getPlayer().getName());
 		adv.getPlayer().sendMessage("Vous lancez une partie de Bedwars avec GameBlack");
+		joueur.setRespawn(true);
+		adv.setRespawn(true);
+		main.setAdvBedwars(adv);
 		
 	}
 	
@@ -115,16 +118,17 @@ public class GameBlack {
 	        
 	        Joueur adv = null;
 	        
-	        if(nb == 1) {
+	        List<Joueur> staff = main.getCampStaff();
+	        List<Joueur> uhc = main.getCampUHC();
+	        
+	        if(!uhc.isEmpty() && (nb == 1 || staff.isEmpty())) {
 	        	
-	        	List<Joueur> uhc = main.getCampUHC();
 	        	int nb2 = r.nextInt(uhc.size());
 	        	adv = uhc.get(nb2);
 	        	
 	        }
-	        else {
+	        else if(!staff.isEmpty()){
 	        	
-	        	List<Joueur> staff = main.getCampStaff();
 	        	int nb2 = r.nextInt(staff.size());
 	        	adv = staff.get(nb2);
 	        	
@@ -535,9 +539,9 @@ public class GameBlack {
 	@SuppressWarnings("deprecation")
 	public static void generationLit(Main main) {
 		
-		Block bloc1 = main.getWorld().getBlockAt(new Location(main.getWorld(), 200, 100, 200));
+		Block bloc1 = Bukkit.getWorld("world").getBlockAt(new Location(Bukkit.getWorld("world"), 200, 100, 200));
 		
-		Block bloc2 = main.getWorld().getBlockAt(new Location(main.getWorld(), 200, 100, -200));
+		Block bloc2 = Bukkit.getWorld("world").getBlockAt(new Location(Bukkit.getWorld("world"), 200, 100, -200));
 
         BlockState bedFoot = bloc1.getState();
         BlockState bedHead = bedFoot.getBlock().getRelative(BlockFace.SOUTH).getState();

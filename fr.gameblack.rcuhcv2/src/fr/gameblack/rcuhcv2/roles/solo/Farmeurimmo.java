@@ -127,7 +127,7 @@ public class Farmeurimmo {
 						
 					} else if(cible.getRole() == Roles.TRIAL) {
 						
-						if(cible.getModeTrial().equalsIgnoreCase("fun")) {
+						if(cible.getModeTrial(main).equalsIgnoreCase("fun")) {
 							
 							joueur.addForce(0.02);
 							joueur.getVol().add(Pouvoirs.EFFET);
@@ -279,7 +279,7 @@ public class Farmeurimmo {
 				
 			} else if(cible.getRole() == Roles.TRIAL) {
 				
-				if(cible.getModeTrial().equalsIgnoreCase("fun")) {
+				if(cible.getModeTrial(main).equalsIgnoreCase("fun")) {
 					
 					cible.removeForce(0.02);
 					cible.getPlayer().sendMessage("Vous perdez donc 2% de force");

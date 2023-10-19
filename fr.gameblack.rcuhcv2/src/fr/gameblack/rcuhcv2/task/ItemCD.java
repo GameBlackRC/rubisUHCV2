@@ -492,6 +492,33 @@ public class ItemCD extends BukkitRunnable {
 	            		
 	            	}
 	            	
+	            } else if(joueur.getRole() == Roles.TRIAL) {
+	            	
+	            	if(item == "benihimeAratame_trial") {
+	            		
+	            		main.setZoneBenihimeActif(false);
+	            		
+	            		for(Joueur j : main.getJoueurInGame()) {
+	            			
+	            			if(j.isInZoneBenihime()) {
+	            				
+	            				joueur.removeForce(0.01);
+	            				joueur.removeSpeed(0.01);
+	            				j.addForce(0.02);
+	            				j.setInZoneBenihime(false);
+	            				
+	            			}
+	            			
+	            		}
+	            		
+	            	} else if(item == "corruption_trial") {
+	            		
+	            		cible.addForce(0.02);
+	            		cible.addSpeed(0.03);
+	            		cible.setCorrompu(false);
+	            		
+	            	}
+	            	
 	            } else if(joueur.getRole() == Roles.LOUP) {
 	            	
 	            	if(item == "vol_loup") {

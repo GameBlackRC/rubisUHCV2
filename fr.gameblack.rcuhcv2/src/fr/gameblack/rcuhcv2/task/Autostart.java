@@ -220,13 +220,14 @@ public class Autostart extends BukkitRunnable {
 
             }
             
-            //int nb = r.nextInt(100);
+            Random r = new Random();
+            int nb = r.nextInt(100);
             
-            //if(nb <= 10) {
+            if(nb <= 50) {
             	
-            	//main.setFermetureGolden(true);
+            	main.setFermetureGolden(true);
             	
-            //}
+            }
 
             main.setState(Statut.PVP_OFF);
             

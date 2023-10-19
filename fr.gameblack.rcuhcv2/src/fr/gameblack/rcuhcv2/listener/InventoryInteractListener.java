@@ -327,10 +327,11 @@ public class InventoryInteractListener implements Listener {
 
                 case SUGAR:
 
-                	if (main.getHostBase() == joueur) {
+                	if (main.getHostBase() == null) {
                 		
                 		main.setMode("rapide");
                 		player.sendMessage("Vous avez selectionner le mode rapide");
+                		main.setHostBase(joueur);
                 		
                 	}
                 	else {
@@ -343,10 +344,11 @@ public class InventoryInteractListener implements Listener {
 
                 case DIAMOND_PICKAXE:
 
-                	if (main.getHostBase() == joueur) {
+                	if (main.getHostBase() == null) {
                 		
                 		main.setMode("normal");
                 		player.sendMessage("Vous avez selectionner le mode normal");
+                		main.setHostBase(joueur);
                 		
                 	}
 

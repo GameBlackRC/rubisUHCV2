@@ -28,7 +28,7 @@ private Main main;
         	Player player = (Player) sender;
         	Joueur joueur = main.getJoueur(player);
         	
-        	if(joueur.getRole() == Roles.TRIAL && joueur.getModeTrial() == "serieux") {
+        	if(joueur.getRole() == Roles.TRIAL && joueur.getModeTrial(main) == "serieux") {
         		
         		if(args[0].equalsIgnoreCase("coeur")) {
         			

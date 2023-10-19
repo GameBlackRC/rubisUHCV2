@@ -12,11 +12,11 @@ import fr.gameblack.rcuhcv2.Pouvoirs;
 import fr.gameblack.rcuhcv2.Roles;
 import fr.gameblack.rcuhcv2.roles.staff.Trial;
 
-public class CommandPlay implements CommandExecutor {
+public class CommandCorruption implements CommandExecutor {
 	
 private Main main;
 	
-	public CommandPlay(Main main) {
+	public CommandCorruption(Main main) {
 		
 		this.main = main;
 		
@@ -33,18 +33,27 @@ private Main main;
         	Player cible_ = Bukkit.getPlayer(args[0]);
         	Joueur cible = main.getJoueur(cible_);
 
-            if (cible_ != null && (joueur.getRole() == Roles.TRIAL && joueur.getModeTrial(main) == "fun")) {
+            if (cible_ != null && (joueur.getRole() == Roles.TRIAL && joueur.getModeTrial(main) == "serieux")) {
             	
-            	if(!main.getCD().contains(Pouvoirs.TRIAL_JEU)) {
-            		
-            		main.getCD().add(Pouvoirs.TRIAL_JEU);
+            	if(Trial.getNbUtilisationCorruption() < 2) {
             	
-            		Trial.CommandPlay(joueur, cible, main);
-            		
+	            	if(!main.getCD().contains(Pouvoirs.TRIAL_CORRUPTION)) {
+	            		
+	            		main.getCD().add(Pouvoirs.TRIAL_CORRUPTION);
+	            	
+	            		Trial.commandCorruptionAmes(joueur, cible, main);
+	            		
+	            	}
+	            	else {
+	            		
+	            		player.sendMessage("Ce pouvoir est en cooldown");
+	            		
+	            	}
+	            	
             	}
             	else {
             		
-            		player.sendMessage("Ce pouvoir est en cooldown");
+            		player.sendMessage("Vous ne pouvez plus utiliser cette commande");
             		
             	}
             	

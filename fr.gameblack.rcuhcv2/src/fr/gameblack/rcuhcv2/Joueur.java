@@ -60,7 +60,6 @@ public class Joueur {
 	private boolean nofall = false;
 	private boolean cheatToinou = false;
 	private boolean CanFight = true;
-	private String modeTrial = null;
 	private int pourcentHack = 0;
 	private int pacteSlup = 0;
 	private boolean bonPapiers = false;
@@ -90,6 +89,10 @@ public class Joueur {
 	private boolean hack = false;
 	private boolean invisible = false;
 	private int utilisationSacrificeTrial = 0;
+	private boolean inZoneBenihime = false;
+	private boolean corrompu = false;
+	private boolean corrompuIndirect = false;
+	private boolean inZoneSkinTrial = false;
 
 	public Joueur(Player player) {
 		
@@ -133,7 +136,6 @@ public class Joueur {
 		nofall = false;
 		cheatToinou = false;
 		CanFight = true;
-		modeTrial = null;
 		pourcentHack = 0;
 		pacteSlup = 0;
 		bonPapiers = false;
@@ -614,12 +616,12 @@ public class Joueur {
 		CanFight = canFight;
 	}
 
-	public String getModeTrial() {
-		return modeTrial;
+	public String getModeTrial(Main main) {
+		return main.getModeTrial();
 	}
 
-	public void setModeTrial(String modeTrial) {
-		this.modeTrial = modeTrial;
+	public void setModeTrial(String modeTrial, Main main) {
+		main.setModeTrial(modeTrial);
 	}
 	
 	public boolean isFarmeurimmoProche(Main main) {
@@ -1261,6 +1263,38 @@ public class Joueur {
 	
 	public void addUtilisationSacrificeTrial() {
 		this.utilisationSacrificeTrial += 1;
+	}
+
+	public boolean isInZoneBenihime() {
+		return inZoneBenihime;
+	}
+
+	public void setInZoneBenihime(boolean inZoneBenihime) {
+		this.inZoneBenihime = inZoneBenihime;
+	}
+
+	public boolean isCorrompu() {
+		return corrompu;
+	}
+
+	public void setCorrompu(boolean corrompu) {
+		this.corrompu = corrompu;
+	}
+
+	public boolean isCorrompuIndirect() {
+		return corrompuIndirect;
+	}
+
+	public void setCorrompuIndirect(boolean corrompuIndirect) {
+		this.corrompuIndirect = corrompuIndirect;
+	}
+
+	public boolean isInZoneSkinTrial() {
+		return inZoneSkinTrial;
+	}
+
+	public void setInZoneSkinTrial(boolean inZoneSkinTrial) {
+		this.inZoneSkinTrial = inZoneSkinTrial;
 	}
 	
 }

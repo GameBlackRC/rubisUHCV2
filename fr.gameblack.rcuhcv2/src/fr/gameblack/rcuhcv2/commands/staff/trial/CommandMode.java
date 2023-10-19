@@ -28,18 +28,18 @@ private Main main;
             Player player = (Player) sender;
             Joueur joueur = main.getJoueur(player);
             	
-            if(joueur.getRole() == Roles.TRIAL && joueur.getModeTrial() == null) {
+            if(joueur.getRole() == Roles.TRIAL && joueur.getModeTrial(main) == null) {
             		
             	if(args[0].equalsIgnoreCase("serieux")) {
             			
-            		joueur.setModeTrial("serieux");
+            		joueur.setModeTrial("serieux", main);
             		Trial.ItemsSerieux(joueur);
             		player.sendMessage("Vous avez choisi le mode sérieux");
             			
             	}
             	else if(args[0].equalsIgnoreCase("fun")) {
             			
-            		joueur.setModeTrial("fun");
+            		joueur.setModeTrial("fun", main);
             		Trial.ItemsFun(joueur);
             		player.sendMessage("Vous avez choisi le mode fun");
             			
