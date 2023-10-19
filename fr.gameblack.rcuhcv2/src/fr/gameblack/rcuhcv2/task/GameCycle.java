@@ -1711,7 +1711,7 @@ public class GameCycle extends BukkitRunnable {
 			
 		}
 		
-		if((timer > 2400 && timer < 3600 && timer%600 == 0 && main.getMode().equalsIgnoreCase("normal")) || (timer > 0 && timer < 1200 && timer%600 == 0 && main.getMode().equalsIgnoreCase("rapide"))) {
+		if((timer > 2400 && timer < 3600 && timer%600 == 0 && main.getMode().equalsIgnoreCase("normal")) || (timer > 0 && timer < 12000 && timer%600 == 0 && main.getMode().equalsIgnoreCase("rapide"))) {
 			
 			if(main.getJoueurByRole(Roles.TRIAL) != null && main.getJoueurByRole(Roles.SLUP) != null && main.getJoueurByRole(Roles.SLUP).getCamp() != "duo" && main.getJoueurByRole(Roles.SLUP).getPacteSlup() == 2) {
 				
@@ -1720,6 +1720,11 @@ public class GameCycle extends BukkitRunnable {
 				if(slup.isProche10(Roles.TRIAL, main)) {
 					
 					slup.getPlayer().sendMessage("Trial se trouve dans un rayon de 10 blocs");
+					
+				}
+				else {
+					
+					slup.getPlayer().sendMessage("Trial n'est pas proche de vous");
 					
 				}
 				

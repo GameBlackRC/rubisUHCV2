@@ -3,7 +3,9 @@ package fr.gameblack.rcuhcv2.listener;
 import java.util.List;
 import java.util.Random;
 
+import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -12,6 +14,7 @@ import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerItemConsumeEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
+import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -23,6 +26,7 @@ import fr.gameblack.rcuhcv2.Roles;
 import fr.gameblack.rcuhcv2.Statut;
 import fr.gameblack.rcuhcv2.orbes.Feu;
 import fr.gameblack.rcuhcv2.roles.joueur.Jeannot;
+import fr.gameblack.rcuhcv2.roles.staff.GameBlack;
 import fr.gameblack.rcuhcv2.roles.staff.Trial;
 import fr.gameblack.rcuhcv2.task.GameCycle;
 import fr.gameblack.rcuhcv2.task.ItemCD;
@@ -159,6 +163,27 @@ public class PlayerActionListener implements Listener{
 		//}
 	    
     }
+	
+	@EventHandler
+	public void onBlockBreak (BlockBreakEvent event) {
+		
+		Player player = event.getPlayer();
+		Joueur joueur = main.getJoueur(player);
+		
+		if(event.getBlock().getType() == Material.BED_BLOCK && ((event.getBlock().getLocation().getX() == 200 && event.getBlock().getLocation().getY() == 100 && event.getBlock().getLocation().getZ() == 200) || (event.getBlock().getLocation().getX() == 200 && event.getBlock().getLocation().getY() == 100 && event.getBlock().getLocation().getZ() == 201))) {
+			
+			Bukkit.broadcastMessage("Lit de GameBlack casser");
+			GameBlack.litGBCasser(joueur, main);
+			
+		}
+		else if(event.getBlock().getType() == Material.BED_BLOCK && ((event.getBlock().getLocation().getX() == 200 && event.getBlock().getLocation().getY() == 100 && event.getBlock().getLocation().getZ() == -200) || (event.getBlock().getLocation().getX() == 200 && event.getBlock().getLocation().getY() == 100 && event.getBlock().getLocation().getZ() == -199))) {
+			
+			Bukkit.broadcastMessage("Lit de l'autre casser");
+			GameBlack.litAutreCasser(joueur, main);
+			
+		}
+		
+	}
 
     @EventHandler
     public void onPlayerWrite(AsyncPlayerChatEvent event) {

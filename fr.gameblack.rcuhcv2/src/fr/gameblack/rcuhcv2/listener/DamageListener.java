@@ -39,6 +39,70 @@ public class DamageListener implements Listener {
 		
 	}
 	
+	public static void respawn(Joueur joueur, Main main) {
+		
+		if(joueur != main.getAdvBedwars() && (joueur.getRole() != Roles.GAMEBLACK || !joueur.getCamp().equalsIgnoreCase("joueur") || !main.getModeTrial().equalsIgnoreCase("fun") || main.getAdvBedwars() == null)) {
+			
+			joueur.setRespawn(false);
+			
+		}
+		else {
+			
+			Random r = new Random();
+	        int nb = r.nextInt(4);
+	        
+	        if(nb == 1) {
+	        	
+	        	joueur.removeForce(0.02);
+	        	
+	        } else if(nb == 2) {
+	        	
+	        	joueur.removeResi(0.02);
+	        	
+	        } else if(nb == 3) {
+	        	
+	        	joueur.removeSpeed(0.03);
+	        	
+	        } else {
+	        	
+	        	if(joueur.getPlayer().getMaxHealth() >= 4) {
+	        	
+	        	joueur.getPlayer().setMaxHealth(joueur.getPlayer().getMaxHealth() - 2);
+	        	
+	        	}
+	        	else {
+	        		
+	        		joueur.getPlayer().setMaxHealth(2);
+	        		
+	        	}
+	        	
+	        }
+			
+		}
+		
+		Random r = new Random();
+        int signe_x = r.nextInt(2);
+        int signe_y = r.nextInt(2);
+        int cos_x = r.nextInt(100);
+        cos_x += 200;
+        if (signe_x == 1) {
+            cos_x = -cos_x;
+        }
+
+        int cos_y = r.nextInt(100);
+        cos_y += 200;
+        if (signe_y == 1) {
+            cos_y = -cos_y;
+        }
+
+        joueur.getPlayer().setFoodLevel(20);
+
+        joueur.getPlayer().setHealth(20);
+        
+        joueur.getPlayer().teleport(new Location(joueur.getPlayer().getWorld(), cos_x, 100, cos_y));
+		
+	}
+	
 	public static void Mort(Joueur joueur, Joueur tueur, EntityDamageByEntityEvent event, Main main) {
 		
 		tueur.addKill();
@@ -529,12 +593,21 @@ public class DamageListener implements Listener {
                 }
                 
                 if (player.getHealth() <= damage) {
+                	
+                	if(joueur.canRespawn()) {
+                		
+                		respawn(joueur, main);
+                		
+                	}
+                	else {
 
-                    ItemCD cycle = new ItemCD(main, tueur, "mort", 10, joueur, event, null, null, joueur.getPlayer().getLocation());
-                    cycle.runTaskTimer(main, 0, 20);
-                    event.setDamage(0);
-                    player.setGameMode(GameMode.SPECTATOR);
-                    player.sendMessage("Vous êtes mort mais vous avez encore une chance de ressucité");
+	                    ItemCD cycle = new ItemCD(main, tueur, "mort", 10, joueur, event, null, null, joueur.getPlayer().getLocation());
+	                    cycle.runTaskTimer(main, 0, 20);
+	                    event.setDamage(0);
+	                    player.setGameMode(GameMode.SPECTATOR);
+	                    player.sendMessage("Vous êtes mort mais vous avez encore une chance de ressucité");
+	                    
+                	}
 
                 }
                 
@@ -573,12 +646,21 @@ public class DamageListener implements Listener {
         	}
         	
         	if (player.getHealth() <= event.getFinalDamage()) {
+        		
+        		if(joueur.canRespawn()) {
+        			
+        			respawn(joueur, main);
+        			
+        		}
+        		else {
 
-                ItemCD cycle = new ItemCD(main, joueur.getLastHit(), "mort", 10, joueur, null, null, null, joueur.getPlayer().getLocation());
-                cycle.runTaskTimer(main, 0, 20);
-                event.setDamage(0);
-                player.setGameMode(GameMode.SPECTATOR);
-                player.sendMessage("Vous êtes mort mais vous avez encore une chance de ressucité");
+	                ItemCD cycle = new ItemCD(main, joueur.getLastHit(), "mort", 10, joueur, null, null, null, joueur.getPlayer().getLocation());
+	                cycle.runTaskTimer(main, 0, 20);
+	                event.setDamage(0);
+	                player.setGameMode(GameMode.SPECTATOR);
+	                player.sendMessage("Vous êtes mort mais vous avez encore une chance de ressucité");
+	                
+        		}
 
             }
         	

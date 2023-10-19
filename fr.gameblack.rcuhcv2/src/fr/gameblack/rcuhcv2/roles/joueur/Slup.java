@@ -2,7 +2,6 @@ package fr.gameblack.rcuhcv2.roles.joueur;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -257,34 +256,6 @@ public class Slup {
 		if(joueur.getPacteSlup() == 0) {
 			
 			joueur.setPacteSlup(2);
-			
-		}
-		
-	}
-	
-	public static void trialProche(Joueur joueur, Main main) {
-		
-		if(joueur.getCamp() != "duo" && joueur.getPacteSlup() == 2) {
-		
-			for(Entity entity : joueur.getPlayer().getNearbyEntities(10, 10, 10)) {
-				
-				if(entity instanceof Player) {
-					
-					Player cible_ = (Player) entity;
-					Joueur cible = main.getJoueur(cible_);
-					if(cible.getRole() == Roles.TRIAL) {
-						
-						joueur.getPlayer().sendMessage("Trial se trouve dans un rayon de 10 blocs de vous");
-						
-						return;
-						
-					}
-					
-				}
-				
-			}
-			
-			joueur.getPlayer().sendMessage("Trial n'est pas proche de vous");
 			
 		}
 		

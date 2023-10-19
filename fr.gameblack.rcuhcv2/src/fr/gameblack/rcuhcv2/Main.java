@@ -98,6 +98,8 @@ public class Main extends JavaPlugin {
     private int niv_maledition = 0;
     private Location locZoneSlup = null;
     private boolean V2Actif = true;
+    private Joueur advBedwars = null;
+    private String modeTrial = null;
     
     @Override
     public void onEnable() {
@@ -137,7 +139,7 @@ public class Main extends JavaPlugin {
     	getCommand("setroleother").setExecutor(new CommandSetRoleOther(this));
     	getCommand("setorbe").setExecutor(new CommandSetOrbe(this));
     	getCommand("setstatut").setExecutor(new CommandSetStatut(this));
-    	getCommand("random").setExecutor(new CommandRandom());
+    	getCommand("random").setExecutor(new CommandRandom(this));
     	getCommand("createworld").setExecutor(new CommandCreateWorld(this));
     	getCommand("spawnminerais").setExecutor(new CommandSpawnMinerais(this));
     	getCommand("tpworld").setExecutor(new CommandTpWorld(this));
@@ -852,6 +854,22 @@ public class Main extends JavaPlugin {
 
 	public void setV2Actif(boolean v2Actif) {
 		V2Actif = v2Actif;
+	}
+
+	public Joueur getAdvBedwars() {
+		return advBedwars;
+	}
+
+	public void setAdvBedwars(Joueur advBedwars) {
+		this.advBedwars = advBedwars;
+	}
+
+	public String getModeTrial() {
+		return modeTrial;
+	}
+
+	public void setModeTrial(String modeTrial) {
+		this.modeTrial = modeTrial;
 	}
 	
 }

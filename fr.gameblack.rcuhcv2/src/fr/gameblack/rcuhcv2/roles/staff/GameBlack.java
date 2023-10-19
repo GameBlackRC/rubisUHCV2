@@ -1,8 +1,10 @@
 package fr.gameblack.rcuhcv2.roles.staff;
 
+import java.util.List;
 import java.util.Random;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
@@ -20,6 +22,7 @@ import fr.gameblack.rcuhcv2.Joueur;
 import fr.gameblack.rcuhcv2.Main;
 import fr.gameblack.rcuhcv2.Orbe;
 import fr.gameblack.rcuhcv2.Pouvoirs;
+import fr.gameblack.rcuhcv2.Roles;
 import fr.gameblack.rcuhcv2.orbes.Eau;
 import fr.gameblack.rcuhcv2.orbes.Feu;
 import fr.gameblack.rcuhcv2.orbes.Foudre;
@@ -75,30 +78,178 @@ public class GameBlack {
 		
 	}
 	
-	@SuppressWarnings("deprecation")
-	public static void bedwarsLancement(Joueur joueur, Main main) {
+	public static void bedwarsLancement(Joueur joueur, Joueur adv, Main main) {
 		
-		Block bloc1 = main.getWorld().getBlockAt(200, 100, 200);
+		generationLit(main);
+		joueur.getPlayer().sendMessage("Vous lancez une partie de Bedwars avec " + adv.getPlayer().getName());
+		adv.getPlayer().sendMessage("Vous lancez une partie de Bedwars avec GameBlack");
 		
-		Block bloc2 = main.getWorld().getBlockAt(200, 100, -200);
-
-        BlockState bedFoot = bloc1.getState();
-        BlockState bedHead = bedFoot.getBlock().getRelative(BlockFace.SOUTH).getState();
-        bedFoot.setType(Material.BED_BLOCK);
-        bedHead.setType(Material.BED_BLOCK);
-        bedFoot.setRawData((byte) 0x0);
-        bedHead.setRawData((byte) 0x8);
-        bedFoot.update(true, false);
-        bedHead.update(true, true);
-        
-        BlockState bedFoot2 = bloc2.getState();
-        BlockState bedHead2 = bedFoot2.getBlock().getRelative(BlockFace.SOUTH).getState();
-        bedFoot2.setType(Material.BED_BLOCK);
-        bedHead2.setType(Material.BED_BLOCK);
-        bedFoot2.setRawData((byte) 0x0);
-        bedHead2.setRawData((byte) 0x8);
-        bedFoot2.update(true, false);
-        bedHead2.update(true, true);
+	}
+	
+	public static void itemJoueur(Joueur joueur, Main main) {
+		
+		if(main.getModeTrial().equalsIgnoreCase("fun")) {
+			
+			if(main.getCampJoueur().size() >= main.getCampStaff().size() || main.getCampJoueur().size() >= main.getCampUHC().size()) {
+				
+				if(joueur.getOrbe() == Orbe.GLACE || joueur.getOrbe() == Orbe.FEU) {
+					
+					joueur.setSpeed(0.05);
+					
+				}
+				else if(joueur.getOrbe() == Orbe.EAU && joueur.isOrbeActif()) {
+					
+					joueur.setSpeed(0.1);
+					
+				}
+				else if(joueur.getOrbe() == Orbe.FOUDRE && joueur.isOrbeActif()) {
+					
+					joueur.setSpeed(0.11);
+					
+				}
+				
+			}
+			
+			Random r = new Random();
+	        int nb = r.nextInt(2);
+	        
+	        Joueur adv = null;
+	        
+	        if(nb == 1) {
+	        	
+	        	List<Joueur> uhc = main.getCampUHC();
+	        	int nb2 = r.nextInt(uhc.size());
+	        	adv = uhc.get(nb2);
+	        	
+	        }
+	        else {
+	        	
+	        	List<Joueur> staff = main.getCampStaff();
+	        	int nb2 = r.nextInt(staff.size());
+	        	adv = staff.get(nb2);
+	        	
+	        }
+			
+			bedwarsLancement(joueur, adv, main);
+			
+		}
+		
+	}
+	
+	public static void litGBCasser(Joueur joueur, Main main) {
+		
+		suppressionLit(main);
+		
+		if(main.getJoueurByRole(Roles.GAMEBLACK) != null) {
+			
+			Joueur gb = main.getJoueurByRole(Roles.GAMEBLACK);
+			
+			if(joueur == main.getAdvBedwars()) {
+				
+				Random r = new Random();
+		        int nb = r.nextInt(3);
+		        
+		        if(nb == 1) {
+		        	
+		        	joueur.addResi(0.03);
+		        	
+		        }
+		        else if(nb == 2) {
+		        	
+		        	joueur.addForce(0.03);
+		        	
+		        }
+		        else {
+		        	
+		        	joueur.addSpeed(0.05);
+		        	
+		        }
+				
+			}
+			else {
+				
+				Random r = new Random();
+		        int nb = r.nextInt(3);
+		        
+		        if(nb == 1) {
+		        	
+		        	gb.removeResi(0.03);
+		        	
+		        }
+		        else if(nb == 2) {
+		        	
+		        	gb.removeForce(0.03);
+		        	
+		        }
+		        else {
+		        	
+		        	gb.removeSpeed(0.05);
+		        	
+		        }
+				
+			}
+			
+			main.getAdvBedwars().setRespawn(false);
+			gb.setRespawn(false);
+			
+		}
+		
+	}
+	
+	public static void litAutreCasser(Joueur joueur, Main main) {
+		
+		suppressionLit(main);
+		
+		if(main.getJoueurByRole(Roles.GAMEBLACK) != null) {
+			
+			if(joueur.getRole() == Roles.GAMEBLACK) {
+				
+				Random r = new Random();
+		        int nb = r.nextInt(3);
+		        
+		        if(nb == 1) {
+		        	
+		        	joueur.addResi(0.05);
+		        	
+		        }
+		        else if(nb == 2) {
+		        	
+		        	joueur.addForce(0.05);
+		        	
+		        }
+		        else {
+		        	
+		        	joueur.addSpeed(0.10);
+		        	
+		        }
+				
+			}
+			else {
+				
+				Random r = new Random();
+		        int nb = r.nextInt(3);
+		        
+		        if(nb == 1) {
+		        	
+		        	main.getAdvBedwars().removeResi(0.03);
+		        	
+		        }
+		        else if(nb == 2) {
+		        	
+		        	main.getAdvBedwars().removeForce(0.03);
+		        	
+		        }
+		        else {
+		        	
+		        	main.getAdvBedwars().removeSpeed(0.05);
+		        	
+		        }
+				
+			}
+			
+		}
+		main.getAdvBedwars().setRespawn(false);
+		main.getJoueurByRole(Roles.GAMEBLACK).setRespawn(false);
 		
 	}
 	
@@ -318,6 +469,142 @@ public class GameBlack {
 	        cycle.runTaskTimer(main, 0, 20);
 			
 		}
+		
+	}
+	
+	@SuppressWarnings("deprecation")
+	public static void suppressionLit(Main main) {
+        
+		//Lit GB
+        main.getWorld().getBlockAt(new Location(main.getWorld(), 200, 101, 201)).setType(Material.AIR);
+        main.getWorld().getBlockAt(new Location(main.getWorld(), 200, 101, 200)).setType(Material.AIR);
+        main.getWorld().getBlockAt(new Location(main.getWorld(), 200, 99, 201)).setType(Material.AIR);
+        main.getWorld().getBlockAt(new Location(main.getWorld(), 200, 99, 200)).setType(Material.AIR);
+        main.getWorld().getBlockAt(new Location(main.getWorld(), 200, 100, 199)).setType(Material.AIR);
+        main.getWorld().getBlockAt(new Location(main.getWorld(), 200, 100, 202)).setType(Material.AIR);
+        main.getWorld().getBlockAt(new Location(main.getWorld(), 201, 100, 201)).setType(Material.AIR);
+        main.getWorld().getBlockAt(new Location(main.getWorld(), 201, 100, 200)).setType(Material.AIR);
+        main.getWorld().getBlockAt(new Location(main.getWorld(), 199, 100, 201)).setType(Material.AIR);
+        main.getWorld().getBlockAt(new Location(main.getWorld(), 199, 100, 200)).setType(Material.AIR);
+        main.getWorld().getBlockAt(new Location(main.getWorld(), 200, 100, 200)).setType(Material.AIR);
+        main.getWorld().getBlockAt(new Location(main.getWorld(), 200, 100, 201)).setType(Material.AIR);
+        
+        //Lit adv
+        main.getWorld().getBlockAt(new Location(main.getWorld(), 200, 101, -200)).setType(Material.AIR);
+        main.getWorld().getBlockAt(new Location(main.getWorld(), 200, 101, -199)).setType(Material.AIR);
+        main.getWorld().getBlockAt(new Location(main.getWorld(), 200, 99, -200)).setType(Material.AIR);
+        main.getWorld().getBlockAt(new Location(main.getWorld(), 200, 99, -199)).setType(Material.AIR);
+        main.getWorld().getBlockAt(new Location(main.getWorld(), 200, 100, -198)).setType(Material.AIR);
+        main.getWorld().getBlockAt(new Location(main.getWorld(), 200, 100, -201)).setType(Material.AIR);
+        main.getWorld().getBlockAt(new Location(main.getWorld(), 201, 100, -200)).setType(Material.AIR);
+        main.getWorld().getBlockAt(new Location(main.getWorld(), 201, 100, -199)).setType(Material.AIR);
+        main.getWorld().getBlockAt(new Location(main.getWorld(), 199, 100, -200)).setType(Material.AIR);
+        main.getWorld().getBlockAt(new Location(main.getWorld(), 199, 100, -199)).setType(Material.AIR);
+        main.getWorld().getBlockAt(new Location(main.getWorld(), 200, 100, -199)).setType(Material.AIR);
+        main.getWorld().getBlockAt(new Location(main.getWorld(), 200, 100, -200)).setType(Material.AIR);
+        
+        main.getWorld().getBlockAt(new Location(main.getWorld(), 200, 98, -200)).setType(Material.AIR);
+        main.getWorld().getBlockAt(new Location(main.getWorld(), 200, 102, -200)).setType(Material.AIR);
+        main.getWorld().getBlockAt(new Location(main.getWorld(), 200, 98, -199)).setType(Material.AIR);
+        main.getWorld().getBlockAt(new Location(main.getWorld(), 200, 102, -199)).setType(Material.AIR);
+        main.getWorld().getBlockAt(new Location(main.getWorld(), 200, 101, -198)).setType(Material.AIR);
+        main.getWorld().getBlockAt(new Location(main.getWorld(), 200, 99, -198)).setType(Material.AIR);
+        main.getWorld().getBlockAt(new Location(main.getWorld(), 200, 101, -201)).setType(Material.AIR);
+        main.getWorld().getBlockAt(new Location(main.getWorld(), 200, 99, -201)).setType(Material.AIR);
+        main.getWorld().getBlockAt(new Location(main.getWorld(), 201, 101, -200)).setType(Material.AIR);
+        main.getWorld().getBlockAt(new Location(main.getWorld(), 201, 99, -200)).setType(Material.AIR);
+        main.getWorld().getBlockAt(new Location(main.getWorld(), 201, 101, -199)).setType(Material.AIR);
+        main.getWorld().getBlockAt(new Location(main.getWorld(), 201, 99, -199)).setType(Material.AIR);
+        main.getWorld().getBlockAt(new Location(main.getWorld(), 199, 101, -200)).setType(Material.AIR);
+        main.getWorld().getBlockAt(new Location(main.getWorld(), 199, 99, -200)).setType(Material.AIR);
+        main.getWorld().getBlockAt(new Location(main.getWorld(), 199, 101, -199)).setType(Material.AIR);
+        main.getWorld().getBlockAt(new Location(main.getWorld(), 199, 99, -199)).setType(Material.AIR);
+        main.getWorld().getBlockAt(new Location(main.getWorld(), 202, 100, -199)).setType(Material.AIR);
+        main.getWorld().getBlockAt(new Location(main.getWorld(), 202, 100, -200)).setType(Material.AIR);
+        main.getWorld().getBlockAt(new Location(main.getWorld(), 198, 100, -199)).setType(Material.AIR);
+        main.getWorld().getBlockAt(new Location(main.getWorld(), 198, 100, -200)).setType(Material.AIR);
+        main.getWorld().getBlockAt(new Location(main.getWorld(), 199, 100, -198)).setType(Material.AIR);
+        main.getWorld().getBlockAt(new Location(main.getWorld(), 201, 100, -198)).setType(Material.AIR);
+        main.getWorld().getBlockAt(new Location(main.getWorld(), 201, 100, -201)).setType(Material.AIR);
+        main.getWorld().getBlockAt(new Location(main.getWorld(), 199, 100, -201)).setType(Material.AIR);
+        main.getWorld().getBlockAt(new Location(main.getWorld(), 200, 100, -202)).setType(Material.AIR);
+        main.getWorld().getBlockAt(new Location(main.getWorld(), 200, 100, -197)).setType(Material.AIR);
+		
+	}
+	
+	@SuppressWarnings("deprecation")
+	public static void generationLit(Main main) {
+		
+		Block bloc1 = main.getWorld().getBlockAt(new Location(main.getWorld(), 200, 100, 200));
+		
+		Block bloc2 = main.getWorld().getBlockAt(new Location(main.getWorld(), 200, 100, -200));
+
+        BlockState bedFoot = bloc1.getState();
+        BlockState bedHead = bedFoot.getBlock().getRelative(BlockFace.SOUTH).getState();
+        bedFoot.setType(Material.BED_BLOCK);
+        bedHead.setType(Material.BED_BLOCK);
+        bedFoot.setRawData((byte) 0x0);
+        bedHead.setRawData((byte) 0x8);
+        bedFoot.update(true, false);
+        bedHead.update(true, true);
+        
+        main.getWorld().getBlockAt(new Location(main.getWorld(), 200, 101, 201)).setType(Material.OBSIDIAN);
+        main.getWorld().getBlockAt(new Location(main.getWorld(), 200, 101, 200)).setType(Material.OBSIDIAN);
+        main.getWorld().getBlockAt(new Location(main.getWorld(), 200, 99, 201)).setType(Material.OBSIDIAN);
+        main.getWorld().getBlockAt(new Location(main.getWorld(), 200, 99, 200)).setType(Material.OBSIDIAN);
+        main.getWorld().getBlockAt(new Location(main.getWorld(), 200, 100, 199)).setType(Material.OBSIDIAN);
+        main.getWorld().getBlockAt(new Location(main.getWorld(), 200, 100, 202)).setType(Material.OBSIDIAN);
+        main.getWorld().getBlockAt(new Location(main.getWorld(), 201, 100, 201)).setType(Material.OBSIDIAN);
+        main.getWorld().getBlockAt(new Location(main.getWorld(), 201, 100, 200)).setType(Material.OBSIDIAN);
+        main.getWorld().getBlockAt(new Location(main.getWorld(), 199, 100, 201)).setType(Material.OBSIDIAN);
+        main.getWorld().getBlockAt(new Location(main.getWorld(), 199, 100, 200)).setType(Material.OBSIDIAN);
+        
+        main.getWorld().getBlockAt(new Location(main.getWorld(), 200, 101, -200)).setType(Material.WOOD);
+        main.getWorld().getBlockAt(new Location(main.getWorld(), 200, 101, -199)).setType(Material.WOOD);
+        main.getWorld().getBlockAt(new Location(main.getWorld(), 200, 99, -200)).setType(Material.WOOD);
+        main.getWorld().getBlockAt(new Location(main.getWorld(), 200, 99, -199)).setType(Material.WOOD);
+        main.getWorld().getBlockAt(new Location(main.getWorld(), 200, 100, -198)).setType(Material.WOOD);
+        main.getWorld().getBlockAt(new Location(main.getWorld(), 200, 100, -201)).setType(Material.WOOD);
+        main.getWorld().getBlockAt(new Location(main.getWorld(), 201, 100, -200)).setType(Material.WOOD);
+        main.getWorld().getBlockAt(new Location(main.getWorld(), 201, 100, -199)).setType(Material.WOOD);
+        main.getWorld().getBlockAt(new Location(main.getWorld(), 199, 100, -200)).setType(Material.WOOD);
+        main.getWorld().getBlockAt(new Location(main.getWorld(), 199, 100, -199)).setType(Material.WOOD);
+        
+        main.getWorld().getBlockAt(new Location(main.getWorld(), 200, 98, -200)).setType(Material.ENDER_STONE);
+        main.getWorld().getBlockAt(new Location(main.getWorld(), 200, 102, -200)).setType(Material.ENDER_STONE);
+        main.getWorld().getBlockAt(new Location(main.getWorld(), 200, 98, -199)).setType(Material.ENDER_STONE);
+        main.getWorld().getBlockAt(new Location(main.getWorld(), 200, 102, -199)).setType(Material.ENDER_STONE);
+        main.getWorld().getBlockAt(new Location(main.getWorld(), 200, 101, -198)).setType(Material.ENDER_STONE);
+        main.getWorld().getBlockAt(new Location(main.getWorld(), 200, 99, -198)).setType(Material.ENDER_STONE);
+        main.getWorld().getBlockAt(new Location(main.getWorld(), 200, 101, -201)).setType(Material.ENDER_STONE);
+        main.getWorld().getBlockAt(new Location(main.getWorld(), 200, 99, -201)).setType(Material.ENDER_STONE);
+        main.getWorld().getBlockAt(new Location(main.getWorld(), 201, 101, -200)).setType(Material.ENDER_STONE);
+        main.getWorld().getBlockAt(new Location(main.getWorld(), 201, 99, -200)).setType(Material.ENDER_STONE);
+        main.getWorld().getBlockAt(new Location(main.getWorld(), 201, 101, -199)).setType(Material.ENDER_STONE);
+        main.getWorld().getBlockAt(new Location(main.getWorld(), 201, 99, -199)).setType(Material.ENDER_STONE);
+        main.getWorld().getBlockAt(new Location(main.getWorld(), 199, 101, -200)).setType(Material.ENDER_STONE);
+        main.getWorld().getBlockAt(new Location(main.getWorld(), 199, 99, -200)).setType(Material.ENDER_STONE);
+        main.getWorld().getBlockAt(new Location(main.getWorld(), 199, 101, -199)).setType(Material.ENDER_STONE);
+        main.getWorld().getBlockAt(new Location(main.getWorld(), 199, 99, -199)).setType(Material.ENDER_STONE);
+        main.getWorld().getBlockAt(new Location(main.getWorld(), 202, 100, -199)).setType(Material.ENDER_STONE);
+        main.getWorld().getBlockAt(new Location(main.getWorld(), 202, 100, -200)).setType(Material.ENDER_STONE);
+        main.getWorld().getBlockAt(new Location(main.getWorld(), 198, 100, -199)).setType(Material.ENDER_STONE);
+        main.getWorld().getBlockAt(new Location(main.getWorld(), 198, 100, -200)).setType(Material.ENDER_STONE);
+        main.getWorld().getBlockAt(new Location(main.getWorld(), 199, 100, -198)).setType(Material.ENDER_STONE);
+        main.getWorld().getBlockAt(new Location(main.getWorld(), 201, 100, -198)).setType(Material.ENDER_STONE);
+        main.getWorld().getBlockAt(new Location(main.getWorld(), 201, 100, -201)).setType(Material.ENDER_STONE);
+        main.getWorld().getBlockAt(new Location(main.getWorld(), 199, 100, -201)).setType(Material.ENDER_STONE);
+        main.getWorld().getBlockAt(new Location(main.getWorld(), 200, 100, -202)).setType(Material.ENDER_STONE);
+        main.getWorld().getBlockAt(new Location(main.getWorld(), 200, 100, -197)).setType(Material.ENDER_STONE);
+        
+        BlockState bedFoot2 = bloc2.getState();
+        BlockState bedHead2 = bedFoot2.getBlock().getRelative(BlockFace.SOUTH).getState();
+        bedFoot2.setType(Material.BED_BLOCK);
+        bedHead2.setType(Material.BED_BLOCK);
+        bedFoot2.setRawData((byte) 0x0);
+        bedHead2.setRawData((byte) 0x8);
+        bedFoot2.update(true, false);
+        bedHead2.update(true, true);
 		
 	}
 	
