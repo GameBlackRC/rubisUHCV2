@@ -217,6 +217,7 @@ public class Farmeurimmo {
 			cible.setCamp("farmeurimmo");
 			cible.getPlayer().sendMessage("Farmeurimmo vient de changer votre camp, vous devez désormais gagner avec lui");
 			joueur.getPlayer().sendMessage(cible.getPlayer().getName() + " doit désormais gagner avec vous");
+			joueur.getPlayer().setMaxHealth(joueur.getPlayer().getMaxHealth()-2);
 			
 			if(cible.getRole() == Roles.RAPTOR) {
 	        	

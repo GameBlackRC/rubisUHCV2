@@ -24,6 +24,7 @@ import fr.gameblack.rcuhcv2.Main;
 import fr.gameblack.rcuhcv2.Orbe;
 import fr.gameblack.rcuhcv2.Roles;
 import fr.gameblack.rcuhcv2.Statut;
+import fr.gameblack.rcuhcv2.evenement.Minerais;
 import fr.gameblack.rcuhcv2.orbes.Feu;
 import fr.gameblack.rcuhcv2.roles.joueur.Jeannot;
 import fr.gameblack.rcuhcv2.roles.staff.GameBlack;
@@ -169,6 +170,13 @@ public class PlayerActionListener implements Listener{
 		
 		Player player = event.getPlayer();
 		Joueur joueur = main.getJoueur(player);
+		
+		if(event.getBlock().getType() == Material.GLOWSTONE || event.getBlock().getType() == Material.NETHER_BRICK || event.getBlock().getType() == Material.QUARTZ) {
+			
+			event.setCancelled(true);
+			Minerais.InteractMinerais(joueur, event.getBlock().getType(), event.getBlock().getLocation());
+			
+		}
 		
 		if(event.getBlock().getType() == Material.BED_BLOCK && ((event.getBlock().getLocation().getX() == 200 && event.getBlock().getLocation().getY() == 100 && event.getBlock().getLocation().getZ() == 200) || (event.getBlock().getLocation().getX() == 200 && event.getBlock().getLocation().getY() == 100 && event.getBlock().getLocation().getZ() == 201))) {
 			

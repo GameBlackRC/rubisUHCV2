@@ -210,7 +210,7 @@ public class Slup {
 	
 		if(joueur.getPacteSlup() == 2) {
 		
-			if(cible.getRole() == Roles.TRIAL) {
+			if(cible.getRole() == Roles.TRIAL && !cible.getCamp().equalsIgnoreCase("solo")) {
 				
 				cible.setCamp("duo");
 				joueur.setCamp("duo");

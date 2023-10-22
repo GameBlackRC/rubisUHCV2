@@ -3,10 +3,12 @@ package fr.gameblack.rcuhcv2.evenement;
 import java.util.Random;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 
 import fr.gameblack.rcuhcv2.Joueur;
 import fr.gameblack.rcuhcv2.Main;
@@ -15,17 +17,59 @@ import fr.gameblack.rcuhcv2.task.ItemCD;
 
 public class Minerais {
 	
-	public static void InteractMinerais(Joueur joueur, String minerais) {
+	public static void InteractMinerais(Joueur joueur, Material minerais, Location bloc_loc) {
 		
-		if(minerais.equalsIgnoreCase("topaze")) {
+		if(minerais == Material.GLOWSTONE) {
 			
+			if(joueur.getPlayer().getInventory().firstEmpty() == -1) {
+				
+				joueur.getPlayer().sendMessage("Votre inventaire est plein");
+				
+			}
+			else {
+				
+				Bukkit.getWorld("world").getBlockAt(bloc_loc).setType(Material.AIR);
+				joueur.getPlayer().getInventory().addItem(new ItemStack(Material.GLOWSTONE_DUST, 1));
+				
+			}
 			
+		}
+		else if (minerais == Material.NETHER_BRICK) {
+			
+			if(joueur.getPlayer().getInventory().firstEmpty() == -1) {
+				
+				joueur.getPlayer().sendMessage("Votre inventaire est plein");
+				
+			}
+			else {
+				
+				Bukkit.getWorld("world").getBlockAt(bloc_loc).setType(Material.AIR);
+				joueur.getPlayer().getInventory().addItem(new ItemStack(Material.NETHER_BRICK_ITEM, 1));
+				
+			}
+			
+		}
+		else if (minerais == Material.QUARTZ_BLOCK) {
+			
+			if(joueur.getPlayer().getInventory().firstEmpty() == -1) {
+				
+				joueur.getPlayer().sendMessage("Votre inventaire est plein");
+				
+			}
+			else {
+				
+				Bukkit.getWorld("world").getBlockAt(bloc_loc).setType(Material.AIR);
+				joueur.getPlayer().getInventory().addItem(new ItemStack(Material.QUARTZ, 1));
+				
+			}
 			
 		}
 		
 	}
 	
 	public static void InteractItemRubis(Joueur joueur, Main main) {
+		
+		joueur.getPlayer().getInventory().remove(Material.NETHER_BRICK);
 		
 		Random r = new Random();
         int nb = r.nextInt(3);
@@ -56,6 +100,8 @@ public class Minerais {
 	
 	public static void InteractItemRubisBleu(Joueur joueur, Main main) {
 		
+		joueur.getPlayer().getInventory().remove(Material.QUARTZ_BLOCK);
+		
 		Random r = new Random();
         int nb = r.nextInt(3);
         
@@ -71,13 +117,15 @@ public class Minerais {
         }
         else {
         	
-        	joueur.addSpeed(0.02);
+        	joueur.addSpeed(0.05);
         	
         }
 		
 	}
 	
 	public static void InteractItemTopaze(Joueur joueur, Main main) {
+		
+		joueur.getPlayer().getInventory().remove(Material.GLOWSTONE);
 		
 		Random r = new Random();
         int nb = r.nextInt(100);
@@ -135,6 +183,7 @@ public class Minerais {
         int signe_x = r.nextInt(2);
         int signe_z = r.nextInt(2);
         int cos_x = r.nextInt(200);
+        int nb = r.nextInt(3);
         cos_x += 150;
         if (signe_x == 1) {
             cos_x = -cos_x;
@@ -150,9 +199,22 @@ public class Minerais {
         int z = cos_z; // Obtenez une coordonnée Z aléatoire
         int y = world.getHighestBlockYAt(x, z); // Obtenez la hauteur de la surface à ces coordonnées 
 
-        // Faites apparaître le bloc aléatoire à la surface
-        world.getBlockAt(x, y, z).setType(Material.GLOWSTONE); // Remplacez Material.DIAMOND_BLOCK par le bloc que vous souhaitez
-		
+        if(nb == 1) {
+        
+        	world.getBlockAt(x, y, z).setType(Material.GLOWSTONE);
+        	
+        }
+        else if(nb == 2) {
+        	
+        	world.getBlockAt(x, y, z).setType(Material.QUARTZ_BLOCK);
+        	
+        }
+        else {
+        	
+        	world.getBlockAt(x, y, z).setType(Material.NETHER_BRICK);
+        	
+        }
+        
         int proba_malivol = r.nextInt(100);
         
         if(proba_malivol <= 50 && main.getJoueurByRole(Roles.MALIVOL) != null) {
@@ -161,11 +223,13 @@ public class Minerais {
         	
         }
         
-        if(joueur != null) {
+        if(joueur != null && joueur.isMort()) {
         	
         	joueur.getPlayer().sendMessage("Un minerais est apparu en x: " + cos_x + ", y: " + y + " et z: " + cos_z);
         	
         }
+        
+        Bukkit.broadcastMessage("Un minerais vient d'apparaitre");
         
 	}
 

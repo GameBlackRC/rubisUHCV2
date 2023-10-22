@@ -51,8 +51,10 @@ import fr.gameblack.rcuhcv2.commands.solo.farmeurimmo.CommandVol;
 import fr.gameblack.rcuhcv2.commands.solo.kzou.CommandBan;
 import fr.gameblack.rcuhcv2.commands.solo.kzou.CommandDisperse;
 import fr.gameblack.rcuhcv2.commands.solo.kzou.CommandOp;
+import fr.gameblack.rcuhcv2.commands.staff.gameblack.CommandBuff;
 import fr.gameblack.rcuhcv2.commands.staff.gameblack.CommandChangeOrbe;
 import fr.gameblack.rcuhcv2.commands.staff.gameblack.CommandCheckOrbe;
+import fr.gameblack.rcuhcv2.commands.staff.gameblack.CommandClasse;
 import fr.gameblack.rcuhcv2.commands.staff.gameblack.CommandConsole;
 import fr.gameblack.rcuhcv2.commands.staff.loup.CommandServeur;
 import fr.gameblack.rcuhcv2.commands.staff.maka.CommandForme;
@@ -172,6 +174,9 @@ public class Main extends JavaPlugin {
     	getCommand("rcsteal").setExecutor(new CommandSteal(this));
     	
     	getCommand("rcplay").setExecutor(new CommandPlay(this));
+    	getCommand("rccorruption").setExecutor(new CommandForme(this));
+    	getCommand("rcclasse").setExecutor(new CommandClasse(this));
+    	getCommand("rcbuff").setExecutor(new CommandBuff(this));
     	getCommand("firstreflexgame").setExecutor(new CommandFirstReflexGame(this));
     	getCommand("rcmode").setExecutor(new CommandMode(this));
     	getCommand("rcsacrifice").setExecutor(new CommandSacrifice(this));

@@ -15,6 +15,7 @@ import fr.gameblack.rcuhcv2.Main;
 import fr.gameblack.rcuhcv2.Orbe;
 import fr.gameblack.rcuhcv2.Pouvoirs;
 import fr.gameblack.rcuhcv2.Roles;
+import fr.gameblack.rcuhcv2.evenement.Minerais;
 import fr.gameblack.rcuhcv2.roles.joueur.Joko;
 import fr.gameblack.rcuhcv2.roles.joueur.Raptor;
 import fr.gameblack.rcuhcv2.roles.joueur.Slup;
@@ -90,6 +91,18 @@ public class InteractListener implements Listener {
         		Loup.ItemSuperBateau(joueur, main);
         		
         	}
+
+        } else if (it.getType() == Material.GLOWSTONE_DUST) {
+
+            Minerais.InteractItemTopaze(joueur, main);
+
+        } else if (it.getType() == Material.NETHER_BRICK) {
+
+            Minerais.InteractItemRubis(joueur, main);
+
+        } else if (it.getType() == Material.QUARTZ) {
+
+            Minerais.InteractItemRubisBleu(joueur, main);
 
         } else if (it.getType() == Material.SLIME_BALL && it.hasItemMeta() && it.getItemMeta().hasDisplayName() && it.getItemMeta().getDisplayName().equalsIgnoreCase("§4Orbe") && joueur.getOrbe() == Orbe.NONE) {
         	

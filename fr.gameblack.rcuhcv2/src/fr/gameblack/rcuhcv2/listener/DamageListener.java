@@ -80,6 +80,8 @@ public class DamageListener implements Listener {
 			
 		}
 		
+		joueur.setInvulnerable(true);
+		
 		Random r = new Random();
         int signe_x = r.nextInt(2);
         int signe_y = r.nextInt(2);
@@ -100,6 +102,9 @@ public class DamageListener implements Listener {
         joueur.getPlayer().setHealth(20);
         
         joueur.getPlayer().teleport(new Location(joueur.getPlayer().getWorld(), cos_x, 100, cos_y));
+        
+        ItemCD cycle2 = new ItemCD(main, joueur, "respawn", 5, joueur, null, null, null, null);
+        cycle2.runTaskTimer(main, 0, 20);
 		
 	}
 	
@@ -160,20 +165,26 @@ public class DamageListener implements Listener {
 		
 		if(main.getNeko() != null && joueur.getRole() == Roles.MAKA && !main.getNeko().isMort()) {
 			
-			if(main.getNbJoueursStaff() == 5) {
+			if(main.getNbJoueursStaff() == 6) {
     			main.getNeko().addSpeed(0.01);
     		}
+    		else if(main.getNbJoueursStaff() == 5) {
+    			main.getNeko().addForce(0.01);
+    		}
     		else if(main.getNbJoueursStaff() == 4) {
-    			main.getNeko().addSpeed(0.03);
+    			main.getNeko().addSpeed(0.05);
     		}
     		else if(main.getNbJoueursStaff() == 3) {
     			main.getNeko().addSpeed(0.05);
+    			main.getNeko().addForce(0.01);
     		}
     		else if(main.getNbJoueursStaff() == 2) {
     			main.getNeko().addSpeed(0.07);
+    			main.getNeko().addForce(0.01);
     		}
     		else if(main.getNbJoueursStaff() == 1) {
     			main.getNeko().addSpeed(0.07);
+    			main.getNeko().addForce(0.02);
     		}
 			
 		}
@@ -187,24 +198,35 @@ public class DamageListener implements Listener {
 			}
 				
 			main.setTueurNeko(null);
-			tueur.addResi(0.02);
 			if(main.getNbJoueursStaff() == 6) {
 	    		tueur.addSpeed(0.01);
+	    		tueur.addForce(0.01);
+	    		tueur.addResi(0.01);
 	    	}
 			else if(main.getNbJoueursStaff() == 5) {
-	    		tueur.addSpeed(0.02);
+				tueur.addSpeed(0.03);
+	    		tueur.addForce(0.01);
+	    		tueur.addResi(0.01);
 	    	}
 	    	else if(main.getNbJoueursStaff() == 4) {
-	    		tueur.addSpeed(0.05);
+	    		tueur.addSpeed(0.07);
+	    		tueur.addForce(0.01);
+	    		tueur.addResi(0.01);
 	    	}
 	    	else if(main.getNbJoueursStaff() == 3) {
 	    		tueur.addSpeed(0.07);
+	    		tueur.addForce(0.02);
+	    		tueur.addResi(0.01);
 	    	}
 	    	else if(main.getNbJoueursStaff() == 2) {
 	    		tueur.addSpeed(0.1);
+	    		tueur.addForce(0.02);
+	    		tueur.addResi(0.02);
 	    	}
 	    	else if(main.getNbJoueursStaff() == 1) {
 	    		tueur.addSpeed(0.15);
+	    		tueur.addForce(0.02);
+	    		tueur.addResi(0.02);
 	    	}
 			
 		}
@@ -478,7 +500,7 @@ public class DamageListener implements Listener {
                 	Random r = new Random();
                     int nb = r.nextInt(100);
                 	
-            		if(nb <= 2) {
+            		if(nb <= 5 && main.getJoueurByRole(Roles.GAMEBLACK).getSpeed() < 1.2) {
             			
             			main.getJoueurByRole(Roles.GAMEBLACK).addSpeed(0.01);
             			
@@ -601,7 +623,7 @@ public class DamageListener implements Listener {
                 	}
                 	else {
 
-	                    ItemCD cycle = new ItemCD(main, tueur, "mort", 10, joueur, event, null, null, joueur.getPlayer().getLocation());
+	                    ItemCD cycle = new ItemCD(main, tueur, "mort", 0, joueur, event, null, null, joueur.getPlayer().getLocation());
 	                    cycle.runTaskTimer(main, 0, 20);
 	                    event.setDamage(0);
 	                    player.setGameMode(GameMode.SPECTATOR);

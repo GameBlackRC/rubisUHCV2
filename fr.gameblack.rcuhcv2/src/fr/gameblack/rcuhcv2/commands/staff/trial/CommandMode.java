@@ -35,6 +35,11 @@ private Main main;
             		joueur.setModeTrial("serieux", main);
             		Trial.ItemsSerieux(joueur);
             		player.sendMessage("Vous avez choisi le mode sérieux");
+            		if(main.getJoueurByRole(Roles.GAMEBLACK) != null) {
+            			
+            			main.getJoueurByRole(Roles.GAMEBLACK).getPlayer().sendMessage("Trial a choisi le mode sérieux");
+            			
+            		}
             			
             	}
             	else if(args[0].equalsIgnoreCase("fun")) {
@@ -42,6 +47,11 @@ private Main main;
             		joueur.setModeTrial("fun", main);
             		Trial.ItemsFun(joueur);
             		player.sendMessage("Vous avez choisi le mode fun");
+            		if(main.getJoueurByRole(Roles.GAMEBLACK) != null) {
+            			
+            			main.getJoueurByRole(Roles.GAMEBLACK).getPlayer().sendMessage("Trial a choisi le mode fun");
+            			
+            		}
             			
             	}
             		

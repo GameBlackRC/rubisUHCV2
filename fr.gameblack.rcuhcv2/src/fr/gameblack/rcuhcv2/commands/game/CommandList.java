@@ -81,6 +81,7 @@ public class CommandList implements CommandExecutor {
 	    		    if(j.getRole() == Roles.SLUP) {
 	    		    	
 	    		    	lore.add("Slime : " + j.getSlime());
+	    		    	lore.add("Pacte : " + j.getPacteSlup());
 	    		    	
 	    		    }
 	    		    if(j.getRole() == Roles.MAKA) {

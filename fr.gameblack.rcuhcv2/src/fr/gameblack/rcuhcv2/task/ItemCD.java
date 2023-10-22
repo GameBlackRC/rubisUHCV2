@@ -7,6 +7,7 @@ import fr.gameblack.rcuhcv2.Pouvoirs;
 import fr.gameblack.rcuhcv2.Roles;
 import fr.gameblack.rcuhcv2.listener.DamageListener;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
@@ -190,6 +191,10 @@ public class ItemCD extends BukkitRunnable {
             		main.setNiv_maledition(0);
             		
             		
+            		
+            	} else if(item == "respawn") {
+            		
+            		joueur.setInvulnerable(false);
             		
             	} else if(item == "maudit_uhc_2") {
             		
@@ -416,7 +421,7 @@ public class ItemCD extends BukkitRunnable {
 	            		
 	            	}
 	            	
-	            } else if(joueur.getRole() == Roles.RAPTOR) {
+	            } else if(joueur.getRole() == Roles.RAPTOR || joueur.getVol().contains(Pouvoirs.RAPTOR_RAGE)) {
 	            	
 	            	if(item == "antikb_raptor") {
 	            		
@@ -445,7 +450,7 @@ public class ItemCD extends BukkitRunnable {
 	            		
 	            	}
 	            	
-	            } else if(joueur.getRole() == Roles.TOINOU) {
+	            } else if(joueur.getRole() == Roles.TOINOU || joueur.getVol().contains(Pouvoirs.TOINOU_VACANCES)) {
 	            	
 	            	if(item == "speed_cheat_toinou") {
 	            		
@@ -460,6 +465,8 @@ public class ItemCD extends BukkitRunnable {
 	            		joueur.show(main);
 	            		joueur.setInvulnerable(false);
 	            		joueur.setInvisible(false);
+	            		joueur.removeSpeed(0.07);
+	            		joueur.removeForce(0.01);
 	            		
 	            	}
 	            	
@@ -511,15 +518,31 @@ public class ItemCD extends BukkitRunnable {
 	            			
 	            		}
 	            		
+	            		joueur.getPlayer().sendMessage("Votre pouvoir 'Benihime Aratame' est fini");
+	            		
 	            	} else if(item == "corruption_trial") {
 	            		
 	            		cible.addForce(0.02);
 	            		cible.addSpeed(0.03);
 	            		cible.setCorrompu(false);
+	            		main.getCD().remove(Pouvoirs.TRIAL_CORRUPTION);
+	            		joueur.getPlayer().sendMessage("Le joueur " + cible.getPlayer().getName() + " n'est plus corrompu");
+	            		
+	            	} else if(item == "sakashimayokoshima_trial") {
+	            		
+	            		joueur.setInvisible(false);
+	            		joueur.show(main);
+	            		for(Joueur j : players) {
+	            			
+	            			Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(), "skin set " + j.getPlayer().getName() + " " + j.getPlayer().getName());
+	            			
+	            		}
+	            		
+	            		joueur.getPlayer().sendMessage("Votre pouvoir 'Sakashima Yokoshima' est fini");
 	            		
 	            	}
 	            	
-	            } else if(joueur.getRole() == Roles.LOUP) {
+	            } else if(joueur.getRole() == Roles.LOUP || joueur.getVol().contains(Pouvoirs.LOUP_SUPERBATEAU)) {
 	            	
 	            	if(item == "vol_loup") {
 	            		
@@ -553,7 +576,7 @@ public class ItemCD extends BukkitRunnable {
 	            		
 	            	}
 	            	
-	            } else if (joueur.getRole() == Roles.JOKO) {
+	            } else if (joueur.getRole() == Roles.JOKO || joueur.getVol().contains(Pouvoirs.JOKO_CUBE)) {
 	
 	                if (item == "cube") {
 	
@@ -621,7 +644,7 @@ public class ItemCD extends BukkitRunnable {
 	            		
 	            	}
 	            	
-	            } else if(joueur.getRole() == Roles.KZOU) {
+	            } else if(joueur.getRole() == Roles.KZOU || joueur.getVol().contains(Pouvoirs.KZOU_BAN)) {
 	            	
 	            	if(item == "ban") {
 	            		

@@ -11,6 +11,8 @@ public class Toinou {
 	public static void Items(Joueur joueur) {
 		
 		Texte(joueur.getPlayer());
+		joueur.addSpeed(0.05);
+		joueur.addForce(0.02);
 		
 	}
 	
@@ -30,6 +32,7 @@ public class Toinou {
 		joueur.setInvulnerable(true);
 		joueur.setInvisible(true);
 		joueur.hide(main);
+		joueur.addSpeed(0.1);
 		ItemCD cycle = new ItemCD(main, joueur, "vacance_toinou", 120, joueur, null, null, null, null);
         cycle.runTaskTimer(main, 0, 20);
 		

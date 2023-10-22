@@ -13,6 +13,7 @@ import org.bukkit.potion.PotionEffectType;
 
 import fr.gameblack.rcuhcv2.Joueur;
 import fr.gameblack.rcuhcv2.Main;
+import fr.gameblack.rcuhcv2.Pouvoirs;
 import fr.gameblack.rcuhcv2.Roles;
 import fr.gameblack.rcuhcv2.task.ItemCD;
 import fr.gameblack.rcuhcv2.task.JeuCD;
@@ -46,10 +47,10 @@ public class Trial {
 	
 	public static void ItemsSerieuxSolo(Joueur joueur) {
 		
-		joueur.setForce(1.05);
+		joueur.setForce(1.02);
 		joueur.setSpeed(1.05);
-		joueur.setResi(1.15);
-		joueur.getPlayer().setMaxHealth(24);
+		joueur.setResi(1.12);
+		joueur.getPlayer().setMaxHealth(22);
 		
 		ItemStack coffre = new ItemStack(Material.NETHER_STAR, 1);
         ItemMeta coffreM = coffre.getItemMeta();
@@ -67,10 +68,10 @@ public class Trial {
 	
 	public static void ItemsFunSolo(Joueur joueur) {
 		
-		joueur.setForce(1.05);
+		joueur.setForce(1.02);
 		joueur.setSpeed(1.05);
-		joueur.setResi(1.15);
-		joueur.getPlayer().setMaxHealth(24);
+		joueur.setResi(1.12);
+		joueur.getPlayer().setMaxHealth(22);
 		
 		ItemStack coffre = new ItemStack(Material.NETHER_STAR, 1);
         ItemMeta coffreM = coffre.getItemMeta();
@@ -224,32 +225,49 @@ public class Trial {
 	
 	public static void ItemSakashimaYokoshima(Joueur joueur, Main main) {
 		
-		List<Joueur> inZone = new ArrayList<>();
-		List<String> skin = new ArrayList<>();
-		
-		for(Entity entity : joueur.getPlayer().getNearbyEntities(45, 45, 45)) {
+		if(main.getCD().contains(Pouvoirs.TRIAL_SAKASHIMA)) {
 			
-			if(entity instanceof Player) {
+			joueur.getPlayer().sendMessage("Vous venez d'activer votre pouvoir 'Sakashima Yokoshima'");
+			
+			main.getCD().contains(Pouvoirs.TRIAL_SAKASHIMA);
+		
+			List<Joueur> inZone = new ArrayList<>();
+			List<Joueur> skin = new ArrayList<>();
+			
+			for(Entity entity : joueur.getPlayer().getNearbyEntities(45, 45, 45)) {
 				
-				Player pls = (Player) entity;
-				Joueur j = main.getJoueur(pls);
-				
-				j.setInZoneSkinTrial(true);
-				inZone.add(j);
-				skin.add(j.getPlayer().getName());
+				if(entity instanceof Player) {
+					
+					Player pls = (Player) entity;
+					Joueur j = main.getJoueur(pls);
+					
+					j.setInZoneSkinTrial(true);
+					inZone.add(j);
+					skin.add(j);
+					
+				}
 				
 			}
 			
-		}
-		
-		for(Joueur j : inZone) {
+			for(Joueur j : inZone) {
+				
+				Random r = new Random();
+		        int nb = r.nextInt(skin.size());
+		        
+		        j.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 100, 0, false, false));
+		        	        
+		        Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(), "skin set " + j.getPlayer().getName() + " " + skin.get(nb).getPlayer().getName());
+		        
+		        j.getPlayer().teleport(skin.get(nb).getPlayer().getLocation());
+				
+		        skin.remove(nb);
+		        
+			}
 			
-			Random r = new Random();
-	        int nb = r.nextInt(skin.size());
-	        	        
-	        Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(), "skin set " + j.getPlayer().getName() + " " + skin.get(nb));
-			
-	        skin.remove(nb);
+			ItemCD cycle = new ItemCD(main, joueur, "sakashimayokoshima_trial", 90, joueur, null, inZone, null, null);
+	        cycle.runTaskTimer(main, 0, 20);
+	        joueur.setInvisible(true);
+	        joueur.hide(main);
 	        
 		}
 		
@@ -257,10 +275,18 @@ public class Trial {
 	
 	public static void ItemBenihimeAratame(Joueur joueur, Main main) {
 		
-		main.setZoneBenihimeActif(true);
+		if(main.getCD().contains(Pouvoirs.TRIAL_BENIHIME)) {
+			
+			joueur.getPlayer().sendMessage("Vous venez d'activer votre pouvoir 'Benihime Aratame'");
+			
+			main.getCD().add(Pouvoirs.TRIAL_BENIHIME);
 		
-		ItemCD cycle = new ItemCD(main, joueur, "benihimeAratame_trial", 60, joueur, null, null, null, null);
-        cycle.runTaskTimer(main, 0, 20);
+			main.setZoneBenihimeActif(true);
+				
+			ItemCD cycle = new ItemCD(main, joueur, "benihimeAratame_trial", 60, joueur, null, null, null, null);
+		    cycle.runTaskTimer(main, 0, 20);
+		        
+		}
 		
 	}
 	
@@ -318,6 +344,7 @@ public class Trial {
 		cible.setCorrompu(true);
 		cible.removeForce(0.02);
 		cible.removeSpeed(0.03);
+		joueur.getPlayer().sendMessage("Vous venez de corrompre " + cible.getPlayer().getName());
 		ItemCD cycle = new ItemCD(main, joueur, "corruption_trial", 600, cible, null, null, null, null);
         cycle.runTaskTimer(main, 0, 20);
 		

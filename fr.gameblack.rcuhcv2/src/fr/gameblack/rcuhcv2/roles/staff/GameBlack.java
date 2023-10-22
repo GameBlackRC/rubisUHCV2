@@ -23,10 +23,6 @@ import fr.gameblack.rcuhcv2.Main;
 import fr.gameblack.rcuhcv2.Orbe;
 import fr.gameblack.rcuhcv2.Pouvoirs;
 import fr.gameblack.rcuhcv2.Roles;
-import fr.gameblack.rcuhcv2.orbes.Eau;
-import fr.gameblack.rcuhcv2.orbes.Feu;
-import fr.gameblack.rcuhcv2.orbes.Foudre;
-import fr.gameblack.rcuhcv2.orbes.Glace;
 import fr.gameblack.rcuhcv2.task.ItemCD;
 
 public class GameBlack {
@@ -97,17 +93,17 @@ public class GameBlack {
 				
 				if(joueur.getOrbe() == Orbe.GLACE || joueur.getOrbe() == Orbe.FEU) {
 					
-					joueur.setSpeed(0.05);
+					joueur.setSpeed(1.05);
 					
 				}
 				else if(joueur.getOrbe() == Orbe.EAU && joueur.isOrbeActif()) {
 					
-					joueur.setSpeed(0.1);
+					joueur.setSpeed(1.1);
 					
 				}
 				else if(joueur.getOrbe() == Orbe.FOUDRE && joueur.isOrbeActif()) {
 					
-					joueur.setSpeed(0.11);
+					joueur.setSpeed(1.11);
 					
 				}
 				
@@ -342,98 +338,77 @@ public class GameBlack {
 	
 	public static void CommandeClasse(Joueur joueur, Classe classe, Main main) {
 		
-		boolean orbe = false;
-		
-		if(joueur.getOrbe() == Orbe.EAU && joueur.isOrbeActif()) {
+		if(joueur.getClasseGB() == Classe.ATTAQUANT) {
 			
-			Eau.RemoveEffets(joueur, main);
-			orbe = true;
+			joueur.removeForce(0.1);
+			joueur.addResi(0.07);
 			
 		}
-		else if(joueur.getOrbe() == Orbe.FEU && joueur.isOrbeActif()) {
+		else if(joueur.getClasseGB() == Classe.DEFENSEUR) {
 			
-			Feu.RemoveEffets(joueur, main);
-			orbe = true;
-			
-		}
-		else if(joueur.getOrbe() == Orbe.GLACE && joueur.isOrbeActif()) {
-			
-			Glace.RemoveEffets(joueur, main);
-			orbe = true;
+			joueur.addSpeed(0.15);
+			joueur.removeResi(0.07);
 			
 		}
-		else if(joueur.getOrbe() == Orbe.FOUDRE && joueur.isOrbeActif()) {
+		else if(joueur.getClasseGB() == Classe.DISTANCE) {
 			
-			Foudre.RemoveEffets(joueur, main);
-			orbe = true;
-			
-		}
-		
-		if(classe == Classe.ATTAQUANT) {
-			
-			joueur.setForce(0.1);
-			joueur.setResi(0.03);
-			joueur.setSpeed(0);
+			joueur.removeSpeed(0.05);
+			joueur.addForce(0.1);
 			
 		}
-		else if(classe == Classe.DEFENSEUR) {
+		else if(joueur.getClasseGB() == Classe.RAPIDE) {
 			
-			joueur.setSpeed(-0.1);
-			joueur.setResi(0.2);
-			joueur.setForce(0);
-			
-		}
-		else if(classe == Classe.DISTANCE) {
-			
-			joueur.setSpeed(0.05);
-			joueur.setForce(-0.1);
-			joueur.setResi(0.1);
+			joueur.removeSpeed(0.25);
+			joueur.addForce(0.03);
+			joueur.setAbso(true);
 			
 		}
-		else if(classe == Classe.RAPIDE) {
+		else if(joueur.getClasseGB() == Classe.SUPPORT) {
 			
-			joueur.setSpeed(0.15);
-			joueur.setForce(-0.03);
-			joueur.setResi(0.01);
-			
-		}
-		else if(classe == Classe.SUPPORT) {
-			
-			joueur.setSpeed(0.05);
-			joueur.setResi(0.08);
-			joueur.setForce(0);
-			
-		}
-		else if(classe == Classe.RIEN) {
-			
-			joueur.setSpeed(0);
-			joueur.setResi(0.1);
-			joueur.setForce(0);
+			joueur.removeSpeed(0.05);
+			joueur.addResi(0.02);
 			
 		}
 		
-		if(orbe) {
+		if(joueur.getClasseGB() == Classe.ATTAQUANT) {
 			
-			if(joueur.getOrbe() == Orbe.EAU) {
-				
-				Eau.Effets(joueur, main);
-				
-			}
-			else if(joueur.getOrbe() == Orbe.FEU) {
-				
-				Feu.Effets(joueur, main);
-				
-			}
-			else if(joueur.getOrbe() == Orbe.GLACE) {
-				
-				Glace.Effets(joueur, main);
-				
-			}
-			else if(joueur.getOrbe() == Orbe.FOUDRE) {
-				
-				Foudre.Effets(joueur, main);
-				
-			}
+			joueur.addForce(0.1);
+			joueur.removeResi(0.07);
+			joueur.getPlayer().sendMessage("Vous avez choisi la classe attaquant");
+			
+		}
+		else if(joueur.getClasseGB() == Classe.DEFENSEUR) {
+			
+			joueur.removeSpeed(0.15);
+			joueur.addResi(0.07);
+			joueur.getPlayer().sendMessage("Vous avez choisi la classe defenseur");
+			
+		}
+		else if(joueur.getClasseGB() == Classe.DISTANCE) {
+			
+			joueur.addSpeed(0.05);
+			joueur.removeForce(0.1);
+			joueur.getPlayer().sendMessage("Vous avez choisi la classe distance");
+			
+		}
+		else if(joueur.getClasseGB() == Classe.RAPIDE) {
+			
+			joueur.addSpeed(0.25);
+			joueur.removeForce(0.03);
+			joueur.setAbso(false);
+			joueur.getPlayer().sendMessage("Vous avez choisi la classe rapide");
+			
+		}
+		else if(joueur.getClasseGB() == Classe.SUPPORT) {
+			
+			joueur.addSpeed(0.05);
+			joueur.removeResi(0.02);
+			joueur.getPlayer().sendMessage("Vous avez choisi la classe support");
+			
+		}
+		else {
+			
+			joueur.getPlayer().sendMessage("Vous n'avez plus d'effets de classes");
 			
 		}
 		
@@ -476,7 +451,6 @@ public class GameBlack {
 		
 	}
 	
-	@SuppressWarnings("deprecation")
 	public static void suppressionLit(Main main) {
         
 		//Lit GB

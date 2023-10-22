@@ -8,6 +8,12 @@ commands:
     description: Lien du doc
   rcme:
     description: Permet d'afficher votre rôle et ses pouvoirs
+  rcclasse:
+    description: Commande du role GameBlack
+  rcbuff:
+    description: Commande du role GameBlack
+  rccorruption:
+    description: Commande du role Trial
   rclist:
     description: Permet de voir la liste des joueurs en vie
   rcrl:
