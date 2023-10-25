@@ -426,26 +426,32 @@ public class ItemCD extends BukkitRunnable {
 	            	if(item == "antikb_raptor") {
 	            		
 	            		joueur.setAntiKB(false);
+	            		joueur.getPlayer().sendMessage("Votre cheat est désormais fini");
 	            		
 	            	} else if(item == "force_raptor") {
 	            		
 	            		joueur.removeForce(0.05);
+	            		joueur.getPlayer().sendMessage("Votre cheat est désormais fini");
 	            		
 	            	} else if(item == "5_force_raptor") {
 	            		
-	            		joueur.removeForce(0.03);
+	            		joueur.removeForce(0.02);
+	            		joueur.getPlayer().sendMessage("Votre cheat est désormais fini");
 	            		
 	            	} else if(item == "resi_raptor") {
 	            		
-	            		joueur.removeResi(0.03);
+	            		joueur.removeResi(0.02);
+	            		joueur.getPlayer().sendMessage("Votre cheat est désormais fini");
 	            		
 	            	} else if(item == "speed_raptor") {
 	            		
 	            		joueur.removeSpeed(0.10);
+	            		joueur.getPlayer().sendMessage("Votre cheat est désormais fini");
 	            		
 	            	} else if(item == "rage_raptor") {
 	            		
 	            		joueur.removeForce(0.07);
+	            		joueur.getPlayer().sendMessage("Votre pouvoir est désormais fini");
 	            		joueur.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION,400,0));
 	            		
 	            	}
@@ -496,6 +502,8 @@ public class ItemCD extends BukkitRunnable {
 	            			}
 	            			
 	            		}
+	            		
+	            		joueur.getPlayer().sendMessage("Votre pouvoir est désormais fini");
 	            		
 	            	}
 	            	
@@ -574,13 +582,15 @@ public class ItemCD extends BukkitRunnable {
 	            			
 	            		}
 	            		
+	            		joueur.getPlayer().sendMessage("Votre pouvoir est désormais fini");
+	            		
 	            	}
 	            	
 	            } else if (joueur.getRole() == Roles.JOKO || joueur.getVol().contains(Pouvoirs.JOKO_CUBE)) {
 	
 	                if (item == "cube") {
 	
-	                	joueur.removeSpeed(0.04);
+	                	joueur.removeSpeed(0.09);
 	                	joueur.setJokoItemActif(false);
 	                    player.sendMessage("Ton pouvoir est fini");
 	                    if (!main.getJokoStun().isEmpty()) {
@@ -639,6 +649,8 @@ public class ItemCD extends BukkitRunnable {
 	            		joueur.setConsoleGBActif(false);
 	            		
 	            	} else if(item == "fuite") {
+	            		
+	            		joueur.getPlayer().sendMessage("Votre pouvoir est désormais fini");
 	            		
 	            		joueur.removeSpeed(0.1);
 	            		

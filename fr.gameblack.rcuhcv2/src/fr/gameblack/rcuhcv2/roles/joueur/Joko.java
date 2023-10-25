@@ -16,7 +16,7 @@ public class Joko {
     public static void Items(Joueur joueur) {
 
         Texte(joueur.getPlayer());
-        joueur.addSpeed(0.05);
+        joueur.addSpeed(0.1);
 
         ItemStack coffre = new ItemStack(Material.NETHER_STAR, 1);
         ItemMeta coffreM = coffre.getItemMeta();
@@ -29,9 +29,11 @@ public class Joko {
     public static void InteractSpeedcubing(Joueur joueur, Main main) {
 
         if (!main.getCD().contains(Pouvoirs.JOKO_CUBE)) {
+        	
+        	joueur.getPlayer().sendMessage("Vous activez votre pouvoir");
 
         	joueur.setJokoItemActif(true);
-            joueur.addSpeed(0.05);
+            joueur.addSpeed(0.1);
             ItemCD cycle = new ItemCD(main, joueur, "cube", 60, joueur, null, null, null, null);
             cycle.runTaskTimer(main, 0, 20);
             main.getCD().add(Pouvoirs.JOKO_CUBE);

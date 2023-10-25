@@ -1,4 +1,4 @@
-package fr.gameblack.rcuhcv2.commands.uhc.obscur;
+package fr.gameblack.rcuhcv2.commands.uhc.nonoboy;
 
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -9,7 +9,7 @@ import org.bukkit.entity.Player;
 import fr.gameblack.rcuhcv2.Joueur;
 import fr.gameblack.rcuhcv2.Main;
 import fr.gameblack.rcuhcv2.Roles;
-import fr.gameblack.rcuhcv2.roles.uhc.Obscur;
+import fr.gameblack.rcuhcv2.roles.uhc.Nonoboy;
 
 public class CommandMaudit implements CommandExecutor {
 
@@ -46,7 +46,7 @@ public class CommandMaudit implements CommandExecutor {
 	
 	                    if (main.getNiv_maledition() == 0) {
 	                    	
-	                    		Obscur.CommandMaudit(joueur, cible1, cible2, main, niveau);
+	                    		Nonoboy.CommandMaudit(joueur, cible1, cible2, main, niveau);
 	
 	                    } else {
 	

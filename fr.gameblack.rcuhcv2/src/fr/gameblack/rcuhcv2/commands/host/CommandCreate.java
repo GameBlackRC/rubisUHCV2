@@ -33,7 +33,8 @@ public class CommandCreate implements CommandExecutor {
 	            if (main.getHostBase() == null) {
 	            	
 	            	Inventory inv_pacte = Bukkit.createInventory(null, 27, "§8Création de la partie");
-	                inv_pacte.setItem(11, Main.getItem(Material.SUGAR, "Rapide", "Le stuff est directement give au début de la partie. \nCertains rôles changent pour s'adapter à ce mode"));
+	            	inv_pacte.setItem(11, Main.getItem(Material.SUGAR, "Rapide", "Le stuff est directement give au début de la partie et tous les joueurs sont téléporter au même endroit"));
+	                inv_pacte.setItem(13, Main.getItem(Material.REDSTONE, "Meetup", "Le stuff est directement give au début de la partie. \nCertains rôles changent pour s'adapter à ce mode"));
 	                inv_pacte.setItem(15, Main.getItem(Material.DIAMOND_PICKAXE, "Normal", "C'est le mode de jeu de base avec du minage\net aucun changement de rôles"));
 	
 	                player.openInventory(inv_pacte);

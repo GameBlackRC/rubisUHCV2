@@ -61,8 +61,9 @@ import fr.gameblack.rcuhcv2.commands.staff.maka.CommandForme;
 import fr.gameblack.rcuhcv2.commands.staff.trial.CommandFirstReflexGame;
 import fr.gameblack.rcuhcv2.commands.staff.trial.CommandPlay;
 import fr.gameblack.rcuhcv2.commands.staff.trial.CommandSacrifice;
-import fr.gameblack.rcuhcv2.commands.uhc.obscur.CommandMaudit;
+import fr.gameblack.rcuhcv2.commands.uhc.nonoboy.CommandMaudit;
 import fr.gameblack.rcuhcv2.commands.uhc.toinou.CommandVacance;
+import fr.gameblack.rcuhcv2.database.DatabaseManager;
 import fr.gameblack.rcuhcv2.commands.staff.trial.CommandMode;
 import fr.gameblack.rcuhcv2.listener.DamageListener;
 import fr.gameblack.rcuhcv2.listener.InteractListener;
@@ -104,8 +105,12 @@ public class Main extends JavaPlugin {
     private String modeTrial = null;
     private boolean zoneBenihimeActif = false;
     
+    private DatabaseManager databaseManager;
+    
     @Override
     public void onEnable() {
+    	
+    	databaseManager = new DatabaseManager();
     	
     	ItemStack orbes = new ItemStack(Material.SLIME_BALL);
     	
@@ -229,6 +234,12 @@ public class Main extends JavaPlugin {
 
     }
     
+	public DatabaseManager getDatabaseManager() {
+		
+		return databaseManager;
+		
+	}
+    
     public String getTimerInTexte(int timer) {
     	
     	timer = timer/10;
@@ -275,7 +286,7 @@ public class Main extends JavaPlugin {
 
         }
         joueur.setOrbe(Orbe.NONE);
-        Bukkit.broadcastMessage("_________________________\n" + joueur.getPlayer().getName() + " est mort. Il était : \n" + role + "\n_________________________");
+        Bukkit.broadcastMessage("_________________________\n" + joueur.getPlayer().getName() + " est mort. Il était : \n" + joueur.getCouleurCamp() + role + "§r\n_________________________");
         checkWin();
         joueur.getPlayer().setGameMode(GameMode.SPECTATOR);
         joueur.setMort(true);

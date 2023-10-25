@@ -96,7 +96,7 @@ public class GameCycle extends BukkitRunnable {
     	
     	if(main.isFermetureGolden()) {
 
-	        if(main.getEpisode() == 1 && main.getMode().equalsIgnoreCase("rapide")) {
+	        if(main.getEpisode() == 1 && (main.getMode().equalsIgnoreCase("rapide") || main.getMode().equalsIgnoreCase("meetup"))) {
 	        	
 	        	Random r = new Random();
 	            int nb = r.nextInt(100);
@@ -122,7 +122,7 @@ public class GameCycle extends BukkitRunnable {
 	        }
 	        else if(main.getEpisode() == 3) {
 	        	
-	        	if(main.getMode().equalsIgnoreCase("rapide")) {
+	        	if(main.getMode().equalsIgnoreCase("rapide") || main.getMode().equalsIgnoreCase("meetup")) {
 	        		
 	        		FermetureGolden.Active(main);
 	        		
@@ -167,7 +167,7 @@ public class GameCycle extends BukkitRunnable {
     	
     	if(main.isFermetureGolden()) {
 
-	    	if(main.getEpisode() == 1 && main.getMode().equalsIgnoreCase("rapide")) {
+	    	if(main.getEpisode() == 1 && (main.getMode().equalsIgnoreCase("rapide") || main.getMode().equalsIgnoreCase("meetup"))) {
 	        	
 	        	Random r = new Random();
 	            int nb = r.nextInt(100);
@@ -193,7 +193,7 @@ public class GameCycle extends BukkitRunnable {
 	        }
 	        else if(main.getEpisode() == 3) {
 	        	
-	        	if(main.getMode().equalsIgnoreCase("rapide")) {
+	        	if(main.getMode().equalsIgnoreCase("rapide") || main.getMode().equalsIgnoreCase("meetup")) {
 	        		
 	        		FermetureGolden.Active(main);
 	        		
@@ -379,6 +379,18 @@ public class GameCycle extends BukkitRunnable {
         	nickoboop.getPlayer().sendMessage("Jeannot : " + jeannot.getPlayer().getDisplayName());
         	
         }
+        else if(main.getCompo().contains(Roles.JEANNOT)) {
+        	
+        	main.getJoueurByRole(Roles.JEANNOT).addForce(0.02);
+        	main.getJoueurByRole(Roles.JEANNOT).getPlayer().sendMessage("Nickoboop n'étant pas dans la compo, vous recevez 2% de force permanent");
+        	
+        }
+        else if(main.getCompo().contains(Roles.NICKOBOOP)) {
+        	
+        	main.getJoueurByRole(Roles.NICKOBOOP).addResi(0.02);
+        	main.getJoueurByRole(Roles.NICKOBOOP).getPlayer().sendMessage("Jeannot n'étant pas dans la compo, vous recevez 2% de résistance permanent");
+        	
+        }
         
         if(main.getCompo().contains(Roles.MALIVOL) && main.getCompo().contains(Roles.TOINOU)) {
         	
@@ -430,7 +442,7 @@ public class GameCycle extends BukkitRunnable {
         objective_hp.setDisplaySlot(DisplaySlot.BELOW_NAME);
         objective_hp.setDisplayName("HP");
         
-        if((main.getEpisode() > 1 || (main.getEpisode() == 2 && main.getTemps() > 2)) || (main.getTemps() > 10 && main.getEpisode() >= 1 && main.getMode().equalsIgnoreCase("rapide"))) {
+        if((main.getEpisode() > 1 || (main.getEpisode() == 2 && main.getTemps() > 2)) || (main.getTemps() > 10 && main.getEpisode() >= 1 && (main.getMode().equalsIgnoreCase("rapide") || main.getMode().equalsIgnoreCase("meetup")))) {
         	
         	if(main.getCompo().contains(Roles.RAPTOR) && main.getJoueurByRole(Roles.RAPTOR) != null) {
             	
@@ -638,17 +650,29 @@ public class GameCycle extends BukkitRunnable {
 		        objective_slup.setDisplaySlot(DisplaySlot.SIDEBAR);
 		        objective_slup.setDisplayName("RC UHC V2");
 		        Score score1_slup = objective_slup.getScore("Durée: " + main.getTimerInTexte(timer));
-		        score1_slup.setScore(8);
+		        score1_slup.setScore(9);
 		        Score scoreep_slup = objective_slup.getScore("Episode : " + main.getEpisode());
-		        scoreep_slup.setScore(7);
+		        scoreep_slup.setScore(8);
 		        Score scorej_slup = objective_slup.getScore("Joueurs : " + main.getListJoueurs().size() );
-		        scorej_slup.setScore(6);
+		        scorej_slup.setScore(7);
 		        Score scorekill_slup = objective_slup.getScore("Kill : " + slup.getKill() );
-		        scorekill_slup.setScore(5);
+		        scorekill_slup.setScore(6);
 		        Score score2_slup = objective_slup.getScore("Role: " + slup.getCouleurCamp() + "Slup");
-		        score2_slup.setScore(4);
+		        score2_slup.setScore(5);
 		        Score scoreslime_slup = objective_slup.getScore("Slime: " + slup.getSlime());
-		        scoreslime_slup.setScore(3);
+		        scoreslime_slup.setScore(4);
+		        Score scoreinvi_slup;
+		        if(slup.isInvisible()) {
+		        	
+		        	scoreinvi_slup = objective_slup.getScore("Invisible: §aActif");
+		        	
+		        }
+		        else {
+		        	
+		        	scoreinvi_slup = objective_slup.getScore("Invisible: §cInnactif");
+		        	
+		        }
+		        scoreinvi_slup.setScore(3);
 		        Score score3_slup;
 		        if(slup.getOrbe() == Orbe.EAU) {
 		        	
@@ -1298,16 +1322,28 @@ public class GameCycle extends BukkitRunnable {
 		        objective_toinou.setDisplaySlot(DisplaySlot.SIDEBAR);
 		        objective_toinou.setDisplayName("RC UHC V2");
 		        Score score1_toinou = objective_toinou.getScore("Durée: " + main.getTimerInTexte(timer));
-		        score1_toinou.setScore(7);
+		        score1_toinou.setScore(8);
 		        Joueur toinou = main.getJoueurByRole(Roles.TOINOU);
 		        Score scoreep_toinou = objective_toinou.getScore("Episode : " + main.getEpisode());
-		        scoreep_toinou.setScore(6);
+		        scoreep_toinou.setScore(7);
 		        Score scorej_toinou = objective_toinou.getScore("Joueurs : " + main.getListJoueurs().size() );
-		        scorej_toinou.setScore(5);
+		        scorej_toinou.setScore(6);
 		        Score scorekill_toinou = objective_toinou.getScore("Kill : " + toinou.getKill() );
-		        scorekill_toinou.setScore(4);
+		        scorekill_toinou.setScore(5);
 		        Score score2_toinou = objective_toinou.getScore("Role: " + toinou.getCouleurCamp() + "Toinou");
-		        score2_toinou.setScore(3);
+		        score2_toinou.setScore(4);
+		        Score scoreinvi_toinou;
+		        if(toinou.isInvisible()) {
+		        	
+		        	scoreinvi_toinou = objective_toinou.getScore("Invisible: §aActif");
+		        	
+		        }
+		        else {
+		        	
+		        	scoreinvi_toinou = objective_toinou.getScore("Invisible: §cInnactif");
+		        	
+		        }
+		        scoreinvi_toinou.setScore(3);
 		        Score score3_toinou;
 		        if(toinou.getOrbe() == Orbe.EAU) {
 		        	
@@ -1487,16 +1523,30 @@ public class GameCycle extends BukkitRunnable {
 		        objective_farmeurimmo.setDisplaySlot(DisplaySlot.SIDEBAR);
 		        objective_farmeurimmo.setDisplayName("RC UHC V2");
 		        Score score1_farmeurimmo = objective_farmeurimmo.getScore("Durée: " + main.getTimerInTexte(timer));
-		        score1_farmeurimmo.setScore(7);
+		        score1_farmeurimmo.setScore(8);
 		        Joueur farmeurimmo = main.getJoueurByRole(Roles.FARMEURIMMO);
 		        Score scoreep_farmeurimmo = objective_farmeurimmo.getScore("Episode : " + main.getEpisode());
-		        scoreep_farmeurimmo.setScore(6);
+		        scoreep_farmeurimmo.setScore(7);
 		        Score scorej_farmeurimmo = objective_farmeurimmo.getScore("Joueurs : " + main.getListJoueurs().size() );
-		        scorej_farmeurimmo.setScore(5);
+		        scorej_farmeurimmo.setScore(6);
 		        Score scorekill_farmeurimmo = objective_farmeurimmo.getScore("Kill : " + farmeurimmo.getKill() );
-		        scorekill_farmeurimmo.setScore(4);
+		        scorekill_farmeurimmo.setScore(5);
 		        Score score2_farmeurimmo = objective_farmeurimmo.getScore("Role: " + farmeurimmo.getCouleurCamp() + "Farmeurimmo");
-		        score2_farmeurimmo.setScore(3);
+		        score2_farmeurimmo.setScore(4);
+		        if(farmeurimmo.getVol().contains(Pouvoirs.TOINOU_VACANCES)) {
+			        Score scoreinvi_farmeurimmo;
+			        if(farmeurimmo.isInvisible()) {
+			        	
+			        	scoreinvi_farmeurimmo = objective_farmeurimmo.getScore("Invisible: §aActif");
+			        	
+			        }
+			        else {
+			        	
+			        	scoreinvi_farmeurimmo = objective_farmeurimmo.getScore("Invisible: §cInnactif");
+			        	
+			        }
+			        scoreinvi_farmeurimmo.setScore(3);
+		        }
 		        Score score3_farmeurimmo;
 		        if(farmeurimmo.getOrbe() == Orbe.EAU) {
 		        	
@@ -1722,7 +1772,7 @@ public class GameCycle extends BukkitRunnable {
 			
 		}
 		
-		if((timer > 2400 && timer < 3600 && timer%600 == 0 && main.getMode().equalsIgnoreCase("normal")) || (timer > 0 && timer < 12000 && timer%600 == 0 && main.getMode().equalsIgnoreCase("rapide"))) {
+		if((timer > 2400 && timer < 3600 && timer%600 == 0 && main.getMode().equalsIgnoreCase("normal")) || (timer > 0 && timer < 12000 && timer%600 == 0 && (main.getMode().equalsIgnoreCase("rapide") || main.getMode().equalsIgnoreCase("meetup")))) {
 			
 			if(main.getJoueurByRole(Roles.TRIAL) != null && main.getJoueurByRole(Roles.SLUP) != null && main.getJoueurByRole(Roles.SLUP).getCamp() != "duo" && main.getJoueurByRole(Roles.SLUP).getPacteSlup() == 2) {
 				
@@ -1789,7 +1839,7 @@ public class GameCycle extends BukkitRunnable {
 			
 		}
 		
-		if(timer % 140 == 0 && ((main.getEpisode() > 2 && main.getTemps() > 1 && main.getMode().equalsIgnoreCase("normal")) || (main.getEpisode() >= 1 && main.getTemps() > 11 && main.getMode().equalsIgnoreCase("rapide")))) {
+		if(timer % 140 == 0 && ((main.getEpisode() > 2 && main.getTemps() > 1 && main.getMode().equalsIgnoreCase("normal")) || (main.getEpisode() >= 1 && main.getTemps() > 11 && (main.getMode().equalsIgnoreCase("rapide") || main.getMode().equalsIgnoreCase("meetup"))))) {
 			
 			for(Joueur joueur : main.getListJoueurs()) {
 				
@@ -2129,7 +2179,7 @@ public class GameCycle extends BukkitRunnable {
 
             }
         	
-        	if(main.getTemps() == 10 && main.getEpisode() == 1 && main.getMode().equalsIgnoreCase("rapide")) {
+        	if(main.getTemps() == 10 && main.getEpisode() == 1 && (main.getMode().equalsIgnoreCase("rapide") || main.getMode().equalsIgnoreCase("meetup"))) {
         		
         		Bukkit.broadcastMessage("Attribution des rôles");
         		setRole(main);

@@ -341,6 +341,21 @@ public class InventoryInteractListener implements Listener {
                 	}
 
                     break;
+                    
+                case REDSTONE:
+                	
+                	if (main.getHostBase() == null) {
+                		
+                		main.setMode("meetup");
+                		player.sendMessage("Vous avez selectionner le mode meetup");
+                		main.setHostBase(joueur);
+                		
+                	}
+                	else {
+                		
+                		player.sendMessage("Host : " + main.getHostBase());
+                		
+                	}
 
                 case DIAMOND_PICKAXE:
 

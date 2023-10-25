@@ -3,6 +3,7 @@ package fr.gameblack.rcuhcv2.roles.staff;
 import java.util.Random;
 
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -35,6 +36,10 @@ public class Loup {
 	public static void ItemSuperBateau(Joueur joueur, Main main) {
 		
 		main.getCD().add(Pouvoirs.LOUP_SUPERBATEAU);
+		
+		joueur.getPlayer().playSound(joueur.getPlayer().getLocation(), Sound.BLAZE_DEATH, 10, 1);
+		
+		joueur.getPlayer().sendMessage("Vous activez votre pouvoirs");
 		
 		Random r = new Random();
         int nb = r.nextInt(100);
@@ -71,6 +76,8 @@ public class Loup {
 	public static void CommandServeur(Joueur joueur, Main main) {
 		
 		if(!main.getCD().contains(Pouvoirs.LOUP_SERVEUR)) {
+			
+			joueur.getPlayer().sendMessage("Votre pouvoir est désormais fini");
 			
 			main.getCD().add(Pouvoirs.LOUP_SERVEUR);
 		

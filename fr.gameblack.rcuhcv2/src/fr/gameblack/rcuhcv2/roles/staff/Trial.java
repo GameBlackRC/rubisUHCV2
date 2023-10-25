@@ -129,7 +129,7 @@ public class Trial {
         	JeuCD cycle = new JeuCD(main, joueur, cible, "soleil", 33);
             cycle.runTaskTimer(main, 0, 20);
             joueur.getPlayer().sendMessage("Le jeu choisi est soleil");
-            cible.getPlayer().sendMessage("Vous jouez à 1, 2, 3, soleil avec Trial, ne bougez plus ! Le je se lance dans 3 secondes");
+            cible.getPlayer().sendMessage("Vous jouez à 1, 2, 3, soleil avec Trial, ne bougez plus ! Le jeu se lance dans 3 secondes");
         	
         }
         else if(nb == 1) {
@@ -188,6 +188,8 @@ public class Trial {
 	    	j2.setInvulnerable(false);
 	    	main.setJeuTrial(null);
 	    	main.getJoueurJeuTrial().clear();
+	    	j2.getPlayer().sendMessage("Vous avez gagner le jeu");
+			j1.getPlayer().sendMessage("Vous avez perdu le jeu");
 			
 		}
 		else {
@@ -202,6 +204,8 @@ public class Trial {
 	    	j2.setInvulnerable(false);
 	    	main.setJeuTrial(null);
 	    	main.getJoueurJeuTrial().clear();
+	    	j1.getPlayer().sendMessage("Vous avez gagner le jeu");
+			j2.getPlayer().sendMessage("Vous avez perdu le jeu");
 			
 		}
 		

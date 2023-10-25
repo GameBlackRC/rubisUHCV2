@@ -148,7 +148,7 @@ public class DamageListener implements Listener {
 			
 		}
 		
-		if(tueur.getRole() == Roles.OBSCUR) {
+		if(tueur.getRole() == Roles.NONOBOY && !tueur.getCamp().equalsIgnoreCase("farmeurimmo")) {
 			
 			if(tueur.getPlayer().getMaxHealth() <= 21) {
 				
@@ -314,7 +314,7 @@ public class DamageListener implements Listener {
 			
 		}
 		
-		if(tueur.getRole() == Roles.FARMEURIMMO && tueur.getVol().contains(Pouvoirs.OBSCUR_COEUR_KILL)) {
+		if(tueur.getRole() == Roles.FARMEURIMMO && tueur.getVol().contains(Pouvoirs.NONOBOY_COEUR_KILL)) {
 			
 			tueur.getPlayer().setMaxHealth(tueur.getPlayer().getMaxHealth()+1);
 			
@@ -548,7 +548,7 @@ public class DamageListener implements Listener {
                 if (joueur.isAntiKB()) {
 
                     event.setCancelled(true);
-                    player.damage(damage);
+                    player.damage(event.getFinalDamage());
 
                 }
                 
@@ -559,7 +559,7 @@ public class DamageListener implements Listener {
                 		Random r = new Random();
                         int nb = r.nextInt(100);
                         
-                        if(nb <= 10) {
+                        if(nb <= 20) {
                         	
                         	event.setCancelled(true);
                         	
@@ -595,7 +595,7 @@ public class DamageListener implements Listener {
 
                         Random r = new Random();
                         int nb = r.nextInt(100);
-                        int pourcent = joueur.getCube() * 2;
+                        int pourcent = joueur.getCube() * 3;
 
                         if (nb < pourcent + 1) {
 
@@ -614,7 +614,7 @@ public class DamageListener implements Listener {
 
                 }
                 
-                if (player.getHealth() <= damage) {
+                if (player.getHealth() <= event.getFinalDamage()) {
                 	
                 	if(joueur.canRespawn()) {
                 		
@@ -676,7 +676,7 @@ public class DamageListener implements Listener {
         		}
         		else {
 
-	                ItemCD cycle = new ItemCD(main, joueur.getLastHit(), "mort", 10, joueur, null, null, null, joueur.getPlayer().getLocation());
+	                ItemCD cycle = new ItemCD(main, joueur.getLastHit(), "mort", 0, joueur, null, null, null, joueur.getPlayer().getLocation());
 	                cycle.runTaskTimer(main, 0, 20);
 	                event.setDamage(0);
 	                player.setGameMode(GameMode.SPECTATOR);

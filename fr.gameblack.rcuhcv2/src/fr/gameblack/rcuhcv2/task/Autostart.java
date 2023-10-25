@@ -47,23 +47,23 @@ public class Autostart extends BukkitRunnable {
         }
     	
         else if(timer == 0) {
+        	
+        	Random r = new Random();
+            int signe_x = r.nextInt(2);
+            int signe_y = r.nextInt(2);
+            int cos_x = r.nextInt(100);
+            cos_x += 200;
+            if (signe_x == 1) {
+                cos_x = -cos_x;
+            }
+
+            int cos_y = r.nextInt(100);
+            cos_y += 200;
+            if (signe_y == 1) {
+                cos_y = -cos_y;
+            }
 
             for (Joueur j : main.getListJoueurs()) {
-            	
-            	Random r = new Random();
-                int signe_x = r.nextInt(2);
-                int signe_y = r.nextInt(2);
-                int cos_x = r.nextInt(100);
-                cos_x += 200;
-                if (signe_x == 1) {
-                    cos_x = -cos_x;
-                }
-
-                int cos_y = r.nextInt(100);
-                cos_y += 200;
-                if (signe_y == 1) {
-                    cos_y = -cos_y;
-                }
                 
                 World world;
                 
@@ -110,6 +110,20 @@ public class Autostart extends BukkitRunnable {
                     pls.removePotionEffect(PotionEffectType.FIRE_RESISTANCE);
                 
                 if(main.getMode().equalsIgnoreCase("rapide")) {
+                	
+                	signe_x = r.nextInt(2);
+	                signe_y = r.nextInt(2);
+	                cos_x = r.nextInt(800);
+	                cos_x += 200;
+	                if (signe_x == 1) {
+	                    cos_x = -cos_x;
+	                }
+
+	                cos_y = r.nextInt(800);
+	                cos_y += 200;
+	                if (signe_y == 1) {
+	                    cos_y = -cos_y;
+	                }
 
 	                ItemStack bottes = new ItemStack(Material.DIAMOND_BOOTS, 1);
 	                ItemMeta bottesM = bottes.getItemMeta();
@@ -177,10 +191,84 @@ public class Autostart extends BukkitRunnable {
 	                pls.getInventory().addItem(new ItemStack(Material.OBSIDIAN, 2));
 	                pls.getInventory().addItem(new ItemStack(Material.IRON_BLOCK, 2));
 	                pls.getInventory().addItem(new ItemStack(Material.WORKBENCH, 1));
+	                pls.getInventory().addItem(new ItemStack(Material.DIAMOND_PICKAXE, 1));
 
 	                pls.teleport(new Location(world, cos_x, 100, cos_y));
 	                
             	}
+                else if(main.getMode().equalsIgnoreCase("meetup")) {
+                	
+                	ItemStack bottes = new ItemStack(Material.DIAMOND_BOOTS, 1);
+	                ItemMeta bottesM = bottes.getItemMeta();
+	                bottesM.addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 2, false);
+	                bottes.setItemMeta(bottesM);
+	
+	                pls.getInventory().setBoots(bottes);
+	
+	                ItemStack chestplate = new ItemStack(Material.DIAMOND_CHESTPLATE, 1);
+	                ItemMeta chestplateM = chestplate.getItemMeta();
+	                chestplateM.addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 2, false);
+	                chestplate.setItemMeta(chestplateM);
+	
+	                pls.getInventory().setChestplate(chestplate);
+	
+	                ItemStack jambiere = new ItemStack(Material.IRON_LEGGINGS, 1);
+	                ItemMeta jambiereM = jambiere.getItemMeta();
+	                jambiereM.addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 3, false);
+	                jambiereM.addEnchant(Enchantment.DURABILITY, 3, false);
+	                jambiere.setItemMeta(jambiereM);
+	
+	                pls.getInventory().setLeggings(jambiere);
+	
+	                ItemStack casque = new ItemStack(Material.IRON_HELMET, 1);
+	                ItemMeta casqueM = casque.getItemMeta();
+	                casqueM.addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 3, false);
+	                casqueM.addEnchant(Enchantment.DURABILITY, 3, false);
+	                casque.setItemMeta(casqueM);
+	
+	                pls.getInventory().setHelmet(casque);
+	
+	                ItemStack arc = new ItemStack(Material.BOW, 1);
+	                ItemMeta arcM = arc.getItemMeta();
+	                arcM.addEnchant(Enchantment.ARROW_DAMAGE, 3, false);
+	                arc.setItemMeta(arcM);
+	
+	                pls.getInventory().setHelmet(casque);
+	
+	                ItemStack epee = new ItemStack(Material.DIAMOND_SWORD, 1);
+	                ItemMeta epeeM = epee.getItemMeta();
+	                epeeM.addEnchant(Enchantment.DAMAGE_ALL, 3, false);
+	                epee.setItemMeta(epeeM);
+	
+	                ItemStack epee_ = new ItemStack(Material.BOW, 1);
+	                ItemMeta epee_M = epee_.getItemMeta();
+	                epee_M.addEnchant(Enchantment.ARROW_DAMAGE, 2, false);
+	                epee_.setItemMeta(epee_M);
+	
+	                pls.getInventory().addItem(epee);
+	                pls.getInventory().addItem(epee_);
+	
+	                pls.getInventory().addItem(new ItemStack(Material.GOLDEN_APPLE, 32));
+	                pls.getInventory().addItem(new ItemStack(Material.GOLDEN_CARROT, 64));
+	                pls.getInventory().addItem(new ItemStack(Material.ARROW, 64));
+	                pls.getInventory().addItem(new ItemStack(Material.WATER_BUCKET, 1));
+	                pls.getInventory().addItem(new ItemStack(Material.ANVIL, 1));
+	                pls.getInventory().addItem(new ItemStack(Material.COBBLESTONE, 64));
+	                pls.getInventory().addItem(new ItemStack(Material.COBBLESTONE, 64));
+	                pls.getInventory().addItem(new ItemStack(Material.COBBLESTONE, 64));
+	                pls.getInventory().addItem(new ItemStack(Material.DIAMOND, 1));
+	                pls.getInventory().addItem(new ItemStack(Material.LAVA_BUCKET, 2));
+	                pls.getInventory().addItem(new ItemStack(Material.WATER_BUCKET, 1));
+	                pls.getInventory().addItem(new ItemStack(Material.REDSTONE_BLOCK, 1));
+	                pls.getInventory().addItem(new ItemStack(Material.ICE, 1));
+	                pls.getInventory().addItem(new ItemStack(Material.OBSIDIAN, 2));
+	                pls.getInventory().addItem(new ItemStack(Material.IRON_BLOCK, 2));
+	                pls.getInventory().addItem(new ItemStack(Material.WORKBENCH, 1));
+	                pls.getInventory().addItem(new ItemStack(Material.DIAMOND_PICKAXE, 1));
+
+	                pls.teleport(new Location(world, cos_x, 100, cos_y));
+                	
+                }
                 else {
 	
 	                ItemStack epee_ = new ItemStack(Material.IRON_PICKAXE, 1);
@@ -220,7 +308,6 @@ public class Autostart extends BukkitRunnable {
 
             }
             
-            Random r = new Random();
             int nb = r.nextInt(100);
             
             if(nb <= 50) {

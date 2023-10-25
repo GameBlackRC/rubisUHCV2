@@ -40,6 +40,12 @@ public class GameBlack {
 		joueur.addSpeed(0.05);
 		joueur.getPlayer().getInventory().addItem(orbes);
 		
+		ItemStack coffre = new ItemStack(Material.NETHER_STAR, 1);
+        ItemMeta coffreM = coffre.getItemMeta();
+        coffreM.setDisplayName("Fuite");
+        coffre.setItemMeta(coffreM);
+        joueur.getPlayer().getInventory().addItem(coffre);
+		
 	}
 	
 	public static void ItemsUHC(Joueur joueur, Main main) {
@@ -256,6 +262,8 @@ public class GameBlack {
 	public static void InteractFuite(Joueur joueur, Main main) {
 		
 		if(!main.getCD().contains(Pouvoirs.GAMEBLACK_FUITE)) {
+			
+			joueur.getPlayer().sendMessage("Vous activez votre pouvoir");
 			
 			joueur.setInvulnerable(true);
 			joueur.addSpeed(0.1);

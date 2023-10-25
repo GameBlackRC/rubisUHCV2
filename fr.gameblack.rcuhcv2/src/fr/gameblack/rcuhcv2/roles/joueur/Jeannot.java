@@ -15,7 +15,6 @@ public class Jeannot {
 	public static void Items(Joueur joueur) {
 		
 		Texte(joueur.getPlayer());
-		joueur.addForce(0.03);
 		
 	}
 	
@@ -25,13 +24,30 @@ public class Jeannot {
 
     }
 	
+	public static void checkProcheNickoboop(Joueur joueur, Main main) {
+		
+		if(joueur.isProche(Roles.NICKOBOOP, main) && !joueur.isNickoProcheJeannot()) {
+			
+			joueur.addForce(0.02);
+			joueur.setNickoProcheJeannot(true);
+			
+		}
+		else if (!joueur.isProche(Roles.NICKOBOOP, main) && joueur.isNickoProcheJeannot()){
+			
+			joueur.removeForce(0.02);
+			joueur.setNickoProcheJeannot(false);
+			
+		}
+		
+	}
+	
 	public static void PartageAbso(Joueur joueur, Main main) {
 		
 		joueur.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 100, 1));
 		List<Joueur> allies = main.getJoueurInCamp("joueur");
 		for(Joueur allie : allies) {
 			
-			if(allie.getRole() == Roles.NICKOBOOP && allie.getPlayer().hasPotionEffect(PotionEffectType.ABSORPTION)) {
+			if(allie.getRole() == Roles.NICKOBOOP && allie.getPlayer().hasPotionEffect(PotionEffectType.ABSORPTION) && allie.isProche(Roles.JEANNOT, main)) {
 				
 				if(allie.isAbsoOn() && allie.getRole() != Roles.JEANNOT) {
 					allie.getPlayer().removePotionEffect(PotionEffectType.ABSORPTION);
@@ -39,7 +55,7 @@ public class Jeannot {
 				}
 				
 			}
-			else if(allie.getPlayer().hasPotionEffect(PotionEffectType.ABSORPTION)){
+			else if(allie.getPlayer().hasPotionEffect(PotionEffectType.ABSORPTION) && allie.isProche(Roles.JEANNOT, main)){
 				
 				if(allie.isAbsoOn() && allie.getRole() != Roles.JEANNOT) {
 				
@@ -51,7 +67,7 @@ public class Jeannot {
 			}
 			else {
 				
-				if(allie.isAbsoOn() && allie.getRole() != Roles.JEANNOT) {
+				if(allie.isAbsoOn() && allie.getRole() != Roles.JEANNOT && allie.isProche(Roles.JEANNOT, main)) {
 				
 					allie.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.ABSORPTION, 2400, 0));
 				

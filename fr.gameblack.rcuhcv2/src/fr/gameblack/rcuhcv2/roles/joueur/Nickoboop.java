@@ -1,6 +1,5 @@
 package fr.gameblack.rcuhcv2.roles.joueur;
 
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
 import fr.gameblack.rcuhcv2.Joueur;
@@ -17,38 +16,16 @@ public class Nickoboop {
 	
 	public static void checkProcheJeannot(Joueur joueur, Main main) {
 		
-		boolean jeannotTrouver = false;
-		
-		for(Entity entity : joueur.getPlayer().getNearbyEntities(20, 20, 20)) {
+		if(joueur.isProche(Roles.JEANNOT, main) && !joueur.isNickoProcheJeannot()) {
 			
-			if(entity instanceof Player) {
-				
-				Player player = (Player) entity;
-				Joueur j = main.getJoueur(player);
-				
-				if(j.getRole() == Roles.JEANNOT) {
-					
-					if(!joueur.isNickoProcheJeannot()) {
-					
-						joueur.addResi(0.02);
-						joueur.setNickoProcheJeannot(true);
-					
-						return;
-						
-					}
-					
-					jeannotTrouver = true;
-					
-				}
-				
-			}
+			joueur.addResi(0.02);
+			joueur.setNickoProcheJeannot(true);
 			
 		}
-		
-		if(!jeannotTrouver && joueur.isNickoProcheJeannot()) {
+		else if (!joueur.isProche(Roles.JEANNOT, main) && joueur.isNickoProcheJeannot()){
 			
-			joueur.setNickoProcheJeannot(false);
 			joueur.removeResi(0.02);
+			joueur.setNickoProcheJeannot(false);
 			
 		}
 		

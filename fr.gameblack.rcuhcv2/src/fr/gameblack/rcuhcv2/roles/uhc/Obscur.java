@@ -10,151 +10,20 @@ public class Obscur {
 	
 	public static void Items(Joueur joueur) {
 		
-		Texte(joueur.getPlayer());
-		joueur.addForce(0.02);
+		TexteTrial(joueur.getPlayer());
 		
 	}
-	
-	public static void CommandMaudit(Joueur joueur, Joueur cible1, Joueur cible2, Main main, int niveau) {
-    	
-    	if(cible1.getCamp() == "uhc" && cible2.getCamp() == "uhc") {
-    	
-    		main.getMaudit().add(cible1);
-    		main.getMaudit().add(cible2);
-    		main.setNiv_maledition(niveau);
-    		if(niveau == 1) {
-    			
-    			if(joueur.getPlayer().getMaxHealth()-2 > 4) {
-        			
-        			joueur.getPlayer().setMaxHealth(joueur.getPlayer().getMaxHealth()-2);
-        			
-        		}
-    			else {
-    				joueur.getPlayer().sendMessage("Vous ne pouvez pas utilisé la commande");
-    				return;
-    			}
-    			
-    			cible1.addForce(0.03);
-    			cible2.addForce(0.03);
-    			ItemCD cycle = new ItemCD(main, cible1, "maudit_uhc_1", 180, cible2, null, null, null, null);
-                cycle.runTaskTimer(main, 0, 20);
-    			
-    		}
-    		else if(niveau == 2){
-    			
-    			if(joueur.getPlayer().getMaxHealth()-4 > 4) {
-        			
-        			joueur.getPlayer().setMaxHealth(joueur.getPlayer().getMaxHealth()-4);
-        			
-        		}
-    			else {
-    				joueur.getPlayer().sendMessage("Vous ne pouvez pas utilisé la commande");
-    				return;
-    			}
-    			
-    			cible1.addSpeed(0.1);
-    			cible2.addSpeed(0.1);
-    			ItemCD cycle = new ItemCD(main, cible1, "maudit_uhc_2", 120, cible2, null, null, null, null);
-                cycle.runTaskTimer(main, 0, 20);
-    			
-    		}
-    		else {
-    			
-    			if(joueur.getPlayer().getMaxHealth()-6 > 4) {
-        			
-        			joueur.getPlayer().setMaxHealth(joueur.getPlayer().getMaxHealth()-6);
-        			
-        		}
-    			else {
-    				joueur.getPlayer().sendMessage("Vous ne pouvez pas utilisé la commande");
-    				return;
-    			}
-    			
-    			cible1.addForce(0.03);
-    			cible1.addSpeed(0.05);
-    			cible2.addForce(0.03);
-    			cible2.addSpeed(0.05);
-    			ItemCD cycle = new ItemCD(main, cible1, "maudit_uhc_3", 120, cible2, null, null, null, null);
-                cycle.runTaskTimer(main, 0, 20);
-    			
-    		}
-    		
-    	}
-    	else if(cible1.getCamp() == cible2.getCamp()) {
-    	
-    		main.getMaudit().add(cible1);
-    		main.getMaudit().add(cible2);
-    		main.setNiv_maledition(niveau);
-    		if(niveau == 1) {
-    			
-    			if(joueur.getPlayer().getMaxHealth()-2 > 4) {
-        			
-        			joueur.getPlayer().setMaxHealth(joueur.getPlayer().getMaxHealth()-2);
-        			
-        		}
-    			else {
-    				joueur.getPlayer().sendMessage("Vous ne pouvez pas utilisé la commande");
-    				return;
-    			}
-    			
-    			cible1.removeForce(0.02);
-    			cible2.removeForce(0.02);
-    			ItemCD cycle = new ItemCD(main, cible1, "maudit_autre_1", 120, cible2, null, null, null, null);
-                cycle.runTaskTimer(main, 0, 20);
-    			
-    		}
-    		else if(niveau == 2){
-    			
-    			if(joueur.getPlayer().getMaxHealth()-4 > 4) {
-        			
-        			joueur.getPlayer().setMaxHealth(joueur.getPlayer().getMaxHealth()-4);
-        			
-        		}
-    			else {
-    				joueur.getPlayer().sendMessage("Vous ne pouvez pas utilisé la commande");
-    				return;
-    			}
-    			
-    			cible1.removeSpeed(0.07);
-    			cible2.removeSpeed(0.07);
-    			ItemCD cycle = new ItemCD(main, cible1, "maudit_autre_2", 120, cible2, null, null, null, null);
-                cycle.runTaskTimer(main, 0, 20);
-    			
-    		}
-    		else {
-    			
-    			if(joueur.getPlayer().getMaxHealth()-6 > 4) {
-        			
-        			joueur.getPlayer().setMaxHealth(joueur.getPlayer().getMaxHealth()-6);
-        			
-        		}
-    			else {
-    				joueur.getPlayer().sendMessage("Vous ne pouvez pas utilisé la commande");
-    				return;
-    			}
-    			
-    			cible1.removeForce(0.02);
-    			cible1.removeSpeed(0.05);
-    			cible2.removeForce(0.02);
-    			cible2.removeSpeed(0.05);
-    			ItemCD cycle = new ItemCD(main, cible1, "maudit_autre_3", 60, cible2, null, null, null, null);
-                cycle.runTaskTimer(main, 0, 20);
-    			
-    		}
-    		
-    	}
-    	else {
-    		
-    		joueur.getPlayer().sendMessage("Ces 2 joueurs ne font pas parti du même camps");
-    		
-    	}
-    	
-    }
 	
 	public static void Texte(Player player) {
 
         player.sendMessage("____________________________________________________\n \nVous êtes §2Obscur\n§rVous devez gagner avec le §2camp UHC§r\n \nVous avez 3% de force permanent\n \nAvec la commande /rcmaudit <pseudo> <pseudo> <niveau>, vous pourrez maudire 2 joueurs du même camps. Le bonus et le malus dépendent du camps et du niveaux :\n \nPour le camps UHC :\n- Niveau 1 : 3% de force supplémentaire pour les 2 joueurs pendant 3 minutes\n- Niveau 2 : 10% de speed supplémentaire pour les 2 joueurs pendant 2 minutes\n- Niveau 3 : 3% de force et 5% de speed supplémentaire pour les 2 joueurs pendant 2 minutes\n \nPour les autres camps :\n- Niveau 1 : 2% de force en moins pour les 2 joueurs pendant 2 minutes\n- Niveau 2 : 7% de speed en moins pour les 2 joueurs pendant 2 minutes\n- Niveau 3 : 2% de force et 5% de speed en moins pour les 2 joueurs pendant 1 minute\n \nVous perdrez des coeurs permanent en fonction du niveau de la malédiction :\n- Niveau 1 : 1 coeur\n- Niveau 2 : 2 coeurs permanent\n- Niveau 3 : 3 coeurs permanent\n \nA chaque kill, vous recevrez 1.5 coeur supplémentaire (maximum : 12 coeurs)\n \n____________________________________________________");
 
     }
+	
+	public static void TexteTrial(Player player) {
+		
+		player.sendMessage("____________________________________________________\n \nVous êtes §2Obscure\n§rVous devez gagner avec le §2camp UHC§r\n \nau début il obtient le pouvoir \"adaption\" cooldawn 1 x ep\nlors qu'il active il obtient 2% de resisance et 3% de speed durant 2min 30 sec\npendant se laps de temps tout les malus divisé par deux (exepte farmeurrimo , kzou , trial solo) et si il reçoit deux fois le meme malus durant deux activation consécutif il aura 30% de chance d'etre immunisé durant tout la reste de la game\n(VOus arrivez toujours à comprendre ???)\nil se trouver a cote de tobou (toinou, oui trial fait vraiment aucun effort) il gagner 2% de force si il n'as pas activer son pouvoir\net si toinou vient a mourir il obtient le pseudo du tueur et si il vient a l tuer il gagner 2% de force ( et 1% de force dans sa fore pouvoir)\n \n(description par Trial, pour avoir une description plus lisible faites /rcme)\n \n____________________________________________________");
+		
+	}
 
 }

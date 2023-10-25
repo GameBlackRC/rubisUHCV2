@@ -33,6 +33,8 @@ private Main main;
         	Joueur joueur = main.getJoueur(player);
 
         	String classe = args[0];
+        	
+        	System.out.println(args[0]);
 
             if (classe != null && (joueur.getRole() == Roles.GAMEBLACK && joueur.getModeTrial(main) == "serieux")) {
             	

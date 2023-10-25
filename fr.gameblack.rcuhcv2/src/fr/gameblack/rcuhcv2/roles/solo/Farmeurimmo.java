@@ -173,11 +173,11 @@ public class Farmeurimmo {
 						cible.setHack(true);
 						joueur.getPlayer().sendMessage("Vous venez de recevoir la commande /rcvacance de Toinou");
 						
-					} else if(cible.getRole() == Roles.OBSCUR) {
+					} else if(cible.getRole() == Roles.NONOBOY) {
 						
-						joueur.getVol().add(Pouvoirs.OBSCUR_COEUR_KILL);
+						joueur.getVol().add(Pouvoirs.NONOBOY_COEUR_KILL);
 						cible.setHack(true);
-						joueur.getPlayer().sendMessage("Vous venez de recevoir le pouvoir d'Obscur, vous recevez donc 1 demi-coeur supplémentaire à chaque kill");
+						joueur.getPlayer().sendMessage("Vous venez de recevoir le pouvoir de Nonoboy, vous recevez donc 1 demi-coeur supplémentaire à chaque kill");
 						
 					} else if(cible.getRole() == Roles.KZOU) {
 						
