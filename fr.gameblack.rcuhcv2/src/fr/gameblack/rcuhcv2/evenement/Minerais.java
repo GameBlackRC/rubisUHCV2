@@ -49,7 +49,7 @@ public class Minerais {
 			}
 			
 		}
-		else if (minerais == Material.QUARTZ_BLOCK) {
+		else if (minerais == Material.QUARTZ_ORE) {
 			
 			if(joueur.getPlayer().getInventory().firstEmpty() == -1) {
 				
@@ -69,7 +69,7 @@ public class Minerais {
 	
 	public static void InteractItemRubis(Joueur joueur, Main main) {
 		
-		joueur.getPlayer().getInventory().remove(Material.NETHER_BRICK);
+		joueur.getPlayer().getInventory().remove(Material.NETHER_BRICK_ITEM);
 		
 		Random r = new Random();
         int nb = r.nextInt(3);
@@ -100,7 +100,7 @@ public class Minerais {
 	
 	public static void InteractItemRubisBleu(Joueur joueur, Main main) {
 		
-		joueur.getPlayer().getInventory().remove(Material.QUARTZ_BLOCK);
+		joueur.getPlayer().getInventory().remove(Material.QUARTZ);
 		
 		Random r = new Random();
         int nb = r.nextInt(3);
@@ -125,7 +125,7 @@ public class Minerais {
 	
 	public static void InteractItemTopaze(Joueur joueur, Main main) {
 		
-		joueur.getPlayer().getInventory().remove(Material.GLOWSTONE);
+		joueur.getPlayer().getInventory().remove(Material.GLOWSTONE_DUST);
 		
 		Random r = new Random();
         int nb = r.nextInt(100);

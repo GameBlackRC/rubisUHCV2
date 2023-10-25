@@ -21,23 +21,33 @@ public class Maka {
 	
 	public static void FormeSimp(Joueur joueur, Main main) {
 		
-		joueur.setForme("simp");
-		
-		Random r = new Random();
-		
 		List<Joueur> campStaff = main.getCampStaff();
 		
-		campStaff.remove(joueur);
+		if(campStaff.size() > 1) {
 		
-        int nb = r.nextInt(campStaff.size());
-		
-		main.setNeko(campStaff.get(nb));
-		
-		main.setNbJoueursStaff(campStaff.size());
-		
-		joueur.getPlayer().sendMessage("Voici le pseudo de Neko : " + main.getNeko().getPlayer().getName());
-		
-		main.getNeko().getPlayer().sendMessage("Maka vient de passer dans sa forme simp, vous êtes Neko");       
+			joueur.setForme("simp");
+			
+			Random r = new Random();
+			
+			campStaff.remove(joueur);
+			
+	        int nb = r.nextInt(campStaff.size());
+			
+			main.setNeko(campStaff.get(nb));
+			
+			main.setNbJoueursStaff(campStaff.size());
+			
+			joueur.getPlayer().sendMessage("Voici le pseudo de Neko : " + main.getNeko().getPlayer().getName());
+			
+			main.getNeko().getPlayer().sendMessage("Maka vient de passer dans sa forme simp, vous êtes Neko");
+			
+		}
+		else {
+			
+			joueur.getPlayer().sendMessage("Vous ne pouvez pas passer en forme Simp car il n'y a plus aucun membre du staff");
+			
+		}
+			
 	}
 	
 	public static void Texte(Player player) {

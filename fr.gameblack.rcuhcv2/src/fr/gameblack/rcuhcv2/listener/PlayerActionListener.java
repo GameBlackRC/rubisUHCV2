@@ -171,20 +171,20 @@ public class PlayerActionListener implements Listener{
 		Player player = event.getPlayer();
 		Joueur joueur = main.getJoueur(player);
 		
-		if(event.getBlock().getType() == Material.GLOWSTONE || event.getBlock().getType() == Material.NETHER_BRICK || event.getBlock().getType() == Material.QUARTZ) {
+		if(event.getBlock().getType() == Material.GLOWSTONE || event.getBlock().getType() == Material.NETHER_BRICK || event.getBlock().getType() == Material.QUARTZ_ORE) {
 			
 			event.setCancelled(true);
 			Minerais.InteractMinerais(joueur, event.getBlock().getType(), event.getBlock().getLocation());
 			
 		}
 		
-		if(event.getBlock().getType() == Material.BED_BLOCK && ((event.getBlock().getLocation().getX() == 200 && event.getBlock().getLocation().getY() == 100 && event.getBlock().getLocation().getZ() == 200) || (event.getBlock().getLocation().getX() == 200 && event.getBlock().getLocation().getY() == 100 && event.getBlock().getLocation().getZ() == 201))) {
+		if(event.getBlock().getType() == Material.BED_BLOCK && (main.getJoueurByRole(Roles.GAMEBLACK) != null && main.getModeTrial().equalsIgnoreCase("fun")) && ((event.getBlock().getLocation().getX() == 200 && event.getBlock().getLocation().getY() == 100 && event.getBlock().getLocation().getZ() == 200) || (event.getBlock().getLocation().getX() == 200 && event.getBlock().getLocation().getY() == 100 && event.getBlock().getLocation().getZ() == 201))) {
 			
 			Bukkit.broadcastMessage("Lit de GameBlack casser");
 			GameBlack.litGBCasser(joueur, main);
 			
 		}
-		else if(event.getBlock().getType() == Material.BED_BLOCK && ((event.getBlock().getLocation().getX() == 200 && event.getBlock().getLocation().getY() == 100 && event.getBlock().getLocation().getZ() == -200) || (event.getBlock().getLocation().getX() == 200 && event.getBlock().getLocation().getY() == 100 && event.getBlock().getLocation().getZ() == -199))) {
+		else if(event.getBlock().getType() == Material.BED_BLOCK && (main.getJoueurByRole(Roles.GAMEBLACK) != null && main.getModeTrial().equalsIgnoreCase("fun")) && ((event.getBlock().getLocation().getX() == 200 && event.getBlock().getLocation().getY() == 100 && event.getBlock().getLocation().getZ() == -200) || (event.getBlock().getLocation().getX() == 200 && event.getBlock().getLocation().getY() == 100 && event.getBlock().getLocation().getZ() == -199))) {
 			
 			Bukkit.broadcastMessage("Lit de l'autre casser");
 			GameBlack.litAutreCasser(joueur, main);
@@ -196,7 +196,7 @@ public class PlayerActionListener implements Listener{
     @EventHandler
     public void onPlayerWrite(AsyncPlayerChatEvent event) {
 
-        if (main.getState() == Statut.PVP_ON) {
+        if (main.getState() == Statut.PVP_ON && !main.getMode().equalsIgnoreCase("rapide")) {
 
             event.setCancelled(true);
 

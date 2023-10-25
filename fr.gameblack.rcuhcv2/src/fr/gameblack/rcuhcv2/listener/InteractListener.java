@@ -96,7 +96,7 @@ public class InteractListener implements Listener {
 
             Minerais.InteractItemTopaze(joueur, main);
 
-        } else if (it.getType() == Material.NETHER_BRICK) {
+        } else if (it.getType() == Material.NETHER_BRICK_ITEM) {
 
             Minerais.InteractItemRubis(joueur, main);
 

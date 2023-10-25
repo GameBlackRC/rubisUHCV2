@@ -57,12 +57,6 @@ public class Trial {
         coffreM.setDisplayName("Benihime Aratame");
         coffre.setItemMeta(coffreM);
         joueur.getPlayer().getInventory().addItem(coffre);
-        
-        ItemStack coffre2 = new ItemStack(Material.NETHER_STAR, 1);
-        ItemMeta coffreM2 = coffre2.getItemMeta();
-        coffreM2.setDisplayName("Corruption d'âmes");
-        coffre2.setItemMeta(coffreM2);
-        joueur.getPlayer().getInventory().addItem(coffre2);
 		
 	}
 	
@@ -95,13 +89,13 @@ public class Trial {
 		
 			if(choix.equalsIgnoreCase("coeur")) {
 				
-				joueur.removeForce(0.04);
+				joueur.removeForce(0.02);
 				joueur.getPlayer().setMaxHealth(joueur.getPlayer().getMaxHealth() + 1);
 				
 			}
 			else {
 				
-				joueur.removeForce(0.04);
+				joueur.removeForce(0.02);
 				joueur.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.HEAL, 1, 0));
 				
 			}
@@ -118,7 +112,7 @@ public class Trial {
 	public static void CommandPlay(Joueur joueur, Joueur cible, Main main) {
 		
 		Random r = new Random();
-        int nb = r.nextInt(3);
+        int nb = r.nextInt(2);
         joueur.setInvulnerable(true);
         cible.setInvulnerable(true);
         
@@ -132,7 +126,7 @@ public class Trial {
             cible.getPlayer().sendMessage("Vous jouez à 1, 2, 3, soleil avec Trial, ne bougez plus ! Le jeu se lance dans 3 secondes");
         	
         }
-        else if(nb == 1) {
+        else { //if(nb == 1) {
         	
         	main.setJeuTrial("takaoni");
         	main.getJoueurJeuTrial().add(joueur);
@@ -143,17 +137,17 @@ public class Trial {
             cible.getPlayer().sendMessage("Vous jouez à takaoni avec Trial, montez le plus haut possible !");
         	
         }
-        else {
+        //else {
         	
-        	main.setJeuTrial("reflex");
-        	main.getJoueurJeuTrial().add(joueur);
-        	main.getJoueurJeuTrial().add(cible);
-        	JeuCD cycle = new JeuCD(main, joueur, cible, "reflex", 30);
-            cycle.runTaskTimer(main, 0, 20);
-            joueur.getPlayer().sendMessage("Le jeu choisi est reflex");
-            cible.getPlayer().sendMessage("Vous jouez à reflex avec Trial, cliquez le plus rapidement sur le message qui va apparaître dans le chat !");
+        	//main.setJeuTrial("reflex");
+        	//main.getJoueurJeuTrial().add(joueur);
+        	//main.getJoueurJeuTrial().add(cible);
+        	//JeuCD cycle = new JeuCD(main, joueur, cible, "reflex", 30);
+            //cycle.runTaskTimer(main, 0, 20);
+            //joueur.getPlayer().sendMessage("Le jeu choisi est reflex");
+            //cible.getPlayer().sendMessage("Vous jouez à reflex avec Trial, cliquez le plus rapidement sur le message qui va apparaître dans le chat !");
         	
-        }
+        //}
 		
 	}
 	
