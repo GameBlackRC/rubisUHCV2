@@ -18,7 +18,9 @@ public class Raptor {
 		
 		Texte(joueur.getPlayer());
 		
-		ItemStack coffre = new ItemStack(Material.NETHER_STAR, 1);
+		@SuppressWarnings("deprecation")
+		ItemStack coffre = new ItemStack(351, 1, (short) 2);
+		//ItemStack coffre = new ItemStack(Material.NETHER_STAR, 1);
         ItemMeta coffreM = coffre.getItemMeta();
         coffreM.setDisplayName("Rage");
         coffre.setItemMeta(coffreM);

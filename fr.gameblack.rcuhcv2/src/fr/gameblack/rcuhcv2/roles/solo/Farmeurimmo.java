@@ -25,7 +25,7 @@ public class Farmeurimmo {
 	public static void Items(Joueur joueur) {
 		
 		joueur.getPlayer().setMaxHealth(22);
-		joueur.addForce(0.05);
+		joueur.addForce(0.03);
 		
 		Texte(joueur.getPlayer());
 		
@@ -33,10 +33,11 @@ public class Farmeurimmo {
 	
 	public static void Texte(Player player) {
 
-        player.sendMessage("____________________________________________________\n \nVous êtes §6Farmeurimmo\n§rVous devez gagner §6seul§r\n \nVous avez 5% de force ainsi que 1 coeur permanent supplémentaire\n \nAu dessus de chaque joueur, vous voyez un poucentage de hack. Losqu'un joueur atteint 50%, vous pouvez utiliser la commande /rchack <joueur> sur lui. Lorsqu'un joueur atteint les 100%, vous pouvez utiliser la commande /rcvol <joueur> sur lui.\n \nAvec la commande /rcvol, vous volez un pouvoir du joueur (effets, commandes ou items). Le cooldown du pouvoir voler seras partager avec l'autre joueur. Une fois cette commande utiliser sur un joueur, la commande /rchack n'est plus utilisable sur lui.\n \nAvec la commande /rchack <joueur>, vous pouvez modifier/récuperer des informations sur le joueur (voir les possibilités avec la commande /rcinfo ou sur le doc).\n \nAvec la commande /rccamp <joueur>, vous pouvez modifier le camp d'un joueur qui devra désormais gagner avec vous. La commande est utilisable uniquement sur les joueurs que vous avez voler et qui ont atteint une 2ème fois les 100%. Le pouvoir volé seras innutilisable par le joueur.\n \n____________________________________________________");
+        player.sendMessage("____________________________________________________\n \nVous êtes §6Farmeurimmo\n§rVous devez gagner §6seul§r\n \nVous avez 3% de force ainsi que 1 coeur permanent supplémentaire\n \nAu dessus de chaque joueur, vous voyez un poucentage de hack. Losqu'un joueur atteint 50%, vous pouvez utiliser la commande /rchack <joueur> sur lui. Lorsqu'un joueur atteint les 100%, vous pouvez utiliser la commande /rcvol <joueur> sur lui.\n \nAvec la commande /rcvol, vous volez un pouvoir du joueur (effets, commandes ou items). Le cooldown du pouvoir voler seras partager avec l'autre joueur. Une fois cette commande utiliser sur un joueur, la commande /rchack n'est plus utilisable sur lui.\n \nAvec la commande /rchack <joueur>, vous pouvez modifier/récuperer des informations sur le joueur (voir les possibilités avec la commande /rcinfo ou sur le doc).\n \nAvec la commande /rccamp <joueur>, vous pouvez modifier le camp d'un joueur qui devra désormais gagner avec vous. La commande est utilisable uniquement sur les joueurs que vous avez voler et qui ont atteint une 2ème fois les 100%. Le pouvoir volé seras innutilisable par le joueur.\n \n____________________________________________________");
 
     }
 	
+	@SuppressWarnings("deprecation")
 	public static void commandSteal(Joueur joueur, Joueur cible, Main main) {
 		
 		if(joueur.getVol().size() < 2) {
@@ -50,7 +51,7 @@ public class Farmeurimmo {
 					if(cible.getRole() == Roles.RAPTOR) {
 				        	
 				        joueur.getVol().add(Pouvoirs.RAPTOR_RAGE);
-				        ItemStack coffre = new ItemStack(Material.NETHER_STAR, 1);
+				        ItemStack coffre = new ItemStack(351, 1, (short) 2);
 				        ItemMeta coffreM = coffre.getItemMeta();
 				        coffreM.setDisplayName("Rage");
 				        coffre.setItemMeta(coffreM);
@@ -80,7 +81,7 @@ public class Farmeurimmo {
 						
 					} else if(cible.getRole() == Roles.JOKO) {
 						
-						ItemStack coffre = new ItemStack(Material.NETHER_STAR, 1);
+						ItemStack coffre = new ItemStack(351, 1, (short) 13);
 				        ItemMeta coffreM = coffre.getItemMeta();
 				        coffreM.setDisplayName("SpeedCubing");
 				        coffre.setItemMeta(coffreM);
@@ -113,7 +114,7 @@ public class Farmeurimmo {
 							
 						} else if(cible.getCamp().equalsIgnoreCase("uhc")) {
 							
-							ItemStack coffre = new ItemStack(Material.NETHER_STAR, 1);
+							ItemStack coffre = new ItemStack(351, 1, (short) 1);
 					        ItemMeta coffreM = coffre.getItemMeta();
 					        coffreM.setDisplayName("Fuite");
 					        coffre.setItemMeta(coffreM);
@@ -160,7 +161,7 @@ public class Farmeurimmo {
 						cible.setHack(true);
 						joueur.getPlayer().sendMessage("Vous venez de recevoir l'item 'Cheat' de Malivol");
 						
-						ItemStack coffre = new ItemStack(Material.NETHER_STAR, 1);
+						ItemStack coffre = new ItemStack(351, 1, (short) 9);
 				        ItemMeta coffreM = coffre.getItemMeta();
 				        coffreM.setDisplayName("Cheat");
 				        coffre.setItemMeta(coffreM);
@@ -210,6 +211,7 @@ public class Farmeurimmo {
 		
 	}
 	
+	@SuppressWarnings("deprecation")
 	public static void commandCamp(Joueur joueur, Joueur cible, Main main) {
 		
 		if(cible.isHack() && cible.getPourcentHack() >= 100) {
@@ -221,7 +223,7 @@ public class Farmeurimmo {
 			
 			if(cible.getRole() == Roles.RAPTOR) {
 	        	
-		        ItemStack coffre = new ItemStack(Material.NETHER_STAR, 1);
+				ItemStack coffre = new ItemStack(351, 1, (short) 2);
 		        ItemMeta coffreM = coffre.getItemMeta();
 		        coffreM.setDisplayName("Rage");
 		        coffre.setItemMeta(coffreM);
@@ -244,7 +246,7 @@ public class Farmeurimmo {
 				
 			} else if(cible.getRole() == Roles.JOKO) {
 				
-				ItemStack coffre = new ItemStack(Material.NETHER_STAR, 1);
+				ItemStack coffre = new ItemStack(351, 1, (short) 13);
 		        ItemMeta coffreM = coffre.getItemMeta();
 		        coffreM.setDisplayName("SpeedCubing");
 		        coffre.setItemMeta(coffreM);
@@ -269,7 +271,7 @@ public class Farmeurimmo {
 					
 				} else if(cible.getCamp().equalsIgnoreCase("uhc")) {
 					
-					ItemStack coffre = new ItemStack(Material.NETHER_STAR, 1);
+					ItemStack coffre = new ItemStack(351, 1, (short) 1);
 			        ItemMeta coffreM = coffre.getItemMeta();
 			        coffreM.setDisplayName("Fuite");
 			        coffre.setItemMeta(coffreM);
@@ -305,7 +307,7 @@ public class Farmeurimmo {
 				
 				cible.getPlayer().sendMessage("Vous perdez donc votre pouvoir 'Cheat'");
 				
-				ItemStack coffre = new ItemStack(Material.NETHER_STAR, 1);
+				ItemStack coffre = new ItemStack(351, 1, (short) 9);
 		        ItemMeta coffreM = coffre.getItemMeta();
 		        coffreM.setDisplayName("Cheat");
 		        coffre.setItemMeta(coffreM);
@@ -439,22 +441,26 @@ public class Farmeurimmo {
 	        		
 	        		if(cible.getOrbe() == Orbe.EAU) {
 	        			
-	        			Eau.Malus(cible, main);
+	        			Eau.Malus(cible, main, true);
+	        			Eau.Passif(cible, main, false);
 	        			
 	        		}
 	        		else if(cible.getOrbe() == Orbe.FEU){
 	        			
-	        			Feu.Malus(cible, main);
+	        			Feu.Malus(cible, main, true);
+	        			Feu.Passif(cible, main, false);
 	        			
 	        		}
 	        		else if(cible.getOrbe() == Orbe.GLACE) {
 	        			
-	        			Glace.Malus(cible, main);
+	        			Glace.Malus(cible, main, true);
+	        			Glace.Passif(cible, main, false);
 	        			
 	        		}
 	        		else {
 	        			
-	        			Foudre.Malus(cible, main);
+	        			Foudre.Malus(cible, main, true);
+	        			Foudre.Passif(cible, main, false);
 	        			
 	        		}
 	        		
@@ -471,26 +477,24 @@ public class Farmeurimmo {
 	        		
 	        		if(cible.getOrbe() == Orbe.EAU) {
 	        			
-	        			Eau.Malus(cible, main);
+	        			Eau.Passif(cible, main, false);
 	        			
 	        		}
 	        		else if(cible.getOrbe() == Orbe.FEU){
 	        			
-	        			Feu.Malus(cible, main);
+	        			Feu.Passif(cible, main, false);
 	        			
 	        		}
 	        		else if(cible.getOrbe() == Orbe.GLACE) {
 	        			
-	        			Glace.Malus(cible, main);
+	        			Glace.Passif(cible, main, false);
 	        			
 	        		}
 	        		else {
 	        			
-	        			Foudre.Malus(cible, main);
+	        			Foudre.Passif(cible, main, false);
 	        			
 	        		}
-	        		
-	        		cible.setCanActiveOrbe(false);
 	        		
 	        		ItemCD cycle = new ItemCD(main, joueur, "desac_orbe", 60, cible, null, null, null, null);
 	                cycle.runTaskTimer(main, 0, 20);
@@ -521,12 +525,6 @@ public class Farmeurimmo {
 	        	
 	        	//le joueur a 10% de chance de recevoir des coup enflammé à chaque coup subis pendant 2 minutes
 	        	cible.setFire(true);
-	        	
-	        	if(cible.getOrbe() == Orbe.FEU) {
-	        		
-	        		Feu.RemoveEffets(cible, main);
-	        		
-	        	}
 	        	
 	        	ItemCD cycle = new ItemCD(main, joueur, "malus_feu_farmeurimmo", 60, cible, null, null, null, null);
 	            cycle.runTaskTimer(main, 0, 20);

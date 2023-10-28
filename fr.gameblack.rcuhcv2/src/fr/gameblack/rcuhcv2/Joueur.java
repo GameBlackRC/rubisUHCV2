@@ -39,6 +39,8 @@ public class Joueur {
 	private Roles role = Roles.NONE;
 	private Orbe orbe = Orbe.NONE;
 	private boolean orbe_actif = false;
+	private boolean orbe_passif_actif = false;
+	private boolean bonus_orbe_actif = false;
 	private boolean malus_orbe_actif = false;
 	private int kill = 0;
 	private boolean invulnerable = true;
@@ -49,7 +51,7 @@ public class Joueur {
 	private double resi = 110;
 	private boolean abso = true;
 	private boolean fire = false;
-	private boolean can_active_orbe = true;
+	private boolean can_have_malus_bonus_orbe = true;
 	private int malivol_cheat = 0;
 	private boolean antiKB = false;
 	private List<Pouvoirs> vol = new ArrayList<>();
@@ -93,6 +95,12 @@ public class Joueur {
 	private boolean corrompu = false;
 	private boolean corrompuIndirect = false;
 	private boolean inZoneSkinTrial = false;
+	private boolean tueurToinouKill = false;
+	private boolean inZoneJustice = false;
+	private int points = 0;
+	private boolean firstItemToinou = false;
+	private boolean bonusToinouNuage = false;
+	private boolean bonusToinouMaudit = false;
 
 	public Joueur(Player player) {
 		
@@ -115,6 +123,7 @@ public class Joueur {
 		role = Roles.NONE;
 		orbe = Orbe.NONE;
 		orbe_actif = false;
+		bonus_orbe_actif = false;
 		malus_orbe_actif = false;
 		kill = 0;
 		invulnerable = true;
@@ -125,7 +134,7 @@ public class Joueur {
 		resi = 110;
 		abso = true;
 		fire = false;
-		can_active_orbe = true;
+		can_have_malus_bonus_orbe = true;
 		malivol_cheat = 0;
 		antiKB = false;
 		vol = new ArrayList<>();
@@ -379,6 +388,18 @@ public class Joueur {
 		
 	}
 	
+	public boolean isBonusOrbeActif() {
+		
+		return bonus_orbe_actif;
+		
+	}
+	
+	public void setBonusOrbe(boolean bonus_orbe_actif) {
+		
+		this.bonus_orbe_actif = bonus_orbe_actif;
+		
+	}
+	
 	public boolean isMalusOrbeActif() {
 		
 		return malus_orbe_actif;
@@ -386,17 +407,6 @@ public class Joueur {
 	}
 	
 	public void setMalusOrbe(boolean malus_orbe_actif) {
-		
-		if(malus_orbe_actif) {
-			
-			this.can_active_orbe = false;
-			
-		}
-		else {
-			
-			this.can_active_orbe = true;
-			
-		}
 		
 		this.malus_orbe_actif = malus_orbe_actif;
 		
@@ -532,12 +542,12 @@ public class Joueur {
 		this.fire = fire;
 	}
 
-	public boolean canActiveOrbe() {
-		return can_active_orbe;
+	public boolean canHaveMalusBonusOrbe() {
+		return can_have_malus_bonus_orbe;
 	}
 
-	public void setCanActiveOrbe(boolean can_active_orbe) {
-		this.can_active_orbe = can_active_orbe;
+	public void setCanHaveMalusBonusOrbe(boolean can_active_orbe) {
+		this.can_have_malus_bonus_orbe = can_active_orbe;
 	}
 
 	public int getMalivolCheat() {
@@ -1295,6 +1305,74 @@ public class Joueur {
 
 	public void setInZoneSkinTrial(boolean inZoneSkinTrial) {
 		this.inZoneSkinTrial = inZoneSkinTrial;
+	}
+
+	public boolean isTueurToinouKill() {
+		return tueurToinouKill;
+	}
+
+	public void setTueurToinouKill(boolean tueurToinouKill) {
+		this.tueurToinouKill = tueurToinouKill;
+	}
+
+	public boolean isOrbePassifActif() {
+		return orbe_passif_actif;
+	}
+
+	public void setOrbePassifActif(boolean orbe_passif_actif) {
+		this.orbe_passif_actif = orbe_passif_actif;
+	}
+
+	public boolean isInZoneJustice() {
+		return inZoneJustice;
+	}
+
+	public void setInZoneJustice(boolean inZoneJustice) {
+		this.inZoneJustice = inZoneJustice;
+	}
+
+	public int getPoints() {
+		return points;
+	}
+
+	public void setPoints(int points) {
+		this.points = points;
+	}
+	
+	public void addPoint() {
+		
+		points += 1;
+		
+	}
+	
+	public void removePoints(int points) {
+		
+		this.points -= points;
+		
+	}
+
+	public boolean isFirstItemToinou() {
+		return firstItemToinou;
+	}
+
+	public void setFirstItemToinou(boolean firstItemToinou) {
+		this.firstItemToinou = firstItemToinou;
+	}
+
+	public boolean isBonusToinouNuage() {
+		return bonusToinouNuage;
+	}
+
+	public void setBonusToinouNuage(boolean bonusToinouNuage) {
+		this.bonusToinouNuage = bonusToinouNuage;
+	}
+
+	public boolean isBonusToinouMaudit() {
+		return bonusToinouMaudit;
+	}
+
+	public void setBonusToinouMaudit(boolean bonusToinouMaudit) {
+		this.bonusToinouMaudit = bonusToinouMaudit;
 	}
 	
 }

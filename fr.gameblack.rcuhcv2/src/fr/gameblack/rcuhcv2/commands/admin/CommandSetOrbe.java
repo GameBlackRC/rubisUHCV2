@@ -35,96 +35,96 @@ public class CommandSetOrbe implements CommandExecutor {
 	
 	            if (joueur.getOrbe() == Orbe.EAU) {
 	
-	                Eau.RemoveEffets(joueur, main);
+	                Eau.Passif(joueur, main, false);
 	
 	            } else if (joueur.getOrbe() == Orbe.FEU) {
 	
-	                Feu.RemoveEffets(joueur, main);
+	                Feu.Passif(joueur, main, false);
 	
 	            } else if (joueur.getOrbe() == Orbe.FOUDRE) {
 	
-	                Foudre.RemoveEffets(joueur, main);
+	                Foudre.Passif(joueur, main, false);
 	
 	            } else if (joueur.getOrbe() == Orbe.GLACE) {
 	
-	                Glace.RemoveEffets(joueur, main);
+	                Glace.Passif(joueur, main, false);
 	
 	            }
 	
 	            joueur.setOrbe(Orbe.EAU);
-	            Eau.Effets(joueur, main);
+	            Eau.Passif(joueur, main, true);
 	            player.sendMessage("Vous avez reçu §9l'orbe d'eau§r");
 	
 	        } else if (args.length != 0 && args[0].equalsIgnoreCase("feu")) {
 	
-	        	if (joueur.getOrbe() == Orbe.EAU) {
-	
-	                Eau.RemoveEffets(joueur, main);
+	            if (joueur.getOrbe() == Orbe.EAU) {
+	            	
+	                Eau.Passif(joueur, main, false);
 	
 	            } else if (joueur.getOrbe() == Orbe.FEU) {
 	
-	                Feu.RemoveEffets(joueur, main);
+	                Feu.Passif(joueur, main, false);
 	
 	            } else if (joueur.getOrbe() == Orbe.FOUDRE) {
 	
-	                Foudre.RemoveEffets(joueur, main);
+	                Foudre.Passif(joueur, main, false);
 	
 	            } else if (joueur.getOrbe() == Orbe.GLACE) {
 	
-	                Glace.RemoveEffets(joueur, main);
+	                Glace.Passif(joueur, main, false);
 	
 	            }
 	
 	            joueur.setOrbe(Orbe.FEU);
-	            Feu.Effets(joueur, main);
+	            Feu.Passif(joueur, main, true);
 	            player.sendMessage("Vous avez reçu §cl'orbe de feu§r");
 	
 	        } else if (args.length != 0 && args[0].equalsIgnoreCase("glace")) {
 	
-	        	if (joueur.getOrbe() == Orbe.EAU) {
-	
-	                Eau.RemoveEffets(joueur, main);
+	            if (joueur.getOrbe() == Orbe.EAU) {
+	            	
+	                Eau.Passif(joueur, main, false);
 	
 	            } else if (joueur.getOrbe() == Orbe.FEU) {
 	
-	                Feu.RemoveEffets(joueur, main);
+	                Feu.Passif(joueur, main, false);
 	
 	            } else if (joueur.getOrbe() == Orbe.FOUDRE) {
 	
-	                Foudre.RemoveEffets(joueur, main);
+	                Foudre.Passif(joueur, main, false);
 	
 	            } else if (joueur.getOrbe() == Orbe.GLACE) {
 	
-	                Glace.RemoveEffets(joueur, main);
+	                Glace.Passif(joueur, main, false);
 	
 	            }
 	
 	            joueur.setOrbe(Orbe.GLACE);
-	            Glace.Effets(joueur, main);
+	            Glace.Passif(joueur, main, true);
 	            player.sendMessage("Vous avez reçu §bl'orbe de glace§r");
 	
 	        } else if (args.length != 0 && args[0].equalsIgnoreCase("foudre")) {
 	
-	        	if (joueur.getOrbe() == Orbe.EAU) {
-	
-	                Eau.RemoveEffets(joueur, main);
+	            if (joueur.getOrbe() == Orbe.EAU) {
+	            	
+	                Eau.Passif(joueur, main, false);
 	
 	            } else if (joueur.getOrbe() == Orbe.FEU) {
 	
-	                Feu.RemoveEffets(joueur, main);
+	                Feu.Passif(joueur, main, false);
 	
 	            } else if (joueur.getOrbe() == Orbe.FOUDRE) {
 	
-	                Foudre.RemoveEffets(joueur, main);
+	                Foudre.Passif(joueur, main, false);
 	
 	            } else if (joueur.getOrbe() == Orbe.GLACE) {
 	
-	                Glace.RemoveEffets(joueur, main);
+	                Glace.Passif(joueur, main, false);
 	
 	            }
 	
 	            joueur.setOrbe(Orbe.FOUDRE);
-	            Foudre.Effets(joueur, main);
+	            Foudre.Passif(joueur, main, true);
 	            player.sendMessage("Vous avez reçu §el'orbe de foudre§r");
 	
 	        }

@@ -37,7 +37,11 @@ public class Loup {
 		
 		main.getCD().add(Pouvoirs.LOUP_SUPERBATEAU);
 		
-		joueur.getPlayer().playSound(joueur.getPlayer().getLocation(), Sound.BLAZE_DEATH, 10, 1);
+		for(Joueur j : main.getListJoueurs()) {
+		
+			j.getPlayer().playSound(joueur.getPlayer().getLocation(), Sound.BLAZE_DEATH, 20, 1);
+		
+		}
 		
 		joueur.getPlayer().sendMessage("Vous activez votre pouvoirs");
 		

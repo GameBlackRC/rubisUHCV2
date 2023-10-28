@@ -22,7 +22,9 @@ public class Malivol {
     	Player player = joueur.getPlayer();
     	
         Texte(player);
-        ItemStack coffre = new ItemStack(Material.NETHER_STAR, 1);
+        @SuppressWarnings("deprecation")
+		ItemStack coffre = new ItemStack(351, 1, (short) 9);
+        //ItemStack coffre = new ItemStack(Material.NETHER_STAR, 1);
         ItemMeta coffreM = coffre.getItemMeta();
         coffreM.setDisplayName("Cheat");
         coffre.setItemMeta(coffreM);

@@ -21,8 +21,10 @@ import fr.gameblack.rcuhcv2.roles.joueur.Raptor;
 import fr.gameblack.rcuhcv2.roles.joueur.Slup;
 import fr.gameblack.rcuhcv2.roles.staff.GameBlack;
 import fr.gameblack.rcuhcv2.roles.staff.Loup;
+import fr.gameblack.rcuhcv2.roles.staff.Team;
 import fr.gameblack.rcuhcv2.roles.staff.Trial;
 import fr.gameblack.rcuhcv2.roles.uhc.Malivol;
+import fr.gameblack.rcuhcv2.roles.uhc.Obscur;
 
 public class InteractListener implements Listener {
 
@@ -32,7 +34,8 @@ public class InteractListener implements Listener {
         this.main = main;
     }
 
-    @EventHandler
+    @SuppressWarnings("deprecation")
+	@EventHandler
     public void onInteract(PlayerInteractEvent event) {
 
         Player player = event.getPlayer();
@@ -43,11 +46,11 @@ public class InteractListener implements Listener {
 
         if (it == null) return;
 
-        else if (it.getType() == Material.NETHER_STAR && it.hasItemMeta() && it.getItemMeta().hasDisplayName() && it.getItemMeta().getDisplayName().equalsIgnoreCase("Cheat")) {
+        else if (it.getTypeId() == 351 && it.hasItemMeta() && it.getItemMeta().hasDisplayName() && it.getItemMeta().getDisplayName().equalsIgnoreCase("Cheat")) {
 
             Malivol.InteractCheat(joueur, main, true);
 
-        } else if (it.getType() == Material.NETHER_STAR && it.hasItemMeta() && it.getItemMeta().hasDisplayName() && it.getItemMeta().getDisplayName().equalsIgnoreCase("Rage")) {
+        } else if (it.getTypeId() == 351 && it.hasItemMeta() && it.getItemMeta().hasDisplayName() && it.getItemMeta().getDisplayName().equalsIgnoreCase("Rage")) {
 
             Raptor.ItemRage(joueur, main);
 
@@ -55,7 +58,7 @@ public class InteractListener implements Listener {
 
             Slup.interactPacte(joueur);
 
-        } else if (it.getType() == Material.NETHER_STAR && it.hasItemMeta() && it.getItemMeta().hasDisplayName() && it.getItemMeta().getDisplayName().equalsIgnoreCase("Slimetification")) {
+        } else if (it.getTypeId() == 351 && it.hasItemMeta() && it.getItemMeta().hasDisplayName() && it.getItemMeta().getDisplayName().equalsIgnoreCase("Slimetification")) {
 
             if(action == Action.LEFT_CLICK_AIR || action == Action.LEFT_CLICK_BLOCK) {
             	
@@ -72,17 +75,25 @@ public class InteractListener implements Listener {
 
             Trial.ItemBenihimeAratame(joueur, main);
 
+        } else if (it.getType() == Material.NETHER_STAR && it.hasItemMeta() && it.getItemMeta().hasDisplayName() && it.getItemMeta().getDisplayName().equalsIgnoreCase("Justice")) {
+
+            Team.InteractJusticeStaff(joueur, main);
+
         } else if (it.getType() == Material.NETHER_STAR && it.hasItemMeta() && it.getItemMeta().hasDisplayName() && it.getItemMeta().getDisplayName().equalsIgnoreCase("Sakashima Yokoshima")) {
 
             Trial.ItemSakashimaYokoshima(joueur, main);
 
-        } else if (it.getType() == Material.NETHER_STAR && it.hasItemMeta() && it.getItemMeta().hasDisplayName() && it.getItemMeta().getDisplayName().equalsIgnoreCase("SpeedCubing")) {
+        } else if (it.getTypeId() == 351 && it.hasItemMeta() && it.getItemMeta().hasDisplayName() && it.getItemMeta().getDisplayName().equalsIgnoreCase("SpeedCubing")) {
 
             Joko.InteractSpeedcubing(joueur, main);
 
-        } else if (it.getType() == Material.NETHER_STAR && it.hasItemMeta() && it.getItemMeta().hasDisplayName() && it.getItemMeta().getDisplayName().equalsIgnoreCase("Fuite")) {
+        } else if (it.getTypeId() == 351 && it.hasItemMeta() && it.getItemMeta().hasDisplayName() && it.getItemMeta().getDisplayName().equalsIgnoreCase("Fuite")) {
 
             GameBlack.InteractFuite(joueur, main);
+
+        } else if (it.getType() == Material.NETHER_STAR && it.hasItemMeta() && it.getItemMeta().hasDisplayName() && it.getItemMeta().getDisplayName().equalsIgnoreCase("Adaption")) {
+
+            Obscur.InteractAdaption(joueur, main);
 
         } else if (it.getType() == Material.NETHER_STAR && it.hasItemMeta() && it.getItemMeta().hasDisplayName() && it.getItemMeta().getDisplayName().equalsIgnoreCase("Super bateau")) {
 

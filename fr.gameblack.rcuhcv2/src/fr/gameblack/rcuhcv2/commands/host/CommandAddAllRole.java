@@ -33,6 +33,7 @@ public class CommandAddAllRole implements CommandExecutor {
                 main.getCompo().add(Roles.SLUP);
                 main.getCompo().add(Roles.JOKO);
                 
+                main.getCompo().add(Roles.TEAM);
                 main.getCompo().add(Roles.GAMEBLACK);
                 main.getCompo().add(Roles.MAKA);
                 main.getCompo().add(Roles.TRIAL);
@@ -41,6 +42,7 @@ public class CommandAddAllRole implements CommandExecutor {
                 main.getCompo().add(Roles.MALIVOL);
                 main.getCompo().add(Roles.TOINOU);
                 main.getCompo().add(Roles.OBSCUR);
+                main.getCompo().add(Roles.NONOBOY);
                 
                 main.getCompo().add(Roles.FARMEURIMMO);
                 main.getCompo().add(Roles.KZOU);

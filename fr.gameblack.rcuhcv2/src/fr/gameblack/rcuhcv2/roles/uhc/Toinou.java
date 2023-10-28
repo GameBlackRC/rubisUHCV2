@@ -1,6 +1,9 @@
 package fr.gameblack.rcuhcv2.roles.uhc;
 
+import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.Inventory;
 
 import fr.gameblack.rcuhcv2.Joueur;
 import fr.gameblack.rcuhcv2.Main;
@@ -35,6 +38,22 @@ public class Toinou {
 		joueur.addSpeed(0.1);
 		ItemCD cycle = new ItemCD(main, joueur, "vacance_toinou", 120, joueur, null, null, null, null);
         cycle.runTaskTimer(main, 0, 20);
+		
+	}
+	
+	public static void CommandShop(Joueur joueur) {
+		
+		Inventory inv_orbe = Bukkit.createInventory(null, 27, "§8Shop");
+    	
+        inv_orbe.setItem(10, Main.getItem(Material.GOLDEN_APPLE, "3 gaps", "Coût : 1 point"));
+        inv_orbe.setItem(11, Main.getItem(Material.COMPASS, "Pas encore fonctionnel", ""));
+        inv_orbe.setItem(12, Main.getItem(Material.BOOK, "Pas encore fonctionnel", "Coût : 1 point"));
+        inv_orbe.setItem(14, Main.getItem(Material.GLASS, "Nuage Flottant", "Coût : 2 points"));
+        inv_orbe.setItem(15, Main.getItem(Material.NETHERRACK, "Épée maudite", "Coût : 2 points"));
+        inv_orbe.setItem(16, Main.getItem(Material.SOUL_SAND, "Épée des âmes", "Coût : 3 points"));
+        inv_orbe.setItem(17, Main.getItem(Material.REDSTONE_BLOCK, "Pas encore fonctionnel", "Coût : 4 points"));
+
+        joueur.getPlayer().openInventory(inv_orbe);
 		
 	}
 	

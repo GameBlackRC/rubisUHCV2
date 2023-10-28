@@ -1,22 +1,64 @@
 package fr.gameblack.rcuhcv2.roles.uhc;
 
+import java.util.Random;
+
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.ItemStack;
 
 import fr.gameblack.rcuhcv2.Joueur;
 import fr.gameblack.rcuhcv2.Main;
+import fr.gameblack.rcuhcv2.Pouvoirs;
 import fr.gameblack.rcuhcv2.task.ItemCD;
 
 public class Obscur {
 	
 	public static void Items(Joueur joueur) {
 		
-		TexteTrial(joueur.getPlayer());
+		ItemStack coffre = new ItemStack(Material.NETHER_STAR, 1);
+        ItemMeta coffreM = coffre.getItemMeta();
+        coffreM.setDisplayName("Adaption");
+        coffre.setItemMeta(coffreM);
+        joueur.getPlayer().getInventory().addItem(coffre);
+		
+		Random r = new Random();
+        int nb = r.nextInt(100);
+        
+        if(nb <= 10) {
+        	
+        	TexteTrial(joueur.getPlayer());
+        	
+        }
+        else {
+        	
+        	Texte(joueur.getPlayer());
+        	
+        }
+		
+	}
+	
+	public static void InteractAdaption(Joueur joueur, Main main) {
+		
+		if(main.getCD().contains(Pouvoirs.OBSCUR_ADAPTION)) {
+		
+			main.getCD().add(Pouvoirs.OBSCUR_ADAPTION);
+			main.setAdaptionObscurActif(true);
+			if(joueur.isTueurToinouKill()) {
+				joueur.removeForce(0.01);
+			}
+			joueur.addResi(0.02);
+			joueur.addSpeed(0.05);
+			ItemCD cycle = new ItemCD(main, joueur, "adaption", 150, joueur, null, null, null, null);
+	    	cycle.runTaskTimer(main, 0, 20);
+	    	
+		}
 		
 	}
 	
 	public static void Texte(Player player) {
 
-        player.sendMessage("____________________________________________________\n \nVous êtes §2Obscur\n§rVous devez gagner avec le §2camp UHC§r\n \nVous avez 3% de force permanent\n \nAvec la commande /rcmaudit <pseudo> <pseudo> <niveau>, vous pourrez maudire 2 joueurs du même camps. Le bonus et le malus dépendent du camps et du niveaux :\n \nPour le camps UHC :\n- Niveau 1 : 3% de force supplémentaire pour les 2 joueurs pendant 3 minutes\n- Niveau 2 : 10% de speed supplémentaire pour les 2 joueurs pendant 2 minutes\n- Niveau 3 : 3% de force et 5% de speed supplémentaire pour les 2 joueurs pendant 2 minutes\n \nPour les autres camps :\n- Niveau 1 : 2% de force en moins pour les 2 joueurs pendant 2 minutes\n- Niveau 2 : 7% de speed en moins pour les 2 joueurs pendant 2 minutes\n- Niveau 3 : 2% de force et 5% de speed en moins pour les 2 joueurs pendant 1 minute\n \nVous perdrez des coeurs permanent en fonction du niveau de la malédiction :\n- Niveau 1 : 1 coeur\n- Niveau 2 : 2 coeurs permanent\n- Niveau 3 : 3 coeurs permanent\n \nA chaque kill, vous recevrez 1.5 coeur supplémentaire (maximum : 12 coeurs)\n \n____________________________________________________");
+        player.sendMessage("____________________________________________________\n \nVous êtes §2Obscur\n§rVous devez gagner avec le §2camp UHC§r\n \nLorsque vous êtes proche de Toinou ou si Toinou n'est pas dans la compo, vous recevez 2% de force\n \nAvec votre item 'Adaption', vous obtenez 2% de résistance ainsi que 5% de speed pendant 2min30.\nTout les malus que vous obtenez pendant votre pouvoir ont leur durée divisé par 2\nSi vous obtenez le même malus lors de 2 utilisations consécutif de votre pouvoir, vous devenez immunisé à ce malus durant toute la partie\n \nSi Toinou vient à mourrir, vous obtenez le pseudo de son tueur et si vous parvenez à l'éliminé, vous obtiendrez 2% de force permanent et vous perdrez 1% de force lorsque votre pouvoir est actif\n \n____________________________________________________");
 
     }
 	

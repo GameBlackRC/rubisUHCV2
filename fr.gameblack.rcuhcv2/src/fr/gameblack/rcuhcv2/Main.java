@@ -62,6 +62,7 @@ import fr.gameblack.rcuhcv2.commands.staff.trial.CommandFirstReflexGame;
 import fr.gameblack.rcuhcv2.commands.staff.trial.CommandPlay;
 import fr.gameblack.rcuhcv2.commands.staff.trial.CommandSacrifice;
 import fr.gameblack.rcuhcv2.commands.uhc.nonoboy.CommandMaudit;
+import fr.gameblack.rcuhcv2.commands.uhc.toinou.CommandShop;
 import fr.gameblack.rcuhcv2.commands.uhc.toinou.CommandVacance;
 import fr.gameblack.rcuhcv2.database.DatabaseManager;
 import fr.gameblack.rcuhcv2.commands.staff.trial.CommandMode;
@@ -104,6 +105,12 @@ public class Main extends JavaPlugin {
     private Joueur advBedwars = null;
     private String modeTrial = null;
     private boolean zoneBenihimeActif = false;
+    private List<Pouvoirs> adaptionObscur = new ArrayList<>();
+    private List<Pouvoirs> adaptionPermaObscur = new ArrayList<>();
+    private boolean adaptionObscurActif = false;
+    private List<Pouvoirs> adaptionAvantObscur = new ArrayList<>();
+    private Joueur tueurToinou = null;
+    private boolean zoneJusticeActif = false;
     
     private DatabaseManager databaseManager;
     
@@ -191,6 +198,7 @@ public class Main extends JavaPlugin {
     	getCommand("rcconsole").setExecutor(new CommandConsole(this));
     	getCommand("rcforme").setExecutor(new CommandForme(this));
     	
+    	getCommand("rcshop").setExecutor(new CommandShop(this));
     	getCommand("rcvacance").setExecutor(new CommandVacance(this));
     	getCommand("rcmaudit").setExecutor(new CommandMaudit(this));
     	
@@ -272,7 +280,7 @@ public class Main extends JavaPlugin {
     	
     }
     
-    public void eliminate(Joueur joueur, boolean Kzou) {
+    public void eliminate(Joueur joueur, boolean Kzou, Main main) {
 
         Roles role = Roles.NONE;
 
@@ -286,13 +294,23 @@ public class Main extends JavaPlugin {
 
         }
         joueur.setOrbe(Orbe.NONE);
-        Bukkit.broadcastMessage("_________________________\n" + joueur.getPlayer().getName() + " est mort. Il était : \n" + joueur.getCouleurCamp() + role + "§r\n_________________________");
-        checkWin();
+        if(joueur.isInZoneJustice() && main.getJoueurByRole(Roles.TEAM) != null) {
+        	
+        	main.getJoueurByRole(Roles.TEAM).getPlayer().sendMessage("_________________________\n" + joueur.getPlayer().getName() + " est mort. Il était : \n" + joueur.getCouleurCamp() + role.getTxt() + "§r\n_________________________\nCe joueur étant mort dans votre zone, seul vous voyez le message de mort");
+        	
+        }
+        else {
+        	
+        	Bukkit.broadcastMessage("_________________________\n" + joueur.getPlayer().getName() + " est mort. Il était : \n" + joueur.getCouleurCamp() + role.getTxt() + "§r\n_________________________");
+        	
+    	}
+        
         joueur.getPlayer().setGameMode(GameMode.SPECTATOR);
         joueur.setMort(true);
         joueur.setSpec(true);
         
         joueur.hide(this);
+        checkWin();
 
         //MortCD cycle = new MortCD(this, player);
         //cycle.runTaskTimer(this, 0, 20);
@@ -909,6 +927,54 @@ public class Main extends JavaPlugin {
 
 	public void setZoneBenihimeActif(boolean zoneBenihimeActif) {
 		this.zoneBenihimeActif = zoneBenihimeActif;
+	}
+
+	public List<Pouvoirs> getAdaptionObscur() {
+		return adaptionObscur;
+	}
+
+	public void setAdaptionObscur(List<Pouvoirs> adaptionObscur) {
+		this.adaptionObscur = adaptionObscur;
+	}
+
+	public List<Pouvoirs> getAdaptionPermaObscur() {
+		return adaptionPermaObscur;
+	}
+
+	public void setAdaptionPermaObscur(List<Pouvoirs> adaptionPermaObscur) {
+		this.adaptionPermaObscur = adaptionPermaObscur;
+	}
+
+	public boolean isAdaptionObscurActif() {
+		return adaptionObscurActif;
+	}
+
+	public void setAdaptionObscurActif(boolean adaptionObscurActif) {
+		this.adaptionObscurActif = adaptionObscurActif;
+	}
+
+	public List<Pouvoirs> getAdaptionAvantObscur() {
+		return adaptionAvantObscur;
+	}
+
+	public void setAdaptionAvantObscur(List<Pouvoirs> adaptionAvantObscur) {
+		this.adaptionAvantObscur = adaptionAvantObscur;
+	}
+
+	public Joueur getTueurToinou() {
+		return tueurToinou;
+	}
+
+	public void setTueurToinou(Joueur tueurToinou) {
+		this.tueurToinou = tueurToinou;
+	}
+
+	public boolean isZoneJusticeActif() {
+		return zoneJusticeActif;
+	}
+
+	public void setZoneJusticeActif(boolean zoneJusticeActif) {
+		this.zoneJusticeActif = zoneJusticeActif;
 	}
 	
 }

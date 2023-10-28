@@ -2,6 +2,7 @@ package fr.gameblack.rcuhcv2.listener;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -10,6 +11,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import fr.gameblack.rcuhcv2.Classe;
 import fr.gameblack.rcuhcv2.Joueur;
 import fr.gameblack.rcuhcv2.Main;
 import fr.gameblack.rcuhcv2.Orbe;
@@ -18,6 +20,7 @@ import fr.gameblack.rcuhcv2.orbes.Feu;
 import fr.gameblack.rcuhcv2.orbes.Foudre;
 import fr.gameblack.rcuhcv2.orbes.Glace;
 import fr.gameblack.rcuhcv2.roles.joueur.Slup;
+import fr.gameblack.rcuhcv2.roles.staff.GameBlack;
 
 public class InventoryInteractListener implements Listener {
 
@@ -106,6 +109,127 @@ public class InventoryInteractListener implements Listener {
 
             }
 
+        } else if(inv.getName().equalsIgnoreCase("§8Shop")) {
+        	
+        	event.setCancelled(true);
+        	Joueur joueur = main.getJoueur(player);
+        	
+        	switch (current.getType()) {
+        	
+        		case GOLDEN_APPLE:
+        			
+        			if(joueur.getPoints() >= 1) {
+        				
+        				joueur.removePoints(1);
+        			
+	        			ItemStack gaps = new ItemStack(Material.GOLDEN_APPLE, 3);
+	                    joueur.getPlayer().getInventory().addItem(gaps);
+	        			joueur.getPlayer().closeInventory();
+	        			
+        			}
+        			
+        			break;
+        			
+        		case BOOK:
+        			
+        			ItemStack book = new ItemStack(Material.BOOK, 1);
+                    ItemMeta bookM = book.getItemMeta();
+                    bookM.setDisplayName("Livre des morts");
+                    book.setItemMeta(bookM);
+                    
+                    //joueur.getPlayer().getInventory().addItem(book);
+        			
+        			break;
+        			
+        		case GLASS:
+        			
+        			if(joueur.getPoints() >= 2) {
+        				
+        				joueur.removePoints(2);
+        			
+	        			ItemStack nuage = new ItemStack(Material.DIAMOND_SWORD, 1);
+	                    ItemMeta nuageM = nuage.getItemMeta();
+	                    nuage.addEnchantment(Enchantment.DAMAGE_ALL, 4);
+	                    nuageM.setDisplayName("Nuage Flottant");
+	                    nuage.setItemMeta(nuageM);
+	                    joueur.getPlayer().getInventory().addItem(nuage);
+	                    joueur.getPlayer().closeInventory();
+                    
+        			}
+        			else if(!joueur.isFirstItemToinou()) {
+        				
+        				joueur.setFirstItemToinou(true);
+        				
+        				ItemStack nuage = new ItemStack(Material.DIAMOND_SWORD, 1);
+	                    ItemMeta nuageM = nuage.getItemMeta();
+	                    nuage.addEnchantment(Enchantment.DAMAGE_ALL, 4);
+	                    nuageM.setDisplayName("Nuage Flottant");
+	                    nuage.setItemMeta(nuageM);
+	                    joueur.getPlayer().getInventory().addItem(nuage);
+	                    joueur.getPlayer().closeInventory();
+        				
+        			}
+        			
+        			break;
+        			
+        		case NETHERRACK:
+        			
+        			if(joueur.getPoints() >= 2) {
+        				
+        				joueur.removePoints(2);
+        			
+	        			ItemStack maudit = new ItemStack(Material.DIAMOND_SWORD, 1);
+	                    ItemMeta mauditM = maudit.getItemMeta();
+	                    maudit.addEnchantment(Enchantment.DAMAGE_ALL, 3);
+	                    mauditM.setDisplayName("Épée maudite");
+	                    maudit.setItemMeta(mauditM);
+	                    joueur.getPlayer().getInventory().addItem(maudit);
+	                    joueur.getPlayer().closeInventory();
+                    
+        			}
+        			else if(!joueur.isFirstItemToinou()) {
+        				
+        				joueur.setFirstItemToinou(true);
+        				
+	        			ItemStack maudit = new ItemStack(Material.DIAMOND_SWORD, 1);
+	                    ItemMeta mauditM = maudit.getItemMeta();
+	                    maudit.addEnchantment(Enchantment.DAMAGE_ALL, 3);
+	                    mauditM.setDisplayName("Épée maudite");
+	                    maudit.setItemMeta(mauditM);
+	                    joueur.getPlayer().getInventory().addItem(maudit);
+	                    joueur.getPlayer().closeInventory();
+        				
+        			}
+        			
+        			break;
+        			
+        		case SOUL_SAND:
+        			
+        			if(joueur.getPoints() >= 3) {
+        				
+        				joueur.removePoints(3);
+        				
+	        			ItemStack ames = new ItemStack(Material.DIAMOND_SWORD, 1);
+	                    ItemMeta amesM = ames.getItemMeta();
+	                    ames.addEnchantment(Enchantment.DAMAGE_ALL, 3);
+	                    amesM.setDisplayName("Épée des âmes");
+	                    ames.setItemMeta(amesM);
+	                    joueur.getPlayer().getInventory().addItem(ames);
+	                    joueur.getPlayer().closeInventory();
+	                    
+        			}
+        			
+        			break;
+        			
+        		case REDSTONE_BLOCK:
+        			
+        			break;
+        			
+        		default:
+        			break;
+        	
+        	}
+        	
         } else if(inv.getName().equalsIgnoreCase("§8Choix du pacte")) {
         	
         	event.setCancelled(true);
@@ -141,6 +265,48 @@ public class InventoryInteractListener implements Listener {
         	
         	}
         	
+        } else if(inv.getName().equalsIgnoreCase("§8Choix de la classe")) {
+        	
+        	event.setCancelled(true);
+        	Joueur joueur = main.getJoueur(player);
+        	
+        	switch (current.getType()) {
+        	
+        		case IRON_SWORD:
+        			
+        			GameBlack.CommandeClasse(joueur, Classe.ATTAQUANT, main);
+        			break;
+        			
+        		case IRON_CHESTPLATE:
+        			
+        			GameBlack.CommandeClasse(joueur, Classe.DEFENSEUR, main);
+        			break;
+        			
+        		case BOW:
+        			
+        			GameBlack.CommandeClasse(joueur, Classe.DISTANCE, main);
+        			break;
+        			
+        		case FEATHER:
+        			
+        			GameBlack.CommandeClasse(joueur, Classe.RAPIDE, main);
+        			break;
+        			
+        		case APPLE:
+        			
+        			GameBlack.CommandeClasse(joueur, Classe.SUPPORT, main);
+        			break;
+        			
+        		case BARRIER:
+        			
+        			GameBlack.CommandeClasse(joueur, Classe.RIEN, main);
+        			break;
+        			
+        		default: break;
+        	
+        	}
+        	
+        	
         } else if(inv.getName().equalsIgnoreCase("§8Choix de l'orbe")) {
         	
         	event.setCancelled(true);
@@ -150,129 +316,137 @@ public class InventoryInteractListener implements Listener {
         	
         		case WATER_BUCKET:
         			
-        			if(joueur.getOrbe() == Orbe.EAU && joueur.isOrbeActif()) {
+        			if(joueur.getOrbe() == Orbe.EAU && joueur.isOrbePassifActif()) {
         				
-        				Eau.RemoveEffets(joueur, main);
-        				
-        			}
-        			
-        			if(joueur.getOrbe() == Orbe.FEU && joueur.isOrbeActif()) {
-        				
-        				Feu.RemoveEffets(joueur, main);
+        				Eau.Passif(joueur, main, false);
         				
         			}
         			
-        			if(joueur.getOrbe() == Orbe.GLACE && joueur.isOrbeActif()) {
+        			if(joueur.getOrbe() == Orbe.FEU && joueur.isOrbePassifActif()) {
         				
-        				Glace.RemoveEffets(joueur, main);
-        				
-        			}
-        			
-        			if(joueur.getOrbe() == Orbe.FOUDRE && joueur.isOrbeActif()) {
-        				
-        				Foudre.RemoveEffets(joueur, main);
+        				Feu.Passif(joueur, main, false);
         				
         			}
         			
+        			if(joueur.getOrbe() == Orbe.GLACE && joueur.isOrbePassifActif()) {
+        				
+        				Glace.Passif(joueur, main, false);
+        				
+        			}
+        			
+        			if(joueur.getOrbe() == Orbe.FOUDRE && joueur.isOrbePassifActif()) {
+        				
+        				Foudre.Passif(joueur, main, false);
+        				
+        			}
+        			
+        			Eau.Passif(joueur, main, true);
         			joueur.setOrbe(Orbe.EAU);
         			joueur.setStatutOrbe(false);
         			joueur.getPlayer().sendMessage("Vous avez choisi l'orbe d'eau");
+        			joueur.getPlayer().closeInventory();
         			
         			break;
         			
         		case LAVA_BUCKET:
         			
-        			if(joueur.getOrbe() == Orbe.EAU && joueur.isOrbeActif()) {
+        			if(joueur.getOrbe() == Orbe.EAU && joueur.isOrbePassifActif()) {
         				
-        				Eau.RemoveEffets(joueur, main);
-        				
-        			}
-        			
-        			if(joueur.getOrbe() == Orbe.FEU && joueur.isOrbeActif()) {
-        				
-        				Feu.RemoveEffets(joueur, main);
+        				Eau.Passif(joueur, main, false);
         				
         			}
         			
-        			if(joueur.getOrbe() == Orbe.GLACE && joueur.isOrbeActif()) {
+        			if(joueur.getOrbe() == Orbe.FEU && joueur.isOrbePassifActif()) {
         				
-        				Glace.RemoveEffets(joueur, main);
-        				
-        			}
-        			
-        			if(joueur.getOrbe() == Orbe.FOUDRE && joueur.isOrbeActif()) {
-        				
-        				Foudre.RemoveEffets(joueur, main);
+        				Feu.Passif(joueur, main, false);
         				
         			}
         			
+        			if(joueur.getOrbe() == Orbe.GLACE && joueur.isOrbePassifActif()) {
+        				
+        				Glace.Passif(joueur, main, false);
+        				
+        			}
+        			
+        			if(joueur.getOrbe() == Orbe.FOUDRE && joueur.isOrbePassifActif()) {
+        				
+        				Foudre.Passif(joueur, main, false);
+        				
+        			}
+        			
+        			Feu.Passif(joueur, main, true);
         			joueur.setOrbe(Orbe.FEU);
         			joueur.setStatutOrbe(false);
         			joueur.getPlayer().sendMessage("Vous avez choisi l'orbe de feu");
+        			joueur.getPlayer().closeInventory();
         			
         			break;
         			
         		case REDSTONE_BLOCK:
         			
-        			if(joueur.getOrbe() == Orbe.EAU && joueur.isOrbeActif()) {
+        			if(joueur.getOrbe() == Orbe.EAU && joueur.isOrbePassifActif()) {
         				
-        				Eau.RemoveEffets(joueur, main);
-        				
-        			}
-        			
-        			if(joueur.getOrbe() == Orbe.FEU && joueur.isOrbeActif()) {
-        				
-        				Feu.RemoveEffets(joueur, main);
+        				Eau.Passif(joueur, main, false);
         				
         			}
         			
-        			if(joueur.getOrbe() == Orbe.GLACE && joueur.isOrbeActif()) {
+        			if(joueur.getOrbe() == Orbe.FEU && joueur.isOrbePassifActif()) {
         				
-        				Glace.RemoveEffets(joueur, main);
-        				
-        			}
-        			
-        			if(joueur.getOrbe() == Orbe.FOUDRE && joueur.isOrbeActif()) {
-        				
-        				Foudre.RemoveEffets(joueur, main);
+        				Feu.Passif(joueur, main, false);
         				
         			}
         			
+        			if(joueur.getOrbe() == Orbe.GLACE && joueur.isOrbePassifActif()) {
+        				
+        				Glace.Passif(joueur, main, false);
+        				
+        			}
+        			
+        			if(joueur.getOrbe() == Orbe.FOUDRE && joueur.isOrbePassifActif()) {
+        				
+        				Foudre.Passif(joueur, main, false);
+        				
+        			}
+        			
+        			Foudre.Passif(joueur, main, true);
         			joueur.setOrbe(Orbe.FOUDRE);
         			joueur.setStatutOrbe(false);
         			joueur.getPlayer().sendMessage("Vous avez choisi l'orbe de foudre");
+        			joueur.getPlayer().closeInventory();
         			
         			break;
         			
         		case ICE:
         			
-        			if(joueur.getOrbe() == Orbe.EAU && joueur.isOrbeActif()) {
+        			if(joueur.getOrbe() == Orbe.EAU && joueur.isOrbePassifActif()) {
         				
-        				Eau.RemoveEffets(joueur, main);
-        				
-        			}
-        			
-        			if(joueur.getOrbe() == Orbe.FEU && joueur.isOrbeActif()) {
-        				
-        				Feu.RemoveEffets(joueur, main);
+        				Eau.Passif(joueur, main, false);
         				
         			}
         			
-        			if(joueur.getOrbe() == Orbe.GLACE && joueur.isOrbeActif()) {
+        			if(joueur.getOrbe() == Orbe.FEU && joueur.isOrbePassifActif()) {
         				
-        				Glace.RemoveEffets(joueur, main);
-        				
-        			}
-        			
-        			if(joueur.getOrbe() == Orbe.FOUDRE && joueur.isOrbeActif()) {
-        				
-        				Foudre.RemoveEffets(joueur, main);
+        				Feu.Passif(joueur, main, false);
         				
         			}
         			
+        			if(joueur.getOrbe() == Orbe.GLACE && joueur.isOrbePassifActif()) {
+        				
+        				Glace.Passif(joueur, main, false);
+        				
+        			}
+        			
+        			if(joueur.getOrbe() == Orbe.FOUDRE && joueur.isOrbePassifActif()) {
+        				
+        				Foudre.Passif(joueur, main, false);
+        				
+        			}
+        			
+        			Glace.Passif(joueur, main, true);
         			joueur.setOrbe(Orbe.GLACE);
         			joueur.setStatutOrbe(false);
         			joueur.getPlayer().sendMessage("Vous avez choisi l'orbe de glace");
+        			joueur.getPlayer().closeInventory();
         			
         			break;
         			

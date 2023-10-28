@@ -42,7 +42,7 @@ public class CommandMaudit implements CommandExecutor {
 	
 	            if (cible1 != null && cible2 != null && args[2] != null && niveau > 0 && niveau < 4) {
 	
-	                if (joueur.getRole() == Roles.OBSCUR) {
+	                if (joueur.getRole() == Roles.NONOBOY) {
 	
 	                    if (main.getNiv_maledition() == 0) {
 	                    	

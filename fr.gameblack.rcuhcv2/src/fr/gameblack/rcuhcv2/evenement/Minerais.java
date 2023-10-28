@@ -206,7 +206,7 @@ public class Minerais {
         }
         else if(nb == 2) {
         	
-        	world.getBlockAt(x, y, z).setType(Material.QUARTZ_BLOCK);
+        	world.getBlockAt(x, y, z).setType(Material.QUARTZ_ORE);
         	
         }
         else {

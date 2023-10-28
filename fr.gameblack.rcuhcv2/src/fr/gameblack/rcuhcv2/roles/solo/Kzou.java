@@ -29,11 +29,15 @@ public class Kzou {
         	if(cible.getRole() == Roles.NONOBOY) {
         	
         		cible.Stun(15, main);
+        		ItemCD cycle = new ItemCD(main, joueur, "ban", 45, cible, null, null, null, null);
+                cycle.runTaskTimer(main, 0, 20);
         		
         	}
         	else {
         		
         		cible.Stun(30, main);
+        		ItemCD cycle = new ItemCD(main, joueur, "ban", 90, cible, null, null, null, null);
+                cycle.runTaskTimer(main, 0, 20);
         		
         	}
         	
@@ -62,8 +66,6 @@ public class Kzou {
             	}
             	
             }
-            ItemCD cycle = new ItemCD(main, joueur, "ban", 45, cible, null, null, null, null);
-            cycle.runTaskTimer(main, 0, 20);
             main.getCD().add(Pouvoirs.KZOU_BAN);
 
         }

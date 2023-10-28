@@ -3,9 +3,14 @@ package fr.gameblack.rcuhcv2.task;
 import fr.gameblack.rcuhcv2.Classe;
 import fr.gameblack.rcuhcv2.Joueur;
 import fr.gameblack.rcuhcv2.Main;
+import fr.gameblack.rcuhcv2.Orbe;
 import fr.gameblack.rcuhcv2.Pouvoirs;
 import fr.gameblack.rcuhcv2.Roles;
 import fr.gameblack.rcuhcv2.listener.DamageListener;
+import fr.gameblack.rcuhcv2.orbes.Eau;
+import fr.gameblack.rcuhcv2.orbes.Feu;
+import fr.gameblack.rcuhcv2.orbes.Foudre;
+import fr.gameblack.rcuhcv2.orbes.Glace;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -52,7 +57,8 @@ public class ItemCD extends BukkitRunnable {
         this.loc = loc;
     }
 
-    @Override
+    @SuppressWarnings("deprecation")
+	@Override
     public void run() {
     	
     	if(joueur.getRole() == Roles.GAMEBLACK && joueur.getClasseGB() != Classe.SUPPORT && (item == "buffgb_coeur" || item == "buffgb_speed" || item == "buffgb_resi" || item == "buffgb_force")) {
@@ -99,11 +105,63 @@ public class ItemCD extends BukkitRunnable {
     	
     	if(joueur.getRole() == Roles.KZOU && item == "ban") {
     		
-    		cible.removeForce(0.05);
+    		if(cible.getRole() == Roles.NONOBOY) {
+    			
+    			if(timer == 30) {
+    		
+    				cible.removeForce(0.05);
+    			
+    			}
+    			
+    		}
+    		else if(timer == 60) {
+    			
+    			cible.removeForce(0.05);
+    			
+    		}
     		
     	}
+    	
+    	//ORBE
+    	if(timer == 60) {
+    		
+	        if (item == "foudre_malus") {
+	
+	        	Foudre.Malus(joueur, main, false);
+	
+	        } else if (item == "eau_malus") {
+	
+	        	Eau.Malus(joueur, main, false);
+	
+	        } else if (item == "feu_malus") {
+	
+	            Feu.Malus(joueur, main, false);
+	
+	        } else if (item == "glace_malus") {
+	
+	        	Glace.Malus(joueur, main, false);
+	
+	        } else if (item == "foudre_bonus") {
+	
+	        	Foudre.Bonus(joueur, main, false);
+	
+	        } else if (item == "eau_bonus") {
+	
+	        	Eau.Bonus(joueur, main, false);
+	
+	        } else if (item == "feu_bonus") {
+	
+	        	Feu.Bonus(joueur, main, false);
+	
+	        } else if (item == "glace_bonus") {
+	
+	        	Glace.Bonus(joueur, main, false);
+	
+	        } 
+    	
+    	}
 
-        if (timer == 0) {
+    	else if (timer == 0) {
         	
         	if(item == "mortNeko") {
         		
@@ -122,23 +180,23 @@ public class ItemCD extends BukkitRunnable {
 	        			if (joueur.isOpKzou()) {
 	
 	        				joueur.setOpKzou(false);
-	                        main.eliminate(cible, true);
+	                        main.eliminate(cible, true, main);
 	
 	        			} else {
 	
-	        				main.eliminate(cible, false);
+	        				main.eliminate(cible, false, main);
 	
 	                    }
 	
 	        		} else {
 	
-	                    main.eliminate(cible, false);
+	                    main.eliminate(cible, false, main);
 	
 	                }
 	
 	    	        for (ItemStack item : cible.getPlayer().getInventory().getContents()) {
 	    	
-	    	        	if (item != null && item.getType() != Material.NETHER_STAR) {
+	    	        	if (item != null && item.getType() != Material.NETHER_STAR && item.getTypeId() != 351) {
 	    	
 	    	        		if (item.getItemMeta().hasEnchant(Enchantment.DEPTH_STRIDER)) {
 	    	
@@ -265,32 +323,43 @@ public class ItemCD extends BukkitRunnable {
 	
 	                cible.setInvulnerable(false);
 	                
-	            } else if (item == "foudre_malus") {
+	            }
+	            	            
+	            //ORBE
+	            else if (item == "foudre_malus") {
 	
-	            	joueur.addSpeed(0.05);
-	                joueur.setMalusOrbe(false);
-	                
-	                player.sendMessage("Le malus est terminé. Vous pouvez réactiver votre orbe avec la commande /rcorbe");
+	                joueur.setCanHaveMalusBonusOrbe(true);
 	
 	            } else if (item == "eau_malus") {
 	
-	            	joueur.addForce(0.05);
-	                joueur.setMalusOrbe(false);
-	                player.sendMessage("Le malus est terminé. Vous pouvez réactiver votre orbe avec la commande /rcorbe");
+	                joueur.setCanHaveMalusBonusOrbe(true);
 	
 	            } else if (item == "feu_malus") {
 	
-	            	joueur.addResi(0.05);
-	                joueur.setMalusOrbe(false);
-	                player.sendMessage("Le malus est terminé. Vous pouvez réactiver votre orbe avec la commande /rcorbe");
+	                joueur.setCanHaveMalusBonusOrbe(true);
 	
 	            } else if (item == "glace_malus") {
 	
-	            	joueur.addForce(0.02);
-	                joueur.setMalusOrbe(false);
-	                player.sendMessage("Le malus est terminé. Vous pouvez réactiver votre orbe avec la commande /rcorbe");
+	                joueur.setCanHaveMalusBonusOrbe(true);
+	
+	            } else if (item == "foudre_bonus") {
+	
+	                joueur.setCanHaveMalusBonusOrbe(true);
+	
+	            } else if (item == "eau_bonus") {
+	
+	                joueur.setCanHaveMalusBonusOrbe(true);
+	
+	            } else if (item == "feu_bonus") {
+	
+	                joueur.setCanHaveMalusBonusOrbe(true);
+	
+	            } else if (item == "glace_bonus") {
+	
+	                joueur.setCanHaveMalusBonusOrbe(true);
 	
 	            } 
+	            
 	            else if (item == "speed_reflex_trial") {
 	            	
 	            	joueur.removeSpeed(0.05);
@@ -393,7 +462,26 @@ public class ItemCD extends BukkitRunnable {
 	            		
 	            	} else if(item == "desac_orbe") {
 	            		
-	            		
+	            		if(cible.getOrbe() == Orbe.EAU) {
+	            			
+	            			Eau.Passif(cible, main, true);
+	            			
+	            		}
+	            		else if(cible.getOrbe() == Orbe.FEU) {
+	            			
+	            			Feu.Passif(cible, main, true);
+	            			
+	            		}
+	            		else if(cible.getOrbe() == Orbe.FOUDRE) {
+	            			
+	            			Foudre.Passif(cible, main, true);
+	            			
+	            		}
+	            		else if(cible.getOrbe() == Orbe.GLACE) {
+	            			
+	            			Glace.Passif(cible, main, true);
+	            			
+	            		}
 	            		
 	            	} else if(item == "effet_desac_orbe") {
 	            		
@@ -662,12 +750,62 @@ public class ItemCD extends BukkitRunnable {
 	            		
 	            		if(cible.getRole() == Roles.NONOBOY) {
 	            			
-	            			cible.removeSpeed(0.1);
+	            			//cible.removeSpeed(0.1);
 	            			
 	            		}
 	            		
 	            		cible.addForce(0.05);
 	            		
+	            	}
+	            	else if (item == "disperse") {
+	            		
+	            		cible.setInvulnerable(false);
+	            		
+	            	}
+	            	
+	            } else if(joueur.getRole() == Roles.OBSCUR) {
+	            	
+	            	main.setAdaptionObscurActif(false);
+	            	joueur.removeResi(0.02);
+	            	joueur.removeSpeed(0.05);
+	            	if(joueur.isTueurToinouKill()) {
+	            		
+	            		joueur.addForce(0.01);
+	            		
+	            	}
+	            	
+	            	main.setAdaptionAvantObscur(main.getAdaptionObscur());
+	            	main.getAdaptionObscur().clear();
+	            	
+	            } else if(joueur.getRole() == Roles.TEAM) {
+	            	
+	            	if(item == "justice_team") {
+	            	
+		            	main.setZoneJusticeActif(false);
+		            	joueur.removeSpeed(0.05);
+	            		
+	            		for(Joueur j : main.getJoueurInGame()) {
+	            			
+	            			if(j.isInZoneJustice()) {
+	            				
+	            				j.setInZoneJustice(false);
+
+	        					if(j.getCamp().equalsIgnoreCase("staff") || j.getRole() == Roles.TRIAL || j.getRole() == Roles.GAMEBLACK) {
+	        						
+	        						j.removeSpeed(0.05);
+	        						
+	        					}
+	        					else {
+	        						
+	        						j.addResi(0.01);
+	        						j.addForce(0.01);
+	        						
+	        					}
+	            				
+	            			}
+	            			
+	            		}
+		            	
 	            	}
 	            	
 	            }

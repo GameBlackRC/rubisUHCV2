@@ -8,6 +8,8 @@ commands:
     description: Lien du doc
   rcme:
     description: Permet d'afficher votre rôle et ses pouvoirs
+  rcshop:
+    description: Commande du role Toinou
   rcclasse:
     description: Commande du role GameBlack
   rcbuff:

@@ -64,6 +64,9 @@ public class Autostart extends BukkitRunnable {
             }
 
             for (Joueur j : main.getListJoueurs()) {
+            	
+            	j.getPlayer().setFlying(false);
+            	j.getPlayer().setAllowFlight(false);
                 
                 World world;
                 

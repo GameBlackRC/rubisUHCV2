@@ -26,7 +26,9 @@ public class Slup {
         coffreM.setDisplayName("Pactes");
         coffre.setItemMeta(coffreM);
         
-        ItemStack coffre2 = new ItemStack(Material.NETHER_STAR, 1);
+        @SuppressWarnings("deprecation")
+		ItemStack coffre2 = new ItemStack(351, 1, (short) 11);
+		//ItemStack coffre = new ItemStack(Material.NETHER_STAR, 1);
         ItemMeta coffre2M = coffre2.getItemMeta();
         coffre2M.setDisplayName("Slimetification");
         coffre2.setItemMeta(coffre2M);

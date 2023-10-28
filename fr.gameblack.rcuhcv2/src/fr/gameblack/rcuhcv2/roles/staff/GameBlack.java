@@ -40,17 +40,21 @@ public class GameBlack {
 		joueur.addSpeed(0.05);
 		joueur.getPlayer().getInventory().addItem(orbes);
 		
-		ItemStack coffre = new ItemStack(Material.NETHER_STAR, 1);
+		@SuppressWarnings("deprecation")
+		ItemStack coffre = new ItemStack(351, 1, (short) 6);
+		//ItemStack coffre = new ItemStack(Material.NETHER_STAR, 1);
         ItemMeta coffreM = coffre.getItemMeta();
         coffreM.setDisplayName("Fuite");
         coffre.setItemMeta(coffreM);
-        joueur.getPlayer().getInventory().addItem(coffre);
+        //joueur.getPlayer().getInventory().addItem(coffre);
 		
 	}
 	
 	public static void ItemsUHC(Joueur joueur, Main main) {
 		
-		ItemStack coffre = new ItemStack(Material.NETHER_STAR, 1);
+		@SuppressWarnings("deprecation")
+		ItemStack coffre = new ItemStack(351, 1, (short) 1);
+		//ItemStack coffre = new ItemStack(Material.NETHER_STAR, 1);
         ItemMeta coffreM = coffre.getItemMeta();
         coffreM.setDisplayName("Fuite");
         coffre.setItemMeta(coffreM);
@@ -378,40 +382,45 @@ public class GameBlack {
 			
 		}
 		
-		if(joueur.getClasseGB() == Classe.ATTAQUANT) {
+		if(classe == Classe.ATTAQUANT) {
 			
 			joueur.addForce(0.1);
 			joueur.removeResi(0.07);
 			joueur.getPlayer().sendMessage("Vous avez choisi la classe attaquant");
+			joueur.setClasseGB(classe);
 			
 		}
-		else if(joueur.getClasseGB() == Classe.DEFENSEUR) {
+		else if(classe == Classe.DEFENSEUR) {
 			
 			joueur.removeSpeed(0.15);
 			joueur.addResi(0.07);
 			joueur.getPlayer().sendMessage("Vous avez choisi la classe defenseur");
+			joueur.setClasseGB(classe);
 			
 		}
-		else if(joueur.getClasseGB() == Classe.DISTANCE) {
+		else if(classe == Classe.DISTANCE) {
 			
 			joueur.addSpeed(0.05);
 			joueur.removeForce(0.1);
 			joueur.getPlayer().sendMessage("Vous avez choisi la classe distance");
+			joueur.setClasseGB(classe);
 			
 		}
-		else if(joueur.getClasseGB() == Classe.RAPIDE) {
+		else if(classe == Classe.RAPIDE) {
 			
 			joueur.addSpeed(0.25);
 			joueur.removeForce(0.03);
 			joueur.setAbso(false);
 			joueur.getPlayer().sendMessage("Vous avez choisi la classe rapide");
+			joueur.setClasseGB(classe);
 			
 		}
-		else if(joueur.getClasseGB() == Classe.SUPPORT) {
+		else if(classe == Classe.SUPPORT) {
 			
 			joueur.addSpeed(0.05);
 			joueur.removeResi(0.02);
 			joueur.getPlayer().sendMessage("Vous avez choisi la classe support");
+			joueur.setClasseGB(classe);
 			
 		}
 		else {
