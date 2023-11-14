@@ -401,6 +401,12 @@ public class GameCycle extends BukkitRunnable {
 		
 		            pls.setHealth(pls.getMaxHealth());
 		            
+		            if(main.getMode().equalsIgnoreCase("rapide") || main.getMode().equalsIgnoreCase("meetup")) {
+			            
+		            	j.addOrbe(main);
+		            	
+		            }
+		            
 	        	}
 	        	else {
 	        		
@@ -412,6 +418,12 @@ public class GameCycle extends BukkitRunnable {
 	        		compo.remove(role);
 	        		j.setInvulnerable(false);
 	        		pls.setHealth(pls.getMaxHealth());
+	        		
+		            if(main.getMode().equalsIgnoreCase("rapide") || main.getMode().equalsIgnoreCase("meetup")) {
+			            
+		            	j.addOrbe(main);
+		            	
+		            }
 	        		
 	        	}
 	        	

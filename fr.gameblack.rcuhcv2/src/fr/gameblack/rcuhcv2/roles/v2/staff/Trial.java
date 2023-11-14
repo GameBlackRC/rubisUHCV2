@@ -3,6 +3,7 @@ package fr.gameblack.rcuhcv2.roles.v2.staff;
 import java.util.Random;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Entity;
@@ -351,6 +352,35 @@ public class Trial {
 		joueur.getPlayer().sendMessage("Vous venez de corrompre " + cible.getPlayer().getName());
 		ItemCD cycle = new ItemCD(main, joueur, "corruption_trial", 600, cible, null, null, 0, null);
         cycle.runTaskTimer(main, 0, 20);
+		
+	}
+	
+	public static void mortKzou(Joueur joueur, Main main) {
+		
+		joueur.setRespawnTrial(true);
+		joueur.setInvulnerable(true);
+		
+		Random r = new Random();
+        int signe_x = r.nextInt(2);
+        int signe_y = r.nextInt(2);
+        int cos_x = r.nextInt(400);
+        cos_x += 200;
+        if (signe_x == 1) {
+            cos_x = -cos_x;
+        }
+
+        int cos_y = r.nextInt(400);
+        cos_y += 200;
+        if (signe_y == 1) {
+            cos_y = -cos_y;
+        }
+		
+		joueur.getPlayer().teleport(new Location(Bukkit.getWorld("world"), cos_x, 100, cos_y));
+		joueur.getPlayer().setMaxHealth(10);
+		joueur.getPlayer().setHealth(10);
+		
+		ItemCD cycle2 = new ItemCD(main, joueur, "respawn", 5, joueur, null, null, 0, null);
+        cycle2.runTaskTimer(main, 0, 20);
 		
 	}
 	

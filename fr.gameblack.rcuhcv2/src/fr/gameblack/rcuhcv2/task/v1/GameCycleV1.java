@@ -21,6 +21,7 @@ import fr.gameblack.rcuhcv2.classes.Joueur;
 import fr.gameblack.rcuhcv2.classes.Pouvoirs;
 import fr.gameblack.rcuhcv2.classes.Roles;
 import fr.gameblack.rcuhcv2.classes.v1.Pouvoirs_GB;
+import fr.gameblack.rcuhcv2.evenement.v1.TueurNeko;
 import fr.gameblack.rcuhcv2.orbes.Orbe;
 import fr.gameblack.rcuhcv2.orbes.v1.Foudre;
 import fr.gameblack.rcuhcv2.orbes.v1.Glace;
@@ -342,6 +343,12 @@ public class GameCycleV1 extends BukkitRunnable {
 		
 		            pls.setHealth(pls.getMaxHealth());
 		            
+		            if((main.getMode().equalsIgnoreCase("rapide") || main.getMode().equalsIgnoreCase("meetup")) && (j.getCamp().equalsIgnoreCase("rc") || j.getRole() == Roles.Slup || j.getRole() == Roles.Farmeurimmo || j.getRole() == Roles.Kzou)) {
+		            
+		            	j.addOrbe(main);
+		            	
+		            }
+		            
 	        	}
 	        	else {
 	        		
@@ -354,6 +361,12 @@ public class GameCycleV1 extends BukkitRunnable {
 	        		j.setInvulnerable(false);
 	        		pls.setHealth(pls.getMaxHealth());
 	        		
+		            if((main.getMode().equalsIgnoreCase("rapide") || main.getMode().equalsIgnoreCase("meetup")) && (j.getCamp().equalsIgnoreCase("rc") || j.getRole() == Roles.Slup || j.getRole() == Roles.Farmeurimmo || j.getRole() == Roles.Kzou)) {
+			            
+		            	j.addOrbe(main);
+		            	
+		            }
+	        		
 	        	}
 	        	
         	}
@@ -361,6 +374,8 @@ public class GameCycleV1 extends BukkitRunnable {
         }
         
         main.setCompo(compo_);
+        
+        TueurNeko.setTueur(main);
     	
     }
     

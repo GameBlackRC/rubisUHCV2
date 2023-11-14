@@ -20,6 +20,10 @@ import fr.gameblack.rcuhcv2.classes.v1.Pouvoirs_GB;
 import fr.gameblack.rcuhcv2.classes.v1.VolTrial;
 import fr.gameblack.rcuhcv2.classes.v2.Classe;
 import fr.gameblack.rcuhcv2.orbes.Orbe;
+import fr.gameblack.rcuhcv2.orbes.v2.Eau;
+import fr.gameblack.rcuhcv2.orbes.v2.Feu;
+import fr.gameblack.rcuhcv2.orbes.v2.Foudre;
+import fr.gameblack.rcuhcv2.orbes.v2.Glace;
 import fr.gameblack.rcuhcv2.roles.v1.demons.Ange;
 import fr.gameblack.rcuhcv2.roles.v1.demons.Avenir;
 import fr.gameblack.rcuhcv2.roles.v1.demons.Cosmos;
@@ -72,6 +76,7 @@ import fr.gameblack.rcuhcv2.roles.v2.solo.Kzou;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class Joueur {
 	
@@ -313,6 +318,169 @@ public class Joueur {
             getPlayer().getInventory().addItem(coffre);
             
             getPlayer().setGameMode(GameMode.SURVIVAL);
+			
+		}
+		
+	}
+	
+	public void addOrbe(Main main) {
+		
+		if(main.getVersion() == 2) {
+			
+			Random r = new Random();
+        	
+        	int nb_ = r.nextInt(4);
+
+            if (nb_ == 1) {
+                
+                if(getRole() != Roles.MALIVOL) {
+	                
+	            	setOrbe(Orbe.EAU);
+	            	Eau.Passif(this, main, true);
+	                player.sendMessage("Vous avez reçu l'orbe d'eau. Vous pouvez l'activer avec la commande /rcorbe");
+	                
+            	}
+            	else {
+            		
+            		if(nb_ == 1) {
+            			
+    	            	setOrbe(Orbe.FEU);
+    	            	Feu.Passif(this, main, true);
+    	                player.sendMessage("Vous avez reçu l'orbe de feu. Vous pouvez l'activer avec la commande /rcorbe");
+            			
+            		}
+            		else if(nb_ == 2) {
+            			
+            			setOrbe(Orbe.FOUDRE);
+            			Foudre.Passif(this, main, true);
+                        player.sendMessage("Vous avez reçu l'orbe de foudre. Vous pouvez l'activer avec la commande /rcorbe");
+            			
+            		}
+            		else {
+            			
+            			setOrbe(Orbe.GLACE);
+            			Glace.Passif(this, main, true);
+                        player.sendMessage("Vous avez reçu l'orbe de glace. Vous pouvez l'activer avec la commande /rcorbe");
+            			
+            		}
+            		
+            	}
+
+            } else if (nb_ == 2) {
+
+            	nb_ = r.nextInt(3);
+            	
+            	if(getRole() != Roles.MAKA) {
+            	
+	            	setOrbe(Orbe.FEU);
+	            	Feu.Passif(this, main, true);
+	                player.sendMessage("Vous avez reçu l'orbe de feu. Vous pouvez l'activer avec la commande /rcorbe");
+	                
+            	}
+            	else {
+            		
+            		if(nb_ == 1) {
+            			
+            			setOrbe(Orbe.EAU);
+            			Eau.Passif(this, main, true);
+                        player.sendMessage("Vous avez reçu l'orbe d'eau. Vous pouvez l'activer avec la commande /rcorbe");
+            			
+            		}
+            		else if(nb_ == 2) {
+            			
+            			setOrbe(Orbe.FOUDRE);
+            			Foudre.Passif(this, main, true);
+                        player.sendMessage("Vous avez reçu l'orbe de foudre. Vous pouvez l'activer avec la commande /rcorbe");
+            			
+            		}
+            		else {
+            			
+            			setOrbe(Orbe.GLACE);
+            			Glace.Passif(this, main, true);
+                        player.sendMessage("Vous avez reçu l'orbe de glace. Vous pouvez l'activer avec la commande /rcorbe");
+            			
+            		}
+            		
+            	}
+
+            } else if (nb_ == 3) {
+
+            	setOrbe(Orbe.FOUDRE);
+            	Foudre.Passif(this, main, true);
+                player.sendMessage("Vous avez reçu l'orbe de foudre. Vous pouvez l'activer avec la commande /rcorbe");
+
+            } else {
+
+            	setOrbe(Orbe.GLACE);
+            	Glace.Passif(this, main, true);
+                player.sendMessage("Vous avez reçu l'orbe de glace. Vous pouvez l'activer avec la commande /rcorbe");
+
+            }
+			
+		}
+		else if(main.getVersion() == 1) {
+			
+			Random r = new Random();
+        	
+        	int nb_ = r.nextInt(4);
+
+            if (nb_ == 1) {
+	                
+	            setOrbe(Orbe.EAU);
+	            Eau.Passif(this, main, true);
+	            player.sendMessage("Vous avez reçu l'orbe d'eau. Vous pouvez l'activer avec la commande /rcorbe");
+            	
+
+            } else if (nb_ == 2) {
+
+            	nb_ = r.nextInt(3);
+            	
+            	if(getRole() != Roles.Maka) {
+            	
+	            	setOrbe(Orbe.FEU);
+	            	Feu.Passif(this, main, true);
+	                player.sendMessage("Vous avez reçu l'orbe de feu. Vous pouvez l'activer avec la commande /rcorbe");
+	                
+            	}
+            	else {
+            		
+            		if(nb_ == 1) {
+            			
+            			setOrbe(Orbe.EAU);
+            			Eau.Passif(this, main, true);
+                        player.sendMessage("Vous avez reçu l'orbe d'eau. Vous pouvez l'activer avec la commande /rcorbe");
+            			
+            		}
+            		else if(nb_ == 2) {
+            			
+            			setOrbe(Orbe.FOUDRE);
+            			Foudre.Passif(this, main, true);
+                        player.sendMessage("Vous avez reçu l'orbe de foudre. Vous pouvez l'activer avec la commande /rcorbe");
+            			
+            		}
+            		else {
+            			
+            			setOrbe(Orbe.GLACE);
+            			Glace.Passif(this, main, true);
+                        player.sendMessage("Vous avez reçu l'orbe de glace. Vous pouvez l'activer avec la commande /rcorbe");
+            			
+            		}
+            		
+            	}
+
+            } else if (nb_ == 3) {
+
+            	setOrbe(Orbe.FOUDRE);
+            	Foudre.Passif(this, main, true);
+                player.sendMessage("Vous avez reçu l'orbe de foudre. Vous pouvez l'activer avec la commande /rcorbe");
+
+            } else {
+
+            	setOrbe(Orbe.GLACE);
+            	Glace.Passif(this, main, true);
+                player.sendMessage("Vous avez reçu l'orbe de glace. Vous pouvez l'activer avec la commande /rcorbe");
+
+            }
 			
 		}
 		

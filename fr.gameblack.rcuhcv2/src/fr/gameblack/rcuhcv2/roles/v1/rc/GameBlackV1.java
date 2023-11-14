@@ -410,7 +410,7 @@ public class GameBlackV1 {
     	}
 
         List<String> effets = new ArrayList<>();
-        if (cible.getResi() >= (1.10 + main.getResiIBaseV1())) {
+        if (cible.getResi() >= (110 + (main.getResiIBaseV1()*100))) {
 
             effets.add("§7résistance");
 

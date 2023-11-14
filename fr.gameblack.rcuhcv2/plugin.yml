@@ -1,7 +1,7 @@
 name: rubisUHC
 version: 1.0
 author: GameBlack
-main: fr.gameblack.rcuhc.Main
+main: fr.gameblack.rcuhcv2.Main
 api-version: 1.8.9
 commands:
   doc:

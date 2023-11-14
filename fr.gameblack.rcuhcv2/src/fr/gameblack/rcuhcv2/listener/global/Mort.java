@@ -16,6 +16,7 @@ import fr.gameblack.rcuhcv2.classes.Joueur;
 import fr.gameblack.rcuhcv2.classes.Pouvoirs;
 import fr.gameblack.rcuhcv2.classes.Roles;
 import fr.gameblack.rcuhcv2.classes.v1.Pouvoirs_GB;
+import fr.gameblack.rcuhcv2.roles.v2.staff.Trial;
 import fr.gameblack.rcuhcv2.task.v2.ItemCD;
 
 public class Mort {
@@ -381,33 +382,6 @@ public class Mort {
 			
 			ItemCD cycle = new ItemCD(main, maka, "mortNeko", 30, maka, null, null, 0, null);
 	        cycle.runTaskTimer(main, 0, 20);
-			
-		}
-		
-		if(joueur.getRole() == Roles.TRIAL && tueur.getRole() == Roles.KZOU && !joueur.isRespawnTrial()) {
-			
-			joueur.setRespawnTrial(true);
-			
-			Random r = new Random();
-            int signe_x = r.nextInt(2);
-            int signe_y = r.nextInt(2);
-            int cos_x = r.nextInt(400);
-            cos_x += 200;
-            if (signe_x == 1) {
-                cos_x = -cos_x;
-            }
-
-            int cos_y = r.nextInt(400);
-            cos_y += 200;
-            if (signe_y == 1) {
-                cos_y = -cos_y;
-            }
-			
-			joueur.getPlayer().teleport(new Location(Bukkit.getWorld("world"), cos_x, 100, cos_y));
-			joueur.getPlayer().setMaxHealth(10);
-			joueur.getPlayer().setHealth(10);
-			
-			return;
 			
 		}
 		

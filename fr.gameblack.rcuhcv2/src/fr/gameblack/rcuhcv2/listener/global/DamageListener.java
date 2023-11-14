@@ -33,6 +33,7 @@ import fr.gameblack.rcuhcv2.listener.v2.HitV2;
 import fr.gameblack.rcuhcv2.orbes.Orbe;
 import fr.gameblack.rcuhcv2.orbes.v2.HitOrbeV2;
 import fr.gameblack.rcuhcv2.roles.v2.staff.Loup;
+import fr.gameblack.rcuhcv2.roles.v2.staff.Trial;
 import fr.gameblack.rcuhcv2.scenarios.Scenarios;
 import fr.gameblack.rcuhcv2.task.v2.ItemCD;
 
@@ -274,20 +275,30 @@ public class DamageListener implements Listener {
                 
                 if (player.getHealth() <= event.getFinalDamage()) {
                 	
-                	if(joueur.canRespawn()) {
-                		
-                		respawn(joueur, main);
-                		
-                	}
-                	else {
-
-	                    ItemCD cycle = new ItemCD(main, tueur, "mort", 0, joueur, event, null, 0, joueur.getPlayer().getLocation());
-	                    cycle.runTaskTimer(main, 0, 20);
-	                    event.setDamage(0);
-	                    player.setGameMode(GameMode.SPECTATOR);
-	                    //player.sendMessage("Vous êtes mort mais vous avez encore une chance de ressucité");
-	                    
-                	}
+                	if(joueur.getRole() == Roles.TRIAL && tueur.getRole() == Roles.KZOU && !joueur.isRespawnTrial()) {
+            			
+            			Trial.mortKzou(joueur, main);
+            			
+            			return;
+            			
+            		} else {
+                	
+	                	if(joueur.canRespawn()) {
+	                		
+	                		respawn(joueur, main);
+	                		
+	                	}
+	                	else {
+	
+		                    ItemCD cycle = new ItemCD(main, tueur, "mort", 0, joueur, event, null, 0, joueur.getPlayer().getLocation());
+		                    cycle.runTaskTimer(main, 0, 20);
+		                    event.setDamage(0);
+		                    player.setGameMode(GameMode.SPECTATOR);
+		                    //player.sendMessage("Vous êtes mort mais vous avez encore une chance de ressucité");
+		                    
+	                	}
+                	
+            		}
 
                 }
                 
@@ -346,19 +357,29 @@ public class DamageListener implements Listener {
         	
         	if (player.getHealth() <= event.getFinalDamage()) {
         		
-        		if(joueur.canRespawn()) {
+        		if(joueur.getRole() == Roles.TRIAL && joueur.getLastHit().getRole() == Roles.KZOU && !joueur.isRespawnTrial()) {
         			
-        			respawn(joueur, main);
+        			Trial.mortKzou(joueur, main);
         			
-        		}
-        		else {
-
-	                ItemCD cycle = new ItemCD(main, joueur.getLastHit(), "mort", 0, joueur, null, null, 0, joueur.getPlayer().getLocation());
-	                cycle.runTaskTimer(main, 0, 20);
-	                event.setDamage(0);
-	                player.setGameMode(GameMode.SPECTATOR);
-	                //player.sendMessage("Vous êtes mort mais vous avez encore une chance de ressucité");
-	                
+        			return;
+        			
+        		} else {
+        		
+	        		if(joueur.canRespawn()) {
+	        			
+	        			respawn(joueur, main);
+	        			
+	        		}
+	        		else {
+	
+		                ItemCD cycle = new ItemCD(main, joueur.getLastHit(), "mort", 0, joueur, null, null, 0, joueur.getPlayer().getLocation());
+		                cycle.runTaskTimer(main, 0, 20);
+		                event.setDamage(0);
+		                player.setGameMode(GameMode.SPECTATOR);
+		                //player.sendMessage("Vous êtes mort mais vous avez encore une chance de ressucité");
+		                
+	        		}
+	        		
         		}
 
             }
