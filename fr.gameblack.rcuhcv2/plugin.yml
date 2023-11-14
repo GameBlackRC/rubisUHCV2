@@ -1,13 +1,19 @@
 name: rubisUHC
-version: 2.0
+version: 1.0
 author: GameBlack
-main: fr.gameblack.rcuhcv2.Main
-api-version: 1.12.2
+main: fr.gameblack.rcuhc.Main
+api-version: 1.8.9
 commands:
   doc:
     description: Lien du doc
+  setgroup:
+    description: Permet à l'host de set la limite de groupe
   rcme:
     description: Permet d'afficher votre rôle et ses pouvoirs
+  rcrepair:
+    decription: Commande du role Captain
+  rcenchant:
+    decription: Commande du role Captain
   rcshop:
     description: Commande du role Toinou
   rcclasse:
@@ -18,9 +24,9 @@ commands:
     description: Commande du role Trial
   rclist:
     description: Permet de voir la liste des joueurs en vie
-  rcrl:
-    description: Reload le serveur
   rcpartage:
+    description: Commande du role Jeannot
+  rcabso:
     description: Commande du role Jeannot
   rcpapier:
     description: Commande du role Nickoboop
@@ -56,6 +62,8 @@ commands:
     description: Null
   rcserveur:
     description: Commande du role Loup
+  rcbateau:
+    description: Commande du role Loup
   rcchangeorbe:
     description: Commande du role GameBlack
   rccheckorbe:
@@ -75,24 +83,12 @@ commands:
   fermeturegolden:
     description: Permet d'activer l'évènement "Fermeture de golden"
     permission: rcuhcv2.fermeturegolden
-  createworld:
-    description: Permet de générer un nouveau monde
-    permission: rcuhcv2.createworld
   spawnminerais:
     description: Permet de faire apparaître un minerais
     permission: rcuhcv2.spawnminerais
-  tpworld:
-    description: Permet de changer de monde
-    permission: rcuhcv2.tpworld
-  checkworld:
-    description: Permet de voir dans quel monde le joueur est
-    permission: rcuhcv2.checkworld
   setrole:
     description: Permet de donner un role
     permission: rcuhcv2.setrole
-  random:
-    description: Admin
-    permission: rcuhcv2.random
   setroleother:
     description: Permet de donner un role à un autre joueur
     permission: rcuhcv2.setroleother
@@ -113,11 +109,38 @@ commands:
     description: Permet de désactiver/activer son orbe
   addallrole:
     description: Permet d'ajouter tous les rôles fonctionnel à la compo
-  addrole:
-    description: Permet d'ajouter un role à la compo (Commande host)
+  addallrolepvp:
+    description: Permet d'ajouter tous les rôles fonctionnel à la compo
   create:
     description: Permet de créer une partie (Commande host)
-  removerole:
-    description: Permet de retirer un role à la compo (Commande host)
   start:
     description: Permet de démarrer la partie (Commande host)
+    
+  rcback:
+    description: Commande du rôle GameBlack
+  rcchoose:
+    description: Commande du rôle GameBlack
+  rcflair:
+    description: Commande du rôle GameBlack
+  rcinspect:
+    description: Commande du rôle GameBlack
+  rcnerf:
+    description: Commande du rôle GameBlack
+  rcdemon:
+    description: Commande du rôle GameBlack
+  rcdon:
+    description: Commande du rôle Maka
+  rcbroken:
+    description: Commande du rôle Trial
+  rccopie:
+    description: Commande du rôle Obscur
+  rcsetpiece:
+    description: Commande du rôle Obscur
+  rckill:
+    description: Commande du rôle Cosmos
+  rcsang:
+    description: Commande du rôle Sang
+  rcblind:
+    description: Commande du rôle Tenebre
+  rcnuit:
+    description: Commande du rôle Tenebre

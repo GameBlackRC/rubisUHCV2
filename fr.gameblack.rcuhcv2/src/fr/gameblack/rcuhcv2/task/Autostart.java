@@ -11,13 +11,17 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scoreboard.Scoreboard;
 
-import fr.gameblack.rcuhcv2.Joueur;
 import fr.gameblack.rcuhcv2.Main;
 import fr.gameblack.rcuhcv2.Statut;
+import fr.gameblack.rcuhcv2.classes.Joueur;
+import fr.gameblack.rcuhcv2.scenarios.Scenarios;
+import fr.gameblack.rcuhcv2.task.v2.GameCycle;
+import fr.gameblack.rcuhcv2.task.v1.GameCycleV1;
 
 public class Autostart extends BukkitRunnable {
 	
@@ -50,20 +54,26 @@ public class Autostart extends BukkitRunnable {
         	
         	Random r = new Random();
             int signe_x = r.nextInt(2);
-            int signe_y = r.nextInt(2);
+            int signe_z = r.nextInt(2);
             int cos_x = r.nextInt(100);
             cos_x += 200;
             if (signe_x == 1) {
                 cos_x = -cos_x;
             }
 
-            int cos_y = r.nextInt(100);
-            cos_y += 200;
-            if (signe_y == 1) {
-                cos_y = -cos_y;
+            int cos_z = r.nextInt(100);
+            cos_z += 200;
+            if (signe_z == 1) {
+                cos_z = -cos_z;
             }
 
             for (Joueur j : main.getListJoueurs()) {
+            	
+            	if(main.getScenarios().contains(Scenarios.CATS_EYES)) {
+            	
+            		j.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, 999999, 1, false, false));
+            		
+            	}
             	
             	j.getPlayer().setFlying(false);
             	j.getPlayer().setAllowFlight(false);
@@ -114,19 +124,7 @@ public class Autostart extends BukkitRunnable {
                 
                 if(main.getMode().equalsIgnoreCase("rapide")) {
                 	
-                	signe_x = r.nextInt(2);
-	                signe_y = r.nextInt(2);
-	                cos_x = r.nextInt(800);
-	                cos_x += 200;
-	                if (signe_x == 1) {
-	                    cos_x = -cos_x;
-	                }
-
-	                cos_y = r.nextInt(800);
-	                cos_y += 200;
-	                if (signe_y == 1) {
-	                    cos_y = -cos_y;
-	                }
+                	int cos_y = world.getHighestBlockYAt(cos_x, cos_z);
 
 	                ItemStack bottes = new ItemStack(Material.DIAMOND_BOOTS, 1);
 	                ItemMeta bottesM = bottes.getItemMeta();
@@ -196,10 +194,28 @@ public class Autostart extends BukkitRunnable {
 	                pls.getInventory().addItem(new ItemStack(Material.WORKBENCH, 1));
 	                pls.getInventory().addItem(new ItemStack(Material.DIAMOND_PICKAXE, 1));
 
-	                pls.teleport(new Location(world, cos_x, 100, cos_y));
+	                pls.teleport(new Location(world, cos_x, cos_y, cos_z));
 	                
             	}
                 else if(main.getMode().equalsIgnoreCase("meetup")) {
+                	
+                	System.out.println("Mode meetup detecter");
+                	
+                	int cos_y = world.getHighestBlockYAt(cos_x, cos_z);
+                	
+                	signe_x = r.nextInt(2);
+	                signe_z = r.nextInt(2);
+	                cos_x = r.nextInt(400);
+	                cos_x += 200;
+	                if (signe_x == 1) {
+	                    cos_x = -cos_x;
+	                }
+
+	                cos_z = r.nextInt(400);
+	                cos_z += 200;
+	                if (signe_z == 1) {
+	                    cos_z = -cos_z;
+	                }
                 	
                 	ItemStack bottes = new ItemStack(Material.DIAMOND_BOOTS, 1);
 	                ItemMeta bottesM = bottes.getItemMeta();
@@ -269,7 +285,7 @@ public class Autostart extends BukkitRunnable {
 	                pls.getInventory().addItem(new ItemStack(Material.WORKBENCH, 1));
 	                pls.getInventory().addItem(new ItemStack(Material.DIAMOND_PICKAXE, 1));
 
-	                pls.teleport(new Location(world, cos_x, 100, cos_y));
+	                pls.teleport(new Location(world, cos_x, cos_y, cos_z));
                 	
                 }
                 else {
@@ -289,21 +305,23 @@ public class Autostart extends BukkitRunnable {
 	                pls.getInventory().addItem(new ItemStack(Material.APPLE, 64));
 	                pls.getInventory().addItem(new ItemStack(Material.ICE, 2));
 	                
+	                int cos_y = world.getHighestBlockYAt(cos_x, cos_z);
+	                
 	                signe_x = r.nextInt(2);
-	                signe_y = r.nextInt(2);
+	                signe_z = r.nextInt(2);
 	                cos_x = r.nextInt(800);
 	                cos_x += 200;
 	                if (signe_x == 1) {
 	                    cos_x = -cos_x;
 	                }
 
-	                cos_y = r.nextInt(800);
-	                cos_y += 200;
-	                if (signe_y == 1) {
-	                    cos_y = -cos_y;
+	                cos_z = r.nextInt(800);
+	                cos_z += 200;
+	                if (signe_z == 1) {
+	                    cos_z = -cos_z;
 	                }
 
-	                pls.teleport(new Location(world, cos_x, 100, cos_y));
+	                pls.teleport(new Location(world, cos_x, cos_y, cos_z));
                 	
                 }
                 
@@ -311,44 +329,92 @@ public class Autostart extends BukkitRunnable {
 
             }
             
-            int nb = r.nextInt(100);
+            if(main.getVersion() == 2) {
             
-            if(nb <= 50) {
-            	
-            	main.setFermetureGolden(true);
-            	
+	            int nb = r.nextInt(100);
+	            
+	            if(nb <= 50) {
+	            	
+	            	main.setFermetureGolden(true);
+	            	
+	            }
+	            
             }
 
             main.setState(Statut.PVP_OFF);
             
-            Scoreboard board_raptor = Bukkit.getScoreboardManager().getNewScoreboard();
-            Scoreboard board_jeannot = Bukkit.getScoreboardManager().getNewScoreboard();
-            Scoreboard board_nickoboop = Bukkit.getScoreboardManager().getNewScoreboard();
-            Scoreboard board_slup = Bukkit.getScoreboardManager().getNewScoreboard();
-            Scoreboard board_joko = Bukkit.getScoreboardManager().getNewScoreboard();
+            if(main.getVersion() == 2) {
             
-            Scoreboard board_team = Bukkit.getScoreboardManager().getNewScoreboard();
-            Scoreboard board_gameblack = Bukkit.getScoreboardManager().getNewScoreboard();
-            Scoreboard board_maka = Bukkit.getScoreboardManager().getNewScoreboard();
-            Scoreboard board_trial = Bukkit.getScoreboardManager().getNewScoreboard();
-            Scoreboard board_loup = Bukkit.getScoreboardManager().getNewScoreboard();
-            Scoreboard board_captain = Bukkit.getScoreboardManager().getNewScoreboard();
-            Scoreboard board_hekow = Bukkit.getScoreboardManager().getNewScoreboard();
-            
-            Scoreboard board_malivol = Bukkit.getScoreboardManager().getNewScoreboard();
-            Scoreboard board_toinou = Bukkit.getScoreboardManager().getNewScoreboard();
-            Scoreboard board_obscur = Bukkit.getScoreboardManager().getNewScoreboard();
-            Scoreboard board_nonoboy = Bukkit.getScoreboardManager().getNewScoreboard();
-            
-            Scoreboard board_farmeurimmo = Bukkit.getScoreboardManager().getNewScoreboard();
-            Scoreboard board_kzou = Bukkit.getScoreboardManager().getNewScoreboard();
-
-            Bukkit.getScheduler().runTaskAsynchronously(main, () -> {
-
-                GameCycle cycle = new GameCycle(main, board_base, board_pourcent, board_raptor, board_jeannot, board_nickoboop, board_slup, board_joko, board_team, board_gameblack, board_maka, board_trial, board_loup, board_captain, board_hekow, board_malivol, board_toinou, board_obscur, board_nonoboy, board_farmeurimmo, board_kzou);
-                cycle.runTaskTimer(main, 0, 2);
-
-            });
+	            Scoreboard board_raptor = Bukkit.getScoreboardManager().getNewScoreboard();
+	            Scoreboard board_jeannot = Bukkit.getScoreboardManager().getNewScoreboard();
+	            Scoreboard board_nickoboop = Bukkit.getScoreboardManager().getNewScoreboard();
+	            Scoreboard board_slup = Bukkit.getScoreboardManager().getNewScoreboard();
+	            Scoreboard board_joko = Bukkit.getScoreboardManager().getNewScoreboard();
+	            
+	            Scoreboard board_team = Bukkit.getScoreboardManager().getNewScoreboard();
+	            Scoreboard board_gameblack = Bukkit.getScoreboardManager().getNewScoreboard();
+	            Scoreboard board_maka = Bukkit.getScoreboardManager().getNewScoreboard();
+	            Scoreboard board_trial = Bukkit.getScoreboardManager().getNewScoreboard();
+	            Scoreboard board_loup = Bukkit.getScoreboardManager().getNewScoreboard();
+	            Scoreboard board_captain = Bukkit.getScoreboardManager().getNewScoreboard();
+	            Scoreboard board_hekow = Bukkit.getScoreboardManager().getNewScoreboard();
+	            
+	            Scoreboard board_malivol = Bukkit.getScoreboardManager().getNewScoreboard();
+	            Scoreboard board_toinou = Bukkit.getScoreboardManager().getNewScoreboard();
+	            Scoreboard board_obscur = Bukkit.getScoreboardManager().getNewScoreboard();
+	            Scoreboard board_nonoboy = Bukkit.getScoreboardManager().getNewScoreboard();
+	            Scoreboard board_theoochoux = Bukkit.getScoreboardManager().getNewScoreboard();
+	            
+	            Scoreboard board_farmeurimmo = Bukkit.getScoreboardManager().getNewScoreboard();
+	            Scoreboard board_kzou = Bukkit.getScoreboardManager().getNewScoreboard();
+	
+	            Bukkit.getScheduler().runTaskAsynchronously(main, () -> {
+	
+	            	GameCycle cycle = new GameCycle(main, board_base, board_pourcent, board_raptor, board_jeannot, board_nickoboop, board_slup, board_joko, board_team, board_gameblack, board_maka, board_trial, board_loup, board_captain, board_hekow, board_malivol, board_toinou, board_obscur, board_nonoboy, board_theoochoux, board_farmeurimmo, board_kzou);
+		            cycle.runTaskTimer(main, 0, 2);
+	
+	            });
+	            
+        	}
+            else if(main.getVersion() == 1) {
+            	
+	            Scoreboard board_gameblack = Bukkit.getScoreboardManager().getNewScoreboard();
+	            Scoreboard board_team = Bukkit.getScoreboardManager().getNewScoreboard();
+	            Scoreboard board_joko = Bukkit.getScoreboardManager().getNewScoreboard();
+	            Scoreboard board_toinou = Bukkit.getScoreboardManager().getNewScoreboard();
+	            Scoreboard board_maka = Bukkit.getScoreboardManager().getNewScoreboard();
+	            Scoreboard board_loup = Bukkit.getScoreboardManager().getNewScoreboard();
+	            Scoreboard board_raptor = Bukkit.getScoreboardManager().getNewScoreboard();
+	            Scoreboard board_guerrier = Bukkit.getScoreboardManager().getNewScoreboard();
+	            Scoreboard board_archer = Bukkit.getScoreboardManager().getNewScoreboard();
+	            
+	            Scoreboard board_trial = Bukkit.getScoreboardManager().getNewScoreboard();
+	            Scoreboard board_slup = Bukkit.getScoreboardManager().getNewScoreboard();
+	            Scoreboard board_malivol = Bukkit.getScoreboardManager().getNewScoreboard();
+	            Scoreboard board_obscur = Bukkit.getScoreboardManager().getNewScoreboard();
+	            Scoreboard board_ange = Bukkit.getScoreboardManager().getNewScoreboard();
+	            Scoreboard board_avenir = Bukkit.getScoreboardManager().getNewScoreboard();
+	            Scoreboard board_cosmos = Bukkit.getScoreboardManager().getNewScoreboard();
+	            Scoreboard board_demon = Bukkit.getScoreboardManager().getNewScoreboard();
+	            Scoreboard board_electrique = Bukkit.getScoreboardManager().getNewScoreboard();
+	            Scoreboard board_enfer = Bukkit.getScoreboardManager().getNewScoreboard();
+	            Scoreboard board_malediction = Bukkit.getScoreboardManager().getNewScoreboard();
+	            Scoreboard board_sang = Bukkit.getScoreboardManager().getNewScoreboard();
+	            Scoreboard board_tronconneuse = Bukkit.getScoreboardManager().getNewScoreboard();
+	            Scoreboard board_tenebre = Bukkit.getScoreboardManager().getNewScoreboard();
+	            
+	            Scoreboard board_experimental = Bukkit.getScoreboardManager().getNewScoreboard();
+	            Scoreboard board_farmeurimmo = Bukkit.getScoreboardManager().getNewScoreboard();
+	            Scoreboard board_kzou = Bukkit.getScoreboardManager().getNewScoreboard();
+	
+	            Bukkit.getScheduler().runTaskAsynchronously(main, () -> {
+	
+	            	GameCycleV1 cycle = new GameCycleV1(main, board_base, board_gameblack, board_team, board_joko, board_toinou, board_maka, board_loup, board_raptor, board_guerrier, board_archer, board_trial, board_slup, board_malivol, board_obscur, board_ange, board_avenir, board_cosmos, board_demon, board_electrique, board_enfer, board_malediction, board_sang, board_tronconneuse, board_tenebre, board_experimental, board_farmeurimmo, board_kzou);
+		            cycle.runTaskTimer(main, 0, 2);
+	
+	            });
+            	
+            }
     		
     		cancel();
     		
