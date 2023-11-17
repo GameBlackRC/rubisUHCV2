@@ -37,9 +37,9 @@ private Main main;
             	
             	if(cible_ != null && cible_ != player) {
             		
-            		if(!main.getCD().contains(Pouvoirs.CAPTAIN_ENCHANT_OTHER)) {
+            		if(!joueur.getCD().contains(Pouvoirs.CAPTAIN_ENCHANT_OTHER)) {
             			
-            			main.getCD().add(Pouvoirs.CAPTAIN_ENCHANT_OTHER);
+            			joueur.getCD().add(Pouvoirs.CAPTAIN_ENCHANT_OTHER);
                 	
             			Captain.commandEnchant(joueur, cible);
             		
@@ -48,9 +48,9 @@ private Main main;
             	}
             	else {
             		
-            		if(!main.getCD().contains(Pouvoirs.CAPTAIN_ENCHANT_SELF)) {
+            		if(!joueur.getCD().contains(Pouvoirs.CAPTAIN_ENCHANT_SELF)) {
             			
-            			main.getCD().add(Pouvoirs.CAPTAIN_ENCHANT_SELF);
+            			joueur.getCD().add(Pouvoirs.CAPTAIN_ENCHANT_SELF);
             			
             			Captain.commandEnchant(joueur, joueur);
             			

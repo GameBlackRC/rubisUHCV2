@@ -59,6 +59,16 @@ public class ItemCD extends BukkitRunnable {
     		cible.removeForce(0.05);
     		
     	}
+    	
+    	if (timer == 8 || timer == 6 || timer == 4 || timer == 2) {
+
+            if ((joueur.getRole() == Roles.Tronconeuse || (joueur.getRole() == Roles.Toinou && joueur.getVol().contains(Pouvoirs.TRONCONNEUSE_SAIGNEMENT))) && item == "saigne") {
+
+                cible.getPlayer().damage(1);
+
+            }
+
+        }
 
         if (timer == 0) {
         	
@@ -272,7 +282,7 @@ public class ItemCD extends BukkitRunnable {
 	
 	                } else if (item == "givecube") {
 	
-	                    main.getCD().remove(Pouvoirs.JOKO_GIVECUBE);
+	                    joueur.getCD().remove(Pouvoirs.JOKO_GIVECUBE);
 	
 	                }
 	
@@ -300,7 +310,7 @@ public class ItemCD extends BukkitRunnable {
 	                        cible.addSpeed(0.02);
 	                        cible.getPlayer().sendMessage("Vous avez reçu 2% de speed de la part de maka");
 	                        joueur.setFindTueurNeko(true);
-	                        main.getCD().remove(Pouvoirs.MAKA_DON);
+	                        joueur.getCD().remove(Pouvoirs.MAKA_DON);
 
 	                    } else {
 
@@ -328,7 +338,7 @@ public class ItemCD extends BukkitRunnable {
 	            	
 	            	if(item == "camouflage") {
 	            		
-	            		main.getCD().remove(Pouvoirs.GB_CAMOUFLAGE);
+	            		joueur.getCD().remove(Pouvoirs.GB_CAMOUFLAGE);
 	            		
 	            	}
 	            	
@@ -379,6 +389,25 @@ public class ItemCD extends BukkitRunnable {
 	                    	}
 
 	                    }
+	            		
+	            	}
+	            	
+	            }
+	            if ((joueur.getRole() == Roles.Tronconeuse || (joueur.getRole() == Roles.Toinou && joueur.getVol().contains(Pouvoirs.TRONCONNEUSE_SAIGNEMENT))) && item == "saigne") {
+
+	                cible.getPlayer().damage(1);
+	                cible.setSaigne(false);
+
+	            }
+	            if(joueur.getRole() == Roles.Tronconeuse) {
+	            	
+	            	if(item == "speed_moins") {
+	            		
+	            		joueur.removeSpeed(0.1);
+	            		
+	            	} else if(item == "speed_plus") {
+	            		
+	            		joueur.addSpeed(0.08);
 	            		
 	            	}
 	            	

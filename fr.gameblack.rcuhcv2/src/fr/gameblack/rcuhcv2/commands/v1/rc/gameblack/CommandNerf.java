@@ -38,7 +38,7 @@ public class CommandNerf implements CommandExecutor {
 
                 if (joueur.getRole() == Roles.GameBlack) {
 
-                    if (!main.getCD().contains(Pouvoirs.GB_NERF)) {
+                    if (!joueur.getCD().contains(Pouvoirs.GB_NERF)) {
 
                         if (joueur.getPouvoirGB() == Pouvoirs_GB.SPEED) {
 

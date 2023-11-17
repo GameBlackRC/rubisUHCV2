@@ -13,6 +13,7 @@ import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerItemConsumeEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.inventory.CraftItemEvent;
@@ -95,6 +96,22 @@ public class PlayerActionListener implements Listener{
 	}
 	
 	@EventHandler
+	public void onLeave(PlayerQuitEvent event) {
+		
+		Player player = event.getPlayer();
+		Joueur joueur = main.getJoueur(player);
+		if(!joueur.isMort()) {
+			joueur.setDeco(true);
+		}
+		else {
+			
+			main.getListJoueurs().remove(joueur);
+			
+		}
+		
+	}
+	
+	@EventHandler
 	public void onJoin(PlayerJoinEvent event) {
 		
 		//if(main.isV2Actif()) {
@@ -110,6 +127,13 @@ public class PlayerActionListener implements Listener{
 				main.addJoueur(event.getPlayer());
 				main.getJoueur(event.getPlayer()).setSpec(true);
 				main.getJoueur(event.getPlayer()).setMort(true);
+				
+			}
+			else {
+				
+				main.getJoueurByPseudo(event.getPlayer().getName()).setPlayer(event.getPlayer());
+				System.out.println(main.getJoueur(event.getPlayer()).getPlayer().getName() + ", " + main.getJoueurByPseudo(event.getPlayer().getName()).getRole().getTxt());
+				main.getJoueur(event.getPlayer()).setDeco(false);
 				
 			}
 			

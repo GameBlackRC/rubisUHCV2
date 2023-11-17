@@ -100,9 +100,9 @@ public class Slup {
 	
 	public static void interactDroitSlime(Joueur joueur, Main main) {
 		
-		if(!main.getCD().contains(Pouvoirs.SLUP_SLIME)) {
+		if(!joueur.getCD().contains(Pouvoirs.SLUP_SLIME)) {
 			
-			main.getCD().add(Pouvoirs.SLUP_SLIME);
+			joueur.getCD().add(Pouvoirs.SLUP_SLIME);
 			
 			joueur.getPlayer().sendMessage("Vous venez d'utiliser votre item");
 			
@@ -237,8 +237,19 @@ public class Slup {
 		Bukkit.broadcastMessage("_________________________\n" + joueur.getPlayer().getName() + " est mort. Il était : \n" + joueur.getCouleurCamp(main) + joueur.getRole().getTxt() + "§r\n_________________________");
 		joueur.setInvulnerable(true);
 		joueur.setInvisible(true);
-		ItemCD cycle = new ItemCD(main, joueur, "fakemort_slup", 300, joueur, null, null, 0, null);
-		cycle.runTaskTimer(main, 0, 20);
+		
+		if(main.getMode().equalsIgnoreCase("rapide")) {
+			
+			ItemCD cycle = new ItemCD(main, joueur, "fakemort_slup", 30, joueur, null, null, 0, null);
+			cycle.runTaskTimer(main, 0, 20);
+			
+		}
+		else {
+		
+			ItemCD cycle = new ItemCD(main, joueur, "fakemort_slup", 300, joueur, null, null, 0, null);
+			cycle.runTaskTimer(main, 0, 20);
+			
+		}
 		
 	}
 	

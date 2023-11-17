@@ -353,9 +353,9 @@ public class InventoryInteractListener implements Listener {
         				
         			cible.getPlayer().getInventory().setHelmet(item);
         			
-        			if(!main.getCD().contains(Pouvoirs.CAPTAIN_REPAIR)) {
+        			if(!joueur.getCD().contains(Pouvoirs.CAPTAIN_REPAIR)) {
         			
-	        			main.getCD().add(Pouvoirs.CAPTAIN_REPAIR);
+	        			joueur.getCD().add(Pouvoirs.CAPTAIN_REPAIR);
 	        			joueur.setRepairCaptain(0);
 	        			
         			}
@@ -424,9 +424,9 @@ public class InventoryInteractListener implements Listener {
         				
         			cible.getPlayer().getInventory().setHelmet(item2);
         			
-        			if(!main.getCD().contains(Pouvoirs.CAPTAIN_REPAIR)) {
+        			if(!joueur.getCD().contains(Pouvoirs.CAPTAIN_REPAIR)) {
             			
-	        			main.getCD().add(Pouvoirs.CAPTAIN_REPAIR);
+	        			joueur.getCD().add(Pouvoirs.CAPTAIN_REPAIR);
 	        			joueur.setRepairCaptain(0);
 	        			
         			}
@@ -497,9 +497,9 @@ public class InventoryInteractListener implements Listener {
         				
         			cible.getPlayer().getInventory().setChestplate(item3);
         			
-        			if(!main.getCD().contains(Pouvoirs.CAPTAIN_REPAIR)) {
+        			if(!joueur.getCD().contains(Pouvoirs.CAPTAIN_REPAIR)) {
             			
-	        			main.getCD().add(Pouvoirs.CAPTAIN_REPAIR);
+	        			joueur.getCD().add(Pouvoirs.CAPTAIN_REPAIR);
 	        			joueur.setRepairCaptain(0);
 	        			
         			}
@@ -570,9 +570,9 @@ public class InventoryInteractListener implements Listener {
         				
         			cible.getPlayer().getInventory().setChestplate(item4);
         			
-        			if(!main.getCD().contains(Pouvoirs.CAPTAIN_REPAIR)) {
+        			if(!joueur.getCD().contains(Pouvoirs.CAPTAIN_REPAIR)) {
             			
-	        			main.getCD().add(Pouvoirs.CAPTAIN_REPAIR);
+	        			joueur.getCD().add(Pouvoirs.CAPTAIN_REPAIR);
 	        			joueur.setRepairCaptain(0);
 	        			
         			}
@@ -643,9 +643,9 @@ public class InventoryInteractListener implements Listener {
         				
         			cible.getPlayer().getInventory().setLeggings(item5);
         			
-        			if(!main.getCD().contains(Pouvoirs.CAPTAIN_REPAIR)) {
+        			if(!joueur.getCD().contains(Pouvoirs.CAPTAIN_REPAIR)) {
             			
-	        			main.getCD().add(Pouvoirs.CAPTAIN_REPAIR);
+	        			joueur.getCD().add(Pouvoirs.CAPTAIN_REPAIR);
 	        			joueur.setRepairCaptain(0);
 	        			
         			}
@@ -716,9 +716,9 @@ public class InventoryInteractListener implements Listener {
         				
         			cible.getPlayer().getInventory().setLeggings(item6);
         			
-        			if(!main.getCD().contains(Pouvoirs.CAPTAIN_REPAIR)) {
+        			if(!joueur.getCD().contains(Pouvoirs.CAPTAIN_REPAIR)) {
             			
-	        			main.getCD().add(Pouvoirs.CAPTAIN_REPAIR);
+	        			joueur.getCD().add(Pouvoirs.CAPTAIN_REPAIR);
 	        			joueur.setRepairCaptain(0);
 	        			
         			}
@@ -789,9 +789,9 @@ public class InventoryInteractListener implements Listener {
         				
         			cible.getPlayer().getInventory().setBoots(item7);
         			
-        			if(!main.getCD().contains(Pouvoirs.CAPTAIN_REPAIR)) {
+        			if(!joueur.getCD().contains(Pouvoirs.CAPTAIN_REPAIR)) {
             			
-	        			main.getCD().add(Pouvoirs.CAPTAIN_REPAIR);
+	        			joueur.getCD().add(Pouvoirs.CAPTAIN_REPAIR);
 	        			joueur.setRepairCaptain(0);
 	        			
         			}
@@ -862,9 +862,9 @@ public class InventoryInteractListener implements Listener {
         				
         			cible.getPlayer().getInventory().setBoots(item8);
         			
-        			if(!main.getCD().contains(Pouvoirs.CAPTAIN_REPAIR)) {
+        			if(!joueur.getCD().contains(Pouvoirs.CAPTAIN_REPAIR)) {
             			
-	        			main.getCD().add(Pouvoirs.CAPTAIN_REPAIR);
+	        			joueur.getCD().add(Pouvoirs.CAPTAIN_REPAIR);
 	        			joueur.setRepairCaptain(0);
 	        			
         			}

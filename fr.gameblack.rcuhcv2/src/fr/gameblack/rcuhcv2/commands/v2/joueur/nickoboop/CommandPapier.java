@@ -32,9 +32,9 @@ public class CommandPapier implements CommandExecutor {
 			
 			if(cible_ != null && (joueur.getRole() == Roles.NICKOBOOP || joueur.getRole() == Roles.TEST)) {
 				
-				if(!main.getCD().contains(Pouvoirs.NICKOBOOP_PAPIER)) {
+				if(!joueur.getCD().contains(Pouvoirs.NICKOBOOP_PAPIER)) {
 					
-					main.getCD().add(Pouvoirs.NICKOBOOP_PAPIER);
+					joueur.getCD().add(Pouvoirs.NICKOBOOP_PAPIER);
 				
 					Joueur cible = main.getJoueur(cible_);
 					

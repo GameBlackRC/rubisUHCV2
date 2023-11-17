@@ -36,9 +36,9 @@ public class TrialV1 {
     	
     	Player player = joueur.getPlayer();
 
-        if (!main.getCD().contains(Pouvoirs.TRIAL_BANKAI)) {
+        if (!joueur.getCD().contains(Pouvoirs.TRIAL_BANKAI)) {
 
-            main.getCD().add(Pouvoirs.TRIAL_BANKAI);
+            joueur.getCD().add(Pouvoirs.TRIAL_BANKAI);
 
             joueur.addForce(0.07);
             

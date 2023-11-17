@@ -103,7 +103,7 @@ public class GameBlackV1 {
 		joueur.addResi(0.05);
 		joueur.removeSpeed(0.15);
     	player.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, 1200, 0, false, false));
-    	main.getCD().add(Pouvoirs.GB_CAMOUFLAGE);
+    	joueur.getCD().add(Pouvoirs.GB_CAMOUFLAGE);
     	ItemCD cycle = new ItemCD(main, joueur, "camouflage", 600, joueur, null, null, 0, null);
         cycle.runTaskTimer(main, 0, 20);
     	
@@ -117,7 +117,7 @@ public class GameBlackV1 {
     		
     		if(!joueur.isInvisible()) {
     			
-    			if(!main.getCD().contains(Pouvoirs.GB_CAMOUFLAGE)) {
+    			if(!joueur.getCD().contains(Pouvoirs.GB_CAMOUFLAGE)) {
     	
 			    	joueur.hide(main);
 			    	joueur.setInvisible(true);
@@ -179,7 +179,7 @@ public class GameBlackV1 {
 
     public static void CommandNerf(Joueur joueur, Main main) {
 
-        main.getCD().add(Pouvoirs.GB_NERF);
+        joueur.getCD().add(Pouvoirs.GB_NERF);
 
         Random r = new Random();
         int nb = r.nextInt(2);
@@ -194,7 +194,7 @@ public class GameBlackV1 {
 
     public static void CommandRecrut(Player player, Joueur cible, Main main) {
 
-        //main.getCD().add(Pouvoirs.GB_RECRUT);
+        //joueur.getCD().add(Pouvoirs.GB_RECRUT);
 
         if (cible.getRole() == Roles.Farmeurimmo || cible.getRole() == Roles.GameBlack || cible.getRole() == Roles.Joko || cible.getRole() == Roles.Maka || cible.getRole() == Roles.Loup || cible.getRole() == Roles.Team || cible.getRole() == Roles.Trial) {
 
@@ -406,7 +406,7 @@ public class GameBlackV1 {
     public static void CommandInspect(Joueur joueur, Joueur cible, Main main, boolean cd) {
 
     	if(cd) {
-    		main.getCD().add(Pouvoirs.GB_INSPECT);
+    		joueur.getCD().add(Pouvoirs.GB_INSPECT);
     	}
 
         List<String> effets = new ArrayList<>();

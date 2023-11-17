@@ -4,9 +4,7 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Random;
 
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.Location;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -16,7 +14,9 @@ import fr.gameblack.rcuhcv2.classes.Joueur;
 import fr.gameblack.rcuhcv2.classes.Pouvoirs;
 import fr.gameblack.rcuhcv2.classes.Roles;
 import fr.gameblack.rcuhcv2.classes.v1.Pouvoirs_GB;
-import fr.gameblack.rcuhcv2.roles.v2.staff.Trial;
+import fr.gameblack.rcuhcv2.orbes.Orbe;
+import fr.gameblack.rcuhcv2.roles.v1.demons.Tronconeuse;
+import fr.gameblack.rcuhcv2.roles.v1.rc.ToinouV1;
 import fr.gameblack.rcuhcv2.task.v2.ItemCD;
 
 public class Mort {
@@ -39,6 +39,61 @@ public class Mort {
 	}
 	
 	public static void setMortV1(Joueur joueur, Joueur tueur, EntityDamageByEntityEvent event, Main main) {
+		
+		if(tueur.getRole() == Roles.Demon) {
+			
+			if(main.getEffetDemon().equalsIgnoreCase("speed")) {
+				
+				tueur.addSpeed(0.03);
+				main.addPourcentEffetDemon(0.03);
+				
+			}
+			else {
+				
+				tueur.addForce(0.03);
+				main.addPourcentEffetDemon(0.03);
+				
+			}
+			
+		}
+		
+		if(joueur.getRole() == Roles.Trial && main.getJoueurByRole(Roles.Tronconeuse) != null) {
+			
+			Tronconeuse.ItemsKillTrial(main.getJoueurByRole(Roles.Tronconeuse));
+			
+		}
+		
+        if (tueur.getRole() == Roles.Tronconeuse) {
+
+            if (joueur.getOrbe() != Orbe.NONE && tueur.getOrbe() == Orbe.NONE) {
+
+                tueur.setOrbe(joueur.getOrbe());
+                tueur.getPlayer().sendMessage(joueur.getPlayer().getName() + " possède une orbe, vous lui volez donc son orbe (orbe de " + joueur.getOrbe().toString().toLowerCase() + ")");
+
+
+            }
+
+        }
+		
+		if(tueur.getRole() == Roles.Toinou) {
+			
+			if(tueur.getVol().isEmpty() && joueur.getCamp().equalsIgnoreCase("demon")) {
+				
+				tueur.getPlayer().removePotionEffect(PotionEffectType.SPEED);
+				
+			}
+			if(joueur.getCamp().equalsIgnoreCase("demon")) {
+				
+				ToinouV1.kill(tueur, joueur, main);
+				
+			}
+			if(tueur.getVol().contains(Pouvoirs.TENEBRE_KILL)) {
+				
+				tueur.addForce(0.03);
+				
+			}
+			
+		}
 		
 		if(tueur.getRole() == Roles.GameBlack && tueur.getPouvoirGB() == Pouvoirs_GB.POURCENT && (joueur.getCamp().equalsIgnoreCase("demon") || joueur.getCamp().equalsIgnoreCase("solo")) && joueur.getGBPourcent() >= 100) {
 			

@@ -42,7 +42,7 @@ public class Loup {
 	
 	public static void ItemSuperBateau(Joueur joueur, Main main) {
 		
-		main.getCD().add(Pouvoirs.LOUP_SUPERBATEAU);
+		joueur.getCD().add(Pouvoirs.LOUP_SUPERBATEAU);
 		
 		Bukkit.getWorld("world").playSound(joueur.getPlayer().getLocation(), Sound.BLAZE_DEATH, 10, 1);
 		setBoat((Boat)joueur.getPlayer().getWorld().spawnEntity(joueur.getPlayer().getLocation(), EntityType.BOAT));
@@ -129,11 +129,11 @@ public class Loup {
 	
 	public static void CommandServeur(Joueur joueur, Main main) {
 		
-		if(!main.getCD().contains(Pouvoirs.LOUP_SERVEUR)) {
+		if(!joueur.getCD().contains(Pouvoirs.LOUP_SERVEUR)) {
 			
 			joueur.getPlayer().sendMessage("Vous activez votre pouvoirs");
 			
-			main.getCD().add(Pouvoirs.LOUP_SERVEUR);
+			joueur.getCD().add(Pouvoirs.LOUP_SERVEUR);
 		
 			List<Joueur> joueurs = new ArrayList<>();
 			

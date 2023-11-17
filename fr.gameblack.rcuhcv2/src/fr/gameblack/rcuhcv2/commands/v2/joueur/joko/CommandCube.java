@@ -40,7 +40,7 @@ public class CommandCube implements CommandExecutor {
 	
 	                if (joueur.getRole() == Roles.JOKO || (joueur.getRole() == Roles.FARMEURIMMO && joueur.getVol().contains(Pouvoirs.JOKO_CUBE))) {
 	
-	                    if (!main.getCD().contains(Pouvoirs.JOKO_GIVECUBE)) {
+	                    if (!joueur.getCD().contains(Pouvoirs.JOKO_GIVECUBE)) {
 	
 	                        Joko.CommandCube(joueur, cible, main);
 	
@@ -52,7 +52,7 @@ public class CommandCube implements CommandExecutor {
 	
 	                } else if(joueur.getRole() == Roles.Joko) {
 	                	
-	                	if (!main.getCD().contains(Pouvoirs.JOKO_GIVECUBE)) {
+	                	if (!joueur.getCD().contains(Pouvoirs.JOKO_GIVECUBE)) {
 	                		
 	                        JokoV1.CommandCube(joueur, cible, main);
 	

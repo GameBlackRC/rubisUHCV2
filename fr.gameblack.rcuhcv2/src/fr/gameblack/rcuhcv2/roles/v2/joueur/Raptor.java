@@ -35,18 +35,23 @@ public class Raptor {
 	
 	public static void ItemRage(Joueur joueur, Main main) {
 		
-		if(!main.getCD().contains(Pouvoirs.RAPTOR_RAGE)) {
+		if(!joueur.getCD().contains(Pouvoirs.RAPTOR_RAGE)) {
 			
 			if(!joueur.isPouvoirRaptorActif()) {
 				
 				joueur.setPouvoirRaptorActif(true);
 			
 				joueur.getPlayer().sendMessage("Vous activez votre pouvoir");
-				main.getCD().add(Pouvoirs.RAPTOR_RAGE);
+				joueur.getCD().add(Pouvoirs.RAPTOR_RAGE);
 				joueur.addForce(0.07);
 				ItemCD cycle = new ItemCD(main, joueur, "rage_raptor", 20, joueur, null, null, 0, null);
 		        cycle.runTaskTimer(main, 0, 20);
 	        
+			}
+			else {
+				
+				joueur.getPlayer().sendMessage("Votre cheat est actif, vous ne pouvez pas activer votre pouvoir");
+				
 			}
 	        
 		}
@@ -60,63 +65,70 @@ public class Raptor {
 
 	public static void cheat(Joueur joueur, Main main) {
 		
-		if(!main.getCD().contains(Pouvoirs.RAPTOR_CHEAT)) {
+		if(!joueur.getCD().contains(Pouvoirs.RAPTOR_CHEAT)) {
 			
-			main.getCD().add(Pouvoirs.RAPTOR_CHEAT);
-		
-			Random r = new Random();
-	        int nb = r.nextInt(100);
-	        
-	        if(nb <= 10) {
-	        	
-	        	//rien
-	        	
-	        }
-	        else if(nb <= 20) {
-	        	
-	        	//anti-kb pendant 5 secondes
-	        	joueur.setAntiKB(true);
-	        	ItemCD cycle = new ItemCD(main, joueur, "antikb_raptor", 5, joueur, null, null, 0, null);
-	            cycle.runTaskTimer(main, 0, 20);
-	            joueur.getPlayer().sendMessage("Vous activez votre cheat anti-kb pendant 5 secondes");
-	        	
-	        }
-	        else if(nb <= 35) {
-	        	
-	        	//10% de force pendant 1min
-	        	joueur.addForce(0.05);
-	        	ItemCD cycle = new ItemCD(main, joueur, "force_raptor", 30, joueur, null, null, 0, null);
-	            cycle.runTaskTimer(main, 0, 20);
-	            joueur.getPlayer().sendMessage("Vous activez votre cheat, vous recevez donc 5% de force supplémentaire pendant 30 secondes");
-	        	
-	        }
-	        else if(nb <= 55) {
-	        	
-	        	//5% de force pendant 1min
-	        	joueur.addForce(0.02);
-	        	ItemCD cycle = new ItemCD(main, joueur, "5_force_raptor", 60, joueur, null, null, 0, null);
-	            cycle.runTaskTimer(main, 0, 20);
-	            joueur.getPlayer().sendMessage("Vous activez votre cheat, vous recevez donc 2% de force supplémentaire pendant 1 minute");
-	        	
-	        }
-	        else if(nb <= 75) {
-	        	
-	        	//5% de resi pendant 1min
-	        	joueur.addResi(0.02);
-	        	ItemCD cycle = new ItemCD(main, joueur, "resi_raptor", 60, joueur, null, null, 0, null);
-	            cycle.runTaskTimer(main, 0, 20);
-	            joueur.getPlayer().sendMessage("Vous activez votre cheat, vous recevez donc 2% de résistance supplémentaire pendant 1 minute");
-	        	
-	        }
-	        else {
-	        	
-	        	//10% de speed pendant 1min
-	        	joueur.addSpeed(0.10);
-	        	ItemCD cycle = new ItemCD(main, joueur, "speed_raptor", 60, joueur, null, null, 0, null);
-	            cycle.runTaskTimer(main, 0, 20);
-	            joueur.getPlayer().sendMessage("Vous activez votre cheat, vous recevez donc 10% de speed supplémentaire pendant 1 minute");
-	        	
-	        }
+			if(!joueur.isPouvoirRaptorActif()) {
+				
+				joueur.setPouvoirRaptorActif(true);
+			
+				joueur.getCD().add(Pouvoirs.RAPTOR_CHEAT);
+			
+				Random r = new Random();
+		        int nb = r.nextInt(100);
+		        
+		        if(nb <= 10) {
+		        	
+		        	//rien
+		        	joueur.setPouvoirRaptorActif(false);
+		        	
+		        }
+		        else if(nb <= 20) {
+		        	
+		        	//anti-kb pendant 5 secondes
+		        	joueur.setAntiKB(true);
+		        	ItemCD cycle = new ItemCD(main, joueur, "antikb_raptor", 5, joueur, null, null, 0, null);
+		            cycle.runTaskTimer(main, 0, 20);
+		            joueur.getPlayer().sendMessage("Vous activez votre cheat anti-kb pendant 5 secondes");
+		        	
+		        }
+		        else if(nb <= 35) {
+		        	
+		        	//10% de force pendant 1min
+		        	joueur.addForce(0.05);
+		        	ItemCD cycle = new ItemCD(main, joueur, "force_raptor", 30, joueur, null, null, 0, null);
+		            cycle.runTaskTimer(main, 0, 20);
+		            joueur.getPlayer().sendMessage("Vous activez votre cheat, vous recevez donc 5% de force supplémentaire pendant 30 secondes");
+		        	
+		        }
+		        else if(nb <= 55) {
+		        	
+		        	//5% de force pendant 1min
+		        	joueur.addForce(0.02);
+		        	ItemCD cycle = new ItemCD(main, joueur, "5_force_raptor", 60, joueur, null, null, 0, null);
+		            cycle.runTaskTimer(main, 0, 20);
+		            joueur.getPlayer().sendMessage("Vous activez votre cheat, vous recevez donc 2% de force supplémentaire pendant 1 minute");
+		        	
+		        }
+		        else if(nb <= 75) {
+		        	
+		        	//5% de resi pendant 1min
+		        	joueur.addResi(0.02);
+		        	ItemCD cycle = new ItemCD(main, joueur, "resi_raptor", 60, joueur, null, null, 0, null);
+		            cycle.runTaskTimer(main, 0, 20);
+		            joueur.getPlayer().sendMessage("Vous activez votre cheat, vous recevez donc 2% de résistance supplémentaire pendant 1 minute");
+		        	
+		        }
+		        else {
+		        	
+		        	//10% de speed pendant 1min
+		        	joueur.addSpeed(0.10);
+		        	ItemCD cycle = new ItemCD(main, joueur, "speed_raptor", 60, joueur, null, null, 0, null);
+		            cycle.runTaskTimer(main, 0, 20);
+		            joueur.getPlayer().sendMessage("Vous activez votre cheat, vous recevez donc 10% de speed supplémentaire pendant 1 minute");
+		        	
+		        }
+		        
+			}
 	        
 		}
 		

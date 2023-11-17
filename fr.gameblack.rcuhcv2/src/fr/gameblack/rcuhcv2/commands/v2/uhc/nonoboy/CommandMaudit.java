@@ -8,6 +8,7 @@ import org.bukkit.entity.Player;
 
 import fr.gameblack.rcuhcv2.Main;
 import fr.gameblack.rcuhcv2.classes.Joueur;
+import fr.gameblack.rcuhcv2.classes.Pouvoirs;
 import fr.gameblack.rcuhcv2.classes.Roles;
 import fr.gameblack.rcuhcv2.roles.v1.demons.Malediction;
 import fr.gameblack.rcuhcv2.roles.v2.uhc.Nonoboy;
@@ -50,7 +51,7 @@ public class CommandMaudit implements CommandExecutor {
 	
 	            if ((cible1 != null && cible2 != null && args[2] != null && niveau > 0 && niveau < 4) || (cible1 != null && args[1] != null && niveau > 0 && niveau < 4)) {
 	
-	                if ((joueur.getRole() == Roles.NONOBOY && main.getVersion() == 2) || (joueur.getRole() == Roles.Malediction && main.getVersion() == 1)) {
+	                if ((joueur.getRole() == Roles.NONOBOY && main.getVersion() == 2) || (joueur.getRole() == Roles.Malediction && main.getVersion() == 1) || (joueur.getRole() == Roles.Toinou && joueur.getVol().contains(Pouvoirs.MALEDICTION_MAUDIT) && main.getVersion() == 1)) {
 	
 	                    if (main.getNiv_maledition() == 0) {
 	                    	

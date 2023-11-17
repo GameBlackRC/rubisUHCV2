@@ -207,7 +207,20 @@ public class DamageListener implements Listener {
                 		
                 	}
                 	
-                	double damage_strenght = (event.getDamage(DamageModifier.BASE)*(force/100))*0.9;
+                	double nerf_force = 1;
+                	
+                	if(main.getVersion() == 2) {
+                		
+                		nerf_force = 0.9;
+                		
+                	}
+                	else if(main.getVersion() == 1) {
+                		
+                		nerf_force = 0.6;
+                		
+                	}
+                	
+                	double damage_strenght = (event.getDamage(DamageModifier.BASE)*(force/100))*nerf_force;
                     double armure = event.getDamage(DamageModifier.ARMOR)*0.85;
                     event.setDamage(DamageModifier.BASE, damage_strenght);
                     event.setDamage(DamageModifier.ARMOR,armure);
@@ -232,7 +245,20 @@ public class DamageListener implements Listener {
                     	
                     }
                     
-                    res = ((res/100)-1)*0.9;
+                	double nerf_resi = 1;
+                	
+                	if(main.getVersion() == 2) {
+                		
+                		nerf_resi = 0.9;
+                		
+                	}
+                	else if(main.getVersion() == 1) {
+                		
+                		nerf_resi = 0.6;
+                		
+                	}
+                    
+                    res = ((res/100)-1)*nerf_resi;
                     
                     double resi = event.getDamage(DamageModifier.BASE)*res;
                     event.setDamage(DamageModifier.RESISTANCE, -resi);

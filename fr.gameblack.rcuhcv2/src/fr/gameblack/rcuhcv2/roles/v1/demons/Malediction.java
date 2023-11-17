@@ -4,6 +4,7 @@ import org.bukkit.entity.Player;
 
 import fr.gameblack.rcuhcv2.Main;
 import fr.gameblack.rcuhcv2.classes.Joueur;
+import fr.gameblack.rcuhcv2.classes.Roles;
 import fr.gameblack.rcuhcv2.task.v1.ItemCD;
 
 public class Malediction {
@@ -17,7 +18,7 @@ public class Malediction {
 	
 	public static void CommandMaudit(Joueur joueur, Joueur cible1, Joueur cible2, Main main, int niveau) {
     	
-    	if(cible1.getCamp() == "demon" && cible2.getCamp() == "demon") {
+    	if(cible1.getCamp() == joueur.getCamp() && cible2.getCamp() == joueur.getCamp()) {
     	
     		main.getMaudit().add(cible1);
     		main.getMaudit().add(cible2);
@@ -60,22 +61,31 @@ public class Malediction {
     		}
     		else {
     			
-    			if(joueur.getPlayer().getMaxHealth()-6 > 4) {
-        			
-        			joueur.getPlayer().setMaxHealth(joueur.getPlayer().getMaxHealth()-6);
-        			
-        		}
-    			else {
-    				joueur.getPlayer().sendMessage("Vous ne pouvez pas utilisé la commande");
-    				return;
-    			}
+    			if(joueur.getRole() != Roles.Toinou) {
     			
-    			cible1.addForce(0.03);
-    			cible1.addSpeed(0.05);
-    			cible2.addForce(0.03);
-    			cible2.addSpeed(0.05);
-    			ItemCD cycle = new ItemCD(main, cible1, "maudit_uhc_3", 120, cible2, null, null, 0, null);
-                cycle.runTaskTimer(main, 0, 20);
+	    			if(joueur.getPlayer().getMaxHealth()-6 > 4) {
+	        			
+	        			joueur.getPlayer().setMaxHealth(joueur.getPlayer().getMaxHealth()-6);
+	        			
+	        		}
+	    			else {
+	    				joueur.getPlayer().sendMessage("Vous ne pouvez pas utilisé la commande");
+	    				return;
+	    			}
+	    			
+	    			cible1.addForce(0.03);
+	    			cible1.addSpeed(0.05);
+	    			cible2.addForce(0.03);
+	    			cible2.addSpeed(0.05);
+	    			ItemCD cycle = new ItemCD(main, cible1, "maudit_uhc_3", 120, cible2, null, null, 0, null);
+	                cycle.runTaskTimer(main, 0, 20);
+	                
+    			}
+    			else {
+    				
+    				joueur.getPlayer().sendMessage("Vous ne pouvez pas faire de malédiction de niveau 3");
+    				
+    			}
     			
     		}
     		
@@ -123,22 +133,31 @@ public class Malediction {
     		}
     		else {
     			
-    			if(joueur.getPlayer().getMaxHealth()-6 > 4) {
-        			
-        			joueur.getPlayer().setMaxHealth(joueur.getPlayer().getMaxHealth()-6);
-        			
-        		}
-    			else {
-    				joueur.getPlayer().sendMessage("Vous ne pouvez pas utilisé la commande");
-    				return;
-    			}
+    			if(joueur.getRole() != Roles.Toinou) {
     			
-    			cible1.removeForce(0.02);
-    			cible1.removeSpeed(0.05);
-    			cible2.removeForce(0.02);
-    			cible2.removeSpeed(0.05);
-    			ItemCD cycle = new ItemCD(main, cible1, "maudit_autre_3", 60, cible2, null, null, 0, null);
-                cycle.runTaskTimer(main, 0, 20);
+	    			if(joueur.getPlayer().getMaxHealth()-6 > 4) {
+	        			
+	        			joueur.getPlayer().setMaxHealth(joueur.getPlayer().getMaxHealth()-6);
+	        			
+	        		}
+	    			else {
+	    				joueur.getPlayer().sendMessage("Vous ne pouvez pas utilisé la commande");
+	    				return;
+	    			}
+	    			
+	    			cible1.removeForce(0.02);
+	    			cible1.removeSpeed(0.05);
+	    			cible2.removeForce(0.02);
+	    			cible2.removeSpeed(0.05);
+	    			ItemCD cycle = new ItemCD(main, cible1, "maudit_autre_3", 60, cible2, null, null, 0, null);
+	                cycle.runTaskTimer(main, 0, 20);
+	                
+    			}
+	    		else {
+					
+					joueur.getPlayer().sendMessage("Vous ne pouvez pas faire de malédiction de niveau 3");
+					
+				}
     			
     		}
     		

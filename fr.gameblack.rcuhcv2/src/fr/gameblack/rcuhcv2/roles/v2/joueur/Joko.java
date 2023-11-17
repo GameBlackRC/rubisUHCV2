@@ -28,7 +28,7 @@ public class Joko {
 
     public static void InteractSpeedcubing(Joueur joueur, Main main) {
 
-        if (!main.getCD().contains(Pouvoirs.JOKO_CUBE)) {
+        if (!joueur.getCD().contains(Pouvoirs.JOKO_CUBE)) {
         	
         	joueur.getPlayer().sendMessage("Vous activez votre pouvoir");
 
@@ -36,7 +36,7 @@ public class Joko {
             joueur.addSpeed(0.1);
             ItemCD cycle = new ItemCD(main, joueur, "cube", 60, joueur, null, null, 0, null);
             cycle.runTaskTimer(main, 0, 20);
-            main.getCD().add(Pouvoirs.JOKO_CUBE);
+            joueur.getCD().add(Pouvoirs.JOKO_CUBE);
 
         } else {
 
@@ -56,7 +56,7 @@ public class Joko {
 
     	cible.addCube(main);
         joueur.getPlayer().sendMessage(cible.getPlayer().getName() + " possède maintenant " + cible.getCube() + " rubik's cube");
-        main.getCD().add(Pouvoirs.JOKO_GIVECUBE);
+        joueur.getCD().add(Pouvoirs.JOKO_GIVECUBE);
         ItemCD cycle = new ItemCD(main, joueur, "givecube", 300, cible, null, null, 0, null);
         cycle.runTaskTimer(main, 0, 20);
 

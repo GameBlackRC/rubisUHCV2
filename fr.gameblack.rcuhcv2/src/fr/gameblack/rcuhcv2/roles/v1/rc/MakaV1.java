@@ -78,7 +78,7 @@ public class MakaV1 {
 
         ItemCD cycle = new ItemCD(main, joueur, "don", 300, cible, null, null, 0, null);
         cycle.runTaskTimer(main, 0, 20);
-        main.getCD().add(Pouvoirs.MAKA_DON);
+        joueur.getCD().add(Pouvoirs.MAKA_DON);
 
     }
 

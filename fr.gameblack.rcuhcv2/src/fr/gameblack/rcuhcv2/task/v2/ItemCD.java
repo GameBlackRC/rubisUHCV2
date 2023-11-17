@@ -595,7 +595,7 @@ public class ItemCD extends BukkitRunnable {
 	            		
 	            	} else if(item == "cd_hack_farmeurimmo") {
 	            		
-	            		main.getCD().remove(Pouvoirs.FARMEURIMMO_HACK);
+	            		joueur.getCD().remove(Pouvoirs.FARMEURIMMO_HACK);
 	            		
 	            	}
 	            	
@@ -604,31 +604,37 @@ public class ItemCD extends BukkitRunnable {
 	            	if(item == "antikb_raptor") {
 	            		
 	            		joueur.setAntiKB(false);
+	            		joueur.setPouvoirRaptorActif(false);
 	            		joueur.getPlayer().sendMessage("Votre cheat est désormais fini");
 	            		
 	            	} else if(item == "force_raptor") {
 	            		
 	            		joueur.removeForce(0.05);
+	            		joueur.setPouvoirRaptorActif(false);
 	            		joueur.getPlayer().sendMessage("Votre cheat est désormais fini");
 	            		
 	            	} else if(item == "5_force_raptor") {
 	            		
 	            		joueur.removeForce(0.02);
+	            		joueur.setPouvoirRaptorActif(false);
 	            		joueur.getPlayer().sendMessage("Votre cheat est désormais fini");
 	            		
 	            	} else if(item == "resi_raptor") {
 	            		
 	            		joueur.removeResi(0.02);
+	            		joueur.setPouvoirRaptorActif(false);
 	            		joueur.getPlayer().sendMessage("Votre cheat est désormais fini");
 	            		
 	            	} else if(item == "speed_raptor") {
 	            		
 	            		joueur.removeSpeed(0.10);
+	            		joueur.setPouvoirRaptorActif(false);
 	            		joueur.getPlayer().sendMessage("Votre cheat est désormais fini");
 	            		
 	            	} else if(item == "rage_raptor") {
 	            		
 	            		joueur.removeForce(0.07);
+	            		joueur.setPouvoirRaptorActif(false);
 	            		joueur.getPlayer().sendMessage("Votre pouvoir est désormais fini");
 	            		joueur.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION,400,0));
 	            		
@@ -711,7 +717,7 @@ public class ItemCD extends BukkitRunnable {
 	            		cible.addForce(0.02);
 	            		cible.addSpeed(0.03);
 	            		cible.setCorrompu(false);
-	            		main.getCD().remove(Pouvoirs.TRIAL_CORRUPTION);
+	            		joueur.getCD().remove(Pouvoirs.TRIAL_CORRUPTION);
 	            		joueur.getPlayer().sendMessage("Le joueur " + cible.getPlayer().getName() + " n'est plus corrompu");
 	            		
 	            	} else if(item == "sakashimayokoshima_trial") {
@@ -757,7 +763,7 @@ public class ItemCD extends BukkitRunnable {
 	            	} else if(item == "vol_loup_cd") {
 	            		
 	            		joueur.getPlayer().sendMessage("Vous venez de récupérer votre super bateau");
-	            		main.getCD().remove(Pouvoirs.LOUP_SUPERBATEAU);
+	            		joueur.getCD().remove(Pouvoirs.LOUP_SUPERBATEAU);
 	            		
 	            	} else if(item == "vol_loup_nf") {
 	            		
@@ -793,7 +799,7 @@ public class ItemCD extends BukkitRunnable {
 	
 	                } else if (item == "givecube") {
 	
-	                    main.getCD().remove(Pouvoirs.JOKO_GIVECUBE);
+	                    joueur.getCD().remove(Pouvoirs.JOKO_GIVECUBE);
 	
 	                }
 	
@@ -883,7 +889,11 @@ public class ItemCD extends BukkitRunnable {
 	            	
 	            } else if(joueur.getRole() == Roles.TEAM) {
 	            	
-	            	if(item == "justice_team") {
+	            	if(item == "force_team") {
+	            		
+	            		joueur.addForce(0.02);
+	            	
+	            	} else if(item == "justice_team") {
 	            	
 		            	main.setZoneJusticeActif(false);
 		            	joueur.removeSpeed(0.05);
@@ -1040,7 +1050,7 @@ public class ItemCD extends BukkitRunnable {
 		                if(nb <= 50) {
 		                	
 		                	joueur.getPlayer().sendMessage("Vous pouvez réutiliser votre pouvoir");
-		                	main.getCD().remove(Pouvoirs.HEKOW_JEU);
+		                	joueur.getCD().remove(Pouvoirs.HEKOW_JEU);
 		                	
 		                }
 	            		
@@ -1061,6 +1071,12 @@ public class ItemCD extends BukkitRunnable {
 	            	if(item == "theo_antikb") {
 	            		
 	            		joueur.setAntiKB(false);
+	            		
+	            	}
+	            	else if(item == "theoochoux_minirollbackcd") {
+	            		
+	            		joueur.getCD().remove(Pouvoirs.THEOOCHOUX_MINIROLLBACK);
+	            		joueur.getPlayer().sendMessage("Le cooldown de votre mini rollback est désormais fini");
 	            		
 	            	}
 	            	

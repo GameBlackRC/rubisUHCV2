@@ -124,7 +124,7 @@ public class CommandMe implements CommandExecutor {
             	
             } else if(joueur.getRole() == Roles.THEOOCHOUX) {
             	
-            	Theoochoux.Texte(player);
+            	Theoochoux.Texte(player, main);
             	
             } else if(joueur.getRole() == Roles.FARMEURIMMO) {
             	

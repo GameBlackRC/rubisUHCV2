@@ -34,7 +34,7 @@ public class CommandRCCode implements CommandExecutor {
 	
 	            if (cible_ != null) {
 	            	
-	            	if(!main.getCD().contains(Pouvoirs.FARMEURIMMO_HACK)) {
+	            	if(!joueur.getCD().contains(Pouvoirs.FARMEURIMMO_HACK)) {
 	            	
 		            	Joueur cible = main.getJoueur(cible_);
 		            	

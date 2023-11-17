@@ -34,7 +34,9 @@ import fr.gameblack.rcuhcv2.commands.global.game.CommandOrbe;
 import fr.gameblack.rcuhcv2.commands.global.game.CommandSeeall;
 import fr.gameblack.rcuhcv2.commands.global.host.CommandAddAllRole;
 import fr.gameblack.rcuhcv2.commands.global.host.CommandAddAllRolePVP;
+import fr.gameblack.rcuhcv2.commands.global.host.CommandAddrole;
 import fr.gameblack.rcuhcv2.commands.global.host.CommandCreate;
+import fr.gameblack.rcuhcv2.commands.global.host.CommandRemoverole;
 import fr.gameblack.rcuhcv2.commands.global.host.CommandSetGroup;
 import fr.gameblack.rcuhcv2.commands.global.host.CommandStart;
 import fr.gameblack.rcuhcv2.commands.v1.demons.cosmos.CommandKill;
@@ -107,7 +109,6 @@ public class Main extends JavaPlugin {
     private boolean jour = false;
     private String mode = "normal";
     private List<Joueur> joueurs = new ArrayList<>();
-    private List<Pouvoirs> cd = new ArrayList<>();
     private List<Roles> compo = new ArrayList<>();
     private String jeuTrial = null;
     private List<Joueur> joueurJeuTrial = new ArrayList<>();
@@ -138,12 +139,6 @@ public class Main extends JavaPlugin {
     private List<Scenarios> scenarios = new ArrayList<>();
     private int version = 0;
     private boolean trialReflexActif = false;
-    private Location theoochouxLoc = null;
-    private Inventory theoochouxInv = null;
-    private Double theoochouxHP = 20.0;
-    private int theoochouxFood = 20;
-    private int stadeTheoochouxBonus = 0;
-    private int stadeTheochouxHack = 0;
     
     private Orbe orbeCopieObscur = Orbe.NONE;
     private Joueur joueurMalusGlaceObscur = null;
@@ -155,6 +150,8 @@ public class Main extends JavaPlugin {
     private double forceIBaseV1 = 0.10;
     private double resiIBaseV1 = 0.15;
     private Joueur killCosmos = null;
+    private String effetDemon = "";
+    private double pourcentEffetDemon = 0;
     
     private DatabaseManager databaseManager;
     
@@ -212,6 +209,8 @@ public class Main extends JavaPlugin {
     	
     	getCommand("addallrole").setExecutor(new CommandAddAllRole(this));
     	getCommand("addallrolepvp").setExecutor(new CommandAddAllRolePVP(this));
+    	getCommand("addrole").setExecutor(new CommandAddrole(this));
+    	getCommand("removerole").setExecutor(new CommandRemoverole(this));
     	getCommand("create").setExecutor(new CommandCreate(this));
     	getCommand("start").setExecutor(new CommandStart(this));
     	getCommand("doc").setExecutor(new CommandDoc(this));
@@ -621,7 +620,6 @@ public class Main extends JavaPlugin {
         episode = 1;
         temps_episode = 600;
         jour = false;
-        cd = new ArrayList<>();
         jeuTrial = null;
         joueurJeuTrial = new ArrayList<>();
         fermetureGolden = false;
@@ -649,12 +647,6 @@ public class Main extends JavaPlugin {
         giveBoostNicko.clear();
         passagerSuperBateau = null;
         trialReflexActif = false;
-        theoochouxLoc = null;
-        theoochouxInv = null;
-        theoochouxHP = 20.0;
-        theoochouxFood = 20;
-        stadeTheoochouxBonus = 0;
-        stadeTheochouxHack = 0;
         
         orbeCopieObscur = Orbe.NONE;
         joueurMalusGlaceObscur = null;
@@ -713,6 +705,24 @@ public class Main extends JavaPlugin {
     	
     }
     
+    public List<Joueur> getJoueursByRole(Roles role) {
+    	
+    	List<Joueur> j = new ArrayList<>();
+    	
+    	for(Joueur joueur : joueurs) {
+    		
+    		if(joueur.getRole() == role && !joueur.isMort()) {
+    			
+    			j.add(joueur);
+    			
+    		}
+    		
+    	}
+    	
+    	return j;
+    	
+    }
+    
     public List<Joueur> getJoueurInCamp(String camp) {
     	
     	List<Joueur> joueurs_camps = new ArrayList<>();
@@ -728,12 +738,6 @@ public class Main extends JavaPlugin {
     	
     	return joueurs_camps;
     	
-    }
-    
-    public List<Pouvoirs> getCD() {
-
-        return cd;
-
     }
     
     public int getTempsEpisode() {
@@ -1289,68 +1293,32 @@ public class Main extends JavaPlugin {
 		this.trialReflexActif = trialReflexActif;
 	}
 
-	public Location getTheoochouxLoc() {
-		return theoochouxLoc;
-	}
-
-	public void setTheoochouxLoc(Location theoochouxLoc) {
-		this.theoochouxLoc = theoochouxLoc;
-	}
-
-	public Inventory getTheoochouxInv() {
-		return theoochouxInv;
-	}
-
-	public void setTheoochouxInv(Inventory theoochouxInv) {
-		this.theoochouxInv = theoochouxInv;
-	}
-
-	public Double getTheoochouxHP() {
-		return theoochouxHP;
-	}
-
-	public void setTheoochouxHP(Double theoochouxHP) {
-		this.theoochouxHP = theoochouxHP;
-	}
-
-	public int getTheoochouxFood() {
-		return theoochouxFood;
-	}
-
-	public void setTheoochouxFood(int theoochouxFood) {
-		this.theoochouxFood = theoochouxFood;
-	}
-
-	public int getStadeTheoochouxBonus() {
-		return stadeTheoochouxBonus;
-	}
-
-	public void setStadeTheoochouxBonus(int stadeTheoochouxBonus) {
-		this.stadeTheoochouxBonus = stadeTheoochouxBonus;
-	}
-	
-	public void addStadeTheoochouxBonus(int stadeTheoochouxBonus) {
-		this.stadeTheoochouxBonus += stadeTheoochouxBonus;
-	}
-
-	public int getStadeTheochouxHack() {
-		return stadeTheochouxHack;
-	}
-
-	public void setStadeTheochouxHack(int stadeTheochouxHack) {
-		this.stadeTheochouxHack = stadeTheochouxHack;
-	}
-	
-	public void addStadeTheochouxHack(int stadeTheochouxHack) {
-		this.stadeTheochouxHack += stadeTheochouxHack;
-	}
-
 	public Joueur getKillCosmos() {
 		return killCosmos;
 	}
 
 	public void setKillCosmos(Joueur killCosmos) {
 		this.killCosmos = killCosmos;
+	}
+
+	public String getEffetDemon() {
+		return effetDemon;
+	}
+
+	public void setEffetDemon(String effetDemon) {
+		this.effetDemon = effetDemon;
+	}
+
+	public double getPourcentEffetDemon() {
+		return pourcentEffetDemon;
+	}
+
+	public void setPourcentEffetDemon(double pourcentEffetDemon) {
+		this.pourcentEffetDemon = pourcentEffetDemon;
+	}
+	
+	public void addPourcentEffetDemon(double pourcentEffetDemon) {
+		this.pourcentEffetDemon += pourcentEffetDemon;
 	}
 	
 }

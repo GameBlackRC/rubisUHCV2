@@ -76,9 +76,9 @@ public class MalivolV1 {
     	
     	Player player = joueur.getPlayer();
 
-        if (!main.getCD().contains(Pouvoirs.MALIVOL_CHEAT)) {
+        if (!joueur.getCD().contains(Pouvoirs.MALIVOL_CHEAT)) {
 
-            main.getCD().add(Pouvoirs.MALIVOL_CHEAT);
+            joueur.getCD().add(Pouvoirs.MALIVOL_CHEAT);
 
             Random r = new Random();
             int nb = r.nextInt(4);

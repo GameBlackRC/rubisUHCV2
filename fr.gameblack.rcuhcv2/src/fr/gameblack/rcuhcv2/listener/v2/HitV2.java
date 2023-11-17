@@ -28,7 +28,7 @@ public class HitV2 {
         	
         }
         
-        if((nb <= 50 && joueur.getRole() != Roles.THEOOCHOUX) || (joueur.getRole() == Roles.THEOOCHOUX && nb <= (50-main.getStadeTheochouxHack()))) {
+        if((nb <= 50 && joueur.getRole() != Roles.THEOOCHOUX) || (joueur.getRole() == Roles.THEOOCHOUX && nb <= (50-joueur.getStadeTheochouxHack()))) {
 		
         	if(main.getMode().equalsIgnoreCase("rapide")) {
         	
@@ -98,9 +98,41 @@ public class HitV2 {
             nb = r.nextInt(100);
             if(nb <= 5) {
             	
-            	joueur.setAbso(false);
-            	ItemCD cycle = new ItemCD(main, tueur, "abso_jeannot", 15, joueur, null, null, 0, null);
-    	        cycle.runTaskTimer(main, 0, 20);
+            	if(joueur.getRole() == Roles.OBSCUR) {
+            		
+            		if(main.isAdaptionObscurActif()) {
+            		
+	            		if(main.getAdaptionAvantObscur().contains(Pouvoirs.JEANNOT_ABSO)) {
+	            			
+	            			main.getAdaptionPermaObscur().add(Pouvoirs.JEANNOT_ABSO);
+	            			
+	            		}
+	            		else if(!main.getAdaptionPermaObscur().contains(Pouvoirs.JEANNOT_ABSO)){
+	            			
+	            			main.getAdaptionObscur().add(Pouvoirs.JEANNOT_ABSO);
+	            			joueur.setAbso(false);
+	                    	ItemCD cycle = new ItemCD(main, tueur, "abso_jeannot", 7, joueur, null, null, 0, null);
+	            	        cycle.runTaskTimer(main, 0, 20);
+	            			
+	            		}
+	            		
+            		}
+            		else if(!main.getAdaptionPermaObscur().contains(Pouvoirs.JEANNOT_ABSO)) {
+            			
+            			joueur.setAbso(false);
+                    	ItemCD cycle = new ItemCD(main, tueur, "abso_jeannot", 15, joueur, null, null, 0, null);
+            	        cycle.runTaskTimer(main, 0, 20);
+            			
+            		}
+            		
+            	}
+            	else {
+            		
+            		joueur.setAbso(false);
+                	ItemCD cycle = new ItemCD(main, tueur, "abso_jeannot", 15, joueur, null, null, 0, null);
+        	        cycle.runTaskTimer(main, 0, 20);
+            		
+            	}
             	
             }
         	
@@ -224,15 +256,17 @@ public class HitV2 {
                 		
                 	}
                 	else {
+                		
+                		if(joueur.getRole() != Roles.Obscur && !main.getAdaptionPermaObscur().contains(Pouvoirs.JOKO_CUBE))
 
-                    	joueur.Stun(10, main);
-                    	joueur.removeCube(main);
-                        main.getJokoStun().add(joueur);
-
-                        tueur.getPlayer().sendMessage("Vous venez de stun " + joueur.getPlayer().getName());
-
-                        ItemCD cycle = new ItemCD(main, tueur, "stun", 10, joueur, null, null, 0, null);
-                        cycle.runTaskTimer(main, 0, 20);
+	                    	joueur.Stun(10, main);
+	                    	joueur.removeCube(main);
+	                        main.getJokoStun().add(joueur);
+	
+	                        tueur.getPlayer().sendMessage("Vous venez de stun " + joueur.getPlayer().getName());
+	
+	                        ItemCD cycle = new ItemCD(main, tueur, "stun", 10, joueur, null, null, 0, null);
+	                        cycle.runTaskTimer(main, 0, 20);
                         
                 	}
 

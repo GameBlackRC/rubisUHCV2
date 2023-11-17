@@ -37,9 +37,9 @@ private Main main;
             	
             	if(Trial.getNbUtilisationCorruption() < 2) {
             	
-	            	if(!main.getCD().contains(Pouvoirs.TRIAL_CORRUPTION)) {
+	            	if(!joueur.getCD().contains(Pouvoirs.TRIAL_CORRUPTION)) {
 	            		
-	            		main.getCD().add(Pouvoirs.TRIAL_CORRUPTION);
+	            		joueur.getCD().add(Pouvoirs.TRIAL_CORRUPTION);
 	            	
 	            		Trial.commandCorruptionAmes(joueur, cible, main);
 	            		

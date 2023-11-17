@@ -36,8 +36,19 @@ public class Toinou {
 		joueur.setInvisible(true);
 		joueur.hide(main);
 		joueur.addSpeed(0.1);
-		ItemCD cycle = new ItemCD(main, joueur, "vacance_toinou", 120, joueur, null, null, 0, null);
-        cycle.runTaskTimer(main, 0, 20);
+		
+		if(main.getMode().equalsIgnoreCase("rapide")) {
+			
+			ItemCD cycle = new ItemCD(main, joueur, "vacance_toinou", 15, joueur, null, null, 0, null);
+			cycle.runTaskTimer(main, 0, 20);
+			
+		}
+		else {
+		
+			ItemCD cycle = new ItemCD(main, joueur, "vacance_toinou", 120, joueur, null, null, 0, null);
+			cycle.runTaskTimer(main, 0, 20);
+			
+		}
 		
 	}
 	

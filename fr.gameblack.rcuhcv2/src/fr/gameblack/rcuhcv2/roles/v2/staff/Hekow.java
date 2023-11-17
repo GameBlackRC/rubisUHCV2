@@ -29,9 +29,9 @@ public class Hekow {
 	
 	public static void interactJeu(Joueur joueur, Main main) {
 		
-		if(!main.getCD().contains(Pouvoirs.HEKOW_JEU)) {
+		if(!joueur.getCD().contains(Pouvoirs.HEKOW_JEU)) {
 			
-			main.getCD().add(Pouvoirs.HEKOW_JEU);
+			joueur.getCD().add(Pouvoirs.HEKOW_JEU);
 			joueur.getPlayer().sendMessage("Vous activez votre pouvoir");
 		
 			joueur.setHekowJeuActif(true);

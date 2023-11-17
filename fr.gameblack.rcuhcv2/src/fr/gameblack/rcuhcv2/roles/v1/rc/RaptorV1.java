@@ -29,9 +29,9 @@ public class RaptorV1 {
 
     public static void InteractRage(Joueur joueur, Main main) {
 
-        if (!main.getCD().contains(Pouvoirs.RAPTOR_RAGE)) {
+        if (!joueur.getCD().contains(Pouvoirs.RAPTOR_RAGE)) {
 
-            main.getCD().add(Pouvoirs.RAPTOR_RAGE);
+            joueur.getCD().add(Pouvoirs.RAPTOR_RAGE);
 
             if (main.getJoueurByRole(Roles.Slup) != null) {
 

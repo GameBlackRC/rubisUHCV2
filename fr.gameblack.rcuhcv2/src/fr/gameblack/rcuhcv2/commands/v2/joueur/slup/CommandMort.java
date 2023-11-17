@@ -30,11 +30,11 @@ public class CommandMort implements CommandExecutor {
             
             if(joueur != null) {
             	
-            	if(!main.getCD().contains(Pouvoirs.SLUP_MORT)) {
+            	if(!joueur.getCD().contains(Pouvoirs.SLUP_MORT)) {
 
 		            if (joueur.getRole() == Roles.SLUP) {
 		            	
-		            	main.getCD().add(Pouvoirs.SLUP_MORT);
+		            	joueur.getCD().add(Pouvoirs.SLUP_MORT);
 		            	
 		            	Slup.fakeMort(joueur, main);
 		

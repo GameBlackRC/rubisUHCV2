@@ -12,7 +12,7 @@ public class TueurNeko {
 		if(main.getCampDemonVie().size() != 0) {
 		
 			Random r = new Random();
-	        int nb = r.nextInt(main.getCampDemonVie().size()-1);
+	        int nb = r.nextInt(main.getCampDemonVie().size());
 	        
 	        Joueur tueur = main.getCampDemonVie().get(nb);
 	        tueur.getPlayer().sendMessage("Vous êtes le tueur de neko ! Vous recevez 2% de force, de résistance et de speed");

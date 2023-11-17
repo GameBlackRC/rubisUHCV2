@@ -30,9 +30,9 @@ public class Team {
 	
 	public static void InteractJusticeStaff(Joueur joueur, Main main) {
 		
-		if(!main.getCD().contains(Pouvoirs.TEAM_JUSTICE)) {
+		if(!joueur.getCD().contains(Pouvoirs.TEAM_JUSTICE)) {
 			
-			main.getCD().add(Pouvoirs.TEAM_JUSTICE);
+			joueur.getCD().add(Pouvoirs.TEAM_JUSTICE);
 			joueur.getPlayer().sendMessage("Vous venez d'activer votre pouvoir 'Justice'");
 			main.setZoneJusticeActif(true);
 			
@@ -111,7 +111,7 @@ public class Team {
 	
 	public static void Texte(Player player) {
 
-        player.sendMessage("____________________________________________________\n \nVous êtes §9Team\n§rVous devez gagner avec le §9camp staff§r\n \nVous avez 5% de speed permanent et vous recevez 2% de résistance supplémentaire lorsque vous êtes proche de Farmeurimmo (invisible avec le /rceffet)\n \nA chaque mort d'un membre du staff proche de vous (dont Trial et GameBlack peut importe leur camp), vous obtenez 1% d'un effet aléatoire (2% si l'effet est speed)\n \nAvec l'item 'Justice', vous créer une zone de 20 blocs autour de vous pendant 1 minute. Tous les mebres du staff (dont Trial et GameBlack peut importe leur camp) reçoivent 5% de speed supplémentaire. Les autres joueurs perdent 1% de force et de résistance dans cette zone\nSeul vous recevez les messages de mort lorsqu'un joueur meurt dans votre zone\n \n____________________________________________________");
+        player.sendMessage("____________________________________________________\n \nVous êtes §9Team\n§rVous devez gagner avec le §9camp staff§r\n \nVous avez 5% de speed permanent et vous recevez 2% de résistance supplémentaire lorsque vous êtes proche de Farmeurimmo (invisible avec le /rceffet)\n \nA chaque mort d'un membre du staff proche de vous (dont Trial et GameBlack peut importe leur camp), vous obtenez 1% d'un effet aléatoire (2% si l'effet est speed)\n \nAvec l'item 'Justice', vous créer une zone de 20 blocs autour de vous pendant 1 minute. Tous les mebres du staff (dont Trial et GameBlack peut importe leur camp) reçoivent 5% de speed supplémentaire. Les autres joueurs perdent 1% de force et de résistance dans cette zone\nSeul vous recevez les messages de mort lorsqu'un joueur meurt dans votre zone\n \nVous pouvez retirer votre armure pour devenir invisible. Lorsque vous êtes invisible, vous recevez 20% de speed ainsi que 5% de résistance\n \nLorsque vous redevenez visible, vous perder la speed et la résistance supplémentaire et vous perdez 2% de force pendant un certaint temps (30 secondes en mode rapide et 2 minutes dans les autres modes)\n \n____________________________________________________");
 
     }
 

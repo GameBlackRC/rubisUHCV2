@@ -38,7 +38,7 @@ public class CommandInspect implements CommandExecutor {
 
                 if (joueur.getRole() == Roles.GameBlack) {
 
-                    if (!main.getCD().contains(Pouvoirs.GB_INSPECT)) {
+                    if (!joueur.getCD().contains(Pouvoirs.GB_INSPECT)) {
 
                         if (joueur.getPouvoirGB() == Pouvoirs_GB.SPEED) {
 

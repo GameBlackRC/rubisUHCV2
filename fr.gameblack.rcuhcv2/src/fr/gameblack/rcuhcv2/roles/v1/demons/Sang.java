@@ -55,7 +55,7 @@ public class Sang {
 
             } else {
 
-                main.getCD().add(Pouvoirs.SANG_SANG);
+                joueur.getCD().add(Pouvoirs.SANG_SANG);
 
                 Random r = new Random();
                 int nb = r.nextInt(effet.size());
@@ -109,7 +109,7 @@ public class Sang {
                 Random r = new Random();
                 int nb = r.nextInt(effet.size());
 
-                main.getCD().add(Pouvoirs.SANG_SANG);
+                joueur.getCD().add(Pouvoirs.SANG_SANG);
 
                 if (effet.get(nb) == "lenteur") {
 

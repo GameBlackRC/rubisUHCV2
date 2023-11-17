@@ -36,10 +36,12 @@ public class Electrique {
     }
 
     public static void InteractFoudre(Player player, Main main) {
+    	
+    	Joueur joueur = main.getJoueur(player);
 
-        if (!main.getCD().contains(Pouvoirs.ELECTRIQUE_FOUDRE)) {
+        if (!joueur.getCD().contains(Pouvoirs.ELECTRIQUE_FOUDRE)) {
 
-            main.getCD().add(Pouvoirs.ELECTRIQUE_FOUDRE);
+            joueur.getCD().add(Pouvoirs.ELECTRIQUE_FOUDRE);
 
             if (main.getJoueurByRole(Roles.Slup) != null) {
 

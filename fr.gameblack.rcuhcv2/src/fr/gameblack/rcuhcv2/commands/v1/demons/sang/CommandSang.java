@@ -34,11 +34,11 @@ public class CommandSang implements CommandExecutor {
             	
             	Joueur cible = main.getJoueur(cible_);
 
-                if (joueur.getRole() == Roles.Sang) {
+                if (joueur.getRole() == Roles.Sang || (joueur.getRole() == Roles.Toinou && joueur.getVol().contains(Pouvoirs.SANG_SANG))) {
 
-                	if (main.getCD().contains(Pouvoirs.SANG_SANG)) {
+                	if (joueur.getCD().contains(Pouvoirs.SANG_SANG)) {
                 		
-                		main.getCD().add(Pouvoirs.SANG_SANG);
+                		joueur.getCD().add(Pouvoirs.SANG_SANG);
                 		
                         Sang.CommandSang(joueur, cible, main);
 

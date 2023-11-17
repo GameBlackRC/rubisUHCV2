@@ -6,8 +6,10 @@ import org.bukkit.potion.PotionEffectType;
 
 import fr.gameblack.rcuhcv2.Main;
 import fr.gameblack.rcuhcv2.classes.Joueur;
+import fr.gameblack.rcuhcv2.classes.Pouvoirs;
 import fr.gameblack.rcuhcv2.classes.Roles;
 import fr.gameblack.rcuhcv2.classes.v1.Pouvoirs_GB;
+import fr.gameblack.rcuhcv2.roles.v1.demons.Tronconeuse;
 import fr.gameblack.rcuhcv2.roles.v1.rc.GameBlackV1;
 import fr.gameblack.rcuhcv2.task.v2.ItemCD;
 
@@ -17,6 +19,24 @@ public class HitV1 {
 		
 		Random r = new Random();
         int nb;
+        
+        if(tueur.getRole() == Roles.Tronconeuse || (tueur.getRole() == Roles.Toinou && tueur.getVol().contains(Pouvoirs.TRONCONNEUSE_SAIGNEMENT))) {
+        	
+        	Tronconeuse.Saignement(tueur, joueur, main);
+        	
+        }
+        
+        if(tueur.getRole() == Roles.Toinou && tueur.getVol().contains(Pouvoirs.ENFER_FEU)) {
+        	
+        	nb = r.nextInt(100);
+        	
+        	if(nb <= 20) {
+        		
+        		joueur.getPlayer().setFireTicks(100);
+        		
+        	}
+        	
+        }
         
         if(joueur.getRole() == Roles.Ange) {
         	

@@ -2,9 +2,11 @@ package fr.gameblack.rcuhcv2.classes;
 
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.potion.PotionEffect;
@@ -79,6 +81,10 @@ import java.util.List;
 import java.util.Random;
 
 public class Joueur {
+	
+	private Scoreboard board = Bukkit.getScoreboardManager().getNewScoreboard();
+	private int deco_timer = 600;
+	private boolean deco = false;
 	
 	private Player player;
 	private Roles role = Roles.NONE;
@@ -155,6 +161,15 @@ public class Joueur {
 	private boolean superBateauLoup = false;
 	private boolean JeannotAbso = false;
 	private boolean pouvoirRaptorActif = false;
+    private Location theoochouxLoc = null;
+    private Location theoochouxLoc3sec = null;
+    private Inventory theoochouxInv = null;
+    private Double theoochouxHP = 20.0;
+    private int theoochouxFood = 20;
+    private int theo = 5;
+    private int stadeTheoochouxBonus = theo;
+    private int stadeTheochouxHack = theo;
+    private List<Pouvoirs> cd = new ArrayList<>();
 	
 	private int NBObscurCopie = 0;
 	private Orbe casqueObscur = Orbe.NONE;
@@ -182,6 +197,7 @@ public class Joueur {
 	private boolean findTueurNeko = false;
 	private int procheSlup = 0;
 	private boolean speedIIActif = false;
+	private boolean saigne = false;
 
 	public Joueur(Player player) {
 		
@@ -191,6 +207,10 @@ public class Joueur {
 
 	public Player getPlayer() {
 		return player;
+	}
+	
+	public void setPlayer(Player player) {
+		this.player = player;
 	}
 	
 	public Roles getRole() {
@@ -273,6 +293,18 @@ public class Joueur {
 		setHekowPourcent(0);
 		setSuperBateauLoup(false);
 		JeannotAbso = false;
+	    setTheoochouxLoc(null);
+	    setTheoochouxLoc3sec(null);
+	    setTheoochouxInv(null);
+	    setTheoochouxHP(20.0);
+	    setTheoochouxFood(20);
+	    theo = 5;
+	    setStadeTheoochouxBonus(theo);
+	    setStadeTheochouxHack(theo);
+		deco_timer = 600;
+		deco = false;
+		pouvoirRaptorActif = false;
+		cd.clear();
 		Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(), "skin set " + player.getName() + " " + player.getName());
 		if(main.getScenarios().contains(Scenarios.CATS_EYES) && player.hasPotionEffect(PotionEffectType.NIGHT_VISION)) {
 			
@@ -405,9 +437,40 @@ public class Joueur {
 
             } else if (nb_ == 3) {
 
-            	setOrbe(Orbe.FOUDRE);
-            	Foudre.Passif(this, main, true);
-                player.sendMessage("Vous avez reçu l'orbe de foudre. Vous pouvez l'activer avec la commande /rcorbe");
+            	nb_ = r.nextInt(3);
+            	
+            	if(getRole() != Roles.CAPTAIN) {
+            	
+	            	setOrbe(Orbe.FOUDRE);
+	            	Foudre.Passif(this, main, true);
+	                player.sendMessage("Vous avez reçu l'orbe de foudre. Vous pouvez l'activer avec la commande /rcorbe");
+	                
+            	}
+            	else {
+            		
+            		if(nb_ == 1) {
+            			
+            			setOrbe(Orbe.EAU);
+            			Eau.Passif(this, main, true);
+                        player.sendMessage("Vous avez reçu l'orbe d'eau. Vous pouvez l'activer avec la commande /rcorbe");
+            			
+            		}
+            		else if(nb_ == 2) {
+            			
+    	            	setOrbe(Orbe.FEU);
+    	            	Feu.Passif(this, main, true);
+    	                player.sendMessage("Vous avez reçu l'orbe de feu. Vous pouvez l'activer avec la commande /rcorbe");
+            			
+            		}
+            		else {
+            			
+            			setOrbe(Orbe.GLACE);
+            			Glace.Passif(this, main, true);
+                        player.sendMessage("Vous avez reçu l'orbe de glace. Vous pouvez l'activer avec la commande /rcorbe");
+            			
+            		}
+            		
+            	}
 
             } else {
 
@@ -739,7 +802,7 @@ public class Joueur {
 			}
 			else if(role == Roles.THEOOCHOUX) {
 				
-				Theoochoux.Items(this);
+				Theoochoux.Items(this, main);
 				
 			}
 			else if(role == Roles.FARMEURIMMO) {
@@ -840,7 +903,7 @@ public class Joueur {
 			}
 			else if(role == Roles.Demon) {
 				
-				Demon.Items(this);
+				Demon.Items(this, main);
 				
 			}
 			else if(role == Roles.Electrique) {
@@ -2338,6 +2401,114 @@ public class Joueur {
 
 	public void setPouvoirRaptorActif(boolean pouvoirRaptorActif) {
 		this.pouvoirRaptorActif = pouvoirRaptorActif;
+	}
+
+	public boolean isSaigne() {
+		return saigne;
+	}
+
+	public void setSaigne(boolean saigne) {
+		this.saigne = saigne;
+	}
+
+	public Location getTheoochouxLoc() {
+		return theoochouxLoc;
+	}
+
+	public void setTheoochouxLoc(Location theoochouxLoc) {
+		this.theoochouxLoc = theoochouxLoc;
+	}
+
+	public Location getTheoochouxLoc3sec() {
+		return theoochouxLoc3sec;
+	}
+
+	public void setTheoochouxLoc3sec(Location theoochouxLoc3sec) {
+		this.theoochouxLoc3sec = theoochouxLoc3sec;
+	}
+
+	public Inventory getTheoochouxInv() {
+		return theoochouxInv;
+	}
+
+	public void setTheoochouxInv(Inventory theoochouxInv) {
+		this.theoochouxInv = theoochouxInv;
+	}
+
+	public Double getTheoochouxHP() {
+		return theoochouxHP;
+	}
+
+	public void setTheoochouxHP(Double theoochouxHP) {
+		this.theoochouxHP = theoochouxHP;
+	}
+
+	public int getStadeTheoochouxBonus() {
+		return stadeTheoochouxBonus;
+	}
+
+	public void setStadeTheoochouxBonus(int stadeTheoochouxBonus) {
+		this.stadeTheoochouxBonus = stadeTheoochouxBonus;
+	}
+	
+	public void addStadeTheoochouxBonus(int stadeTheoochouxBonus) {
+		this.stadeTheoochouxBonus += stadeTheoochouxBonus;
+	}
+
+	public int getTheoochouxFood() {
+		return theoochouxFood;
+	}
+
+	public void setTheoochouxFood(int theoochouxFood) {
+		this.theoochouxFood = theoochouxFood;
+	}
+
+	public int getStadeTheochouxHack() {
+		return stadeTheochouxHack;
+	}
+
+	public void setStadeTheochouxHack(int stadeTheochouxHack) {
+		this.stadeTheochouxHack = stadeTheochouxHack;
+	}
+	
+	public void addStadeTheochouxHack(int stadeTheochouxHack) {
+		this.stadeTheochouxHack += stadeTheochouxHack;
+	}
+
+	public List<Pouvoirs> getCD() {
+		return cd;
+	}
+
+	public void setCD(List<Pouvoirs> cd) {
+		this.cd = cd;
+	}
+
+	public Scoreboard getBoard() {
+		return board;
+	}
+
+	public void setBoard(Scoreboard board) {
+		this.board = board;
+	}
+
+	public int getDeco_timer() {
+		return deco_timer;
+	}
+
+	public void setDeco_timer(int deco_timer) {
+		this.deco_timer = deco_timer;
+	}
+
+	public boolean isDeco() {
+		return deco;
+	}
+
+	public void setDeco(boolean deco) {
+		this.deco = deco;
+	}
+	
+	public void removeDecoTimer() {
+		deco_timer -= 1;
 	}
 	
 }

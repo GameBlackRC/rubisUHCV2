@@ -31,9 +31,9 @@ public class LoupV1 {
     	
     	Player player = joueur.getPlayer();
 
-        if (!main.getCD().contains(Pouvoirs.LOUP_TRANSFO)) {
+        if (!joueur.getCD().contains(Pouvoirs.LOUP_TRANSFO)) {
 
-            main.getCD().add(Pouvoirs.LOUP_TRANSFO);
+            joueur.getCD().add(Pouvoirs.LOUP_TRANSFO);
 
             player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 1200, 1, false, false));
             joueur.addForce(main.getForceIBaseV1());

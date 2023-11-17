@@ -265,7 +265,7 @@ public class GameBlack {
 	
 	public static void InteractFuite(Joueur joueur, Main main) {
 		
-		if(!main.getCD().contains(Pouvoirs.GAMEBLACK_FUITE)) {
+		if(!joueur.getCD().contains(Pouvoirs.GAMEBLACK_FUITE)) {
 			
 			joueur.getPlayer().sendMessage("Vous activez votre pouvoir");
 			
@@ -283,7 +283,7 @@ public class GameBlack {
 				
 			}
 			
-			main.getCD().add(Pouvoirs.GAMEBLACK_FUITE);
+			joueur.getCD().add(Pouvoirs.GAMEBLACK_FUITE);
 			
 			ItemCD cycle = new ItemCD(main, joueur, "fuite", 60, joueur, null, null, 0, null);
 	        cycle.runTaskTimer(main, 0, 20);

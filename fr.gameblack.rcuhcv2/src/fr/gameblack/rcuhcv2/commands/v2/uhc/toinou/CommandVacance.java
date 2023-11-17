@@ -30,7 +30,7 @@ public class CommandVacance implements CommandExecutor {
             
             if(joueur != null) {
             	
-            	if(!main.getCD().contains(Pouvoirs.TOINOU_VACANCES)) {
+            	if(!joueur.getCD().contains(Pouvoirs.TOINOU_VACANCES)) {
 
 		            if ((joueur.getRole() == Roles.TOINOU && (main.getJoueurByRole(Roles.FARMEURIMMO) == null || !main.getJoueurByRole(Roles.FARMEURIMMO).getVol().contains(Pouvoirs.TOINOU_VACANCES) || !joueur.getCamp().equalsIgnoreCase("farmeurimmo"))) || (joueur.getRole() == Roles.FARMEURIMMO && joueur.getVol().contains(Pouvoirs.TOINOU_VACANCES))) {
 		            	

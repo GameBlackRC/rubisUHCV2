@@ -37,7 +37,7 @@ public class CommandDon implements CommandExecutor {
 
                 if (joueur.getRole() == Roles.GameBlack) {
 
-                    if (!main.getCD().contains(Pouvoirs.MAKA_DON)) {
+                    if (!joueur.getCD().contains(Pouvoirs.MAKA_DON)) {
 
                         MakaV1.CommandDon(joueur, cible, main);
 

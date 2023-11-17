@@ -34,11 +34,11 @@ public class CommandBlind implements CommandExecutor {
 
                 if (joueur.getRole() == Roles.Tenebre) {
 
-                	if (main.getCD().contains(Pouvoirs.TENEBRE_BLIND)) {
+                	if (joueur.getCD().contains(Pouvoirs.TENEBRE_BLIND)) {
                 		
-                		main.getCD().add(Pouvoirs.TENEBRE_BLIND);
+                		joueur.getCD().add(Pouvoirs.TENEBRE_BLIND);
                 		
-                        Tenebre.CommandeBlind(cible_, main);
+                        Tenebre.CommandeBlind(joueur, cible_, main);
 
                 	} else {
 

@@ -40,9 +40,9 @@ public class Obscur {
 	
 	public static void InteractAdaption(Joueur joueur, Main main) {
 		
-		if(!main.getCD().contains(Pouvoirs.OBSCUR_ADAPTION)) {
+		if(!joueur.getCD().contains(Pouvoirs.OBSCUR_ADAPTION)) {
 		
-			main.getCD().add(Pouvoirs.OBSCUR_ADAPTION);
+			joueur.getCD().add(Pouvoirs.OBSCUR_ADAPTION);
 			main.setAdaptionObscurActif(true);
 			if(joueur.isTueurToinouKill()) {
 				joueur.removeForce(0.01);

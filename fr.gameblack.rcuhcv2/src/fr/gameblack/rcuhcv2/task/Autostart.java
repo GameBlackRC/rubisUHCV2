@@ -180,17 +180,11 @@ public class Autostart extends BukkitRunnable {
 	                pls.getInventory().addItem(new ItemStack(Material.GOLDEN_CARROT, 64));
 	                pls.getInventory().addItem(new ItemStack(Material.ARROW, 64));
 	                pls.getInventory().addItem(new ItemStack(Material.WATER_BUCKET, 1));
-	                pls.getInventory().addItem(new ItemStack(Material.ANVIL, 1));
 	                pls.getInventory().addItem(new ItemStack(Material.COBBLESTONE, 64));
 	                pls.getInventory().addItem(new ItemStack(Material.COBBLESTONE, 64));
 	                pls.getInventory().addItem(new ItemStack(Material.COBBLESTONE, 64));
-	                pls.getInventory().addItem(new ItemStack(Material.DIAMOND, 1));
 	                pls.getInventory().addItem(new ItemStack(Material.LAVA_BUCKET, 2));
 	                pls.getInventory().addItem(new ItemStack(Material.WATER_BUCKET, 1));
-	                pls.getInventory().addItem(new ItemStack(Material.REDSTONE_BLOCK, 1));
-	                pls.getInventory().addItem(new ItemStack(Material.ICE, 1));
-	                pls.getInventory().addItem(new ItemStack(Material.OBSIDIAN, 2));
-	                pls.getInventory().addItem(new ItemStack(Material.IRON_BLOCK, 2));
 	                pls.getInventory().addItem(new ItemStack(Material.WORKBENCH, 1));
 	                pls.getInventory().addItem(new ItemStack(Material.DIAMOND_PICKAXE, 1));
 
@@ -271,17 +265,11 @@ public class Autostart extends BukkitRunnable {
 	                pls.getInventory().addItem(new ItemStack(Material.GOLDEN_CARROT, 64));
 	                pls.getInventory().addItem(new ItemStack(Material.ARROW, 64));
 	                pls.getInventory().addItem(new ItemStack(Material.WATER_BUCKET, 1));
-	                pls.getInventory().addItem(new ItemStack(Material.ANVIL, 1));
 	                pls.getInventory().addItem(new ItemStack(Material.COBBLESTONE, 64));
 	                pls.getInventory().addItem(new ItemStack(Material.COBBLESTONE, 64));
 	                pls.getInventory().addItem(new ItemStack(Material.COBBLESTONE, 64));
-	                pls.getInventory().addItem(new ItemStack(Material.DIAMOND, 1));
 	                pls.getInventory().addItem(new ItemStack(Material.LAVA_BUCKET, 2));
 	                pls.getInventory().addItem(new ItemStack(Material.WATER_BUCKET, 1));
-	                pls.getInventory().addItem(new ItemStack(Material.REDSTONE_BLOCK, 1));
-	                pls.getInventory().addItem(new ItemStack(Material.ICE, 1));
-	                pls.getInventory().addItem(new ItemStack(Material.OBSIDIAN, 2));
-	                pls.getInventory().addItem(new ItemStack(Material.IRON_BLOCK, 2));
 	                pls.getInventory().addItem(new ItemStack(Material.WORKBENCH, 1));
 	                pls.getInventory().addItem(new ItemStack(Material.DIAMOND_PICKAXE, 1));
 
@@ -367,10 +355,11 @@ public class Autostart extends BukkitRunnable {
 	            
 	            Scoreboard board_farmeurimmo = Bukkit.getScoreboardManager().getNewScoreboard();
 	            Scoreboard board_kzou = Bukkit.getScoreboardManager().getNewScoreboard();
+	            Scoreboard board_game = Bukkit.getScoreboardManager().getNewScoreboard();
 	
 	            Bukkit.getScheduler().runTaskAsynchronously(main, () -> {
 	
-	            	GameCycle cycle = new GameCycle(main, board_base, board_pourcent, board_raptor, board_jeannot, board_nickoboop, board_slup, board_joko, board_team, board_gameblack, board_maka, board_trial, board_loup, board_captain, board_hekow, board_malivol, board_toinou, board_obscur, board_nonoboy, board_theoochoux, board_farmeurimmo, board_kzou);
+	            	GameCycle cycle = new GameCycle(main, board_base, board_pourcent, board_game, board_joko, board_farmeurimmo);
 		            cycle.runTaskTimer(main, 0, 2);
 	
 	            });

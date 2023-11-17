@@ -104,6 +104,23 @@ public class GameCycleV1 extends BukkitRunnable {
 
     public static void Nuit(Main main) {
     	
+    	if(main.getJoueurByRole(Roles.Demon) != null) {
+    		
+    		if(main.getEffetDemon().equalsIgnoreCase("speed")) {
+    			
+    			main.getJoueurByRole(Roles.Demon).getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 999999, 0, false, false));
+    			
+    		}
+    		else {
+    			
+    			main.getJoueurByRole(Roles.Demon).addForce(main.getForceIBaseV1());
+    			
+    		}
+    		
+    		main.getJoueurByRole(Roles.Demon).addForce(main.getForceIBaseV1());
+    		
+    	}
+    	
     	if(main.getJoueurByRole(Roles.Kzou) != null) {
     		
     		main.getJoueurByRole(Roles.Kzou).removeResi(main.getResiIBaseV1());
@@ -178,6 +195,23 @@ public class GameCycleV1 extends BukkitRunnable {
     }
 
     public static void Jour(Main main) {
+    	
+    	if(main.getJoueurByRole(Roles.Demon) != null) {
+    		
+    		if(main.getEffetDemon().equalsIgnoreCase("force")) {
+    			
+    			main.getJoueurByRole(Roles.Demon).getPlayer().removePotionEffect(PotionEffectType.SPEED);
+    			
+    		}
+    		else {
+    			
+    			main.getJoueurByRole(Roles.Demon).removeForce(main.getForceIBaseV1());
+    			
+    		}
+    		
+    		main.getJoueurByRole(Roles.Demon).removeForce(main.getForceIBaseV1());
+    		
+    	}
     	
     	if(main.getJoueurByRole(Roles.Kzou) != null) {
     		
@@ -254,37 +288,41 @@ public class GameCycleV1 extends BukkitRunnable {
     
     public static void resetCD(Main main) {
     	
-    	if(main.getCD().contains(Pouvoirs.MALIVOL_CHEAT)) {
-    		
-    		main.getCD().remove(Pouvoirs.MALIVOL_CHEAT);
-    		
-    	}
-    	else if(main.getCD().contains(Pouvoirs.SANG_SANG)) {
-    		
-    		main.getCD().remove(Pouvoirs.SANG_SANG);
-    		
-    	}
-    	else if(main.getCD().contains(Pouvoirs.TENEBRE_BLIND)) {
-    		
-    		main.getCD().remove(Pouvoirs.TENEBRE_BLIND);
-    		
-    	}
-    	else if(main.getCD().contains(Pouvoirs.RAPTOR_RAGE)) {
-    		
-    		main.getCD().remove(Pouvoirs.RAPTOR_RAGE);
-    		
-    	} else if(main.getCD().contains(Pouvoirs.JOKO_CUBE)) {
-    		
-    		main.getCD().remove(Pouvoirs.JOKO_CUBE);
-    		
-    	} else if(main.getCD().contains(Pouvoirs.KZOU_BAN)) {
-    		
-    		main.getCD().remove(Pouvoirs.KZOU_BAN);
-    		
-    	} else if(main.getCD().contains(Pouvoirs.KZOU_DISPERSE)) {
-    		
-    		main.getCD().remove(Pouvoirs.KZOU_DISPERSE);
-    		
+	    for(Joueur j : main.getJoueurInGame()) {
+	    	
+	    	if(j.getCD().contains(Pouvoirs.MALIVOL_CHEAT)) {
+	    		
+	    		j.getCD().remove(Pouvoirs.MALIVOL_CHEAT);
+	    		
+	    	}
+	    	else if(j.getCD().contains(Pouvoirs.SANG_SANG)) {
+	    		
+	    		j.getCD().remove(Pouvoirs.SANG_SANG);
+	    		
+	    	}
+	    	else if(j.getCD().contains(Pouvoirs.TENEBRE_BLIND)) {
+	    		
+	    		j.getCD().remove(Pouvoirs.TENEBRE_BLIND);
+	    		
+	    	}
+	    	else if(j.getCD().contains(Pouvoirs.RAPTOR_RAGE)) {
+	    		
+	    		j.getCD().remove(Pouvoirs.RAPTOR_RAGE);
+	    		
+	    	} else if(j.getCD().contains(Pouvoirs.JOKO_CUBE)) {
+	    		
+	    		j.getCD().remove(Pouvoirs.JOKO_CUBE);
+	    		
+	    	} else if(j.getCD().contains(Pouvoirs.KZOU_BAN)) {
+	    		
+	    		j.getCD().remove(Pouvoirs.KZOU_BAN);
+	    		
+	    	} else if(j.getCD().contains(Pouvoirs.KZOU_DISPERSE)) {
+	    		
+	    		j.getCD().remove(Pouvoirs.KZOU_DISPERSE);
+	    		
+	    	}
+    	
     	}
     	
     }

@@ -25,7 +25,7 @@ public class KzouV1 {
 
     public static void CommandBan(Joueur joueur, Joueur cible, Main main) {
 
-        if (!main.getCD().contains(Pouvoirs.KZOU_BAN)) {
+        if (!joueur.getCD().contains(Pouvoirs.KZOU_BAN)) {
         		
         	cible.Stun(30, main);
         	ItemCD cycle = new ItemCD(main, joueur, "ban", 90, cible, null, null, 0, null);
@@ -38,7 +38,7 @@ public class KzouV1 {
                 joueur.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, 600, 0, false, false));
 
             }
-            main.getCD().add(Pouvoirs.KZOU_BAN);
+            joueur.getCD().add(Pouvoirs.KZOU_BAN);
 
         }
 
@@ -46,7 +46,7 @@ public class KzouV1 {
 
     public static void CommandDisperse(Joueur joueur, Joueur cible, Main main) {
 
-        if (!main.getCD().contains(Pouvoirs.KZOU_DISPERSE)) {
+        if (!joueur.getCD().contains(Pouvoirs.KZOU_DISPERSE)) {
 
             cible.setInvulnerable(true);
             Random r = new Random();
@@ -68,7 +68,7 @@ public class KzouV1 {
 
             ItemCD cycle = new ItemCD(main, joueur, "disperse", 5, cible, null, null, 0, null);
             cycle.runTaskTimer(main, 0, 20);
-            main.getCD().add(Pouvoirs.KZOU_DISPERSE);
+            joueur.getCD().add(Pouvoirs.KZOU_DISPERSE);
             joueur.getPlayer().sendMessage("Vous venez de disperse " + cible.getPlayer().getName());
 
         } else {

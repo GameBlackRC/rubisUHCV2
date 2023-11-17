@@ -230,11 +230,11 @@ public class Trial {
 	
 	public static void ItemSakashimaYokoshima(Joueur joueur, Main main) {
 		
-		if(main.getCD().contains(Pouvoirs.TRIAL_SAKASHIMA)) {
+		if(joueur.getCD().contains(Pouvoirs.TRIAL_SAKASHIMA)) {
 			
 			joueur.getPlayer().sendMessage("Vous venez d'activer votre pouvoir 'Sakashima Yokoshima'");
 			
-			main.getCD().contains(Pouvoirs.TRIAL_SAKASHIMA);
+			joueur.getCD().contains(Pouvoirs.TRIAL_SAKASHIMA);
 		
 			List<Joueur> inZone = new ArrayList<>();
 			List<Joueur> skin = new ArrayList<>();
@@ -280,11 +280,11 @@ public class Trial {
 	
 	public static void ItemBenihimeAratame(Joueur joueur, Main main) {
 		
-		if(main.getCD().contains(Pouvoirs.TRIAL_BENIHIME)) {
+		if(joueur.getCD().contains(Pouvoirs.TRIAL_BENIHIME)) {
 			
 			joueur.getPlayer().sendMessage("Vous venez d'activer votre pouvoir 'Benihime Aratame'");
 			
-			main.getCD().add(Pouvoirs.TRIAL_BENIHIME);
+			joueur.getCD().add(Pouvoirs.TRIAL_BENIHIME);
 		
 			main.setZoneBenihimeActif(true);
 				

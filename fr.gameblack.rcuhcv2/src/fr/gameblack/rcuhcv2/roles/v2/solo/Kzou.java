@@ -25,7 +25,7 @@ public class Kzou {
 
     public static void CommandBan(Joueur joueur, Joueur cible, Main main) {
 
-        if (!main.getCD().contains(Pouvoirs.KZOU_BAN)) {
+        if (!joueur.getCD().contains(Pouvoirs.KZOU_BAN)) {
 
         	if(cible.getRole() == Roles.NONOBOY) {
         	
@@ -67,7 +67,7 @@ public class Kzou {
             	}
             	
             }
-            main.getCD().add(Pouvoirs.KZOU_BAN);
+            joueur.getCD().add(Pouvoirs.KZOU_BAN);
 
         }
 
@@ -75,7 +75,7 @@ public class Kzou {
 
     public static void CommandDisperse(Joueur joueur, Joueur cible, Main main) {
 
-        if (!main.getCD().contains(Pouvoirs.KZOU_DISPERSE)) {
+        if (!joueur.getCD().contains(Pouvoirs.KZOU_DISPERSE)) {
 
             cible.setInvulnerable(true);
             Random r = new Random();
@@ -97,7 +97,7 @@ public class Kzou {
 
             ItemCD cycle = new ItemCD(main, joueur, "disperse", 5, cible, null, null, 0, null);
             cycle.runTaskTimer(main, 0, 20);
-            main.getCD().add(Pouvoirs.KZOU_DISPERSE);
+            joueur.getCD().add(Pouvoirs.KZOU_DISPERSE);
             joueur.getPlayer().sendMessage("Vous venez de disperse " + cible.getPlayer().getName());
 
         } else {

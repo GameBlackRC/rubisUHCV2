@@ -27,15 +27,15 @@ private Main main;
 
         if (sender instanceof Player) {
         	
-        	if(!main.getCD().contains(Pouvoirs.CAPTAIN_REPAIR)) {
+        	Player player = (Player) sender;
+        	Joueur joueur = main.getJoueur(player);
         	
-	        	Player player = (Player) sender;
-	        	Joueur joueur = main.getJoueur(player);
+        	if(!joueur.getCD().contains(Pouvoirs.CAPTAIN_REPAIR)) {
 	        	
 	        	if(joueur.getRepairCaptain() == 1) {
 	        		
 	        		joueur.setRepairCaptain(0);
-	        		main.getCD().add(Pouvoirs.CAPTAIN_REPAIR);
+	        		joueur.getCD().add(Pouvoirs.CAPTAIN_REPAIR);
 	        		
 	        	}
 	        	else {

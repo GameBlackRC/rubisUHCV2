@@ -12,6 +12,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.entity.Vehicle;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scoreboard.DisplaySlot;
 import org.bukkit.scoreboard.Objective;
@@ -42,28 +44,11 @@ public class GameCycle extends BukkitRunnable {
     
     private static Scoreboard board_base;
     
-    private static Scoreboard board_raptor;
-    private static Scoreboard board_jeannot;
-    private static Scoreboard board_nickoboop;
-    private static Scoreboard board_slup;
     private static Scoreboard board_joko;
     
-    private static Scoreboard board_team;
-    private static Scoreboard board_gameblack;
-    private static Scoreboard board_maka;
-    private static Scoreboard board_trial;
-    private static Scoreboard board_loup;
-    private static Scoreboard board_captain;
-    private static Scoreboard board_hekow;
-    
-    private static Scoreboard board_malivol;
-    private static Scoreboard board_toinou;
-    private static Scoreboard board_obscur;
-    private static Scoreboard board_nonoboy;
-    private static Scoreboard board_theoochoux;
-    
     private static Scoreboard board_farmeurimmo;
-    private static Scoreboard board_kzou;
+    
+    private static Scoreboard board_game;
     
     @SuppressWarnings("unused")
 	private Scoreboard board_pourcent;
@@ -71,33 +56,13 @@ public class GameCycle extends BukkitRunnable {
     private boolean score_board = true;
 
     @SuppressWarnings("static-access")
-	public GameCycle(Main main, Scoreboard board_base, Scoreboard board_pourcent, Scoreboard board_raptor, Scoreboard board_jeannot, Scoreboard board_nickoboop, Scoreboard board_slup, Scoreboard board_joko, Scoreboard board_team, Scoreboard board_gameblack, Scoreboard board_maka, Scoreboard board_trial, Scoreboard board_loup, Scoreboard board_captain, Scoreboard board_hekow, Scoreboard board_malivol, Scoreboard board_toinou, Scoreboard board_obscur, Scoreboard board_nonoboy, Scoreboard board_theoochoux, Scoreboard board_farmeurimmo, Scoreboard board_kzou) {
+	public GameCycle(Main main, Scoreboard board_base, Scoreboard board_pourcent, Scoreboard board_game, Scoreboard board_joko, Scoreboard board_farmeurimmo) {
         this.main = main;
         this.board_base = board_base;
         this.board_pourcent = board_pourcent;
-        
-        this.board_raptor = board_raptor;
-        this.board_jeannot = board_jeannot;
-        this.board_nickoboop = board_nickoboop;
-        this.board_slup = board_slup;
+        this.board_game = board_game;
         this.board_joko = board_joko;
-        
-        this.board_team = board_team;
-        this.board_gameblack = board_gameblack;
-        this.board_maka = board_maka;
-        this.board_trial = board_trial;
-        this.board_loup = board_loup;
-        this.board_captain = board_captain;
-        this.board_hekow = board_hekow;
-        
-        this.board_malivol = board_malivol;
-        this.board_toinou = board_toinou;
-        this.board_obscur = board_obscur;
-        this.board_nonoboy = board_nonoboy;
-        this.board_theoochoux = board_theoochoux;
-        
         this.board_farmeurimmo = board_farmeurimmo;
-        this.board_kzou = board_kzou;
     }
 
     public static void Nuit(Main main) {
@@ -256,92 +221,101 @@ public class GameCycle extends BukkitRunnable {
     
     public static void resetCD(Main main) {
     	
-    	if(main.getCD().contains(Pouvoirs.MALIVOL_CHEAT)) {
-    		
-    		main.getCD().remove(Pouvoirs.MALIVOL_CHEAT);
-    		
-    	}
-    	else if(main.getCD().contains(Pouvoirs.HEKOW_JEU)) {
-    		
-    		main.getCD().remove(Pouvoirs.HEKOW_JEU);
-    		
-    	}
-    	else if(main.getCD().contains(Pouvoirs.CAPTAIN_ENCHANT_OTHER)) {
-    		
-    		main.getCD().remove(Pouvoirs.CAPTAIN_ENCHANT_OTHER);
-    		
-    	}
-    	else if(main.getCD().contains(Pouvoirs.CAPTAIN_ENCHANT_SELF)) {
-    		
-    		main.getCD().remove(Pouvoirs.CAPTAIN_ENCHANT_SELF);
-    		
-    	}
-    	else if(main.getCD().contains(Pouvoirs.CAPTAIN_REPAIR)) {
-    		
-    		main.getCD().remove(Pouvoirs.CAPTAIN_REPAIR);
-    		
-    	}
-    	else if(main.getCD().contains(Pouvoirs.OBSCUR_ADAPTION)) {
-    		
-    		main.getCD().remove(Pouvoirs.OBSCUR_ADAPTION);
-    		
-    	}
-    	else if(main.getCD().contains(Pouvoirs.RAPTOR_RAGE)) {
-    		
-    		main.getCD().remove(Pouvoirs.RAPTOR_RAGE);
-    		
-    	}
-    	else if(main.getCD().contains(Pouvoirs.TRIAL_JEU)) {
-    		
-    		main.getCD().remove(Pouvoirs.TRIAL_JEU);
-    		
-    	}
-    	else if(main.getCD().contains(Pouvoirs.TRIAL_BENIHIME)) {
-    		
-    		main.getCD().remove(Pouvoirs.TRIAL_BENIHIME);
-    		
-    	}
-    	else if(main.getCD().contains(Pouvoirs.TRIAL_SAKASHIMA)) {
-    		
-    		main.getCD().remove(Pouvoirs.TRIAL_SAKASHIMA);
-    		
-    	}
-    	else if(main.getCD().contains(Pouvoirs.FARMEURIMMO_HACK)) {
-    		
-    		main.getCD().remove(Pouvoirs.FARMEURIMMO_HACK);
-    		
-    	} else if(main.getCD().contains(Pouvoirs.GAMEBLACK_CHECKORBE)) {
-    		
-    		main.getCD().remove(Pouvoirs.GAMEBLACK_CHECKORBE);
-    		
-    	} else if(main.getCD().contains(Pouvoirs.GAMEBLACK_CONSOLE)) {
-    		
-    		main.getCD().remove(Pouvoirs.GAMEBLACK_CONSOLE);
-    		
-    	} else if(main.getCD().contains(Pouvoirs.GAMEBLACK_FUITE)) {
-    		
-    		main.getCD().remove(Pouvoirs.GAMEBLACK_FUITE);
-    		
-    	} else if(main.getCD().contains(Pouvoirs.JOKO_CUBE)) {
-    		
-    		main.getCD().remove(Pouvoirs.JOKO_CUBE);
-    		
-    	} else if(main.getCD().contains(Pouvoirs.KZOU_BAN)) {
-    		
-    		main.getCD().remove(Pouvoirs.KZOU_BAN);
-    		
-    	} else if(main.getCD().contains(Pouvoirs.KZOU_DISPERSE)) {
-    		
-    		main.getCD().remove(Pouvoirs.KZOU_DISPERSE);
-    		
-    	} else if(main.getCD().contains(Pouvoirs.NICKOBOOP_PAPIER)) {
-    		
-    		main.getCD().remove(Pouvoirs.NICKOBOOP_PAPIER);
-    		
-    	} else if(main.getCD().contains(Pouvoirs.TOINOU_VACANCES)) {
-    		
-    		main.getCD().remove(Pouvoirs.TOINOU_VACANCES);
-    		
+    	for(Joueur j : main.getJoueurInGame()) {
+    	
+	    	if(j.getCD().contains(Pouvoirs.MALIVOL_CHEAT)) {
+	    		
+	    		j.getCD().remove(Pouvoirs.MALIVOL_CHEAT);
+	    		
+	    	}
+	    	else if(j.getCD().contains(Pouvoirs.HEKOW_JEU)) {
+	    		
+	    		j.getCD().remove(Pouvoirs.HEKOW_JEU);
+	    		
+	    	}
+	    	else if(j.getCD().contains(Pouvoirs.THEOOCHOUX_ROLLBACK)) {
+	    		
+	    		j.getCD().remove(Pouvoirs.THEOOCHOUX_ROLLBACK);
+	    		
+	    	}
+	    	else if(j.getCD().contains(Pouvoirs.CAPTAIN_ENCHANT_OTHER)) {
+	    		
+	    		j.getCD().remove(Pouvoirs.CAPTAIN_ENCHANT_OTHER);
+	    		
+	    	}
+	    	else if(j.getCD().contains(Pouvoirs.CAPTAIN_ENCHANT_SELF)) {
+	    		
+	    		j.getCD().remove(Pouvoirs.CAPTAIN_ENCHANT_SELF);
+	    		
+	    	}
+	    	else if(j.getCD().contains(Pouvoirs.CAPTAIN_REPAIR)) {
+	    		
+	    		j.getCD().remove(Pouvoirs.CAPTAIN_REPAIR);
+	    		
+	    	}
+	    	else if(j.getCD().contains(Pouvoirs.OBSCUR_ADAPTION)) {
+	    		
+	    		j.getCD().remove(Pouvoirs.OBSCUR_ADAPTION);
+	    		
+	    	}
+	    	else if(j.getCD().contains(Pouvoirs.RAPTOR_RAGE)) {
+	    		
+	    		j.getCD().remove(Pouvoirs.RAPTOR_RAGE);
+	    		
+	    	}
+	    	else if(j.getCD().contains(Pouvoirs.TRIAL_JEU)) {
+	    		
+	    		j.getCD().remove(Pouvoirs.TRIAL_JEU);
+	    		
+	    	}
+	    	else if(j.getCD().contains(Pouvoirs.TRIAL_BENIHIME)) {
+	    		
+	    		j.getCD().remove(Pouvoirs.TRIAL_BENIHIME);
+	    		
+	    	}
+	    	else if(j.getCD().contains(Pouvoirs.TRIAL_SAKASHIMA)) {
+	    		
+	    		j.getCD().remove(Pouvoirs.TRIAL_SAKASHIMA);
+	    		
+	    	}
+	    	else if(j.getCD().contains(Pouvoirs.FARMEURIMMO_HACK)) {
+	    		
+	    		j.getCD().remove(Pouvoirs.FARMEURIMMO_HACK);
+	    		
+	    	} else if(j.getCD().contains(Pouvoirs.GAMEBLACK_CHECKORBE)) {
+	    		
+	    		j.getCD().remove(Pouvoirs.GAMEBLACK_CHECKORBE);
+	    		
+	    	} else if(j.getCD().contains(Pouvoirs.GAMEBLACK_CONSOLE)) {
+	    		
+	    		j.getCD().remove(Pouvoirs.GAMEBLACK_CONSOLE);
+	    		
+	    	} else if(j.getCD().contains(Pouvoirs.GAMEBLACK_FUITE)) {
+	    		
+	    		j.getCD().remove(Pouvoirs.GAMEBLACK_FUITE);
+	    		
+	    	} else if(j.getCD().contains(Pouvoirs.JOKO_CUBE)) {
+	    		
+	    		j.getCD().remove(Pouvoirs.JOKO_CUBE);
+	    		
+	    	} else if(j.getCD().contains(Pouvoirs.KZOU_BAN)) {
+	    		
+	    		j.getCD().remove(Pouvoirs.KZOU_BAN);
+	    		
+	    	} else if(j.getCD().contains(Pouvoirs.KZOU_DISPERSE)) {
+	    		
+	    		j.getCD().remove(Pouvoirs.KZOU_DISPERSE);
+	    		
+	    	} else if(j.getCD().contains(Pouvoirs.NICKOBOOP_PAPIER)) {
+	    		
+	    		j.getCD().remove(Pouvoirs.NICKOBOOP_PAPIER);
+	    		
+	    	} else if(j.getCD().contains(Pouvoirs.TOINOU_VACANCES)) {
+	    		
+	    		j.getCD().remove(Pouvoirs.TOINOU_VACANCES);
+	    		
+	    	}
+	    	
     	}
     	
     }
@@ -505,9 +479,27 @@ public class GameCycle extends BukkitRunnable {
     	return board_joko;
     }
     
-    public static void ScoreboardBase(Main main, int timer, Roles role, Objective objective) {
+    public static void ScoreboardBase(Main main, int timer, Joueur j) {
     	
-    	Joueur j = main.getJoueurByRole(role);
+    	Scoreboard board = j.getBoard();
+    	
+    	if(j.getRole() == Roles.FARMEURIMMO) {
+    		
+    		board = board_farmeurimmo;
+    		
+    	}
+    	
+    	if(j.getRole() == Roles.JOKO) {
+    		
+    		board = board_joko;
+    		
+    	}
+    	
+    	if(board.getObjective(j.getPlayer().getName()) != null) {
+    		board.getObjective(j.getPlayer().getName()).unregister();
+		}
+    		
+    	Objective objective = board.registerNewObjective(j.getPlayer().getName(), "dummy");
         
         objective.setDisplaySlot(DisplaySlot.SIDEBAR);
         objective.setDisplayName("RC UHC V2");
@@ -515,7 +507,17 @@ public class GameCycle extends BukkitRunnable {
         score1.setScore(10);
         Score scoreep = objective.getScore("Episode : " + main.getEpisode());
         scoreep.setScore(9);
-        Score score2 = objective.getScore("Joueurs : " + main.getListJoueurs().size() );
+        int nb_joueurs = main.getJoueurInGame().size();
+        for(Joueur j_ : main.getJoueurInGame()) {
+        	
+        	if(j_.getRole() == Roles.SLUP && j_.isInvisible()) {
+        		
+        		nb_joueurs -= 1;
+        		
+        	}
+        	
+        }
+        Score score2 = objective.getScore("Joueurs : " + nb_joueurs);
         score2.setScore(8);
         Score scorekill = objective.getScore("Kill : " + j.getKill() );
         scorekill.setScore(7);
@@ -561,8 +563,131 @@ public class GameCycle extends BukkitRunnable {
         	
         }
         score5.setScore(4);
+        
+        if(j.getRole() == Roles.JEANNOT) {
+        	
+        	Score scorepartage_jeannot;
+	        if(j.isJeannotPartageActif()) {
+	        	
+	        	scorepartage_jeannot = objective.getScore("Partage: §aActif");
+	        	
+	        }
+	        else {
+	        	
+	        	scorepartage_jeannot = objective.getScore("Partage: §cInnactif");
+	        	
+	        }
+	        scorepartage_jeannot.setScore(3);
+	        
+        	Score scoreabso_jeannot;
+	        if(j.isJeannotAbso()) {
+	        	
+	        	scoreabso_jeannot = objective.getScore("Absorption: §aActif");
+	        	
+	        }
+	        else {
+	        	
+	        	scoreabso_jeannot = objective.getScore("Absorption: §cInnactif");
+	        	
+	        }
+	        scoreabso_jeannot.setScore(2);
+        	
+        }
+        else if(j.getRole() == Roles.SLUP) {
+        	
+        	Score scoreslime_slup = objective.getScore("Slime: " + j.getSlime());
+	        scoreslime_slup.setScore(3);
+	        Score scoreinvi_slup;
+	        if(j.isInvisible()) {
+	        	
+	        	scoreinvi_slup = objective.getScore("Invisible: §aActif");
+	        	
+	        }
+	        else {
+	        	
+	        	scoreinvi_slup = objective.getScore("Invisible: §cInnactif");
+	        	
+	        }
+	        scoreinvi_slup.setScore(2);
+        	
+        }
+        else if(j.getRole() == Roles.MAKA) {
+        	
+        	if(j.getForme().equalsIgnoreCase("simp") && main.getNeko() != null) {
+        		
+        		Score scoreneko_maka = objective.getScore("Neko: " + main.getNeko().getPlayer().getName());
+		        scoreneko_maka.setScore(3);
+        		
+        	}
+        	
+        }
+        else if(j.getRole() == Roles.TRIAL) {
+        	
+        	Score scoremode_trial = objective.getScore("Mode : " + main.getModeTrial());
+	        scoremode_trial.setScore(3);
+        	
+        }
+        else if(j.getRole() == Roles.HEKOW) {
+        	
+        	Score scorepourcent_hekow = objective.getScore("Pourcent: " + j.getHekowPourcent());
+        	scorepourcent_hekow.setScore(3);
+        	
+        }
+        else if(j.getRole() == Roles.MALIVOL) {
+        	
+        	if(j.getMalivolCheat() != 0) {
+	        	
+	        	Score score5_malivol;
+	        	
+	        	if(j.getMalivolCheat() == 1) {
+	        		
+	        		score5_malivol = objective.getScore("Cheat: §9SpeedHack");
+	        		
+	        	}
+	        	else if(j.getMalivolCheat() == 2) {
+	        		
+	        		score5_malivol = objective.getScore("Cheat: §aNoFall");
+	        		
+	        	}
+	        	else if(j.getMalivolCheat() == 3) {
+	        		
+	        		score5_malivol = objective.getScore("Cheat: §cFullcrit");
+	        		
+	        	}
+	        	else {
+	        		
+	        		score5_malivol = objective.getScore("Cheat: §7Anti-KB");
+	        		
+	        	}
+	        	
+	        	score5_malivol.setScore(3);
+	        	
+	        }
+        	
+        }
+        else if(j.getRole() == Roles.TOINOU) {
+        	
+        	Score scoreslime_slup = objective.getScore("Points: " + j.getPoints());
+	        scoreslime_slup.setScore(3);
+	        
+	        Score scoreinvi_toinou;
+	        if(j.isInvisible()) {
+	        	
+	        	scoreinvi_toinou = objective.getScore("Invisible: §aActif");
+	        	
+	        }
+	        else {
+	        	
+	        	scoreinvi_toinou = objective.getScore("Invisible: §cInnactif");
+	        	
+	        }
+	        scoreinvi_toinou.setScore(2);
+        	
+        }
+        
         Score scoreip = objective.getScore("play.rubiscraft.fr");
         scoreip.setScore(1);
+        j.getPlayer().setScoreboard(board);
     	
     }
 
@@ -591,339 +716,6 @@ public class GameCycle extends BukkitRunnable {
         objective_hp.setDisplaySlot(DisplaySlot.BELOW_NAME);
         objective_hp.setDisplayName("HP");
         
-        if((main.getEpisode() > 1 || (main.getEpisode() == 2 && main.getTemps() > 2)) || (main.getTemps() > 10 && main.getEpisode() >= 1 && (main.getMode().equalsIgnoreCase("rapide") || main.getMode().equalsIgnoreCase("meetup")))) {
-        	
-        	if(main.getCompo().contains(Roles.RAPTOR) && main.getJoueurByRole(Roles.RAPTOR) != null) {
-            	
-            	if(!board_raptor.getObjectives().isEmpty()) {
-            		board_raptor.getObjective("test").unregister();
-            	}
-            		
-            	Objective objective_raptor = board_raptor.registerNewObjective("test", "dummy");
-                
-		        ScoreboardBase(main, timer, Roles.RAPTOR, objective_raptor);
-		        
-        	}
-        	
-        	if(main.getCompo().contains(Roles.JEANNOT)  && main.getJoueurByRole(Roles.JEANNOT) != null) {
-            	
-            	if(!board_jeannot.getObjectives().isEmpty()) {
-            		board_jeannot.getObjective("test").unregister();
-        		}
-            		
-            	Objective objective_jeannot = board_jeannot.registerNewObjective("test", "dummy");
-            	
-            	ScoreboardBase(main, timer, Roles.JEANNOT, objective_jeannot);
-            	Score scorepartage_jeannot;
-		        if(main.getJoueurByRole(Roles.JEANNOT).isJeannotPartageActif()) {
-		        	
-		        	scorepartage_jeannot = objective_jeannot.getScore("Partage: §aActif");
-		        	
-		        }
-		        else {
-		        	
-		        	scorepartage_jeannot = objective_jeannot.getScore("Partage: §cInnactif");
-		        	
-		        }
-		        scorepartage_jeannot.setScore(3);
-		        
-            	Score scoreabso_jeannot;
-		        if(main.getJoueurByRole(Roles.JEANNOT).isJeannotAbso()) {
-		        	
-		        	scoreabso_jeannot = objective_jeannot.getScore("Absorption: §aActif");
-		        	
-		        }
-		        else {
-		        	
-		        	scoreabso_jeannot = objective_jeannot.getScore("Absorption: §cInnactif");
-		        	
-		        }
-		        scoreabso_jeannot.setScore(2);
-		        
-        	}
-        	
-        	if(main.getCompo().contains(Roles.NICKOBOOP) && main.getJoueurByRole(Roles.NICKOBOOP) != null) {
-	                   	
-            	if(!board_nickoboop.getObjectives().isEmpty()) {
-            		board_nickoboop.getObjective("test").unregister();
-        		}
-            		
-            	Objective objective_nickoboop = board_nickoboop.registerNewObjective("test", "dummy");
-                
-            	ScoreboardBase(main, timer, Roles.NICKOBOOP, objective_nickoboop);
-		    
-        	}
-        	
-        	if(main.getCompo().contains(Roles.SLUP) && main.getJoueurByRole(Roles.SLUP) != null) {
-	                    	
-            	if(!board_slup.getObjectives().isEmpty()) {
-            		board_slup.getObjective("test").unregister();
-        		}
-            		
-            	Objective objective_slup = board_slup.registerNewObjective("test", "dummy");
-            	
-            	Joueur slup = main.getJoueurByRole(Roles.SLUP);
-                
-            	ScoreboardBase(main, timer, Roles.SLUP, objective_slup);
-		        
-		        Score scoreslime_slup = objective_slup.getScore("Slime: " + slup.getSlime());
-		        scoreslime_slup.setScore(3);
-		        Score scoreinvi_slup;
-		        if(slup.isInvisible()) {
-		        	
-		        	scoreinvi_slup = objective_slup.getScore("Invisible: §aActif");
-		        	
-		        }
-		        else {
-		        	
-		        	scoreinvi_slup = objective_slup.getScore("Invisible: §cInnactif");
-		        	
-		        }
-		        scoreinvi_slup.setScore(2);
-		        
-        	}
-        	
-        	if(main.getCompo().contains(Roles.JOKO) && main.getJoueurByRole(Roles.JOKO) != null) {
-	                    	
-            	if(!board_joko.getObjectives().isEmpty() && board_joko.getObjective("test") != null) {
-            		board_joko.getObjective("test").unregister();
-        		}
-            		
-            	Objective objective_joko = board_joko.registerNewObjective("test", "dummy");
-            	
-            	ScoreboardBase(main, timer, Roles.JOKO, objective_joko);
-		        
-        	}
-        	
-        	if(main.getCompo().contains(Roles.TEAM) && main.getJoueurByRole(Roles.TEAM) != null) {
-                   	
-            	if(!board_team.getObjectives().isEmpty()) {
-            		board_team.getObjective("test").unregister();
-        		}
-            		
-            	Objective objective_team = board_team.registerNewObjective("test", "dummy");
-                
-            	ScoreboardBase(main, timer, Roles.TEAM, objective_team);
-		        
-        	}
-        	
-        	if(main.getCompo().contains(Roles.GAMEBLACK) && main.getJoueurByRole(Roles.GAMEBLACK) != null) {
-            	
-            	if(!board_gameblack.getObjectives().isEmpty()) {
-            		board_gameblack.getObjective("test").unregister();
-        		}
-            		
-            	Objective objective_gb = board_gameblack.registerNewObjective("test", "dummy");
-                
-            	ScoreboardBase(main, timer, Roles.GAMEBLACK, objective_gb);
-		        
-        	}
-        	
-        	if(main.getCompo().contains(Roles.MAKA)  && main.getJoueurByRole(Roles.MAKA) != null) {
-            	
-            	if(!board_maka.getObjectives().isEmpty()) {
-            		board_maka.getObjective("test").unregister();
-        		}
-            		
-            	Objective objective_maka = board_maka.registerNewObjective("test", "dummy");
-                
-            	ScoreboardBase(main, timer, Roles.MAKA, objective_maka);
-            	
-            	if(main.getJoueurByRole(Roles.MAKA).getForme().equalsIgnoreCase("simp") && main.getNeko() != null) {
-            		
-            		Score scoreneko_maka = objective_maka.getScore("Neko: " + main.getNeko().getPlayer().getName());
-    		        scoreneko_maka.setScore(3);
-            		
-            	}
-		        
-        	}
-        	
-        	if(main.getCompo().contains(Roles.TRIAL) && main.getJoueurByRole(Roles.TRIAL) != null) {
-	        
-        		if(!board_trial.getObjectives().isEmpty()) {
-            		board_trial.getObjective("test").unregister();
-        		}
-            		
-            	Objective objective_trial = board_trial.registerNewObjective("test", "dummy");
-                
-            	ScoreboardBase(main, timer, Roles.TRIAL, objective_trial);
-            	
-            	Score scoremode_trial = objective_trial.getScore("Mode : " + main.getModeTrial());
-		        scoremode_trial.setScore(3);
-		        
-        	}
-        	
-        	if(main.getCompo().contains(Roles.LOUP) && main.getJoueurByRole(Roles.LOUP) != null) {
-	        
-        		if(!board_loup.getObjectives().isEmpty()) {
-            		board_loup.getObjective("test").unregister();
-        		}
-            		
-            	Objective objective_loup = board_loup.registerNewObjective("test", "dummy");
-                
-            	ScoreboardBase(main, timer, Roles.LOUP, objective_loup);
-		        
-        	}
-        	
-        	if(main.getCompo().contains(Roles.CAPTAIN) && main.getJoueurByRole(Roles.CAPTAIN) != null) {
-            	
-            	if(!board_captain.getObjectives().isEmpty()) {
-            		board_captain.getObjective("test").unregister();
-        		}
-            	
-            	Objective objective_captain = board_captain.registerNewObjective("test", "dummy");
-                
-            	ScoreboardBase(main, timer, Roles.CAPTAIN, objective_captain);
-		        
-        	}
-        	
-        	if(main.getCompo().contains(Roles.HEKOW) && main.getJoueurByRole(Roles.HEKOW) != null) {
-            	
-            	if(!board_hekow.getObjectives().isEmpty()) {
-            		board_hekow.getObjective("test").unregister();
-        		}
-            		
-            	Objective objective_hekow = board_hekow.registerNewObjective("test", "dummy");
-                
-            	ScoreboardBase(main, timer, Roles.HEKOW, objective_hekow);
-            	
-            	Score scorepourcent_hekow = objective_hekow.getScore("Pourcent: " + main.getJoueurByRole(Roles.HEKOW).getHekowPourcent());
-            	scorepourcent_hekow.setScore(3);
-		        
-        	}
-        	
-        	if(main.getCompo().contains(Roles.MALIVOL) && main.getJoueurByRole(Roles.MALIVOL) != null) {
-            	
-            	if(!board_malivol.getObjectives().isEmpty()) {
-            		board_malivol.getObjective("test").unregister();
-        		}
-            		
-            	Objective objective_malivol = board_malivol.registerNewObjective("test", "dummy");
-                
-            	ScoreboardBase(main, timer, Roles.MALIVOL, objective_malivol);
-            	
-		        if(main.getJoueurByRole(Roles.MALIVOL).getMalivolCheat() != 0) {
-		        	
-		        	Score score5_malivol;
-		        	
-		        	if(main.getJoueurByRole(Roles.MALIVOL).getMalivolCheat() == 1) {
-		        		
-		        		score5_malivol = objective_malivol.getScore("Cheat: §9SpeedHack");
-		        		
-		        	}
-		        	else if(main.getJoueurByRole(Roles.MALIVOL).getMalivolCheat() == 2) {
-		        		
-		        		score5_malivol = objective_malivol.getScore("Cheat: §aNoFall");
-		        		
-		        	}
-		        	else if(main.getJoueurByRole(Roles.MALIVOL).getMalivolCheat() == 3) {
-		        		
-		        		score5_malivol = objective_malivol.getScore("Cheat: §cFullcrit");
-		        		
-		        	}
-		        	else {
-		        		
-		        		score5_malivol = objective_malivol.getScore("Cheat: §7Anti-KB");
-		        		
-		        	}
-		        	
-		        	score5_malivol.setScore(3);
-		        	
-		        }
-		        
-        	}
-        	
-        	if(main.getCompo().contains(Roles.TOINOU) && main.getJoueurByRole(Roles.TOINOU) != null) {
-            	
-            	if(!board_toinou.getObjectives().isEmpty()) {
-            		board_toinou.getObjective("test").unregister();
-        		}
-            		
-            	Objective objective_toinou = board_toinou.registerNewObjective("test", "dummy");
-            	ScoreboardBase(main, timer, Roles.TOINOU, objective_toinou);
-            	
-		        Joueur toinou = main.getJoueurByRole(Roles.TOINOU);
-		        
-		        Score scoreslime_slup = objective_toinou.getScore("Points: " + toinou.getPoints());
-		        scoreslime_slup.setScore(3);
-		        
-		        Score scoreinvi_toinou;
-		        if(toinou.isInvisible()) {
-		        	
-		        	scoreinvi_toinou = objective_toinou.getScore("Invisible: §aActif");
-		        	
-		        }
-		        else {
-		        	
-		        	scoreinvi_toinou = objective_toinou.getScore("Invisible: §cInnactif");
-		        	
-		        }
-		        scoreinvi_toinou.setScore(2);
-		        
-        	}
-        	
-        	if(main.getCompo().contains(Roles.OBSCUR) && main.getJoueurByRole(Roles.OBSCUR) != null) {
-            	
-            	if(!board_obscur.getObjectives().isEmpty()) {
-            		board_obscur.getObjective("test").unregister();
-        		}
-            		
-            	Objective objective_obscur = board_obscur.registerNewObjective("test", "dummy");
-                
-            	ScoreboardBase(main, timer, Roles.OBSCUR, objective_obscur);
-		        
-        	}
-        	
-        	if(main.getCompo().contains(Roles.NONOBOY) && main.getJoueurByRole(Roles.NONOBOY) != null) {
-            	
-            	if(!board_nonoboy.getObjectives().isEmpty()) {
-            		board_nonoboy.getObjective("test").unregister();
-        		}
-            		
-            	Objective objective_nonoboy = board_nonoboy.registerNewObjective("test", "dummy");
-                
-            	ScoreboardBase(main, timer, Roles.NONOBOY, objective_nonoboy);
-		        
-        	}
-        	
-        	if(main.getCompo().contains(Roles.THEOOCHOUX) && main.getJoueurByRole(Roles.THEOOCHOUX) != null) {
-            	
-            	if(!board_theoochoux.getObjectives().isEmpty()) {
-            		board_theoochoux.getObjective("test").unregister();
-        		}
-            		
-            	Objective objective_theoochoux = board_theoochoux.registerNewObjective("test", "dummy");
-                
-            	ScoreboardBase(main, timer, Roles.THEOOCHOUX, objective_theoochoux);
-		        
-        	}
-        	
-        	if(main.getCompo().contains(Roles.FARMEURIMMO) && main.getJoueurByRole(Roles.FARMEURIMMO) != null) {
-            	
-            	if(!board_farmeurimmo.getObjectives().isEmpty() && board_farmeurimmo.getObjective("test") != null) {
-            		board_farmeurimmo.getObjective("test").unregister();
-        		}
-            		
-            	Objective objective_farmeurimmo = board_farmeurimmo.registerNewObjective("test", "dummy");
-                
-            	ScoreboardBase(main, timer, Roles.FARMEURIMMO, objective_farmeurimmo);
-		        
-        	}
-        	
-        	if(main.getCompo().contains(Roles.KZOU) && main.getJoueurByRole(Roles.KZOU) != null) {
-            	
-            	if(!board_kzou.getObjectives().isEmpty()) {
-            		board_kzou.getObjective("test").unregister();
-        		}
-            		
-            	Objective objective_kzou = board_kzou.registerNewObjective("test", "dummy");
-                
-            	ScoreboardBase(main, timer, Roles.KZOU, objective_kzou);
-	        
-        	}
-	        
-    	}
-        
         for(Joueur joueur : main.getListJoueurs()) {
         	
         	Player player = joueur.getPlayer();
@@ -936,101 +728,11 @@ public class GameCycle extends BukkitRunnable {
 	            player.setScoreboard(board_base);
 	            
             }
-        	else if(joueur.getRole() == Roles.RAPTOR) {
-                
-	            player.setScoreboard(board_raptor);
-	            
-            }
-            else if(joueur.getRole() == Roles.JEANNOT) {
-                
-	            player.setScoreboard(board_jeannot);
-	            
-            }
-            else if(joueur.getRole() == Roles.NICKOBOOP) {
-                
-	            player.setScoreboard(board_nickoboop);
-	            
-            }
-            else if(joueur.getRole() == Roles.SLUP) {
-            	
-	            player.setScoreboard(board_slup);
-	            
-            }
-            else if(joueur.getRole() == Roles.JOKO) {
-                
-	            player.setScoreboard(board_joko);
-	            
-            }
-            else if(joueur.getRole() == Roles.TEAM) {
-                
-	            player.setScoreboard(board_team);
-	            
-            }
-            else if(joueur.getRole() == Roles.GAMEBLACK) {
-                
-	            player.setScoreboard(board_gameblack);
-	            
-            }
-            else if(joueur.getRole() == Roles.MAKA) {
-                
-	            player.setScoreboard(board_maka);
-	            
-            }
-        	else if(joueur.getRole() == Roles.TRIAL) {
-                
-	            player.setScoreboard(board_trial);
-	            
-            }
-        	else if(joueur.getRole() == Roles.LOUP) {
-                
-	            player.setScoreboard(board_loup);
-	            
-            }
-        	else if(joueur.getRole() == Roles.CAPTAIN) {
-                
-	            player.setScoreboard(board_captain);
-	            
-            }
-        	else if(joueur.getRole() == Roles.HEKOW) {
-                
-	            player.setScoreboard(board_hekow);
-	            
-            }
-        	else if(joueur.getRole() == Roles.MALIVOL) {
-                
-	            player.setScoreboard(board_malivol);
-	            
-            }
-        	else if(joueur.getRole() == Roles.TOINOU) {
-                
-	            player.setScoreboard(board_toinou);
-	            
-            }
-        	else if(joueur.getRole() == Roles.OBSCUR) {
-                
-	            player.setScoreboard(board_obscur);
-	            
-            }
-        	else if(joueur.getRole() == Roles.NONOBOY) {
-                
-	            player.setScoreboard(board_nonoboy);
-	            
-            }
-        	else if(joueur.getRole() == Roles.THEOOCHOUX) {
-                
-	            player.setScoreboard(board_theoochoux);
-	            
-            }
-        	else if(joueur.getRole() == Roles.FARMEURIMMO) {
+        	else {
         		
-	            player.setScoreboard(board_farmeurimmo);
-	            
-            }
-        	else if(joueur.getRole() == Roles.KZOU) {
-                
-	            player.setScoreboard(board_kzou);
-	            
-            }
+        		ScoreboardBase(main, timer, joueur);
+        		
+        	}
             
         }
     	
@@ -1156,11 +858,15 @@ public class GameCycle extends BukkitRunnable {
 		
 		if(timer % 140 == 0 && ((main.getEpisode() > 2 && main.getTemps() > 1 && main.getMode().equalsIgnoreCase("normal")) || (main.getEpisode() >= 1 && main.getTemps() > 11 && (main.getMode().equalsIgnoreCase("rapide") || main.getMode().equalsIgnoreCase("meetup"))))) {
 			
-			for(Joueur joueur : main.getListJoueurs()) {
-				
-				if(!joueur.isMort() && joueur.getRole() != Roles.FARMEURIMMO && joueur.getRole() != Roles.NONE && !joueur.isProche(Roles.FARMEURIMMO, main)) {
+			if(!main.getJoueursByRole(Roles.FARMEURIMMO).isEmpty()) {
+			
+				for(Joueur joueur : main.getListJoueurs()) {
 					
-					joueur.addPourcentHack(1, main, board_farmeurimmo);
+					if(!joueur.isMort() && joueur.getRole() != Roles.FARMEURIMMO && joueur.getRole() != Roles.NONE && !joueur.isProche(Roles.FARMEURIMMO, main)) {
+						
+						joueur.addPourcentHack(1, main, board_farmeurimmo);
+						
+					}
 					
 				}
 				
@@ -1252,29 +958,91 @@ public class GameCycle extends BukkitRunnable {
         
         if(timer % 10 == 0) {
         	
+        	for(Joueur j_ : main.getListJoueurs()) {
+        		
+        		if(j_.isDeco()) {
+        			
+        			j_.removeDecoTimer();
+        			if(j_.getDeco_timer() <= 0) {
+        				
+        				Bukkit.broadcastMessage("_________________________\n" + j_.getPlayer().getName() + " est mort. Il était : \n" + j_.getCouleurCamp(main) + j_.getRole().getTxt() + "§r\n_________________________");
+        				main.getListJoueurs().remove(j_);
+        				
+        			}
+        			
+        		}
+        		
+        	}
+        	
+        	if(main.getJoueurByRole(Roles.TEAM) != null) {
+        		
+        		Joueur team = main.getJoueurByRole(Roles.TEAM);
+        		
+        		if(team.getPlayer().hasPotionEffect(PotionEffectType.INVISIBILITY) && (team.getPlayer().getInventory().getHelmet() != null || team.getPlayer().getInventory().getChestplate() != null || team.getPlayer().getInventory().getLeggings() != null || team.getPlayer().getInventory().getBoots() != null)) {
+        			
+        			team.getPlayer().removePotionEffect(PotionEffectType.INVISIBILITY);
+        			team.removeSpeed(0.20);
+        			team.setNofall(false);
+        			team.removeResi(0.05);
+        			team.removeForce(0.02);
+        			if(main.getMode().equalsIgnoreCase("rapide")) {
+	        			ItemCD cycle = new ItemCD(main, team, "force_team", 30, team, null, null, 0, null);
+	        	        cycle.runTaskTimer(main, 0, 20);
+        			}
+        			else {
+        				
+        				ItemCD cycle = new ItemCD(main, team, "force_team", 120, team, null, null, 0, null);
+	        	        cycle.runTaskTimer(main, 0, 20);
+        				
+        			}
+        			
+        		}
+        		else if(!team.getPlayer().hasPotionEffect(PotionEffectType.INVISIBILITY) && team.getPlayer().getInventory().getHelmet() == null && team.getPlayer().getInventory().getChestplate() == null && team.getPlayer().getInventory().getLeggings() == null && team.getPlayer().getInventory().getBoots() == null){
+        			
+        			team.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, 999999, 0, false, false));
+        			team.addSpeed(0.20);
+        			team.setNofall(true);
+        			team.addResi(0.05);
+        			
+        		}
+        		
+        	}
+        	
         	Bukkit.getWorld("world").setStorm(false);
         	
         	if((main.getEpisode() == 2 && main.getMode().equalsIgnoreCase("normal")) || !main.getMode().equalsIgnoreCase("normal")) {
         		
         		if(timer % 3000 == 0 && main.getJoueurByRole(Roles.THEOOCHOUX) != null) {
         			
-        			main.addStadeTheoochouxBonus(1);
+        			for(Joueur theo : main.getJoueursByRole(Roles.THEOOCHOUX)) {
+            		
+            			theo.addStadeTheoochouxBonus(1);
+                    
+            		}
         			
         		}
         		if(timer % 1800 == 0 && main.getJoueurByRole(Roles.THEOOCHOUX) != null) {
         			
-        			main.addStadeTheochouxHack(1);
+        			for(Joueur theo : main.getJoueursByRole(Roles.THEOOCHOUX)) {
+                		
+        				theo.addStadeTheochouxHack(1);
+                    
+            		}
         			
         		}
         		
         	}
         	
-        	if(main.getJoueurByRole(Roles.THEOOCHOUX) != null) {
+        	if(!main.getJoueursByRole(Roles.THEOOCHOUX).isEmpty()) {
         		
-        		Player theo = main.getJoueurByRole(Roles.THEOOCHOUX).getPlayer();
+        		for(Joueur theo_ : main.getJoueursByRole(Roles.THEOOCHOUX)) {
         		
-        		RollBackCD cycle = new RollBackCD(main, theo.getLocation(), theo.getInventory(), theo.getHealth(), theo.getFoodLevel());
-                cycle.runTaskTimer(main, 0, 20);
+        			Player theo = theo_.getPlayer();
+        		
+        			RollBackCD cycle = new RollBackCD(main, theo.getLocation(), theo.getInventory(), theo.getHealth(), theo.getFoodLevel(), theo_);
+        			cycle.runTaskTimer(main, 0, 20);
+                
+        		}
         		
         	}
         	
@@ -1397,8 +1165,27 @@ public class GameCycle extends BukkitRunnable {
             			
             			if(j.isInSlupZone(main) && !j.isMalusZoneSlup() && j.getCamp() != slup.getCamp()) {
             				
-            				j.setMalusZoneSlup(true);
-            				j.removeSpeed(0.05);
+            				if(main.isAdaptionObscurActif()) {
+            					
+            					if(main.getAdaptionAvantObscur().contains(Pouvoirs.SLUP_SLIME)) {
+        	            			
+        	            			main.getAdaptionPermaObscur().add(Pouvoirs.SLUP_SLIME);
+        	            			
+        	            		}
+            					else if(!main.getAdaptionPermaObscur().contains(Pouvoirs.SLUP_SLIME)) {
+            						
+            						j.setMalusZoneSlup(true);
+                    				j.removeSpeed(0.05);
+            						
+            					}
+            					
+            				}
+            				else if(!main.getAdaptionPermaObscur().contains(Pouvoirs.SLUP_SLIME)) {
+        						
+        						j.setMalusZoneSlup(true);
+                				j.removeSpeed(0.05);
+        						
+        					}
             				
             			}
             			else if(!j.isInSlupZone(main) && j.isMalusZoneSlup() && j.getCamp() != slup.getCamp()) {

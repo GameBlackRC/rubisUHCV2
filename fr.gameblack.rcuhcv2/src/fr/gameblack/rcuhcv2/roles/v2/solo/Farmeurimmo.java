@@ -196,6 +196,23 @@ public class Farmeurimmo {
 						cible.setHack(true);
 						joueur.getPlayer().sendMessage("Vous venez de recevoir le pouvoir de Nonoboy, vous recevez donc 1 demi-coeur supplémentaire à chaque kill");
 						
+					} else if(cible.getRole() == Roles.OBSCUR) {
+						
+						joueur.getVol().add(Pouvoirs.EFFET);
+						cible.setHack(true);
+						joueur.getPlayer().sendMessage("Vous venez de recevoir la force d'Obscur");
+						
+					} else if(cible.getRole() == Roles.THEOOCHOUX) {
+						
+						joueur.getVol().add(Pouvoirs.THEOOCHOUX_MINIROLLBACK);
+						cible.setHack(true);
+						ItemStack coffre = new ItemStack(Material.NETHER_STAR, 1);
+				        ItemMeta coffreM = coffre.getItemMeta();
+				        coffreM.setDisplayName("RollBack");
+				        coffre.setItemMeta(coffreM);
+				        joueur.getPlayer().getInventory().addItem(coffre);
+						joueur.getPlayer().sendMessage("Vous venez de recevoir le pouvoir 'Mini Rollback' de Theoochoux");
+						
 					} else if(cible.getRole() == Roles.KZOU) {
 						
 						joueur.getVol().add(Pouvoirs.KZOU_BAN);
@@ -370,7 +387,7 @@ public class Farmeurimmo {
 				Bukkit.getWorld("world").playSound(joueur.getPlayer().getLocation(), Sound.BLAZE_HIT, 10, 1);
 			}
 		
-			main.getCD().add(Pouvoirs.FARMEURIMMO_HACK);
+			joueur.getCD().add(Pouvoirs.FARMEURIMMO_HACK);
 			cible.removePourcentHack(50, main, GameCycle.getScoreboardFarmeurimmo());
 			
 			Random r = new Random();

@@ -53,9 +53,9 @@ public class Enfer {
     	
     	Player player = joueur.getPlayer();
 
-        if (!main.getCD().contains(Pouvoirs.ENFER_ZONE)) {
+        if (!joueur.getCD().contains(Pouvoirs.ENFER_ZONE)) {
 
-            main.getCD().add(Pouvoirs.ENFER_ZONE);
+            joueur.getCD().add(Pouvoirs.ENFER_ZONE);
 
             player.addPotionEffect(new PotionEffect(PotionEffectType.FIRE_RESISTANCE, 1200, 0, false, false));
 

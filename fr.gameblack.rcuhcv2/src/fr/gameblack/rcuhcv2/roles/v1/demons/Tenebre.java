@@ -38,9 +38,9 @@ public class Tenebre {
 
     }
 
-    public static void CommandeBlind(Player cible, Main main) {
+    public static void CommandeBlind(Joueur joueur, Player cible, Main main) {
 
-        main.getCD().add(Pouvoirs.TENEBRE_BLIND);
+        joueur.getCD().add(Pouvoirs.TENEBRE_BLIND);
 
         cible.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 300, 0, false, false));
         

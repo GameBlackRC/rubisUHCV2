@@ -5,6 +5,9 @@ import fr.gameblack.rcuhcv2.classes.Joueur;
 import fr.gameblack.rcuhcv2.classes.Pouvoirs;
 import fr.gameblack.rcuhcv2.classes.Roles;
 import fr.gameblack.rcuhcv2.task.v1.ItemCD;
+
+import java.util.Random;
+
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -40,9 +43,9 @@ public class Tronconeuse {
 
     public static void InteractLame(Joueur joueur, Main main) {
 
-        if (!main.getCD().contains(Pouvoirs.TRONCONEUSE_LAME)) {
+        if (!joueur.getCD().contains(Pouvoirs.TRONCONEUSE_LAME)) {
 
-            main.getCD().add(Pouvoirs.TRONCONEUSE_LAME);
+            joueur.getCD().add(Pouvoirs.TRONCONEUSE_LAME);
 
             if (main.getJoueurByRole(Roles.Slup) != null) {
 
@@ -52,7 +55,7 @@ public class Tronconeuse {
 
             }
             
-            joueur.addForce(0.15);
+            joueur.addForce(0.10);
             ItemCD cycle = new ItemCD(main, joueur, "speed_moins", 60, joueur, null, null, 0, null);
             cycle.runTaskTimer(main, 0, 20);
             ItemCD cycle2 = new ItemCD(main, joueur, "speed_plus", 360, joueur, null, null, 0, null);
@@ -60,6 +63,26 @@ public class Tronconeuse {
 
         }
 
+    }
+    
+    public static void Saignement(Joueur joueur, Joueur cible, Main main) {
+    	
+        if (!cible.isSaigne()) {
+
+            Random r = new Random();
+            int nb = r.nextInt(100);
+
+            if (nb < 6) {
+
+                cible.setSaigne(true);
+                cible.getPlayer().damage(1);
+                ItemCD cycle = new ItemCD(main, joueur, "saigne", 10, cible, null, null, 0, null);
+                cycle.runTaskTimer(main, 0, 20);
+
+            }
+
+        }
+    	
     }
 
     public static void Texte(Player player) {

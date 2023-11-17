@@ -30,7 +30,7 @@ public class CommandConsole implements CommandExecutor {
             
             if(joueur.getRole() == Roles.GAMEBLACK && joueur.getCamp().equalsIgnoreCase("staff")) {
 
-	            if (!main.getCD().contains(Pouvoirs.GAMEBLACK_CONSOLE)) {
+	            if (!joueur.getCD().contains(Pouvoirs.GAMEBLACK_CONSOLE)) {
 	            	
 		            	joueur.setConsoleGBActif(true);
 		            	ItemCD cycle = new ItemCD(main, joueur, "console", 30, joueur, null, null, 0, null);
