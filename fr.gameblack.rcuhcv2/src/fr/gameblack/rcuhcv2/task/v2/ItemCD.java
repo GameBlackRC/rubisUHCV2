@@ -1,9 +1,11 @@
 package fr.gameblack.rcuhcv2.task.v2;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.inventory.ItemFlag;
@@ -793,6 +795,7 @@ public class ItemCD extends BukkitRunnable {
 	                    player.sendMessage("Ton pouvoir est fini");
 	                    if (!main.getJokoStun().isEmpty()) {
 	
+	                    	joueur.setJokoSteal(true);
 	                        player.sendMessage("Tu peux voler 1% de force ou de résistance à " + main.getJokoStun().get(0).getPlayer().getName() + " (pour choisir fait la commande /rcsteal <force|resi|resistance>)");
 	
 	                    }
@@ -845,6 +848,51 @@ public class ItemCD extends BukkitRunnable {
 	            	if(item == "console") {
 	            		
 	            		joueur.setConsoleGBActif(false);
+	            		
+	            		Random r = new Random();
+	                    int nb = r.nextInt(100);
+	                    
+	                    if(nb <= 50) {
+	                    	
+	                    	List<Roles> roles = new ArrayList<>();
+	                    	
+	                    	for(Entity entity : joueur.getPlayer().getNearbyEntities(20, 20, 20)) {
+	                    		
+	                    		if(entity instanceof Player) {
+	                    			
+	                    			Player p = (Player) entity;
+	                    			Joueur j = main.getJoueur(p);
+	                    			roles.add(j.getRole());
+	                    			
+	                    		}
+	                    		
+	                    	}
+	                    	
+	                    	if(!roles.isEmpty()) {
+	                    		
+	                    		if(roles.size() == 1) {
+	                    			
+	                    			joueur.getPlayer().sendMessage("[CONSOLE] Le rôle " + roles.get(0).getTxt() + " est proche de vous");
+	                    			
+	                    		}
+	                    		else {
+	                    			
+	                    			nb = r.nextInt(roles.size());
+	                    			
+	                    			Roles role_choisi = roles.get(nb);
+	                    			
+	                    			joueur.getPlayer().sendMessage("[CONSOLE] Le rôle " + role_choisi.getTxt() + " est proche de vous");
+	                    			
+	                    		}
+	                    		
+	                    	}
+	                    	
+	                    }
+	                    else {
+	                        	
+	                    	joueur.getPlayer().sendMessage("[CONSOLE] Le rôle " + ChatColor.MAGIC + "aaaaa" + ChatColor.RESET + " est proche de vous");
+	                        	
+	                    }
 	            		
 	            	} else if(item == "fuite") {
 	            		

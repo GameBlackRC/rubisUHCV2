@@ -4,6 +4,9 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.scoreboard.DisplaySlot;
+import org.bukkit.scoreboard.Objective;
+import org.bukkit.scoreboard.Score;
 
 import fr.gameblack.rcuhcv2.Main;
 import fr.gameblack.rcuhcv2.classes.Joueur;
@@ -164,6 +167,8 @@ public class CommandAddrole implements CommandExecutor {
 	                    player.sendMessage("Le rôle n'existe pas");
 	
 	                }
+	                
+                	main.updateScoreboard();
 	
 	            } else if(main.getVersion() == 1) {
 	            	
@@ -334,6 +339,8 @@ public class CommandAddrole implements CommandExecutor {
 	                    player.sendMessage("Non");
 
 	                }
+	                
+                	main.updateScoreboard();
 	            	
 	            }
 	            

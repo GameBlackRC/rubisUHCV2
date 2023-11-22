@@ -8,9 +8,9 @@ import org.bukkit.Sound;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 
 import fr.gameblack.rcuhcv2.Main;
+import fr.gameblack.rcuhcv2.classes.ItRoles;
 import fr.gameblack.rcuhcv2.classes.Joueur;
 import fr.gameblack.rcuhcv2.classes.Pouvoirs;
 import fr.gameblack.rcuhcv2.classes.Roles;
@@ -40,7 +40,6 @@ public class Farmeurimmo {
 
     }
 	
-	@SuppressWarnings("deprecation")
 	public static void commandSteal(Joueur joueur, Joueur cible, Main main) {
 		
 		if(joueur.getVol().size() < 2) {
@@ -53,18 +52,13 @@ public class Farmeurimmo {
 					
 					if(cible.getRole() == Roles.RAPTOR) {
 				        	
-				        joueur.getVol().add(Pouvoirs.RAPTOR_RAGE);
-				        ItemStack coffre = new ItemStack(351, 1, (short) 2);
-				        ItemMeta coffreM = coffre.getItemMeta();
-				        coffreM.setDisplayName("Rage");
-				        coffre.setItemMeta(coffreM);
-				        joueur.getPlayer().getInventory().addItem(coffre);
+				        joueur.getPlayer().getInventory().addItem(Main.getItemRole(ItRoles.RAPTOR_RAGE));
 				        joueur.getPlayer().sendMessage("Vous venez de recevoir le pouvoir 'rage' de Raptor");
 				        cible.setHack(true);
 						
 					} else if(cible.getRole() == Roles.JEANNOT) {
 						
-						joueur.addForce(0.03);
+						joueur.addForce(0.02);
 						joueur.getPlayer().sendMessage("Vous venez de recevoir la force de Jeannot");
 						joueur.getVol().add(Pouvoirs.EFFET);
 						cible.setHack(true);
@@ -84,18 +78,14 @@ public class Farmeurimmo {
 						
 					} else if(cible.getRole() == Roles.JOKO) {
 						
-						ItemStack coffre = new ItemStack(351, 1, (short) 13);
-				        ItemMeta coffreM = coffre.getItemMeta();
-				        coffreM.setDisplayName("SpeedCubing");
-				        coffre.setItemMeta(coffreM);
-				        joueur.getPlayer().getInventory().addItem(coffre);
+						joueur.getPlayer().getInventory().addItem(Main.getItemRole(ItRoles.JOKO_SPEEDCUBING));
 						joueur.getVol().add(Pouvoirs.JOKO_CUBE);
 						cible.setHack(true);
 						joueur.getPlayer().sendMessage("Vous recevez le pouvoir 'SpeedCubing' de joko ainsi que la commande /rccube");
 						
 					} else if(cible.getRole() == Roles.TEAM) {
 						
-						joueur.addResi(0.03);
+						joueur.addResi(0.02);
 						joueur.getVol().add(Pouvoirs.EFFET);
 						cible.setHack(true);
 						joueur.getPlayer().sendMessage("Vous recevez la résistance de Team");
@@ -110,18 +100,14 @@ public class Farmeurimmo {
 							
 						} else if(cible.getCamp().equalsIgnoreCase("joueur")) {
 							
-							joueur.addSpeed(0.05);
+							joueur.addSpeed(0.1);
 							joueur.getVol().add(Pouvoirs.EFFET);
 							joueur.getPlayer().sendMessage("Vous venez de recevoir la speed de GameBlack");
 							cible.setHack(true);
 							
 						} else if(cible.getCamp().equalsIgnoreCase("uhc")) {
 							
-							ItemStack coffre = new ItemStack(351, 1, (short) 1);
-					        ItemMeta coffreM = coffre.getItemMeta();
-					        coffreM.setDisplayName("Fuite");
-					        coffre.setItemMeta(coffreM);
-					        joueur.getPlayer().getInventory().addItem(coffre);
+							joueur.getPlayer().getInventory().addItem(Main.getItemRole(ItRoles.GAMEBLACK_FUITE));
 							
 							joueur.getVol().add(Pouvoirs.GAMEBLACK_FUITE);
 							cible.setHack(true);
@@ -142,7 +128,7 @@ public class Farmeurimmo {
 							
 							joueur.getVol().add(Pouvoirs.TRIAL_FORCE_KILL);
 							cible.setHack(true);
-							joueur.getPlayer().sendMessage("Vous obtenez désormais 2% de force supplémentaire par kill grâce au pouvoir de Trial");
+							joueur.getPlayer().sendMessage("Vous obtenez désormais 1% de force supplémentaire par kill grâce au pouvoir de Trial");
 							
 						}
 						
@@ -152,11 +138,7 @@ public class Farmeurimmo {
 						cible.setHack(true);
 						joueur.getPlayer().sendMessage("Vous venez de recevoir l'item 'Super bateau' de Loup");
 						
-						ItemStack coffre = new ItemStack(Material.NETHER_STAR, 1);
-				        ItemMeta coffreM = coffre.getItemMeta();
-				        coffreM.setDisplayName("Super bateau");
-				        coffre.setItemMeta(coffreM);
-				        joueur.getPlayer().getInventory().addItem(coffre);
+						joueur.getPlayer().getInventory().addItem(Main.getItemRole(ItRoles.LOUP_BATEAU));
 						
 					} else if(cible.getRole() == Roles.CAPTAIN) {
 						
@@ -177,12 +159,7 @@ public class Farmeurimmo {
 						cible.setHack(true);
 						joueur.getPlayer().sendMessage("Vous venez de recevoir l'item 'Cheat' de Malivol");
 						
-						ItemStack coffre = new ItemStack(351, 1, (short) 9);
-				        ItemMeta coffreM = coffre.getItemMeta();
-				        coffreM.setDisplayName("Cheat");
-				        coffre.setItemMeta(coffreM);
-	
-				        joueur.getPlayer().getInventory().addItem(coffre);
+						joueur.getPlayer().getInventory().addItem(Main.getItemRole(ItRoles.MALIVOL_CHEAT));
 						
 					} else if(cible.getRole() == Roles.TOINOU) {
 						
@@ -199,6 +176,7 @@ public class Farmeurimmo {
 					} else if(cible.getRole() == Roles.OBSCUR) {
 						
 						joueur.getVol().add(Pouvoirs.EFFET);
+						joueur.addForce(0.02);
 						cible.setHack(true);
 						joueur.getPlayer().sendMessage("Vous venez de recevoir la force d'Obscur");
 						
@@ -206,11 +184,7 @@ public class Farmeurimmo {
 						
 						joueur.getVol().add(Pouvoirs.THEOOCHOUX_MINIROLLBACK);
 						cible.setHack(true);
-						ItemStack coffre = new ItemStack(Material.NETHER_STAR, 1);
-				        ItemMeta coffreM = coffre.getItemMeta();
-				        coffreM.setDisplayName("RollBack");
-				        coffre.setItemMeta(coffreM);
-				        joueur.getPlayer().getInventory().addItem(coffre);
+						joueur.getPlayer().getInventory().addItem(Main.getItemRole(ItRoles.THEOCHOUX_ROLLBACK));
 						joueur.getPlayer().sendMessage("Vous venez de recevoir le pouvoir 'Mini Rollback' de Theoochoux");
 						
 					} else if(cible.getRole() == Roles.KZOU) {
@@ -244,7 +218,6 @@ public class Farmeurimmo {
 		
 	}
 	
-	@SuppressWarnings("deprecation")
 	public static void commandCamp(Joueur joueur, Joueur cible, Main main) {
 		
 		if(cible.isHack() && cible.getPourcentHack() >= 100) {
@@ -256,17 +229,13 @@ public class Farmeurimmo {
 			
 			if(cible.getRole() == Roles.RAPTOR) {
 	        	
-				ItemStack coffre = new ItemStack(351, 1, (short) 2);
-		        ItemMeta coffreM = coffre.getItemMeta();
-		        coffreM.setDisplayName("Rage");
-		        coffre.setItemMeta(coffreM);
-		        cible.getPlayer().getInventory().remove(coffre);
+		        cible.getPlayer().getInventory().remove(Main.getItemRole(ItRoles.RAPTOR_RAGE));
 		        cible.getPlayer().sendMessage("Vous venez donc de perdre votre pouvoir 'Rage'");
 				
 			} else if(cible.getRole() == Roles.JEANNOT) {
 				
-				cible.removeForce(0.03);
-				cible.getPlayer().sendMessage("Vous venez donc de perdre 3% de force");
+				cible.removeForce(0.02);
+				cible.getPlayer().sendMessage("Vous venez donc de perdre 2% de force");
 				
 			} else if(cible.getRole() == Roles.NICKOBOOP) {
 				
@@ -279,17 +248,13 @@ public class Farmeurimmo {
 				
 			} else if(cible.getRole() == Roles.JOKO) {
 				
-				ItemStack coffre = new ItemStack(351, 1, (short) 13);
-		        ItemMeta coffreM = coffre.getItemMeta();
-		        coffreM.setDisplayName("SpeedCubing");
-		        coffre.setItemMeta(coffreM);
-		        cible.getPlayer().getInventory().remove(coffre);
+				cible.getPlayer().getInventory().remove(Main.getItemRole(ItRoles.JOKO_SPEEDCUBING));
 				cible.getPlayer().sendMessage("Vous perdez donc votre pouvoir 'SpeedCubing'");
 				
 			} else if(cible.getRole() == Roles.TEAM) {
 				
-				cible.removeResi(0.03);
-				cible.getPlayer().sendMessage("Vous perdez donc 3% de résistance");
+				cible.removeResi(0.02);
+				cible.getPlayer().sendMessage("Vous perdez donc 2% de résistance");
 				
 			} else if(cible.getRole() == Roles.GAMEBLACK) {
 				
@@ -299,16 +264,12 @@ public class Farmeurimmo {
 					
 				} else if(cible.getCamp().equalsIgnoreCase("joueur")) {
 					
-					cible.removeSpeed(0.05);
-					cible.getPlayer().sendMessage("Vous perdez donc 5% de speed");
+					cible.removeSpeed(0.1);
+					cible.getPlayer().sendMessage("Vous perdez donc 10% de speed");
 					
 				} else if(cible.getCamp().equalsIgnoreCase("uhc")) {
 					
-					ItemStack coffre = new ItemStack(351, 1, (short) 1);
-			        ItemMeta coffreM = coffre.getItemMeta();
-			        coffreM.setDisplayName("Fuite");
-			        coffre.setItemMeta(coffreM);
-			        cible.getPlayer().getInventory().remove(coffre);
+					cible.getPlayer().getInventory().remove(Main.getItemRole(ItRoles.GAMEBLACK_FUITE));
 					cible.getPlayer().sendMessage("Vous perdez donc votre pouvoir 'Fuite'");
 					
 				}
@@ -330,11 +291,7 @@ public class Farmeurimmo {
 				
 				cible.getPlayer().sendMessage("Vous perdez donc votre pouvoir 'Super bateau'");
 				
-				ItemStack coffre = new ItemStack(Material.NETHER_STAR, 1);
-		        ItemMeta coffreM = coffre.getItemMeta();
-		        coffreM.setDisplayName("Super bateau");
-		        coffre.setItemMeta(coffreM);
-		        cible.getPlayer().getInventory().remove(coffre);
+				cible.getPlayer().getInventory().remove(Main.getItemRole(ItRoles.LOUP_BATEAU));
 				
 			} else if(cible.getRole() == Roles.CAPTAIN) {
 				
@@ -349,12 +306,7 @@ public class Farmeurimmo {
 				
 				cible.getPlayer().sendMessage("Vous perdez donc votre pouvoir 'Cheat'");
 				
-				ItemStack coffre = new ItemStack(351, 1, (short) 9);
-		        ItemMeta coffreM = coffre.getItemMeta();
-		        coffreM.setDisplayName("Cheat");
-		        coffre.setItemMeta(coffreM);
-
-		        cible.getPlayer().getInventory().remove(coffre);
+				cible.getPlayer().getInventory().remove(Main.getItemRole(ItRoles.MALIVOL_CHEAT));
 				
 			} else if(cible.getRole() == Roles.TOINOU) {
 				
@@ -362,7 +314,12 @@ public class Farmeurimmo {
 				
 			} else if(cible.getRole() == Roles.OBSCUR) {
 				
-				cible.getPlayer().sendMessage("Vous ne recevez donc plus les coeurs supplémentaires lors d'un kill");
+				cible.removeForce(0.02);
+				cible.getPlayer().sendMessage("Vous perdez donc 2% de force permanent");
+				
+			} else if(cible.getRole() == Roles.THEOOCHOUX) {
+				
+				cible.getPlayer().sendMessage("Vous perdez donc votre pouvoir 'mini rollback'");
 				
 			} else if(cible.getRole() == Roles.KZOU) {
 				

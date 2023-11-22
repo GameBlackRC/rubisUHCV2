@@ -21,30 +21,39 @@ public class Maka {
 	
 	public static void FormeSimp(Joueur joueur, Main main) {
 		
-		List<Joueur> campStaff = main.getCampStaff();
+		if(main.getNeko() == null) {
 		
-		if(campStaff.size() > 1) {
-		
-			joueur.setForme("simp");
+			List<Joueur> campStaff = main.getCampStaff();
 			
-			Random r = new Random();
+			if(campStaff.size() > 1) {
 			
-			campStaff.remove(joueur);
-			
-	        int nb = r.nextInt(campStaff.size());
-			
-			main.setNeko(campStaff.get(nb));
-			
-			main.setNbJoueursStaff(campStaff.size());
-			
-			joueur.getPlayer().sendMessage("Voici le pseudo de Neko : " + main.getNeko().getPlayer().getName());
-			
-			main.getNeko().getPlayer().sendMessage("Maka vient de passer dans sa forme simp, vous êtes Neko");
+				joueur.setForme("simp");
+				
+				Random r = new Random();
+				
+				campStaff.remove(joueur);
+				
+		        int nb = r.nextInt(campStaff.size());
+				
+				main.setNeko(campStaff.get(nb));
+				
+				main.setNbJoueursStaff(campStaff.size());
+				
+				joueur.getPlayer().sendMessage("Voici le pseudo de Neko : " + main.getNeko().getPlayer().getName());
+				
+				main.getNeko().getPlayer().sendMessage("Maka vient de passer dans sa forme simp, vous êtes Neko");
+				
+			}
+			else {
+				
+				joueur.getPlayer().sendMessage("Vous ne pouvez pas passer en forme Simp car il n'y a plus aucun membre du staff");
+				
+			}
 			
 		}
 		else {
 			
-			joueur.getPlayer().sendMessage("Vous ne pouvez pas passer en forme Simp car il n'y a plus aucun membre du staff");
+			joueur.getPlayer().sendMessage("Vous êtes déjà en forme simp");
 			
 		}
 			

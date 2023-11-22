@@ -333,28 +333,10 @@ public class Autostart extends BukkitRunnable {
             
             if(main.getVersion() == 2) {
             
-	            Scoreboard board_raptor = Bukkit.getScoreboardManager().getNewScoreboard();
-	            Scoreboard board_jeannot = Bukkit.getScoreboardManager().getNewScoreboard();
-	            Scoreboard board_nickoboop = Bukkit.getScoreboardManager().getNewScoreboard();
-	            Scoreboard board_slup = Bukkit.getScoreboardManager().getNewScoreboard();
 	            Scoreboard board_joko = Bukkit.getScoreboardManager().getNewScoreboard();
 	            
-	            Scoreboard board_team = Bukkit.getScoreboardManager().getNewScoreboard();
-	            Scoreboard board_gameblack = Bukkit.getScoreboardManager().getNewScoreboard();
-	            Scoreboard board_maka = Bukkit.getScoreboardManager().getNewScoreboard();
-	            Scoreboard board_trial = Bukkit.getScoreboardManager().getNewScoreboard();
-	            Scoreboard board_loup = Bukkit.getScoreboardManager().getNewScoreboard();
-	            Scoreboard board_captain = Bukkit.getScoreboardManager().getNewScoreboard();
-	            Scoreboard board_hekow = Bukkit.getScoreboardManager().getNewScoreboard();
-	            
-	            Scoreboard board_malivol = Bukkit.getScoreboardManager().getNewScoreboard();
-	            Scoreboard board_toinou = Bukkit.getScoreboardManager().getNewScoreboard();
-	            Scoreboard board_obscur = Bukkit.getScoreboardManager().getNewScoreboard();
-	            Scoreboard board_nonoboy = Bukkit.getScoreboardManager().getNewScoreboard();
-	            Scoreboard board_theoochoux = Bukkit.getScoreboardManager().getNewScoreboard();
-	            
 	            Scoreboard board_farmeurimmo = Bukkit.getScoreboardManager().getNewScoreboard();
-	            Scoreboard board_kzou = Bukkit.getScoreboardManager().getNewScoreboard();
+	            
 	            Scoreboard board_game = Bukkit.getScoreboardManager().getNewScoreboard();
 	
 	            Bukkit.getScheduler().runTaskAsynchronously(main, () -> {

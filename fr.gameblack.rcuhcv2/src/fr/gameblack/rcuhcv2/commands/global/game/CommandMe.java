@@ -72,7 +72,16 @@ public class CommandMe implements CommandExecutor {
             	
             	if(joueur.getCamp().equalsIgnoreCase("joueur")) {
             		
-            		GameBlack.TexteJoueur(player);
+            		if(main.getModeTrial().equalsIgnoreCase("fun")) {
+            		
+            			GameBlack.TexteJoueurFun(player);
+            			
+            		}
+            		else {
+            			
+            			GameBlack.TexteJoueurSerieux(player);
+            			
+            		}
             		
             	}
             	else if(joueur.getCamp().equalsIgnoreCase("uhc")) {

@@ -4,6 +4,9 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.scoreboard.DisplaySlot;
+import org.bukkit.scoreboard.Objective;
+import org.bukkit.scoreboard.Score;
 
 import fr.gameblack.rcuhcv2.Main;
 import fr.gameblack.rcuhcv2.classes.Joueur;
@@ -52,6 +55,8 @@ public class CommandAddAllRole implements CommandExecutor {
 	                main.getCompo().add(Roles.FARMEURIMMO);
 	                main.getCompo().add(Roles.KZOU);
 	                
+                	main.updateScoreboard();
+	                
 	                player.sendMessage("Vous venez d'ajouter tous les rôles fonctionnel dans la compo");
 	                
             	}
@@ -77,6 +82,8 @@ public class CommandAddAllRole implements CommandExecutor {
             		main.getCompo().add(Roles.Experimental);
             		main.getCompo().add(Roles.Farmeurimmo);
             		main.getCompo().add(Roles.Kzou);
+            		
+                	main.updateScoreboard();
             		
             		player.sendMessage("Vous venez d'ajouter tous les rôles fonctionnel dans la compo");
             		

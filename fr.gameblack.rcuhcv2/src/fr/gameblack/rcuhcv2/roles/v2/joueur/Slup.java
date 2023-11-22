@@ -4,10 +4,9 @@ import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 
 import fr.gameblack.rcuhcv2.Main;
+import fr.gameblack.rcuhcv2.classes.ItRoles;
 import fr.gameblack.rcuhcv2.classes.Joueur;
 import fr.gameblack.rcuhcv2.classes.Pouvoirs;
 import fr.gameblack.rcuhcv2.classes.Roles;
@@ -20,21 +19,9 @@ public class Slup {
 		Texte(joueur.getPlayer());
 		
 		joueur.addSlime(5);
-		
-		ItemStack coffre = new ItemStack(Material.NETHER_STAR, 1);
-        ItemMeta coffreM = coffre.getItemMeta();
-        coffreM.setDisplayName("Pactes");
-        coffre.setItemMeta(coffreM);
-        
-        @SuppressWarnings("deprecation")
-		ItemStack coffre2 = new ItemStack(351, 1, (short) 11);
-		//ItemStack coffre = new ItemStack(Material.NETHER_STAR, 1);
-        ItemMeta coffre2M = coffre2.getItemMeta();
-        coffre2M.setDisplayName("Slimetification");
-        coffre2.setItemMeta(coffre2M);
 
-        joueur.getPlayer().getInventory().addItem(coffre);
-        joueur.getPlayer().getInventory().addItem(coffre2);
+        joueur.getPlayer().getInventory().addItem(Main.getItemRole(ItRoles.SLUP_PACTES));
+        joueur.getPlayer().getInventory().addItem(Main.getItemRole(ItRoles.SLUP_SLIME));
 		
 	}
 	

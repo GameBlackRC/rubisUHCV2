@@ -24,6 +24,7 @@ public class Mort {
 	public static void setMort(Joueur joueur, Joueur tueur, EntityDamageByEntityEvent event, Main main) {
 		
 		tueur.addKill();
+		main.addMort(joueur, tueur);
 		
 		if(main.getVersion() == 1) {
 			

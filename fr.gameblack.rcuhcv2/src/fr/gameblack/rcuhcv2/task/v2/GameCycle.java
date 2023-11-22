@@ -60,7 +60,7 @@ public class GameCycle extends BukkitRunnable {
         this.main = main;
         this.board_base = board_base;
         this.board_pourcent = board_pourcent;
-        this.board_game = board_game;
+        this.setBoard_game(board_game);
         this.board_joko = board_joko;
         this.board_farmeurimmo = board_farmeurimmo;
     }
@@ -411,8 +411,8 @@ public class GameCycle extends BukkitRunnable {
         	
         	Joueur jeannot = main.getJoueurByRole(Roles.JEANNOT);
         	Joueur nickoboop = main.getJoueurByRole(Roles.NICKOBOOP);
-        	jeannot.getPlayer().sendMessage("Nickoboop : " + nickoboop.getPlayer().getDisplayName());
-        	nickoboop.getPlayer().sendMessage("Jeannot : " + jeannot.getPlayer().getDisplayName());
+        	jeannot.getPlayer().sendMessage("§aNickoboop§r : " + nickoboop.getPlayer().getDisplayName());
+        	nickoboop.getPlayer().sendMessage("§aJeannot§r : " + jeannot.getPlayer().getDisplayName());
         	
         }
         else if(main.getCompo().contains(Roles.JEANNOT)) {
@@ -685,7 +685,7 @@ public class GameCycle extends BukkitRunnable {
         	
         }
         
-        Score scoreip = objective.getScore("play.rubiscraft.fr");
+        Score scoreip = objective.getScore("§9play.rubis§ccraft.fr§r");
         scoreip.setScore(1);
         j.getPlayer().setScoreboard(board);
     	
@@ -708,7 +708,7 @@ public class GameCycle extends BukkitRunnable {
         scoreep_base.setScore(3);
         Score score2_base = objective_base.getScore("Joueurs : " + main.getListJoueurs().size() );
         score2_base.setScore(2);
-        Score scoreip = objective_base.getScore("play.rubiscraft.fr");
+        Score scoreip = objective_base.getScore("§9play.rubis§ccraft.fr§r");
         scoreip.setScore(1);
         if(objective_hp == null) {
         	objective_hp = board_base.registerNewObjective("hp", "health");
@@ -871,52 +871,6 @@ public class GameCycle extends BukkitRunnable {
 				}
 				
 			}
-			
-		}
-		
-    	if(main.getJoueurByRole(Roles.TOINOU) != null) {
-    		
-    		
-    		
-    		Joueur toinou = main.getJoueurByRole(Roles.TOINOU);
-    		
-    		ItemStack maudit = new ItemStack(Material.DIAMOND_SWORD, 1);
-            ItemMeta mauditM = maudit.getItemMeta();
-            mauditM.addEnchant(Enchantment.DAMAGE_ALL, 3, false);
-            mauditM.setDisplayName("Épée maudite");
-            maudit.setItemMeta(mauditM);
-            
-            ItemStack nuage = new ItemStack(Material.DIAMOND_SWORD, 1);
-            ItemMeta nuageM = nuage.getItemMeta();
-            nuageM.addEnchant(Enchantment.DAMAGE_ALL, 4, false);
-            nuageM.setDisplayName("Nuage Flottant");
-            nuage.setItemMeta(nuageM);
-    		
-    		if(toinou.getPlayer().getItemInHand().hasItemMeta() && toinou.getPlayer().getItemInHand().getItemMeta().getDisplayName() == "Nuage Flottant" && !toinou.isBonusToinouNuage()) {
-    			
-    			toinou.addSpeed(0.05);
-    			toinou.setBonusToinouNuage(true);
-    			
-    		}
-    		else if(!(toinou.getPlayer().getItemInHand().hasItemMeta() && toinou.getPlayer().getItemInHand().getItemMeta().getDisplayName() == "Nuage Flottant") && toinou.isBonusToinouNuage()){
-    			
-    			toinou.removeSpeed(0.05);
-    			toinou.setBonusToinouNuage(false);
-    			
-    		}
-    		
-    		if(toinou.getPlayer().getItemInHand().hasItemMeta() && toinou.getPlayer().getItemInHand().getItemMeta().getDisplayName() == "Épée maudite" && !toinou.isBonusToinouMaudit()) {
-    			
-    			toinou.addForce(0.02);
-    			toinou.setBonusToinouMaudit(true);
-    			
-    		}
-    		else if(!(toinou.getPlayer().getItemInHand().hasItemMeta() && toinou.getPlayer().getItemInHand().getItemMeta().getDisplayName() == "Épée maudite") && toinou.isBonusToinouMaudit()){
-    			
-    			toinou.removeForce(0.02);
-    			toinou.setBonusToinouMaudit(false);
-    			
-    		}
     		
     	}
     	
@@ -958,6 +912,60 @@ public class GameCycle extends BukkitRunnable {
         
         if(timer % 10 == 0) {
         	
+        	if(!main.getJoueursByRole(Roles.TOINOU).isEmpty()) {
+        		
+        		List<Joueur> toinou_list = main.getJoueursByRole(Roles.TOINOU);
+        		
+        		for(Joueur toinou : toinou_list) {
+        			
+        			if(toinou.getTraqueToinou() != toinou && toinou.getTraqueToinou() != null) {
+        				
+        				toinou.getPlayer().setCompassTarget(toinou.getTraqueToinou().getPlayer().getLocation());
+        				
+        			}
+        		
+	        		ItemStack maudit = new ItemStack(Material.DIAMOND_SWORD, 1);
+	                ItemMeta mauditM = maudit.getItemMeta();
+	                mauditM.addEnchant(Enchantment.DAMAGE_ALL, 3, false);
+	                mauditM.setDisplayName("Épée maudite");
+	                maudit.setItemMeta(mauditM);
+	                
+	                ItemStack nuage = new ItemStack(Material.DIAMOND_SWORD, 1);
+	                ItemMeta nuageM = nuage.getItemMeta();
+	                nuageM.addEnchant(Enchantment.DAMAGE_ALL, 4, false);
+	                nuageM.setDisplayName("Nuage Flottant");
+	                nuage.setItemMeta(nuageM);
+	        		
+	        		if(toinou.getPlayer().getItemInHand().hasItemMeta() && toinou.getPlayer().getItemInHand().getItemMeta().getDisplayName() == "Nuage Flottant" && !toinou.isBonusToinouNuage()) {
+	        			
+	        			toinou.addSpeed(0.05);
+	        			toinou.setBonusToinouNuage(true);
+	        			
+	        		}
+	        		else if(!(toinou.getPlayer().getItemInHand().hasItemMeta() && toinou.getPlayer().getItemInHand().getItemMeta().getDisplayName() == "Nuage Flottant") && toinou.isBonusToinouNuage()){
+	        			
+	        			toinou.removeSpeed(0.05);
+	        			toinou.setBonusToinouNuage(false);
+	        			
+	        		}
+	        		
+	        		if(toinou.getPlayer().getItemInHand().hasItemMeta() && toinou.getPlayer().getItemInHand().getItemMeta().getDisplayName() == "Épée maudite" && !toinou.isBonusToinouMaudit()) {
+	        			
+	        			toinou.addForce(0.02);
+	        			toinou.setBonusToinouMaudit(true);
+	        			
+	        		}
+	        		else if(!(toinou.getPlayer().getItemInHand().hasItemMeta() && toinou.getPlayer().getItemInHand().getItemMeta().getDisplayName() == "Épée maudite") && toinou.isBonusToinouMaudit()){
+	        			
+	        			toinou.removeForce(0.02);
+	        			toinou.setBonusToinouMaudit(false);
+	        			
+	        		}
+	        		
+        		}
+        		
+        	}
+        	
         	for(Joueur j_ : main.getListJoueurs()) {
         		
         		if(j_.isDeco()) {
@@ -974,36 +982,40 @@ public class GameCycle extends BukkitRunnable {
         		
         	}
         	
-        	if(main.getJoueurByRole(Roles.TEAM) != null) {
+        	if(!main.getJoueursByRole(Roles.TEAM).isEmpty()) {
         		
-        		Joueur team = main.getJoueurByRole(Roles.TEAM);
+        		List<Joueur> team_list = main.getJoueursByRole(Roles.TEAM);
         		
-        		if(team.getPlayer().hasPotionEffect(PotionEffectType.INVISIBILITY) && (team.getPlayer().getInventory().getHelmet() != null || team.getPlayer().getInventory().getChestplate() != null || team.getPlayer().getInventory().getLeggings() != null || team.getPlayer().getInventory().getBoots() != null)) {
-        			
-        			team.getPlayer().removePotionEffect(PotionEffectType.INVISIBILITY);
-        			team.removeSpeed(0.20);
-        			team.setNofall(false);
-        			team.removeResi(0.05);
-        			team.removeForce(0.02);
-        			if(main.getMode().equalsIgnoreCase("rapide")) {
-	        			ItemCD cycle = new ItemCD(main, team, "force_team", 30, team, null, null, 0, null);
-	        	        cycle.runTaskTimer(main, 0, 20);
-        			}
-        			else {
-        				
-        				ItemCD cycle = new ItemCD(main, team, "force_team", 120, team, null, null, 0, null);
-	        	        cycle.runTaskTimer(main, 0, 20);
-        				
-        			}
-        			
-        		}
-        		else if(!team.getPlayer().hasPotionEffect(PotionEffectType.INVISIBILITY) && team.getPlayer().getInventory().getHelmet() == null && team.getPlayer().getInventory().getChestplate() == null && team.getPlayer().getInventory().getLeggings() == null && team.getPlayer().getInventory().getBoots() == null){
-        			
-        			team.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, 999999, 0, false, false));
-        			team.addSpeed(0.20);
-        			team.setNofall(true);
-        			team.addResi(0.05);
-        			
+        		for(Joueur team : team_list) {
+        		
+	        		if(team.getPlayer().hasPotionEffect(PotionEffectType.INVISIBILITY) && (team.getPlayer().getInventory().getHelmet() != null || team.getPlayer().getInventory().getChestplate() != null || team.getPlayer().getInventory().getLeggings() != null || team.getPlayer().getInventory().getBoots() != null)) {
+	        			
+	        			team.getPlayer().removePotionEffect(PotionEffectType.INVISIBILITY);
+	        			team.removeSpeed(0.20);
+	        			team.setNofall(false);
+	        			team.removeResi(0.05);
+	        			team.removeForce(0.02);
+	        			if(main.getMode().equalsIgnoreCase("rapide")) {
+		        			ItemCD cycle = new ItemCD(main, team, "force_team", 30, team, null, null, 0, null);
+		        	        cycle.runTaskTimer(main, 0, 20);
+	        			}
+	        			else {
+	        				
+	        				ItemCD cycle = new ItemCD(main, team, "force_team", 120, team, null, null, 0, null);
+		        	        cycle.runTaskTimer(main, 0, 20);
+	        				
+	        			}
+	        			
+	        		}
+	        		else if(!team.getPlayer().hasPotionEffect(PotionEffectType.INVISIBILITY) && team.getPlayer().getInventory().getHelmet() == null && team.getPlayer().getInventory().getChestplate() == null && team.getPlayer().getInventory().getLeggings() == null && team.getPlayer().getInventory().getBoots() == null){
+	        			
+	        			team.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, 999999, 0, false, false));
+	        			team.addSpeed(0.20);
+	        			team.setNofall(true);
+	        			team.addResi(0.05);
+	        			
+	        		}
+        		
         		}
         		
         	}
@@ -1416,7 +1428,7 @@ public class GameCycle extends BukkitRunnable {
         	
         	if(main.getJoueurByRole(Roles.JEANNOT) != null) {
         		
-        		if(main.getJoueurByRole(Roles.NICKOBOOP) != null) {
+        		if(main.getJoueurByRole(Roles.NICKOBOOP) != null && (main.getJoueurByRole(Roles.FARMEURIMMO) == null || !main.getJoueurByRole(Roles.NICKOBOOP).getCamp().equalsIgnoreCase("farmeurimmo"))) {
         		
         			Nickoboop.checkProcheJeannot(main.getJoueurByRole(Roles.NICKOBOOP), main);
         			
@@ -1559,5 +1571,13 @@ public class GameCycle extends BukkitRunnable {
         timer++;
 
     }
+
+	public static Scoreboard getBoard_game() {
+		return board_game;
+	}
+
+	public static void setBoard_game(Scoreboard board_game) {
+		GameCycle.board_game = board_game;
+	}
 
 }

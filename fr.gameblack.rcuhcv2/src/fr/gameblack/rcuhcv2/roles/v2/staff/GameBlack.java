@@ -18,6 +18,7 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 import fr.gameblack.rcuhcv2.Main;
+import fr.gameblack.rcuhcv2.classes.ItRoles;
 import fr.gameblack.rcuhcv2.classes.Joueur;
 import fr.gameblack.rcuhcv2.classes.Pouvoirs;
 import fr.gameblack.rcuhcv2.classes.Roles;
@@ -37,28 +38,14 @@ public class GameBlack {
     	orbesM.setDisplayName("§4Orbe");
     	orbes.setItemMeta(orbesM);
 		
-		joueur.addSpeed(0.05);
+		joueur.addSpeed(0.1);
 		joueur.getPlayer().getInventory().addItem(orbes);
-		
-		@SuppressWarnings("deprecation")
-		ItemStack coffre = new ItemStack(351, 1, (short) 6);
-		//ItemStack coffre = new ItemStack(Material.NETHER_STAR, 1);
-        ItemMeta coffreM = coffre.getItemMeta();
-        coffreM.setDisplayName("Fuite");
-        coffre.setItemMeta(coffreM);
-        //joueur.getPlayer().getInventory().addItem(coffre);
 		
 	}
 	
 	public static void ItemsUHC(Joueur joueur, Main main) {
 		
-		@SuppressWarnings("deprecation")
-		ItemStack coffre = new ItemStack(351, 1, (short) 1);
-		//ItemStack coffre = new ItemStack(Material.NETHER_STAR, 1);
-        ItemMeta coffreM = coffre.getItemMeta();
-        coffreM.setDisplayName("Fuite");
-        coffre.setItemMeta(coffreM);
-        joueur.getPlayer().getInventory().addItem(coffre);
+        joueur.getPlayer().getInventory().addItem(Main.getItemRole(ItRoles.GAMEBLACK_FUITE));
         
         TexteUHC(joueur.getPlayer());
         
@@ -98,6 +85,8 @@ public class GameBlack {
 	public static void itemJoueur(Joueur joueur, Main main) {
 		
 		if(main.getModeTrial().equalsIgnoreCase("fun")) {
+			
+			TexteJoueurFun(joueur.getPlayer());
 			
 			if(main.getCampJoueur().size() >= main.getCampStaff().size() || main.getCampJoueur().size() >= main.getCampUHC().size()) {
 				
@@ -141,6 +130,12 @@ public class GameBlack {
 	        }
 			
 			bedwarsLancement(joueur, adv, main);
+			
+		}
+		else {
+			
+			joueur.removeSpeed(0.1);
+			TexteJoueurSerieux(joueur.getPlayer());
 			
 		}
 		
@@ -370,7 +365,7 @@ public class GameBlack {
 		}
 		else if(joueur.getClasseGB() == Classe.RAPIDE) {
 			
-			joueur.removeSpeed(0.25);
+			joueur.removeSpeed(0.20);
 			joueur.addForce(0.03);
 			joueur.setAbso(true);
 			
@@ -408,7 +403,7 @@ public class GameBlack {
 		}
 		else if(classe == Classe.RAPIDE) {
 			
-			joueur.addSpeed(0.25);
+			joueur.addSpeed(0.20);
 			joueur.removeForce(0.03);
 			joueur.setAbso(false);
 			joueur.getPlayer().sendMessage("Vous avez choisi la classe rapide");
@@ -605,19 +600,70 @@ public class GameBlack {
 	
 	public static void Texte(Player player) {
 
-        player.sendMessage("____________________________________________________\n \nVous êtes §9GameBlack\n§rVous devez gagner avec le §9camp staff§r\n \nVous avez 5% de speed permanent et vous recevez une orbe à l'annonce des rôles\n \nSi vous venez à croiser Malivol avant Team ou Maka, vous passez dans le camp UHC\n \nVous avez 50% de chance de ne pas recevoir le malus de votre orbe\n \nAvec la commande /rcchangeorbe, vous pouvez changer votre orbe\n \nAvec la commande /rccheckorbe <pseudo>, vous pouvez voir quelle orbe possède le joueur ciblé\n \nLorsque Kzou ban un joueur, vous recevez un message vous avertissant du ban et vous avez 25% de chance de connaître le pseudo du banni\n \nAvec la commande /rcconsole, vous pouvez voir la console pendant 30 secondes\nVous recevez un message pour chaque action parmi les suivants : un joueur frappe un autre joueur, un joueur tue un joueur, un joueur a un changemment d'effet, un joueur active son pouvoir.\nChaque action a une certaine chance d'avoir les pseudos brouiller\n \n____________________________________________________");
+        player.sendMessage("____________________________________________________\n \n"
+        		+ "Vous êtes §9GameBlack\n§r"
+        		+ "Vous devez gagner avec le §9camp staff§r\n \n"
+        		+ "Vous avez 10% de speed permanent et vous recevez une orbe à l'annonce des rôles\n \n"
+        		+ "Si vous venez à croiser Malivol avant Team ou Maka, vous passez dans le camp UHC\n \n"
+        		+ "Vous avez 50% de chance de ne pas recevoir le malus de votre orbe\n \n"
+        		+ "Avec la commande /rcchangeorbe, vous pouvez changer votre orbe\n \n"
+        		+ "Avec la commande /rccheckorbe <pseudo>, vous pouvez voir quelle orbe possède le joueur ciblé\n \n"
+        		+ "Lorsque Kzou ban un joueur, vous recevez un message vous avertissant du ban et vous avez 25% de chance de connaître le pseudo du banni\n \n"
+        		+ "Avec la commande /rcconsole, vous pouvez voir la console pendant 30 secondes\n"
+        		+ "Vous recevez un message pour chaque action parmi les suivants : un joueur frappe un autre joueur, un joueur tue un joueur, un joueur a un changemment d'effet, un joueur active son pouvoir.\n"
+        		+ "A la fin des 30 secondes, vous recevez un rôle d'un joueur proche aléatoirement (sans avoir le pseudo du joueur) (50% de chance d'être brouiller)"
+        		+ "Chaque action a une certaine chance d'avoir les pseudos brouiller\n \n"
+        		+ "____________________________________________________");
+
+    }
+	
+	public static void TexteJoueurFun(Player player) {
+
+        player.sendMessage("____________________________________________________\n \n"
+        		+ "Vous êtes §9GameBlack\n§r"
+        		+ "Vous devez gagner avec le §acamp joueur§r\n \n"
+        		+ "Vous avez 10% de speed permanent\n \n"
+        		+ "Vous avez 50% de chance de ne pas recevoir le malus de votre orbe\n \n"
+        		+ "2 lits viennent d'apparaitre sur la map : un pour vous et un pour votre adversaire\n \n"
+        		+ "Votre lit apparait en 200 100 200 et celui de votre adversaire en 200 100 -200\n \n"
+        		+ "Tant qu'aucun lit n'est cassé, vous et votre adversaire pouvez respawn à l'infini avec un malus pour chaque mort\n \n"
+        		+ "Lorsqu'un des 2 lits est cassé, l'autre se détruit automatiquement\n"
+        		+ "Si vous cassez le lit de votre adversaire, vous recevez 2% d'un effet aléatoire (5% si l'effet est speed)\n"
+        		+ "Si un joueur autre que vous casse le lit de votre adversaire, il perd 1% d'un effet aléatoire (3% si l'effet est speed)\n"
+        		+ "Si votre adversaire casse votre lit, il reçoit 2% d'un effet aléatoire (5% si l'effet est speed)\n \n"
+        		+ "Si un joueur autre que votre adversaire casse votre lit, vous perdez 1% d'un effet aléatoire (3% si l'effet est speed)\n \n"
+        		+ "____________________________________________________");
+
+    }
+	
+	public static void TexteJoueurSerieux(Player player) {
+
+        player.sendMessage("____________________________________________________\n \n"
+        		+ "Vous êtes §9GameBlack\n§r"
+        		+ "Vous devez gagner avec le §acamp joueur§r\n \n"
+        		+ "Avec la commande /rcclasse <classe>, vous pouvez choisir une classe parmis les 5 suivants\n \n"
+        		+ "Attaquant : vous recevez 10% de force mais vous perdez 7% de résistance\n"
+        		+ "Défenseur : vous recevez 10% de resistance mais vous perdez 20% de speed\n"
+        		+ "Rapide : vous recevez 25% de speed mais vous ne recevez plus d'absorption et vous perdez 3% de force\n"
+        		+ "Distance : vous recevez 5% de speed et vous infliger 5% plus de dégâts à l'arc mais vous perdez 10% de force\n"
+        		+ "Support : vous obtenez 5% de speed et la commande /rcbuff mais vous perdez 2% de résistance. Avec la commande /rcbuff <pseudo>, vous passez un effet au choix au joueur ciblé pendant 1 minute\n"
+        		+ "Vous pouvez retirer les effets d'une classe avec la commande /rcclasse rien\n"
+        		+ "____________________________________________________");
 
     }
 	
 	public static void TexteUHC(Player player) {
 
-        player.sendMessage("____________________________________________________\n \nVous êtes §9GameBlack\n§rVous devez gagner avec le §2camp UHC§r\n \nVous avez 5% de speed permanent\n \nSi l'évènement 'Fermeture de Golden' se déclanche, vous avez 50% de chance de passer dans le camp Joueur\n \nVous avez 50% de chance de ne pas recevoir le malus de votre orbe\n \nAvec la commande /rcchangeorbe, vous pouvez changer votre orbe\n \nAvec l'item 'Fuite', vous devenez invulnérable et vous ne pouvez plus mettre de coup pendant 2 secondes\nVous recevez 10% de speed pendant 1 minute\nLes joueur proche de vous recevront l'effet blindness pendant 10 secondes\nSi Toinou est proche de vous lors de l'utilisation, il reçoit 2% de force pendant 1 minute\n \nA chaque coup d'épée subi, vous avez 5% de chance de recevoir 1% de speed supplémentaire permanent\n \n____________________________________________________");
-
-    }
-	
-	public static void TexteJoueur(Player player) {
-
-        player.sendMessage("____________________________________________________\n \nVous êtes §9GameBlack\n§rVous devez gagner avec le §acamp joueur§r\n \nVous avez 5% de speed permanent\n \nSi l'évènement 'Fermeture de Golden' se déclanche, vous avez 50% de chance de passer dans le camp Joueur\n \nVous avez 50% de chance de ne pas recevoir le malus de votre orbe\n \nAvec la commande /rcchangeorbe, vous pouvez changer votre orbe\n \nAvec l'item 'Fuite', vous devenez invulnérable et vous ne poupez plus mettre de coup pendant 2 secondes\nVous recevez 10% de speed pendant 1 minute\nLes joueur proche de vous recevront l'effet blindness pendant 10 secondes\nSi Toinou est proche de vous lors de l'utilisation, il reçoit 2% de force pendant 1 minute\n \nA chaque coup d'épée subi, vous avez 5% de chance de recevoir 1% de speed supplémentaire permanent\n \n____________________________________________________");
+        player.sendMessage("____________________________________________________\n \n"
+        		+ "Vous êtes §9GameBlack\n§rVous devez gagner avec le §2camp UHC§r\n \n"
+        		+ "Vous avez 5% de speed permanent\n \n"
+        		+ "Si l'évènement 'Fermeture de Golden' se déclanche, vous avez 50% de chance de passer dans le camp Joueur\n \n"
+        		+ "Vous avez 50% de chance de ne pas recevoir le malus de votre orbe\n \n"
+        		+ "Avec la commande /rcchangeorbe, vous pouvez changer votre orbe\n \n"
+        		+ "Avec l'item 'Fuite', vous devenez invulnérable et vous ne poupez plus mettre de coup pendant 2 secondes\n"
+        		+ "Vous recevez 10% de speed pendant 1 minute\nLes joueur proche de vous recevront l'effet blindness pendant 10 secondes\n"
+        		+ "Si Toinou est proche de vous lors de l'utilisation, il reçoit 2% de force pendant 1 minute\n \n"
+        		+ "A chaque coup d'épée subi, vous avez 5% de chance de recevoir 1% de speed supplémentaire permanent\n \n____________________________________________________");
 
     }
 

@@ -4,6 +4,8 @@ import java.util.Random;
 
 import fr.gameblack.rcuhcv2.Main;
 import fr.gameblack.rcuhcv2.classes.Joueur;
+import fr.gameblack.rcuhcv2.classes.Pouvoirs;
+import fr.gameblack.rcuhcv2.classes.Roles;
 import fr.gameblack.rcuhcv2.orbes.Orbe;
 
 public class HitOrbeV2 {
@@ -19,7 +21,7 @@ public class HitOrbeV2 {
         	if(joueur.getOrbe() == Orbe.EAU && tueur.getOrbe() == Orbe.FEU) {
                 
                 if(nb <= 10) {
-            	
+                	
                 	Eau.Bonus(joueur, main, true);
                 	
                 }
@@ -57,8 +59,14 @@ public class HitOrbeV2 {
         	if(joueur.getOrbe() == Orbe.EAU && tueur.getOrbe() == Orbe.FOUDRE) {
                 
                 if(nb <= 10) {
+                	
+                	nb = r.nextInt(100);
             	
-                	Eau.Malus(joueur, main, true);
+                	if((joueur.getRole() != Roles.GAMEBLACK || nb > 50 || joueur.getCampGB().equalsIgnoreCase("staff")) && (joueur.getRole() != Roles.FARMEURIMMO || !joueur.getVol().contains(Pouvoirs.GAMEBLACK_MALUS_ORBE))) {
+                    	
+                		Eau.Malus(joueur, main, false);
+                	
+                	}
                 	
                 }
         		
@@ -66,8 +74,14 @@ public class HitOrbeV2 {
         	else if(joueur.getOrbe() == Orbe.FEU && tueur.getOrbe() == Orbe.EAU) {
                 
                 if(nb <= 10) {
+                	
+                	nb = r.nextInt(100);
             	
-                	Feu.Malus(joueur, main, true);
+                	if((joueur.getRole() != Roles.GAMEBLACK || nb > 50 || joueur.getCampGB().equalsIgnoreCase("staff")) && (joueur.getRole() != Roles.FARMEURIMMO || !joueur.getVol().contains(Pouvoirs.GAMEBLACK_MALUS_ORBE))) {
+                    	
+                		Feu.Malus(joueur, main, false);
+                	
+                	}
                 	
                 }
         		
@@ -76,7 +90,13 @@ public class HitOrbeV2 {
                 
                 if(nb <= 10) {
             	
-                	Glace.Malus(joueur, main, true);
+                	nb = r.nextInt(100);
+                	
+                	if((joueur.getRole() != Roles.GAMEBLACK || nb > 50 || joueur.getCampGB().equalsIgnoreCase("staff")) && (joueur.getRole() != Roles.FARMEURIMMO || !joueur.getVol().contains(Pouvoirs.GAMEBLACK_MALUS_ORBE))) {
+                    	
+                		Glace.Malus(joueur, main, false);
+                	
+                	}
                 	
                 }
         		
@@ -85,7 +105,13 @@ public class HitOrbeV2 {
                 
                 if(nb <= 10) {
             	
-                	Foudre.Malus(joueur, main, true);
+                	nb = r.nextInt(100);
+                	
+                	if((joueur.getRole() != Roles.GAMEBLACK || nb > 50 || joueur.getCampGB().equalsIgnoreCase("staff")) && (joueur.getRole() != Roles.FARMEURIMMO || !joueur.getVol().contains(Pouvoirs.GAMEBLACK_MALUS_ORBE))) {
+                    	
+                		Foudre.Malus(joueur, main, false);
+                	
+                	}
                 	
                 }
         		

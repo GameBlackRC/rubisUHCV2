@@ -150,7 +150,7 @@ public class Joueur {
 	private boolean inZoneSkinTrial = false;
 	private boolean tueurToinouKill = false;
 	private boolean inZoneJustice = false;
-	private int points = 0;
+	private int points = 10;
 	private boolean firstItemToinou = false;
 	private boolean bonusToinouNuage = false;
 	private boolean bonusToinouMaudit = false;
@@ -170,6 +170,12 @@ public class Joueur {
     private int stadeTheoochouxBonus = theo;
     private int stadeTheochouxHack = theo;
     private List<Pouvoirs> cd = new ArrayList<>();
+    private boolean jokoCanSteal = false;
+    private Joueur traqueToinou = null;
+    private int utilisationTraquerToinou = 0;
+    private boolean traqueToinouEnCours = false;
+    private int achatLivreToinou = 0;
+    private String campGB = null;
 	
 	private int NBObscurCopie = 0;
 	private Orbe casqueObscur = Orbe.NONE;
@@ -621,6 +627,29 @@ public class Joueur {
 				Joueur j = main.getJoueur(p);
 			
 				if(j.getRole() == role && !j.isMort()) {
+					
+					return true;
+					
+				}
+			
+			}
+			
+		}
+		
+		return false;
+		
+	}
+	
+	public boolean isProche(Joueur joueur, Main main) {
+		
+		for(Entity entity : player.getNearbyEntities(20, 20, 20)) {
+			
+			if(entity instanceof Player) {
+				
+				Player p = (Player) entity;
+				Joueur j = main.getJoueur(p);
+			
+				if(j == joueur && !j.isMort()) {
 					
 					return true;
 					
@@ -2509,6 +2538,58 @@ public class Joueur {
 	
 	public void removeDecoTimer() {
 		deco_timer -= 1;
+	}
+
+	public boolean JokoCanSteal() {
+		return jokoCanSteal;
+	}
+
+	public void setJokoSteal(boolean jokoCanSteal) {
+		this.jokoCanSteal = jokoCanSteal;
+	}
+
+	public Joueur getTraqueToinou() {
+		return traqueToinou;
+	}
+
+	public void setTraqueToinou(Joueur traqueToinou) {
+		this.traqueToinou = traqueToinou;
+	}
+
+	public boolean isTraqueToinouEnCours() {
+		return traqueToinouEnCours;
+	}
+
+	public void setTraqueToinouEnCours(boolean traqueToinouEnCours) {
+		this.traqueToinouEnCours = traqueToinouEnCours;
+	}
+
+	public int getUtilisationTraquerToinou() {
+		return utilisationTraquerToinou;
+	}
+
+	public void setUtilisationTraquerToinou(int utilisationTraquerToinou) {
+		this.utilisationTraquerToinou = utilisationTraquerToinou;
+	}
+	
+	public void addUtilisationTraquerToinou(int utilisationTraquerToinou) {
+		this.utilisationTraquerToinou += utilisationTraquerToinou;
+	}
+
+	public int getAchatLivreToinou() {
+		return achatLivreToinou;
+	}
+
+	public void setAchatLivreToinou(int achatLivreToinou) {
+		this.achatLivreToinou = achatLivreToinou;
+	}
+
+	public String getCampGB() {
+		return campGB;
+	}
+
+	public void setCampGB(String campGB) {
+		this.campGB = campGB;
 	}
 	
 }

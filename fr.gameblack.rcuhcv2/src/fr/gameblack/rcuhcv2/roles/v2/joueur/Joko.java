@@ -1,10 +1,9 @@
 package fr.gameblack.rcuhcv2.roles.v2.joueur;
 
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 
 import fr.gameblack.rcuhcv2.Main;
+import fr.gameblack.rcuhcv2.classes.ItRoles;
 import fr.gameblack.rcuhcv2.classes.Joueur;
 import fr.gameblack.rcuhcv2.classes.Pouvoirs;
 import fr.gameblack.rcuhcv2.task.v2.ItemCD;
@@ -16,13 +15,7 @@ public class Joko {
         Texte(joueur.getPlayer());
         joueur.addSpeed(0.05);
 
-        @SuppressWarnings("deprecation")
-		ItemStack coffre = new ItemStack(351, 1, (short) 13);
-        //ItemStack coffre = new ItemStack(Material.NETHER_STAR, 1);
-        ItemMeta coffreM = coffre.getItemMeta();
-        coffreM.setDisplayName("SpeedCubing");
-        coffre.setItemMeta(coffreM);
-        joueur.getPlayer().getInventory().addItem(coffre);
+        joueur.getPlayer().getInventory().addItem(Main.getItemRole(ItRoles.JOKO_SPEEDCUBING));
 
     }
 
@@ -64,7 +57,9 @@ public class Joko {
 
     public static void CommandSteal(Joueur joueur, Main main, String effet) {
 
-        if (main.getJokoStun().size() != 0) {
+        if (main.getJokoStun().size() != 0 && joueur.JokoCanSteal()) {
+        	
+        	joueur.setJokoSteal(false);
 
             Joueur cible = main.getJokoStun().get(0);
 

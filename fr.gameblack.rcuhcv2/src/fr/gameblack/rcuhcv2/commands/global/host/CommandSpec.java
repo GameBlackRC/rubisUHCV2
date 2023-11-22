@@ -5,6 +5,9 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.scoreboard.DisplaySlot;
+import org.bukkit.scoreboard.Objective;
+import org.bukkit.scoreboard.Score;
 
 import fr.gameblack.rcuhcv2.Main;
 import fr.gameblack.rcuhcv2.classes.Joueur;
@@ -45,6 +48,8 @@ public class CommandSpec implements CommandExecutor {
 	                	cible.setSpec(false);
 	                	
 	                }
+	                
+                	main.updateScoreboard();
 	
 	            } else {
 	

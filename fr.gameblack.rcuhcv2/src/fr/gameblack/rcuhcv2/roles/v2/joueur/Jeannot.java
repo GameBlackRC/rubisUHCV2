@@ -56,7 +56,7 @@ public class Jeannot {
 		List<Joueur> allies = main.getJoueurInCamp("joueur");
 		for(Joueur allie : allies) {
 			
-			if(allie.getRole() == Roles.NICKOBOOP && allie.getPlayer().hasPotionEffect(PotionEffectType.ABSORPTION) && allie.isProche(Roles.JEANNOT, main)) {
+			if(allie.getRole() == Roles.NICKOBOOP && allie.getPlayer().hasPotionEffect(PotionEffectType.ABSORPTION) && allie.isProche(joueur, main)) {
 				
 				if(allie.isAbsoOn() && allie.getRole() != Roles.JEANNOT) {
 					allie.getPlayer().removePotionEffect(PotionEffectType.ABSORPTION);
@@ -64,7 +64,7 @@ public class Jeannot {
 				}
 				
 			}
-			else if(allie.getPlayer().hasPotionEffect(PotionEffectType.ABSORPTION) && allie.isProche(Roles.JEANNOT, main)){
+			else if(allie.getPlayer().hasPotionEffect(PotionEffectType.ABSORPTION) && allie.isProche(joueur, main)){
 				
 				if(allie.isAbsoOn() && allie.getRole() != Roles.JEANNOT) {
 				
@@ -76,7 +76,7 @@ public class Jeannot {
 			}
 			else {
 				
-				if(allie.isAbsoOn() && allie.getRole() != Roles.JEANNOT && allie.isProche(Roles.JEANNOT, main)) {
+				if(allie.isAbsoOn() && allie.getRole() != Roles.JEANNOT && allie.isProche(joueur, main)) {
 				
 					allie.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.ABSORPTION, 2400, 0));
 				

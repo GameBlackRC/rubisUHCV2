@@ -100,7 +100,7 @@ public class PlayerActionListener implements Listener{
 		
 		Player player = event.getPlayer();
 		Joueur joueur = main.getJoueur(player);
-		if(!joueur.isMort()) {
+		if(!joueur.isMort() && main.getState() != Statut.PVP_ON && main.getState() != Statut.PVP_OFF) {
 			joueur.setDeco(true);
 		}
 		else {
@@ -108,7 +108,7 @@ public class PlayerActionListener implements Listener{
 			main.getListJoueurs().remove(joueur);
 			
 		}
-		
+			
 	}
 	
 	@EventHandler
@@ -119,6 +119,7 @@ public class PlayerActionListener implements Listener{
 			if(main.getJoueur(event.getPlayer()) == null && (main.getState() == Statut.WAITING || main.getState() == Statut.STARTING)) {
 			
 				main.addJoueur(event.getPlayer());
+				event.getPlayer().setScoreboard(main.getBoard_base());
 				
 			}
 			else if(main.getJoueurByPseudo(event.getPlayer().getName()) == null) {
@@ -181,7 +182,7 @@ public class PlayerActionListener implements Listener{
 	@EventHandler
 	public void onBlockPlace(BlockPlaceEvent event) {
 		
-		if(event.getBlock().getType() == Material.BARRIER) {
+		if(event.getBlock().getType() == Material.BARRIER || event.getBlock().getType() == Material.REDSTONE_BLOCK) {
 			
 			event.setCancelled(true);
 			

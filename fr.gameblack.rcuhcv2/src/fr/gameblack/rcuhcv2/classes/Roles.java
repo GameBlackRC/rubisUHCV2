@@ -13,8 +13,6 @@ public enum Roles {
 	
 	private final String skin;
 	
-	private
-	
 	Roles(String camp, String txt, String skin) {
 		
 		this.camp = camp;

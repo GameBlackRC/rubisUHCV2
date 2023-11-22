@@ -3,12 +3,10 @@ package fr.gameblack.rcuhcv2.roles.v2.uhc;
 import java.util.Random;
 
 import org.bukkit.Location;
-import org.bukkit.Material;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 
 import fr.gameblack.rcuhcv2.Main;
+import fr.gameblack.rcuhcv2.classes.ItRoles;
 import fr.gameblack.rcuhcv2.classes.Joueur;
 import fr.gameblack.rcuhcv2.classes.Pouvoirs;
 import fr.gameblack.rcuhcv2.task.v2.ItemCD;
@@ -17,11 +15,7 @@ public class Theoochoux {
 	
 	public static void Items(Joueur joueur, Main main) {
 		
-		ItemStack coffre = new ItemStack(Material.NETHER_STAR, 1);
-        ItemMeta coffreM = coffre.getItemMeta();
-        coffreM.setDisplayName("RollBack");
-        coffre.setItemMeta(coffreM);
-        joueur.getPlayer().getInventory().addItem(coffre);
+        joueur.getPlayer().getInventory().addItem(Main.getItemRole(ItRoles.THEOCHOUX_ROLLBACK));
         joueur.addSpeed(0.1);
         if(!main.getMode().equalsIgnoreCase("rapide")) {
         	

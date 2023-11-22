@@ -17,6 +17,11 @@ public class FermetureGolden {
 		
 		main.setFermetureGolden(false);
 		main.setFermetureGoldenActif(true);
+		if(main.getModeTrial() == null) {
+			
+			main.setModeTrial("fun");
+			
+		}
 		
 		if(main.getCompo().contains(Roles.TRIAL)) {
 			

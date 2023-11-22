@@ -7,15 +7,19 @@ import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scoreboard.DisplaySlot;
+import org.bukkit.scoreboard.Objective;
+import org.bukkit.scoreboard.Score;
+import org.bukkit.scoreboard.Scoreboard;
 
 import fr.gameblack.rcuhcv2.database.DatabaseManager;
+import fr.gameblack.rcuhcv2.classes.ItRoles;
 import fr.gameblack.rcuhcv2.classes.Joueur;
+import fr.gameblack.rcuhcv2.classes.JoueurMort;
 import fr.gameblack.rcuhcv2.classes.Pouvoirs;
 import fr.gameblack.rcuhcv2.classes.Roles;
 import fr.gameblack.rcuhcv2.scenarios.Scenarios;
@@ -24,6 +28,7 @@ import fr.gameblack.rcuhcv2.commands.global.admin.CommandSetOrbe;
 import fr.gameblack.rcuhcv2.commands.global.admin.CommandSetRole;
 import fr.gameblack.rcuhcv2.commands.global.admin.CommandSetRoleOther;
 import fr.gameblack.rcuhcv2.commands.global.admin.CommandSetStatut;
+import fr.gameblack.rcuhcv2.commands.global.admin.CommandaddPoints;
 import fr.gameblack.rcuhcv2.commands.global.game.CommandCompo;
 import fr.gameblack.rcuhcv2.commands.global.game.CommandDoc;
 import fr.gameblack.rcuhcv2.commands.global.game.CommandEffet;
@@ -84,6 +89,7 @@ import fr.gameblack.rcuhcv2.commands.v2.staff.trial.CommandPlay;
 import fr.gameblack.rcuhcv2.commands.v2.staff.trial.CommandSacrifice;
 import fr.gameblack.rcuhcv2.commands.v2.uhc.nonoboy.CommandMaudit;
 import fr.gameblack.rcuhcv2.commands.v2.uhc.toinou.CommandShop;
+import fr.gameblack.rcuhcv2.commands.v2.uhc.toinou.CommandTraque;
 import fr.gameblack.rcuhcv2.commands.v2.uhc.toinou.CommandVacance;
 import fr.gameblack.rcuhcv2.commands.v2.staff.trial.CommandMode;
 import fr.gameblack.rcuhcv2.listener.global.DamageListener;
@@ -91,6 +97,7 @@ import fr.gameblack.rcuhcv2.listener.global.InteractListener;
 import fr.gameblack.rcuhcv2.listener.global.InventoryInteractListener;
 import fr.gameblack.rcuhcv2.listener.v2.BoatActionListener;
 import fr.gameblack.rcuhcv2.listener.v2.PlayerActionListener;
+import fr.gameblack.rcuhcv2.orbes.Craft;
 import fr.gameblack.rcuhcv2.orbes.Orbe;
 
 import java.util.ArrayList;
@@ -99,6 +106,10 @@ import java.util.List;
 import java.util.Random;
 
 public class Main extends JavaPlugin {
+	
+	private Scoreboard board_base;
+	
+	private List<JoueurMort> morts = new ArrayList<>();
 
 	private List<Joueur> hosts = new ArrayList<>();
 	private Statut state;
@@ -158,38 +169,13 @@ public class Main extends JavaPlugin {
     @Override
     public void onEnable() {
     	
+    	setBoard_base(Bukkit.getScoreboardManager().getNewScoreboard());
+    	
     	databaseManager = new DatabaseManager();
     	
-    	ItemStack orbes = new ItemStack(Material.SLIME_BALL);
+    	Craft.setCraft(this);
     	
-    	ItemMeta orbesM = orbes.getItemMeta();
-    	orbesM.setDisplayName("§4Orbe");
-    	orbes.setItemMeta(orbesM);
-    	
-    	ShapedRecipe expBottle = new ShapedRecipe(orbes);
-    	
-    	expBottle.shape("LBW","%*%","RBI");
-    	expBottle.setIngredient('L', Material.LAVA_BUCKET);
-    	expBottle.setIngredient('I', Material.ICE);
-    	expBottle.setIngredient('R', Material.REDSTONE_BLOCK);
-    	expBottle.setIngredient('%', Material.IRON_BLOCK);
-    	expBottle.setIngredient('*', Material.DIAMOND);
-    	expBottle.setIngredient('B', Material.OBSIDIAN);
-    	expBottle.setIngredient('W', Material.WATER_BUCKET);
-    	getServer().addRecipe(expBottle);
-    	
-    	ShapedRecipe expBottle2 = new ShapedRecipe(orbes);
-    	
-    	expBottle2.shape("WBL","%*%","RBI");
-    	expBottle2.setIngredient('L', Material.LAVA_BUCKET);
-    	expBottle2.setIngredient('I', Material.ICE);
-    	expBottle2.setIngredient('R', Material.REDSTONE_BLOCK);
-    	expBottle2.setIngredient('%', Material.IRON_BLOCK);
-    	expBottle2.setIngredient('*', Material.DIAMOND);
-    	expBottle2.setIngredient('B', Material.OBSIDIAN);
-    	expBottle2.setIngredient('W', Material.WATER_BUCKET);
-    	getServer().addRecipe(expBottle2);
-    	
+    	getCommand("addpoints").setExecutor(new CommandaddPoints(this));
     	getCommand("skipepisode").setExecutor(new CommandEpisode(this));
     	getCommand("setrole").setExecutor(new CommandSetRole(this));
     	getCommand("setroleother").setExecutor(new CommandSetRoleOther(this));
@@ -241,6 +227,7 @@ public class Main extends JavaPlugin {
     	getCommand("rcenchant").setExecutor(new CommandEnchant(this));
     	
     	getCommand("rcshop").setExecutor(new CommandShop(this));
+    	getCommand("rctraque").setExecutor(new CommandTraque(this));
     	getCommand("rcvacance").setExecutor(new CommandVacance(this));
     	getCommand("rcmaudit").setExecutor(new CommandMaudit(this));
     	
@@ -613,6 +600,8 @@ public class Main extends JavaPlugin {
     		joueur.reset(this);
     		
     	}
+    	
+    	morts.clear();
     	
     	state = Statut.WAITING;
     	debug = false;
@@ -1319,6 +1308,260 @@ public class Main extends JavaPlugin {
 	
 	public void addPourcentEffetDemon(double pourcentEffetDemon) {
 		this.pourcentEffetDemon += pourcentEffetDemon;
+	}
+
+	public List<JoueurMort> getMorts() {
+		return morts;
+	}
+
+	public void setMorts(List<JoueurMort> morts) {
+		this.morts = morts;
+	}
+	
+	public void addMort(Joueur joueur, Joueur tueur) {
+		
+		morts.add(new JoueurMort(joueur, tueur, this));
+		
+	}
+	
+	public JoueurMort getMort(String pseudo) {
+		
+		for(JoueurMort mort : morts) {
+			
+			if(pseudo == mort.getPseudo()) {
+				
+				return mort;
+				
+			}
+			
+		}
+		
+		return null;
+		
+	}
+	
+	public static boolean isNumeric(String strNum) {
+	    if (strNum == null) {
+	        return false;
+	    }
+	    try {
+	        @SuppressWarnings("unused")
+			double d = Double.parseDouble(strNum);
+	    } catch (NumberFormatException nfe) {
+	        return false;
+	    }
+	    return true;
+	}
+	
+	@SuppressWarnings("deprecation")
+	public static ItemStack getItemRole(ItRoles item) {
+		
+		if(item == ItRoles.GAMEBLACK_FUITE) {
+			
+			ItemStack coffre = new ItemStack(351, 1, (short) 1);
+			//ItemStack coffre = new ItemStack(Material.NETHER_STAR, 1);
+	        ItemMeta coffreM = coffre.getItemMeta();
+	        coffreM.setDisplayName(item.getNom());
+	        coffre.setItemMeta(coffreM);
+	        
+	        return coffre;
+			
+		}
+		else if(item == ItRoles.HEKOW_JEU) {
+			
+			ItemStack coffre = new ItemStack(Material.NETHER_STAR, 1);
+	        ItemMeta coffreM = coffre.getItemMeta();
+	        coffreM.setDisplayName(item.getNom());
+	        coffre.setItemMeta(coffreM);
+	        
+	        return coffre;
+			
+		}
+		else if(item == ItRoles.JOKO_SPEEDCUBING) {
+			
+			ItemStack coffre = new ItemStack(351, 1, (short) 13);
+	        ItemMeta coffreM = coffre.getItemMeta();
+	        coffreM.setDisplayName(item.getNom());
+	        coffre.setItemMeta(coffreM);
+	        
+	        return coffre;
+			
+		}
+		else if(item == ItRoles.LOUP_BATEAU) {
+			
+			ItemStack coffre = new ItemStack(Material.NETHER_STAR, 1);
+	        ItemMeta coffreM = coffre.getItemMeta();
+	        coffreM.setDisplayName(item.getNom());
+	        coffre.setItemMeta(coffreM);
+	        
+	        return coffre;
+			
+		}
+		else if(item == ItRoles.MALIVOL_CHEAT) {
+			
+			ItemStack coffre = new ItemStack(351, 1, (short) 9);
+	        ItemMeta coffreM = coffre.getItemMeta();
+	        coffreM.setDisplayName(item.getNom());
+	        coffre.setItemMeta(coffreM);
+	        
+	        return coffre;
+			
+		}
+		else if(item == ItRoles.OBSCUR_ADAPTION) {
+			
+			ItemStack coffre = new ItemStack(Material.NETHER_STAR, 1);
+	        ItemMeta coffreM = coffre.getItemMeta();
+	        coffreM.setDisplayName(item.getNom());
+	        coffre.setItemMeta(coffreM);
+	        
+	        return coffre;
+			
+		}
+		else if(item == ItRoles.RAPTOR_RAGE) {
+			
+			ItemStack coffre = new ItemStack(351, 1, (short) 2);
+	        ItemMeta coffreM = coffre.getItemMeta();
+	        coffreM.setDisplayName(item.getNom());
+	        coffre.setItemMeta(coffreM);
+	        
+	        return coffre;
+			
+		}
+		else if(item == ItRoles.SLUP_PACTES) {
+			
+			ItemStack coffre = new ItemStack(Material.NETHER_STAR, 1);
+	        ItemMeta coffreM = coffre.getItemMeta();
+	        coffreM.setDisplayName(item.getNom());
+	        coffre.setItemMeta(coffreM);
+	        
+	        return coffre;
+			
+		}
+		else if(item == ItRoles.SLUP_SLIME) {
+			
+			ItemStack coffre = new ItemStack(351, 1, (short) 11);
+	        ItemMeta coffreM = coffre.getItemMeta();
+	        coffreM.setDisplayName(item.getNom());
+	        coffre.setItemMeta(coffreM);
+	        
+	        return coffre;
+			
+		}
+		else if(item == ItRoles.TEAM_JUSTICE) {
+			
+			ItemStack coffre = new ItemStack(Material.NETHER_STAR, 1);
+	        ItemMeta coffreM = coffre.getItemMeta();
+	        coffreM.setDisplayName(item.getNom());
+	        coffre.setItemMeta(coffreM);
+	        
+	        return coffre;
+			
+		}
+		else if(item == ItRoles.THEOCHOUX_ROLLBACK) {
+			
+			ItemStack coffre = new ItemStack(Material.NETHER_STAR, 1);
+	        ItemMeta coffreM = coffre.getItemMeta();
+	        coffreM.setDisplayName(item.getNom());
+	        coffre.setItemMeta(coffreM);
+	        
+	        return coffre;
+			
+		}
+		else if(item == ItRoles.TRIAL_BENIHIME) {
+			
+			ItemStack coffre = new ItemStack(Material.NETHER_STAR, 1);
+	        ItemMeta coffreM = coffre.getItemMeta();
+	        coffreM.setDisplayName(item.getNom());
+	        coffre.setItemMeta(coffreM);
+	        
+	        return coffre;
+	        
+		}
+		else if(item == ItRoles.TRIAL_SAKASHIMA) {
+			
+	        ItemStack coffre = new ItemStack(Material.NETHER_STAR, 1);
+	        ItemMeta coffreM = coffre.getItemMeta();
+	        coffreM.setDisplayName(item.getNom());
+	        coffre.setItemMeta(coffreM);
+	        
+	        return coffre;
+			
+		}
+		else if(item == ItRoles.TOINOU_LIVRE) {
+			
+			ItemStack book = new ItemStack(Material.BOOK, 1);
+            ItemMeta bookM = book.getItemMeta();
+            bookM.setDisplayName(item.getNom());
+            book.setItemMeta(bookM);
+	        
+	        return book;
+			
+		}
+		else if(item == ItRoles.TOINOU_TOTEM) {
+			
+			ItemStack ames = new ItemStack(Material.REDSTONE_BLOCK, 1);
+            ItemMeta amesM = ames.getItemMeta();
+            amesM.setDisplayName(item.getNom());
+            ames.setItemMeta(amesM);
+	        
+	        return ames;
+			
+		}
+		else {
+			
+			return null;
+			
+		}
+		
+	}
+
+	public Scoreboard getBoard_base() {
+		return board_base;
+	}
+
+	public void setBoard_base(Scoreboard board_base) {
+		this.board_base = board_base;
+	}
+	
+	public void updateScoreboard() {
+		
+    	if(board_base.getObjective("base") != null) {
+    		board_base.getObjective("base").unregister();
+		}
+		
+    	Objective objective = getBoard_base().registerNewObjective("base", "dummy");
+        
+        objective.setDisplaySlot(DisplaySlot.SIDEBAR);
+        objective.setDisplayName("RC UHC");
+        Score score1 = objective.getScore("Version: " + getVersion());
+        score1.setScore(10);
+        Score score2 = objective.getScore("Mode: " + getMode());
+        score2.setScore(9);
+        int nb_j = getListJoueurs().size();
+        for(Joueur j : getListJoueurs()) {
+        	
+        	if(j.isSpec()) {
+        		
+        		nb_j -= 1;
+        		
+        	}
+        	
+        }
+        Score score3 = objective.getScore("Joueurs: " + nb_j);
+        score3.setScore(8);
+        Score score4 = objective.getScore("Rôles: " + getCompo().size());
+        score4.setScore(7);
+        Score score5 = objective.getScore("Host: " + getHostBase().getPlayer().getName());
+        score5.setScore(6);
+        Score score6 = objective.getScore("§9play.rubis§ccraft.fr§r");
+        score6.setScore(5);
+        
+        for(Joueur j : getListJoueurs()) {
+        	
+        	j.getPlayer().setScoreboard(getBoard_base());
+        	
+        }
+		
 	}
 	
 }

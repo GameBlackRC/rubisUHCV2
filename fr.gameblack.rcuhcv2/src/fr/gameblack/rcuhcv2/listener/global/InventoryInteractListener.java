@@ -14,6 +14,9 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.scoreboard.DisplaySlot;
+import org.bukkit.scoreboard.Objective;
+import org.bukkit.scoreboard.Score;
 
 import fr.gameblack.rcuhcv2.Main;
 import fr.gameblack.rcuhcv2.classes.Joueur;
@@ -33,6 +36,7 @@ import fr.gameblack.rcuhcv2.roles.v1.demons.ObscurV1;
 import fr.gameblack.rcuhcv2.roles.v2.joueur.Slup;
 import fr.gameblack.rcuhcv2.roles.v2.staff.GameBlack;
 import fr.gameblack.rcuhcv2.roles.v2.staff.Loup;
+import fr.gameblack.rcuhcv2.roles.v2.uhc.Toinou;
 import fr.gameblack.rcuhcv2.scenarios.Scenarios;
 import fr.gameblack.rcuhcv2.task.v2.ItemCD;
 
@@ -1427,14 +1431,57 @@ public class InventoryInteractListener implements Listener {
 	        			
 	        			break;
 	        			
+	        		case COMPASS:
+	        			
+	        			if(joueur.getPoints() >= 1) {
+	        				
+	        				joueur.removePoints(1);
+	        			
+		        			joueur.getPlayer().getInventory().addItem(Main.getItem(Material.COMPASS, "Traqueur", "Traque un joueur au choix"));
+		        			joueur.getPlayer().setCompassTarget(joueur.getPlayer().getLocation());
+		        			joueur.setTraqueToinou(joueur);
+		        			joueur.getPlayer().sendMessage("Vous pouvez désormais traquer un joueur avec la commande /rctraque <pseudo>");
+	        			
+	        			}
+	        			else if(!joueur.isFirstItemToinou()) {
+	        				
+	        				joueur.setFirstItemToinou(true);
+	        				
+	        				joueur.getPlayer().getInventory().addItem(Main.getItem(Material.COMPASS, "Traqueur", "Traque un joueur au choix"));
+		        			joueur.getPlayer().setCompassTarget(joueur.getPlayer().getLocation());
+		        			joueur.setTraqueToinou(joueur);
+		        			joueur.getPlayer().sendMessage("Vous pouvez désormais traquer un joueur avec la commande /rctraque <pseudo>");
+	        			
+	        			}
+		        			
+	        			break;
+	        			
 	        		case BOOK:
 	        			
-	        			ItemStack book = new ItemStack(Material.BOOK, 1);
-	                    ItemMeta bookM = book.getItemMeta();
-	                    bookM.setDisplayName("Livre des morts");
-	                    book.setItemMeta(bookM);
-	                    
-	                    //joueur.getPlayer().getInventory().addItem(book);
+	        			if(joueur.getPoints() >= 1) {
+	        				
+	        				joueur.removePoints(1);
+	        			
+		        			ItemStack book = new ItemStack(Material.BOOK, 1);
+		                    ItemMeta bookM = book.getItemMeta();
+		                    bookM.setDisplayName("Livre des morts");
+		                    book.setItemMeta(bookM);
+		                    
+		                    joueur.getPlayer().getInventory().addItem(book);
+		                    
+	        			}
+	        			else if(!joueur.isFirstItemToinou()) {
+	        				
+	        				joueur.setFirstItemToinou(true);
+	        				
+	        				ItemStack book = new ItemStack(Material.BOOK, 1);
+		                    ItemMeta bookM = book.getItemMeta();
+		                    bookM.setDisplayName("Livre des morts");
+		                    book.setItemMeta(bookM);
+		                    
+		                    joueur.getPlayer().getInventory().addItem(book);
+	        				
+	        			}
 	        			
 	        			break;
 	        			
@@ -1446,7 +1493,7 @@ public class InventoryInteractListener implements Listener {
 	        			
 		        			ItemStack nuage = new ItemStack(Material.DIAMOND_SWORD, 1);
 		                    ItemMeta nuageM = nuage.getItemMeta();
-		                    nuageM.addEnchant(Enchantment.DAMAGE_ALL, 4, false);
+		                    nuageM.addEnchant(Enchantment.DAMAGE_ALL, 3, false);
 		                    nuageM.setDisplayName("Nuage Flottant");
 		                    nuage.setItemMeta(nuageM);
 		                    joueur.getPlayer().getInventory().addItem(nuage);
@@ -1459,7 +1506,7 @@ public class InventoryInteractListener implements Listener {
 	        				
 	        				ItemStack nuage = new ItemStack(Material.DIAMOND_SWORD, 1);
 		                    ItemMeta nuageM = nuage.getItemMeta();
-		                    nuageM.addEnchant(Enchantment.DAMAGE_ALL, 4, false);
+		                    nuageM.addEnchant(Enchantment.DAMAGE_ALL, 3, false);
 		                    nuageM.setDisplayName("Nuage Flottant");
 		                    nuage.setItemMeta(nuageM);
 		                    joueur.getPlayer().getInventory().addItem(nuage);
@@ -1520,6 +1567,19 @@ public class InventoryInteractListener implements Listener {
 	        			
 	        		case REDSTONE_BLOCK:
 	        			
+	        			if(joueur.getPoints() >= 4) {
+	        				
+	        				joueur.removePoints(4);
+	        			
+		        			ItemStack ames = new ItemStack(Material.REDSTONE_BLOCK, 1);
+		                    ItemMeta amesM = ames.getItemMeta();
+		                    amesM.setDisplayName("Totem");
+		                    ames.setItemMeta(amesM);
+		                    joueur.getPlayer().getInventory().addItem(ames);
+		                    joueur.getPlayer().closeInventory();
+	        			
+	        			}
+		                    
 	        			break;
 	        			
 	        		default:
@@ -1562,6 +1622,44 @@ public class InventoryInteractListener implements Listener {
 	        	
 	        	}
         		
+        	}
+        	
+        } else if(inv.getName().equalsIgnoreCase("§8Morts")) {
+        	
+        	event.setCancelled(true);
+        	Joueur joueur = main.getJoueur(player);
+        	
+        	switch(current.getType()) {
+        	
+        		case SKULL_ITEM:
+        			
+        			String pseudo = current.getItemMeta().getDisplayName();
+        			
+        			Toinou.InteractBookCible(joueur, pseudo, main);
+        			
+        			break;
+        			
+        		default: break;
+        	
+        	}
+        	
+        } else if(inv.getName().equalsIgnoreCase("§8Revive")) {
+        	
+        	event.setCancelled(true);
+        	Joueur joueur = main.getJoueur(player);
+        	
+        	switch(current.getType()) {
+        	
+        		case SKULL_ITEM:
+        			
+        			String pseudo = current.getItemMeta().getDisplayName();
+        			
+        			Toinou.InteractTotemCible(joueur, pseudo, main);
+        			
+        			break;
+        			
+        		default: break;
+        	
         	}
         	
         } else if(inv.getName().equalsIgnoreCase("§8Choix du pacte")) {
@@ -1891,6 +1989,8 @@ public class InventoryInteractListener implements Listener {
                         joueur.getPlayer().getInventory().addItem(coffre);
                         
                         joueur.getPlayer().setGameMode(GameMode.SURVIVAL);
+                        
+                        main.updateScoreboard();
                 		
                 	}
                 	else {
@@ -1920,6 +2020,8 @@ public class InventoryInteractListener implements Listener {
                         joueur.getPlayer().getInventory().addItem(coffre);
                         
                         joueur.getPlayer().setGameMode(GameMode.SURVIVAL);
+                        
+                    	main.updateScoreboard();
                 		
                 	}
                 	else {
@@ -1949,6 +2051,8 @@ public class InventoryInteractListener implements Listener {
                         joueur.getPlayer().getInventory().addItem(coffre);
                         
                         joueur.getPlayer().setGameMode(GameMode.SURVIVAL);
+                        
+                    	main.updateScoreboard();
                 		
                 	}
                 	
@@ -1972,6 +2076,8 @@ public class InventoryInteractListener implements Listener {
                 	main.setMode("rapide");
                 	player.sendMessage("Vous avez selectionner le mode rapide");
                 	
+                	main.updateScoreboard();
+                	
                 	player.closeInventory();
 
                     break;
@@ -1981,6 +2087,8 @@ public class InventoryInteractListener implements Listener {
                 	main.setMode("meetup");
                 	player.sendMessage("Vous avez selectionner le mode meetup");
                 	
+                	main.updateScoreboard();
+                	
                 	break;
 
                 case DIAMOND_PICKAXE:
@@ -1988,6 +2096,8 @@ public class InventoryInteractListener implements Listener {
                 	main.setMode("normal");
                 	player.sendMessage("Vous avez selectionner le mode normal");
 
+                	main.updateScoreboard();
+                	
                     break;
 
                 default:
@@ -2002,11 +2112,13 @@ public class InventoryInteractListener implements Listener {
             if(main.getVersion() == 2) {
             
             	CompoV2.interactCompo(current, player, main, true);
+            	main.updateScoreboard();
             	
             }
             else if(main.getVersion() == 1) {
             	
             	CompoV1.interactCompo(current, player, main, true);
+            	main.updateScoreboard();
             	
             }
 
@@ -2052,6 +2164,7 @@ public class InventoryInteractListener implements Listener {
         			main.setVersion(1);
         			main.getCompo().clear();
         			main.getScenarios().clear();
+        			main.updateScoreboard();
         			
         			break;
         			
@@ -2060,6 +2173,7 @@ public class InventoryInteractListener implements Listener {
         			main.setVersion(2);
         			main.getCompo().clear();
         			main.getScenarios().clear();
+        			main.updateScoreboard();
         			
         		default: break;
         	

@@ -147,191 +147,258 @@ public class DamageListener implements Listener {
             @SuppressWarnings("unused")
 			double damage = 0;
 
-            if (damager instanceof Player) killer = (Player) damager;
-            
-            Joueur tueur = main.getJoueur(killer);
-
-            if (main.getState() == Statut.PVP_ON && !joueur.isInvulnerable() && !tueur.isInvulnerable()) {
+            if (damager instanceof Player) { 
             	
-            	if(main.isDebug()) {
-                	
-                	System.out.println("_________________________________________");
-                	System.out.println("Abso : " + event.getDamage(DamageModifier.ABSORPTION));
-                	System.out.println("Armure : " + event.getDamage(DamageModifier.ARMOR));
-                	System.out.println("Base : " + event.getDamage(DamageModifier.BASE));
-                	System.out.println("Blocking : " + event.getDamage(DamageModifier.BLOCKING));
-                	System.out.println("Hard hat : " + event.getDamage(DamageModifier.HARD_HAT));
-                	System.out.println("Enchant : " + event.getDamage(DamageModifier.MAGIC));
-                	System.out.println("Resistance : " + event.getDamage(DamageModifier.RESISTANCE));
-                	System.out.println("Final : " + event.getFinalDamage());
-                	System.out.println("__________________");
-                	
-                }
-                
-                if(main.isDebug()) {
-                	
-                	System.out.println("Abso : " + event.getDamage(DamageModifier.ABSORPTION));
-                	System.out.println("Armure : " + event.getDamage(DamageModifier.ARMOR));
-                	System.out.println("Base : " + event.getDamage(DamageModifier.BASE));
-                	System.out.println("Blocking : " + event.getDamage(DamageModifier.BLOCKING));
-                	System.out.println("Hard hat : " + event.getDamage(DamageModifier.HARD_HAT));
-                	System.out.println("Enchant : " + event.getDamage(DamageModifier.MAGIC));
-                	System.out.println("Resistance : " + event.getDamage(DamageModifier.RESISTANCE));
-                	System.out.println("Final : " + event.getFinalDamage());
-                	System.out.println("_________________________________________");
-                	
-                }
-                
-                if (damager instanceof Arrow) {
-
-                    Arrow arrow = (Arrow) damager;
-                    if (arrow.getShooter() instanceof Player) {
-                        killer = (Player) arrow.getShooter();
-                        tueur = main.getJoueur(killer);
-                        joueur.setLastHit(tueur);
-                        if(tueur.getRole() == Roles.GAMEBLACK && tueur.getClasseGB() == Classe.DISTANCE) {
+            	killer = (Player) damager;
+            
+	            Joueur tueur = main.getJoueur(killer);
+	
+	            if (main.getState() == Statut.PVP_ON && !joueur.isInvulnerable() && !tueur.isInvulnerable()) {
+	            	
+	            	if(main.isDebug()) {
+	                	
+	                	System.out.println("_________________________________________");
+	                	System.out.println("Abso : " + event.getDamage(DamageModifier.ABSORPTION));
+	                	System.out.println("Armure : " + event.getDamage(DamageModifier.ARMOR));
+	                	System.out.println("Base : " + event.getDamage(DamageModifier.BASE));
+	                	System.out.println("Blocking : " + event.getDamage(DamageModifier.BLOCKING));
+	                	System.out.println("Hard hat : " + event.getDamage(DamageModifier.HARD_HAT));
+	                	System.out.println("Enchant : " + event.getDamage(DamageModifier.MAGIC));
+	                	System.out.println("Resistance : " + event.getDamage(DamageModifier.RESISTANCE));
+	                	System.out.println("Final : " + event.getFinalDamage());
+	                	System.out.println("__________________");
+	                	
+	                }
+	                
+	                if(main.isDebug()) {
+	                	
+	                	System.out.println("Abso : " + event.getDamage(DamageModifier.ABSORPTION));
+	                	System.out.println("Armure : " + event.getDamage(DamageModifier.ARMOR));
+	                	System.out.println("Base : " + event.getDamage(DamageModifier.BASE));
+	                	System.out.println("Blocking : " + event.getDamage(DamageModifier.BLOCKING));
+	                	System.out.println("Hard hat : " + event.getDamage(DamageModifier.HARD_HAT));
+	                	System.out.println("Enchant : " + event.getDamage(DamageModifier.MAGIC));
+	                	System.out.println("Resistance : " + event.getDamage(DamageModifier.RESISTANCE));
+	                	System.out.println("Final : " + event.getFinalDamage());
+	                	System.out.println("_________________________________________");
+	                	
+	                }
+	                if(tueur != joueur) {
+	                	
+	                	double force = tueur.getForce();
+	                	
+	                	if(tueur.getRole() == Roles.MAKA && ((tueur.getForme().equalsIgnoreCase("normal") && tueur.isProche(Roles.GAMEBLACK, main)) || (tueur.getForme().equalsIgnoreCase("simp") && joueur.isFrappeNeko()))) {
+	                		
+	                		force += 2;
+	                		
+	                	}
+	                	
+	                	double nerf_force = 1;
+	                	
+	                	if(main.getVersion() == 2) {
+	                		
+	                		nerf_force = 0.9;
+	                		
+	                	}
+	                	else if(main.getVersion() == 1) {
+	                		
+	                		nerf_force = 0.8;
+	                		
+	                	}
+	                	
+	                	double damage_strenght = (event.getDamage(DamageModifier.BASE)*(force/100))*nerf_force;
+	                    double armure = event.getDamage(DamageModifier.ARMOR)*0.85;
+	                    event.setDamage(DamageModifier.BASE, damage_strenght);
+	                    event.setDamage(DamageModifier.ARMOR,armure);
+	                    
+	                    double res = joueur.getResi();
+	                    
+	                    if((main.getJoueurByRole(Roles.TEAM) != null && main.getJoueurByRole(Roles.FARMEURIMMO) != null) && main.getJoueurByRole(Roles.TEAM).isProche(Roles.FARMEURIMMO, main)) {
+	                    
+	                    	res += 2;
+	                    
+	                    }
+	                    
+	                    ItemStack ames = new ItemStack(Material.DIAMOND_SWORD, 1);
+	                    ItemMeta amesM = ames.getItemMeta();
+	                    ames.addEnchantment(Enchantment.DAMAGE_ALL, 3);
+	                    amesM.setDisplayName("Épée des âmes");
+	                    ames.setItemMeta(amesM);
+	                    
+	                    if(tueur.getRole() == Roles.TOINOU && tueur.getPlayer().getItemInHand().hasItemMeta() && tueur.getPlayer().getItemInHand().getItemMeta().getDisplayName() == "Épée des âmes") {
+	                    	
+	                    	res = 110;
+	                    	
+	                    }
+	                    
+	                	double nerf_resi = 1;
+	                	
+	                	if(main.getVersion() == 2) {
+	                		
+	                		nerf_resi = 0.9;
+	                		
+	                	}
+	                	else if(main.getVersion() == 1) {
+	                		
+	                		nerf_resi = 0.8;
+	                		
+	                	}
+	                    
+	                    res = ((res/100)-1)*nerf_resi;
+	                    
+	                    double resi = event.getDamage(DamageModifier.BASE)*res;
+	                    event.setDamage(DamageModifier.RESISTANCE, -resi);
+	                	
+	                }
+	                
+	                if(joueur.getRole() == Roles.RAPTOR && tueur.getRole() == Roles.TOINOU && tueur.isCheatToinou()) {
+	        			
+	        			damage *= 1.03;
+	        			
+	        		}
+	                
+	                damage = event.getFinalDamage();
+	                
+	                if(joueur != tueur) {
+	                	
+	                	if(main.getVersion() == 2) {
+	            		
+		            		HitV2.whenHit(joueur, tueur, main, event);
+		            		
+		                    //ORBES
+		                    HitOrbeV2.whenHit(joueur, tueur, main);
+		                    
+	                	}
+	                	else if(main.getVersion() == 1) {
+	                		
+	                		HitV1.whenHit(joueur, tueur, main);
+	                		
+	                	}
+	            	
+	            	}
+	                
+	                //ANTI KB
+	                if (joueur.isAntiKB()) {
+	
+	                    event.setCancelled(true);
+	                    player.damage(event.getFinalDamage());
+	
+	                }
+	                
+	                if (player.getHealth() <= event.getFinalDamage()) {
+	                	
+	                	if(joueur.getRole() == Roles.TRIAL && tueur.getRole() == Roles.KZOU && !joueur.isRespawnTrial()) {
+	            			
+	            			Trial.mortKzou(joueur, main);
+	            			
+	            			return;
+	            			
+	            		} else {
+	                	
+		                	if(joueur.canRespawn()) {
+		                		
+		                		respawn(joueur, main);
+		                		
+		                	}
+		                	else {
+		
+			                    ItemCD cycle = new ItemCD(main, tueur, "mort", 0, joueur, event, null, 0, joueur.getPlayer().getLocation());
+			                    cycle.runTaskTimer(main, 0, 20);
+			                    event.setDamage(0);
+			                    player.setGameMode(GameMode.SPECTATOR);
+			                    //player.sendMessage("Vous êtes mort mais vous avez encore une chance de ressucité");
+			                    
+		                	}
+	                	
+	            		}
+	
+	                }
+	                
+	            }
+	            else {
+	            	
+	            	event.setCancelled(true);
+	            	
+	            }
+	            
+            }
+            else if(damager instanceof Arrow) {
+            	
+                Arrow arrow = (Arrow) damager;
+                if (arrow.getShooter() instanceof Player) {
+                    killer = (Player) arrow.getShooter();
+                    Joueur tueur = main.getJoueur(killer);
+                    joueur.setLastHit(tueur);
+                    
+                    if (main.getState() == Statut.PVP_ON && !joueur.isInvulnerable() && !tueur.isInvulnerable()) {
+                    	
+                    	if(tueur.getRole() == Roles.GAMEBLACK && tueur.getClasseGB() == Classe.DISTANCE) {
                         	
                         	event.setDamage(event.getFinalDamage()*1.05);
                         	
-                        }
-                    }
-
+                        } if(tueur != joueur) {
+                        	
+    	                	if(main.getVersion() == 2) {
+        	            		
+    		            		HitV2.whenHit(joueur, tueur, main, event);
+    		            		
+    		                    //ORBES
+    		                    HitOrbeV2.whenHit(joueur, tueur, main);
+    		                    
+    	                	}
+    	                	else if(main.getVersion() == 1) {
+    	                		
+    	                		HitV1.whenHit(joueur, tueur, main);
+    	                		
+    	                	}
+    	                	
+    	                }
+    	                
+    	                //ANTI KB
+    	                if (joueur.isAntiKB()) {
+    	
+    	                    event.setCancelled(true);
+    	                    player.damage(event.getFinalDamage());
+    	
+    	                }
+    	                
+    	                if (player.getHealth() <= event.getFinalDamage()) {
+    	                	
+    	                	if(joueur.getRole() == Roles.TRIAL && tueur.getRole() == Roles.KZOU && !joueur.isRespawnTrial()) {
+    	            			
+    	            			Trial.mortKzou(joueur, main);
+    	            			
+    	            			return;
+    	            			
+    	            		} else {
+    	                	
+    		                	if(joueur.canRespawn()) {
+    		                		
+    		                		respawn(joueur, main);
+    		                		
+    		                	}
+    		                	else {
+    		
+    			                    ItemCD cycle = new ItemCD(main, tueur, "mort", 0, joueur, event, null, 0, joueur.getPlayer().getLocation());
+    			                    cycle.runTaskTimer(main, 0, 20);
+    			                    event.setDamage(0);
+    			                    player.setGameMode(GameMode.SPECTATOR);
+    			                    //player.sendMessage("Vous êtes mort mais vous avez encore une chance de ressucité");
+    			                    
+    		                	}
+    	                	
+    	            		}
+    	
+    	                }
+    	                
+    	            }
+    	            else {
+    	            	
+    	            	event.setCancelled(true);
+    	            	
+    	            }
+                    
                 }
-                else if(tueur != joueur) {
-                	
-                	double force = tueur.getForce();
-                	
-                	if(tueur.getRole() == Roles.MAKA && ((tueur.getForme().equalsIgnoreCase("normal") && tueur.isProche(Roles.GAMEBLACK, main)) || (tueur.getForme().equalsIgnoreCase("simp") && joueur.isFrappeNeko()))) {
-                		
-                		force += 2;
-                		
-                	}
-                	
-                	double nerf_force = 1;
-                	
-                	if(main.getVersion() == 2) {
-                		
-                		nerf_force = 0.9;
-                		
-                	}
-                	else if(main.getVersion() == 1) {
-                		
-                		nerf_force = 0.6;
-                		
-                	}
-                	
-                	double damage_strenght = (event.getDamage(DamageModifier.BASE)*(force/100))*nerf_force;
-                    double armure = event.getDamage(DamageModifier.ARMOR)*0.85;
-                    event.setDamage(DamageModifier.BASE, damage_strenght);
-                    event.setDamage(DamageModifier.ARMOR,armure);
-                    
-                    double res = joueur.getResi();
-                    
-                    if((main.getJoueurByRole(Roles.TEAM) != null && main.getJoueurByRole(Roles.FARMEURIMMO) != null) && main.getJoueurByRole(Roles.TEAM).isProche(Roles.FARMEURIMMO, main)) {
-                    
-                    	res *= 1.02;
-                    
-                    }
-                    
-                    ItemStack ames = new ItemStack(Material.DIAMOND_SWORD, 1);
-                    ItemMeta amesM = ames.getItemMeta();
-                    ames.addEnchantment(Enchantment.DAMAGE_ALL, 3);
-                    amesM.setDisplayName("Épée des âmes");
-                    ames.setItemMeta(amesM);
-                    
-                    if(tueur.getRole() == Roles.TOINOU && tueur.getPlayer().getItemInHand().hasItemMeta() && tueur.getPlayer().getItemInHand().getItemMeta().getDisplayName() == "Épée des âmes") {
-                    	
-                    	res = 110;
-                    	
-                    }
-                    
-                	double nerf_resi = 1;
-                	
-                	if(main.getVersion() == 2) {
-                		
-                		nerf_resi = 0.9;
-                		
-                	}
-                	else if(main.getVersion() == 1) {
-                		
-                		nerf_resi = 0.6;
-                		
-                	}
-                    
-                    res = ((res/100)-1)*nerf_resi;
-                    
-                    double resi = event.getDamage(DamageModifier.BASE)*res;
-                    event.setDamage(DamageModifier.RESISTANCE, -resi);
-                	
-                }
-                
-                if(joueur.getRole() == Roles.RAPTOR && tueur.getRole() == Roles.TOINOU && tueur.isCheatToinou()) {
-        			
-        			damage *= 1.03;
-        			
-        		}
-                
-                damage = event.getFinalDamage();
-                
-                if(joueur != tueur) {
-                	
-                	if(main.getVersion() == 2) {
-            		
-	            		HitV2.whenHit(joueur, tueur, main, event);
-	            		
-	                    //ORBES
-	                    HitOrbeV2.whenHit(joueur, tueur, main);
-	                    
-                	}
-                	else if(main.getVersion() == 1) {
-                		
-                		HitV1.whenHit(joueur, tueur, main);
-                		
-                	}
-            	
-            	}
-                
-                //ANTI KB
-                if (joueur.isAntiKB()) {
-
-                    event.setCancelled(true);
-                    player.damage(event.getFinalDamage());
-
-                }
-                
-                if (player.getHealth() <= event.getFinalDamage()) {
-                	
-                	if(joueur.getRole() == Roles.TRIAL && tueur.getRole() == Roles.KZOU && !joueur.isRespawnTrial()) {
-            			
-            			Trial.mortKzou(joueur, main);
-            			
-            			return;
-            			
-            		} else {
-                	
-	                	if(joueur.canRespawn()) {
-	                		
-	                		respawn(joueur, main);
-	                		
-	                	}
-	                	else {
-	
-		                    ItemCD cycle = new ItemCD(main, tueur, "mort", 0, joueur, event, null, 0, joueur.getPlayer().getLocation());
-		                    cycle.runTaskTimer(main, 0, 20);
-		                    event.setDamage(0);
-		                    player.setGameMode(GameMode.SPECTATOR);
-		                    //player.sendMessage("Vous êtes mort mais vous avez encore une chance de ressucité");
-		                    
-	                	}
-                	
-            		}
-
-                }
-                
-            }
-            else {
-            	
-            	event.setCancelled(true);
             	
             }
             

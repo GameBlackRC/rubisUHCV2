@@ -4,16 +4,14 @@ import java.util.Random;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 import fr.gameblack.rcuhcv2.Main;
+import fr.gameblack.rcuhcv2.classes.ItRoles;
 import fr.gameblack.rcuhcv2.classes.Joueur;
 import fr.gameblack.rcuhcv2.classes.Pouvoirs;
 import fr.gameblack.rcuhcv2.classes.Roles;
@@ -55,11 +53,7 @@ public class Trial {
 		joueur.setResi(1.12);
 		joueur.getPlayer().setMaxHealth(22);
 		
-		ItemStack coffre = new ItemStack(Material.NETHER_STAR, 1);
-        ItemMeta coffreM = coffre.getItemMeta();
-        coffreM.setDisplayName("Benihime Aratame");
-        coffre.setItemMeta(coffreM);
-        joueur.getPlayer().getInventory().addItem(coffre);
+        joueur.getPlayer().getInventory().addItem(Main.getItemRole(ItRoles.TRIAL_BENIHIME));
 		
 	}
 	
@@ -70,17 +64,9 @@ public class Trial {
 		joueur.setResi(1.12);
 		joueur.getPlayer().setMaxHealth(22);
 		
-		ItemStack coffre = new ItemStack(Material.NETHER_STAR, 1);
-        ItemMeta coffreM = coffre.getItemMeta();
-        coffreM.setDisplayName("Benihime Aratame");
-        coffre.setItemMeta(coffreM);
-        joueur.getPlayer().getInventory().addItem(coffre);
+        joueur.getPlayer().getInventory().addItem(Main.getItemRole(ItRoles.TRIAL_BENIHIME));
         
-        ItemStack coffre2 = new ItemStack(Material.NETHER_STAR, 1);
-        ItemMeta coffreM2 = coffre2.getItemMeta();
-        coffreM2.setDisplayName("Sakashima Yokoshima");
-        coffre2.setItemMeta(coffreM2);
-        joueur.getPlayer().getInventory().addItem(coffre2);
+        joueur.getPlayer().getInventory().addItem(Main.getItemRole(ItRoles.TRIAL_SAKASHIMA));
 		
 	}
 	

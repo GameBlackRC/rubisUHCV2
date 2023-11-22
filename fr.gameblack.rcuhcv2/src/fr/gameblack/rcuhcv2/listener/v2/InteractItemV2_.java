@@ -8,7 +8,6 @@ import org.bukkit.event.block.Action;
 import org.bukkit.inventory.ItemStack;
 
 import fr.gameblack.rcuhcv2.Main;
-import fr.gameblack.rcuhcv2.classes.ItRoles;
 import fr.gameblack.rcuhcv2.classes.Joueur;
 import fr.gameblack.rcuhcv2.classes.Pouvoirs;
 import fr.gameblack.rcuhcv2.classes.Roles;
@@ -31,25 +30,26 @@ import fr.gameblack.rcuhcv2.roles.v2.uhc.Obscur;
 import fr.gameblack.rcuhcv2.roles.v2.uhc.Theoochoux;
 import fr.gameblack.rcuhcv2.roles.v2.uhc.Toinou;
 
-public class InteractItemV2 {
+public class InteractItemV2_ {
 	
+	@SuppressWarnings("deprecation")
 	public static void whenInteract(Joueur joueur, ItemStack it, Action action, Main main) {
 		
 		Player player = joueur.getPlayer();
 	
-        if (it.hasItemMeta() && it.getItemMeta().hasDisplayName() && it.getItemMeta().getDisplayName().equalsIgnoreCase(ItRoles.MALIVOL_CHEAT.getNom())) {
+        if (it.getTypeId() == 351 && it.hasItemMeta() && it.getItemMeta().hasDisplayName() && it.getItemMeta().getDisplayName().equalsIgnoreCase("Cheat")) {
 
             Malivol.InteractCheat(joueur, main, true);
 
-        } else if (it.hasItemMeta() && it.getItemMeta().hasDisplayName() && it.getItemMeta().getDisplayName().equalsIgnoreCase(ItRoles.RAPTOR_RAGE.getNom())) {
+        } else if (it.getTypeId() == 351 && it.hasItemMeta() && it.getItemMeta().hasDisplayName() && it.getItemMeta().getDisplayName().equalsIgnoreCase("Rage")) {
 
             Raptor.ItemRage(joueur, main);
 
-        } else if (it.hasItemMeta() && it.getItemMeta().hasDisplayName() && it.getItemMeta().getDisplayName().equalsIgnoreCase(ItRoles.SLUP_PACTES.getNom())) {
+        } else if (it.getType() == Material.NETHER_STAR && it.hasItemMeta() && it.getItemMeta().hasDisplayName() && it.getItemMeta().getDisplayName().equalsIgnoreCase("Pactes")) {
 
             Slup.interactPacte(joueur);
 
-        } else if (it.hasItemMeta() && it.getItemMeta().hasDisplayName() && it.getItemMeta().getDisplayName().equalsIgnoreCase(ItRoles.SLUP_SLIME.getNom())) {
+        } else if (it.getTypeId() == 351 && it.hasItemMeta() && it.getItemMeta().hasDisplayName() && it.getItemMeta().getDisplayName().equalsIgnoreCase("Slimetification")) {
 
             if(action == Action.LEFT_CLICK_AIR || action == Action.LEFT_CLICK_BLOCK) {
             	
@@ -62,31 +62,31 @@ public class InteractItemV2 {
             	
             } 
 
-        } else if (it.hasItemMeta() && it.getItemMeta().hasDisplayName() && it.getItemMeta().getDisplayName().equalsIgnoreCase(ItRoles.TRIAL_BENIHIME.getNom())) {
+        } else if (it.getType() == Material.NETHER_STAR && it.hasItemMeta() && it.getItemMeta().hasDisplayName() && it.getItemMeta().getDisplayName().equalsIgnoreCase("Benihime Aratame")) {
 
             Trial.ItemBenihimeAratame(joueur, main);
 
-        } else if (it.hasItemMeta() && it.getItemMeta().hasDisplayName() && it.getItemMeta().getDisplayName().equalsIgnoreCase(ItRoles.TEAM_JUSTICE.getNom())) {
+        } else if (it.getType() == Material.NETHER_STAR && it.hasItemMeta() && it.getItemMeta().hasDisplayName() && it.getItemMeta().getDisplayName().equalsIgnoreCase("Justice")) {
 
             Team.InteractJusticeStaff(joueur, main);
 
-        } else if (it.hasItemMeta() && it.getItemMeta().hasDisplayName() && it.getItemMeta().getDisplayName().equalsIgnoreCase(ItRoles.TRIAL_SAKASHIMA.getNom())) {
+        } else if (it.getType() == Material.NETHER_STAR && it.hasItemMeta() && it.getItemMeta().hasDisplayName() && it.getItemMeta().getDisplayName().equalsIgnoreCase("Sakashima Yokoshima")) {
 
             Trial.ItemSakashimaYokoshima(joueur, main);
 
-        } else if (it.hasItemMeta() && it.getItemMeta().hasDisplayName() && it.getItemMeta().getDisplayName().equalsIgnoreCase(ItRoles.JOKO_SPEEDCUBING.getNom())) {
+        } else if (it.getTypeId() == 351 && it.hasItemMeta() && it.getItemMeta().hasDisplayName() && it.getItemMeta().getDisplayName().equalsIgnoreCase("SpeedCubing")) {
 
             Joko.InteractSpeedcubing(joueur, main);
 
-        } else if (it.hasItemMeta() && it.getItemMeta().hasDisplayName() && it.getItemMeta().getDisplayName().equalsIgnoreCase(ItRoles.GAMEBLACK_FUITE.getNom())) {
+        } else if (it.getTypeId() == 351 && it.hasItemMeta() && it.getItemMeta().hasDisplayName() && it.getItemMeta().getDisplayName().equalsIgnoreCase("Fuite")) {
 
             GameBlack.InteractFuite(joueur, main);
 
-        } else if (it.hasItemMeta() && it.getItemMeta().hasDisplayName() && it.getItemMeta().getDisplayName().equalsIgnoreCase(ItRoles.OBSCUR_ADAPTION.getNom())) {
+        } else if (it.getType() == Material.NETHER_STAR && it.hasItemMeta() && it.getItemMeta().hasDisplayName() && it.getItemMeta().getDisplayName().equalsIgnoreCase("Adaption")) {
 
             Obscur.InteractAdaption(joueur, main);
 
-        } else if (it.hasItemMeta() && it.getItemMeta().hasDisplayName() && it.getItemMeta().getDisplayName().equalsIgnoreCase(ItRoles.THEOCHOUX_ROLLBACK.getNom())) {
+        } else if (it.getType() == Material.NETHER_STAR && it.hasItemMeta() && it.getItemMeta().hasDisplayName() && it.getItemMeta().getDisplayName().equalsIgnoreCase("RollBack")) {
 
         	if(joueur.getRole() == Roles.FARMEURIMMO && joueur.getVol().contains(Pouvoirs.THEOOCHOUX_MINIROLLBACK)) {
         		
@@ -103,19 +103,19 @@ public class InteractItemV2 {
             	
             } 
 
-        } else if (it.hasItemMeta() && it.getItemMeta().hasDisplayName() && it.getItemMeta().getDisplayName().equalsIgnoreCase(ItRoles.HEKOW_JEU.getNom())) {
+        } else if (it.getType() == Material.NETHER_STAR && it.hasItemMeta() && it.getItemMeta().hasDisplayName() && it.getItemMeta().getDisplayName().equalsIgnoreCase("Jeu meurtrier")) {
 
             Hekow.interactJeu(joueur, main);
 
-        } else if (it.getType() == Material.BOOK && it.hasItemMeta() && it.getItemMeta().hasDisplayName() && it.getItemMeta().getDisplayName().equalsIgnoreCase(ItRoles.TOINOU_LIVRE.getNom())) {
+        } else if (it.getType() == Material.BOOK && it.hasItemMeta() && it.getItemMeta().hasDisplayName() && it.getItemMeta().getDisplayName().equalsIgnoreCase("Livre des morts")) {
 
             Toinou.InteractBook(joueur, main);
 
-        } else if (it.getType() == Material.REDSTONE_BLOCK && it.hasItemMeta() && it.getItemMeta().hasDisplayName() && it.getItemMeta().getDisplayName().equalsIgnoreCase(ItRoles.TOINOU_TOTEM.getNom())) {
+        } else if (it.getType() == Material.REDSTONE_BLOCK && it.hasItemMeta() && it.getItemMeta().hasDisplayName() && it.getItemMeta().getDisplayName().equalsIgnoreCase("Totem")) {
 
             Toinou.InteractTotem(joueur, main);
 
-        } else if (it.hasItemMeta() && it.getItemMeta().hasDisplayName() && it.getItemMeta().getDisplayName().equalsIgnoreCase(ItRoles.LOUP_BATEAU.getNom())) {
+        } else if (it.getType() == Material.NETHER_STAR && it.hasItemMeta() && it.getItemMeta().hasDisplayName() && it.getItemMeta().getDisplayName().equalsIgnoreCase("Super bateau")) {
 
         	if(!joueur.getCD().contains(Pouvoirs.LOUP_SUPERBATEAU)) {
         		

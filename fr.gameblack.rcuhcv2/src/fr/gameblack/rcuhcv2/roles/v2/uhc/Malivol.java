@@ -11,6 +11,7 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 import fr.gameblack.rcuhcv2.Main;
+import fr.gameblack.rcuhcv2.classes.ItRoles;
 import fr.gameblack.rcuhcv2.classes.Joueur;
 import fr.gameblack.rcuhcv2.classes.Pouvoirs;
 import fr.gameblack.rcuhcv2.task.v2.ItemCD;
@@ -22,14 +23,8 @@ public class Malivol {
     	Player player = joueur.getPlayer();
     	
         Texte(player);
-        @SuppressWarnings("deprecation")
-		ItemStack coffre = new ItemStack(351, 1, (short) 9);
-        //ItemStack coffre = new ItemStack(Material.NETHER_STAR, 1);
-        ItemMeta coffreM = coffre.getItemMeta();
-        coffreM.setDisplayName("Cheat");
-        coffre.setItemMeta(coffreM);
 
-        player.getInventory().addItem(coffre);
+        player.getInventory().addItem(Main.getItemRole(ItRoles.MALIVOL_CHEAT));
         player.addPotionEffect(new PotionEffect(PotionEffectType.FAST_DIGGING, 999999, 0, false, false));
         joueur.addSpeed(0.05);
 

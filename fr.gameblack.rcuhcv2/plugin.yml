@@ -4,6 +4,9 @@ author: GameBlack
 main: fr.gameblack.rcuhcv2.Main
 api-version: 1.8.9
 commands:
+  addpoints:
+    description : Permet d'ajouter des points pour les rôles Toinou & démon Ange
+    permission: rcuhc.addpoints
   addrole:
     description: Ajoute un rôle à la compo
   removerole:
@@ -77,6 +80,8 @@ commands:
   rcforme:
     description: Commande du role Maka
   rcvacance:
+    description: Commande du role Toinou
+  rctraque:
     description: Commande du role Toinou
   rcmaudit:
     description: Commande du role Obscur

@@ -10,6 +10,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 public class RollBackCD extends BukkitRunnable {
 
+	@SuppressWarnings("unused")
 	private Main main;
     private Location loc;
     private Inventory inv;
