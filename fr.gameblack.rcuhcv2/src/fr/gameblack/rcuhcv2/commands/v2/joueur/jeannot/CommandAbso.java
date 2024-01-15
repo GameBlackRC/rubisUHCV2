@@ -7,6 +7,7 @@ import org.bukkit.entity.Player;
 
 import fr.gameblack.rcuhcv2.Main;
 import fr.gameblack.rcuhcv2.classes.Joueur;
+import fr.gameblack.rcuhcv2.classes.Modes;
 import fr.gameblack.rcuhcv2.classes.Roles;
 
 public class CommandAbso implements CommandExecutor {
@@ -25,7 +26,7 @@ public class CommandAbso implements CommandExecutor {
 			Player player = (Player) sender;
 			Joueur joueur = main.getJoueur(player);
 			
-			if(main.getMode().equalsIgnoreCase("rapide") && (joueur.getRole() == Roles.JEANNOT || joueur.getRole() == Roles.TEST)) {
+			if(main.getMode() == Modes.RAPIDE && (joueur.getRole() == Roles.JEANNOT || joueur.getRole() == Roles.TEST)) {
 				
 				if(joueur.isJeannotAbso()) {
 					

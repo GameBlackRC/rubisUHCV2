@@ -8,6 +8,7 @@ import org.bukkit.entity.Player;
 
 import fr.gameblack.rcuhcv2.Main;
 import fr.gameblack.rcuhcv2.classes.Joueur;
+import fr.gameblack.rcuhcv2.classes.Modes;
 import fr.gameblack.rcuhcv2.classes.Roles;
 import fr.gameblack.rcuhcv2.roles.v1.solo.KzouV1;
 import fr.gameblack.rcuhcv2.roles.v2.solo.Kzou;
@@ -30,13 +31,22 @@ public class CommandDisperse implements CommandExecutor {
 			
 			if(main.getVersion() == 2 && (joueur.getRole() == Roles.KZOU || joueur.getRole() == Roles.TEST)) {
 				
-				Player cible_ = Bukkit.getPlayer(args[0]);
-	
-	            if (cible_ != null) {
-	            	
-	            	Kzou.CommandDisperse(joueur, main.getJoueur(cible_), main);
-	            	
-	            }
+				if(main.getMode() != Modes.RAPIDE) {
+				
+					Player cible_ = Bukkit.getPlayer(args[0]);
+		
+		            if (cible_ != null) {
+		            	
+		            	Kzou.CommandDisperse(joueur, main.getJoueur(cible_), main);
+		            	
+		            }
+		            
+				}
+				else {
+					
+					player.sendMessage("Cette commande est désactivé en mode rapide");
+					
+				}
 				
 			}
 			else if(main.getVersion() == 1 && joueur.getRole() == Roles.Kzou) {

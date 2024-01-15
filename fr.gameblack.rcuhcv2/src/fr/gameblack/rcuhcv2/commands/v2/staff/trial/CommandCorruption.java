@@ -33,7 +33,7 @@ private Main main;
         	Player cible_ = Bukkit.getPlayer(args[0]);
         	Joueur cible = main.getJoueur(cible_);
 
-            if (cible_ != null && (joueur.getRole() == Roles.TRIAL && joueur.getModeTrial(main) == "serieux")) {
+            if (cible_ != null && (joueur.getRole() == Roles.TRIAL && joueur.getModeTrial() == "serieux")) {
             	
             	if(Trial.getNbUtilisationCorruption() < 2) {
             	

@@ -17,6 +17,8 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import fr.gameblack.rcuhcv2.Main;
 import fr.gameblack.rcuhcv2.Statut;
+import fr.gameblack.rcuhcv2.classes.Camps;
+import fr.gameblack.rcuhcv2.classes.ItRoles;
 import fr.gameblack.rcuhcv2.classes.Joueur;
 import fr.gameblack.rcuhcv2.classes.Pouvoirs;
 import fr.gameblack.rcuhcv2.classes.Roles;
@@ -28,6 +30,7 @@ import fr.gameblack.rcuhcv2.orbes.v2.Feu;
 import fr.gameblack.rcuhcv2.orbes.v2.Foudre;
 import fr.gameblack.rcuhcv2.orbes.v2.Glace;
 import fr.gameblack.rcuhcv2.roles.v2.staff.Hekow;
+import fr.gameblack.rcuhcv2.roles.v2.staff.JeuxTrial;
 import fr.gameblack.rcuhcv2.roles.v2.staff.Loup;
 
 import java.util.ArrayList;
@@ -88,7 +91,7 @@ public class ItemCD extends BukkitRunnable {
     		
     	}
     	
-    	if(item == "jackpot_hekow" && timer%10 == 0) {
+    	if(item == "jackpot_hekow" && timer%5 == 0) {
     		
     		if(joueur.getPlayer().getHealth() + 1 < joueur.getPlayer().getMaxHealth()) {
     			
@@ -117,7 +120,7 @@ public class ItemCD extends BukkitRunnable {
     	
     	if(item == "soleil" && timer == 30) {
     		
-    		main.setJeuTrial("soleil");
+    		main.setJeuTrial(JeuxTrial.SOLEIL);
     		joueur.getPlayer().sendMessage("Le jeu 1, 2, 3 soleil commence !");
     		cible.getPlayer().sendMessage("Le jeu 1, 2, 3 soleil commence !");
     		
@@ -305,7 +308,11 @@ public class ItemCD extends BukkitRunnable {
 	
 	                Mort.setMort(cible, joueur, event, main);
 	
-	            } else if(item == "maudit_uhc_1") {
+	            } else if(item == "BOTmange") {
+            		
+            		joueur.setBOTMange(false);
+            		
+            	} else if(item == "maudit_uhc_1") {
             		
             		joueur.removeForce(0.03);
             		joueur.setAbso(true);
@@ -778,7 +785,7 @@ public class ItemCD extends BukkitRunnable {
 	            		
 	            		for(Joueur j : players) {
 	            			
-	            			j.addForce(0.03);
+	            			j.addForce(0.02);
 	            			
 	            		}
 	            		
@@ -900,6 +907,12 @@ public class ItemCD extends BukkitRunnable {
 	            		
 	            		joueur.removeSpeed(0.1);
 	            		
+	            		if(nombre == 1) {
+	            			
+	            			main.getJoueurByRole(Roles.TOINOU);
+	            			
+	            		}
+	            		
 	            	}
 	            	
 	            } else if(joueur.getRole() == Roles.KZOU || joueur.getVol().contains(Pouvoirs.KZOU_BAN)) {
@@ -934,6 +947,7 @@ public class ItemCD extends BukkitRunnable {
 	            	
 	            	main.setAdaptionAvantObscur(main.getAdaptionObscur());
 	            	main.getAdaptionObscur().clear();
+	            	joueur.getPlayer().sendMessage("Votre pouvoir est désormais fini");
 	            	
 	            } else if(joueur.getRole() == Roles.TEAM) {
 	            	
@@ -952,7 +966,7 @@ public class ItemCD extends BukkitRunnable {
 	            				
 	            				j.setInZoneJustice(false);
 
-	        					if(j.getCamp().equalsIgnoreCase("staff") || j.getRole() == Roles.TRIAL || j.getRole() == Roles.GAMEBLACK) {
+	        					if(j.getCamp() == Camps.STAFF || j.getRole() == Roles.TRIAL || j.getRole() == Roles.GAMEBLACK) {
 	        						
 	        						j.removeSpeed(0.05);
 	        						
@@ -1086,9 +1100,9 @@ public class ItemCD extends BukkitRunnable {
 	            	} else if(item == "jackpot_hekow") {
 	            		
 	            		joueur.getPlayer().sendMessage("Votre compétence jackpot est désormais fini");
-	            		joueur.removeSpeed(0.1);
+	            		joueur.removeSpeed(0.2);
 	            		joueur.removeForce(0.02);
-	            		if(!joueur.getCamp().equalsIgnoreCase("farmeurimmo")) {
+	            		if(joueur.getCamp() != Camps.FARMEURIMMO) {
 	            			
 	            			joueur.addResi(0.02);
 	            		
@@ -1125,6 +1139,15 @@ public class ItemCD extends BukkitRunnable {
 	            		
 	            		joueur.getCD().remove(Pouvoirs.THEOOCHOUX_MINIROLLBACK);
 	            		joueur.getPlayer().sendMessage("Le cooldown de votre mini rollback est désormais fini");
+	            		
+	            	}
+	            	
+	            }
+	            else if(joueur.getRole() == Roles.THEOOCHOUX) {
+	            	
+	            	if(item == "romprems_pearl") {
+	            		
+	            		joueur.getPlayer().getInventory().setItemInHand(Main.getItemRole(ItRoles.ROMPREMS_PEARL));
 	            		
 	            	}
 	            	

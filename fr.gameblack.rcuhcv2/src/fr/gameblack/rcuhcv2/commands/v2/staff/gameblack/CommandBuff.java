@@ -38,7 +38,7 @@ private Main main;
 	        	
 	        	String buff = args[1];
 	
-	            if (cible_ != null && (joueur.getRole() == Roles.GAMEBLACK && joueur.getModeTrial(main) == "serieux")) {
+	            if (cible_ != null && (joueur.getRole() == Roles.GAMEBLACK && joueur.getModeTrial() == "serieux")) {
 	            	
 	            	if(buff.equalsIgnoreCase("coeur") || buff.equalsIgnoreCase("force") || buff.equalsIgnoreCase("speed") || buff.equalsIgnoreCase("resi")) {
 	                	

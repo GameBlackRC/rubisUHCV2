@@ -6,6 +6,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import fr.gameblack.rcuhcv2.Main;
+import fr.gameblack.rcuhcv2.classes.Camps;
 import fr.gameblack.rcuhcv2.classes.Joueur;
 import fr.gameblack.rcuhcv2.classes.Pouvoirs;
 import fr.gameblack.rcuhcv2.classes.Roles;
@@ -28,7 +29,7 @@ public class CommandConsole implements CommandExecutor {
             
             Joueur joueur = main.getJoueur(player);
             
-            if(joueur.getRole() == Roles.GAMEBLACK && joueur.getCamp().equalsIgnoreCase("staff")) {
+            if(joueur.getRole() == Roles.GAMEBLACK && joueur.getCamp() == Camps.STAFF) {
 
 	            if (!joueur.getCD().contains(Pouvoirs.GAMEBLACK_CONSOLE)) {
 	            	

@@ -66,7 +66,7 @@ public class InteractItemV2_ {
 
             Trial.ItemBenihimeAratame(joueur, main);
 
-        } else if (it.getType() == Material.NETHER_STAR && it.hasItemMeta() && it.getItemMeta().hasDisplayName() && it.getItemMeta().getDisplayName().equalsIgnoreCase("Justice")) {
+        } else if (it.getType() == Material.BLAZE_POWDER && it.hasItemMeta() && it.getItemMeta().hasDisplayName() && it.getItemMeta().getDisplayName().equalsIgnoreCase("Justice")) {
 
             Team.InteractJusticeStaff(joueur, main);
 

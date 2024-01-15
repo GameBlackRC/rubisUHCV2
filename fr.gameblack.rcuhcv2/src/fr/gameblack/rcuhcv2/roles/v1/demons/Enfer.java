@@ -1,6 +1,7 @@
 package fr.gameblack.rcuhcv2.roles.v1.demons;
 
 import fr.gameblack.rcuhcv2.Main;
+import fr.gameblack.rcuhcv2.classes.Camps;
 import fr.gameblack.rcuhcv2.classes.Joueur;
 import fr.gameblack.rcuhcv2.classes.Pouvoirs;
 import fr.gameblack.rcuhcv2.classes.Roles;
@@ -77,7 +78,7 @@ public class Enfer {
                     
                     Joueur j = main.getJoueur(pls);
 
-                    if (j.getCamp().equalsIgnoreCase("demon")) {
+                    if (j.getCamp() == Camps.DEMON) {
 
                         fire.add(j);
 

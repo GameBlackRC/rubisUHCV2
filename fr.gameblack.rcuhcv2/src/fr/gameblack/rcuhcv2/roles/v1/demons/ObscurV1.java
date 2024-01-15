@@ -11,6 +11,7 @@ import org.bukkit.potion.PotionEffectType;
 
 import fr.gameblack.rcuhcv2.Main;
 import fr.gameblack.rcuhcv2.classes.Joueur;
+import fr.gameblack.rcuhcv2.classes.Modes;
 import fr.gameblack.rcuhcv2.classes.Roles;
 import fr.gameblack.rcuhcv2.classes.v1.Pieces;
 import fr.gameblack.rcuhcv2.orbes.Orbe;
@@ -82,7 +83,7 @@ public class ObscurV1 {
 
     public static void CommandCopie(Joueur joueur, Joueur cible, Main main) {
 
-        if (cible.getNBObscurCopie() == 300 || main.getMode() == "rapide") {
+        if (cible.getNBObscurCopie() == 300 || main.getMode() == Modes.RAPIDE) {
 
             if (cible.getOrbe() == Orbe.NONE) {
 

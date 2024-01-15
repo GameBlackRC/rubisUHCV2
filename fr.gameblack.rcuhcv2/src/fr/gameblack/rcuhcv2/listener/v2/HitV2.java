@@ -2,11 +2,17 @@ package fr.gameblack.rcuhcv2.listener.v2;
 
 import java.util.Random;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
 import fr.gameblack.rcuhcv2.Main;
+import fr.gameblack.rcuhcv2.classes.Camps;
 import fr.gameblack.rcuhcv2.classes.Joueur;
+import fr.gameblack.rcuhcv2.classes.Modes;
 import fr.gameblack.rcuhcv2.classes.Pouvoirs;
 import fr.gameblack.rcuhcv2.classes.Roles;
 import fr.gameblack.rcuhcv2.roles.v2.joueur.Raptor;
@@ -17,10 +23,110 @@ import fr.gameblack.rcuhcv2.task.v2.ItemCD;
 
 public class HitV2 {
 	
+	public static void botHit(Joueur joueur, Joueur tueur, Main main) {
+		
+		if(tueur == null) {
+			
+			tueur = joueur.getCibleBot();
+			
+		}
+        	
+        if(tueur != joueur.getLastHit()) {
+        		
+        	Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(), "tell " + joueur.getPlayer().getName() + " stoppvp");
+        	Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(), "tell " + joueur.getPlayer().getName() + " pvp " + tueur.getPlayer().getName());
+        	joueur.setCibleBot(tueur);
+        		
+        }
+        if(joueur.getPlayer().getHealth() < 4) {
+        		
+        	if((joueur.getRole() == Roles.FARMEURIMMO && joueur.getVol().contains(Pouvoirs.TOINOU_VACANCES)) || (joueur.getRole() == Roles.TOINOU && joueur.getCamp() != Camps.FARMEURIMMO)) {
+        			
+        		Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(), "tell " + joueur.getPlayer().getName() + " toinouvacance");
+        			
+        	}
+        	else if(joueur.getRole() == Roles.SLUP) {
+        			
+        		Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(), "tell " + joueur.getPlayer().getName() + " slupmort");
+        			
+        	}
+        	else if((joueur.getRole() == Roles.FARMEURIMMO && joueur.getVol().contains(Pouvoirs.KZOU_BAN)) || (joueur.getRole() == Roles.KZOU && joueur.getCamp() != Camps.FARMEURIMMO)) {
+        			
+        		Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(), "tell " + joueur.getPlayer().getName() + " kzouban " + tueur.getPlayer().getName());
+        			
+        	}
+        		
+        }
+        if(joueur.getPlayer().getHealth() < 8 && joueur.getPlayer().getInventory().contains(Material.GOLDEN_APPLE) && !joueur.isBOTMange()) {
+        		
+        	Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(), "tell " + joueur.getPlayer().getName() + " stoppvp");
+        	Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(), "tell " + joueur.getPlayer().getName() + " mange");
+        	joueur.setBOTMange(true);
+        	ItemCD cycle = new ItemCD(main, joueur, "BOTmange", 3, joueur, null, null, 0, null);
+        	cycle.runTaskTimer(main, 0, 20);
+        		
+        }
+		
+	}
+	
 	public static void whenHit(Joueur joueur, Joueur tueur, Main main, EntityDamageByEntityEvent event) {
 		
 		Random r = new Random();
         int nb = r.nextInt(100);
+        
+        if(joueur.isBot()) {
+        	
+        	botHit(joueur, tueur, main);
+        	
+        }
+        
+        if(tueur.getRole() == Roles.ROMPREMS && tueur.getNbKillBlaze() > 0) {
+        	
+			nb = r.nextInt(100);
+			
+			if(tueur.getNbKillBlaze()*2 > nb) {
+				
+				joueur.getPlayer().setFireTicks(100);
+				
+			}
+        	
+        }
+        
+        if(tueur.getRole() == Roles.TRIAL && tueur.getModeTrial().equalsIgnoreCase("serieux")) {
+			
+        	nb = r.nextInt(100);
+            
+            if(nb <= 20) {
+			
+            	tueur.removeTrialHydratation(1);
+			
+            }
+            
+            if(tueur.getTrialStadeActif() == 10) {
+            	
+            	nb = r.nextInt(100);
+                
+                if(nb <= 2) {
+                	
+                	tueur.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION,100,0));
+                	
+                }
+            	
+            }
+            
+            if(tueur.getTrialStadeActif() == 11) {
+            	
+            	nb = r.nextInt(100);
+                
+                if(nb <= 5) {
+                	
+                	tueur.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION,100,0));
+                	
+                }
+            	
+            }
+			
+		}
         
         if(tueur.getRole() == Roles.THEOOCHOUX) {
         	
@@ -30,7 +136,7 @@ public class HitV2 {
         
         if((nb <= 50 && joueur.getRole() != Roles.THEOOCHOUX) || (joueur.getRole() == Roles.THEOOCHOUX && nb <= (50-joueur.getStadeTheochouxHack()))) {
 		
-        	if(main.getMode().equalsIgnoreCase("rapide")) {
+        	if(main.getMode() == Modes.RAPIDE) {
         	
         		joueur.addPourcentHack(2, main, GameCycle.getScoreboardFarmeurimmo());
         		
@@ -45,7 +151,7 @@ public class HitV2 {
         
         if(tueur.getRole() == Roles.HEKOW && tueur.isHekowJeuActif()) {
         	
-        	tueur.addHekowPourcent(2);
+        	tueur.addHekowPourcent(1);
         	
         }
 		
@@ -81,13 +187,14 @@ public class HitV2 {
 			
 		}
 		
-        if(joueur.getRole() == Roles.GAMEBLACK && main.getJoueurByRole(Roles.GAMEBLACK).getCamp().equalsIgnoreCase("uhc")) {
+        if(joueur.getRole() == Roles.GAMEBLACK && main.getJoueurByRole(Roles.GAMEBLACK).getCamp() == Camps.UHC) {
     		
             nb = r.nextInt(100);
         	
-    		if(nb <= 5 && main.getJoueurByRole(Roles.GAMEBLACK).getSpeed() < 1.2) {
+    		if(nb <= 5 && main.getJoueurByRole(Roles.GAMEBLACK).getNbSpeedGBUHC() < 10) {
     			
     			main.getJoueurByRole(Roles.GAMEBLACK).addSpeed(0.01);
+    			main.getJoueurByRole(Roles.GAMEBLACK).addNbSpeedGBUHC(1);
     			
     		}
     		
@@ -257,7 +364,7 @@ public class HitV2 {
                 	}
                 	else {
                 		
-                		if(joueur.getRole() != Roles.Obscur && !main.getAdaptionPermaObscur().contains(Pouvoirs.JOKO_CUBE))
+                		if(joueur.getRole() != Roles.Obscur && !main.getAdaptionPermaObscur().contains(Pouvoirs.JOKO_CUBE)) {
 
 	                    	joueur.Stun(10, main);
 	                    	joueur.removeCube(main);
@@ -267,6 +374,8 @@ public class HitV2 {
 	
 	                        ItemCD cycle = new ItemCD(main, tueur, "stun", 10, joueur, null, null, 0, null);
 	                        cycle.runTaskTimer(main, 0, 20);
+	                        
+                		}
                         
                 	}
 

@@ -14,12 +14,10 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.scoreboard.DisplaySlot;
-import org.bukkit.scoreboard.Objective;
-import org.bukkit.scoreboard.Score;
 
 import fr.gameblack.rcuhcv2.Main;
 import fr.gameblack.rcuhcv2.classes.Joueur;
+import fr.gameblack.rcuhcv2.classes.Modes;
 import fr.gameblack.rcuhcv2.classes.Pouvoirs;
 import fr.gameblack.rcuhcv2.classes.Roles;
 import fr.gameblack.rcuhcv2.classes.v1.Pieces;
@@ -205,6 +203,18 @@ public class InventoryInteractListener implements Listener {
                     	slot2 += 1;
                     	
                     }
+                    if(main.getCompo().contains(Roles.THEOOCHOUX)) {
+                    	
+                    	inv_pacte.setItem(slot2, Main.getItem(Material.BARRIER, "§2Theoochoux", ""));
+                    	slot2 += 1;
+                    	
+                    }
+					if(main.getCompo().contains(Roles.NONOBOY)) {
+						
+						inv_pacte.setItem(slot2, Main.getItem(Material.GRASS, "§2RomPrems", ""));
+						slot2 += 1;
+						
+					}
 
                     player.openInventory(inv_pacte);
 
@@ -1458,29 +1468,35 @@ public class InventoryInteractListener implements Listener {
 	        			
 	        		case BOOK:
 	        			
-	        			if(joueur.getPoints() >= 1) {
-	        				
-	        				joueur.removePoints(1);
+	        			if(joueur.getAchatLivreToinou() < 5) {
 	        			
-		        			ItemStack book = new ItemStack(Material.BOOK, 1);
-		                    ItemMeta bookM = book.getItemMeta();
-		                    bookM.setDisplayName("Livre des morts");
-		                    book.setItemMeta(bookM);
-		                    
-		                    joueur.getPlayer().getInventory().addItem(book);
-		                    
-	        			}
-	        			else if(!joueur.isFirstItemToinou()) {
-	        				
-	        				joueur.setFirstItemToinou(true);
-	        				
-	        				ItemStack book = new ItemStack(Material.BOOK, 1);
-		                    ItemMeta bookM = book.getItemMeta();
-		                    bookM.setDisplayName("Livre des morts");
-		                    book.setItemMeta(bookM);
-		                    
-		                    joueur.getPlayer().getInventory().addItem(book);
-	        				
+		        			if(joueur.getPoints() >= 1) {
+		        				
+		        				joueur.removePoints(1);
+		        				
+		        				joueur.setAchatLivreToinou(joueur.getAchatLivreToinou()-1);
+		        			
+			        			ItemStack book = new ItemStack(Material.BOOK, 1);
+			                    ItemMeta bookM = book.getItemMeta();
+			                    bookM.setDisplayName("Livre des morts");
+			                    book.setItemMeta(bookM);
+			                    
+			                    joueur.getPlayer().getInventory().addItem(book);
+			                    
+		        			}
+		        			else if(!joueur.isFirstItemToinou()) {
+		        				
+		        				joueur.setFirstItemToinou(true);
+		        				
+		        				ItemStack book = new ItemStack(Material.BOOK, 1);
+			                    ItemMeta bookM = book.getItemMeta();
+			                    bookM.setDisplayName("Livre des morts");
+			                    book.setItemMeta(bookM);
+			                    
+			                    joueur.getPlayer().getInventory().addItem(book);
+		        				
+		        			}
+		        			
 	        			}
 	        			
 	        			break;
@@ -1976,7 +1992,7 @@ public class InventoryInteractListener implements Listener {
 
                 	if (main.getHostBase() == null) {
                 		
-                		main.setMode("rapide");
+                		main.setMode(Modes.RAPIDE);
                 		player.sendMessage("Vous avez selectionner le mode rapide");
                 		System.out.println("Mode : " + main.getMode());
                 		main.setHostBase(joueur);
@@ -2007,7 +2023,7 @@ public class InventoryInteractListener implements Listener {
                 	
                 	if (main.getHostBase() == null) {
                 		
-                		main.setMode("meetup");
+                		main.setMode(Modes.RAPIDE);
                 		player.sendMessage("Vous avez selectionner le mode meetup");
                 		System.out.println("Mode : " + main.getMode());
                 		main.setHostBase(joueur);
@@ -2038,7 +2054,7 @@ public class InventoryInteractListener implements Listener {
 
                 	if (main.getHostBase() == null) {
                 		
-                		main.setMode("normal");
+                		main.setMode(Modes.NORMAL);
                 		player.sendMessage("Vous avez selectionner le mode normal");
                 		System.out.println("Mode : " + main.getMode());
                 		main.setHostBase(joueur);
@@ -2073,7 +2089,7 @@ public class InventoryInteractListener implements Listener {
 
                 case SUGAR:
                 		
-                	main.setMode("rapide");
+                	main.setMode(Modes.RAPIDE);
                 	player.sendMessage("Vous avez selectionner le mode rapide");
                 	
                 	main.updateScoreboard();
@@ -2084,7 +2100,7 @@ public class InventoryInteractListener implements Listener {
                     
                 case REDSTONE:
                 		
-                	main.setMode("meetup");
+                	main.setMode(Modes.RAPIDE);
                 	player.sendMessage("Vous avez selectionner le mode meetup");
                 	
                 	main.updateScoreboard();
@@ -2093,7 +2109,7 @@ public class InventoryInteractListener implements Listener {
 
                 case DIAMOND_PICKAXE:
 
-                	main.setMode("normal");
+                	main.setMode(Modes.NORMAL);
                 	player.sendMessage("Vous avez selectionner le mode normal");
 
                 	main.updateScoreboard();

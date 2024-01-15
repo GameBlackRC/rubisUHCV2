@@ -6,6 +6,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import fr.gameblack.rcuhcv2.Main;
+import fr.gameblack.rcuhcv2.classes.Camps;
 import fr.gameblack.rcuhcv2.classes.Joueur;
 import fr.gameblack.rcuhcv2.classes.Roles;
 import fr.gameblack.rcuhcv2.classes.v1.Pouvoirs_GB;
@@ -42,7 +43,7 @@ public class CommandChoose implements CommandExecutor {
                 			
                 	}
 
-                } else if(joueur.getCamp().equalsIgnoreCase("solo") && main.getJoueurByRole(Roles.GameBlack) != null && main.getJoueurByRole(Roles.GameBlack).getPouvoirGB() == Pouvoirs_GB.SPEED && joueur.getGBPourcent() >= 90) {
+                } else if(joueur.getCamp() == Camps.SOLOS && main.getJoueurByRole(Roles.GameBlack) != null && main.getJoueurByRole(Roles.GameBlack).getPouvoirGB() == Pouvoirs_GB.SPEED && joueur.getGBPourcent() >= 90) {
                 	
                 	if(args[0].equalsIgnoreCase("coeur")) {
             			

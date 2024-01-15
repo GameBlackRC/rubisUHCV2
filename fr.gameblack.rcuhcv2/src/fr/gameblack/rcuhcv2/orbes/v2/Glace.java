@@ -29,6 +29,21 @@ public class Glace {
     	}
 
     }
+	
+	public static void Active(Joueur joueur, boolean give) {
+		
+		if(give) {
+			
+			joueur.addForce(0.01);
+			
+		}
+		else {
+			
+			joueur.removeForce(0.01);
+			
+		}
+		
+	}
 
     public static void Bonus(Joueur joueur, Main main, boolean give) {
     	

@@ -3,6 +3,7 @@ package fr.gameblack.rcuhcv2.roles.v2.staff;
 import java.util.Random;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Sound;
 import org.bukkit.entity.Entity;
@@ -29,12 +30,19 @@ public class Trial {
 	public static void Items(Joueur joueur) {
 		
 		Texte(joueur.getPlayer());
+		if(joueur.isBot()) {
+			
+			Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(), "tell " + joueur.getPlayer().getName() + " role Trial");
+			
+		}
 		
 	}
 	
 	public static void ItemsSerieux(Joueur joueur) {
 		
-		joueur.addResi(0.02);
+		joueur.getPlayer().getInventory().addItem(Main.getItemRole(ItRoles.TRIAL_COLA));
+		joueur.addResi(0.01);
+		joueur.addForce(0.01);
 		joueur.addSpeed(0.03);
 		
 	}
@@ -48,10 +56,11 @@ public class Trial {
 	
 	public static void ItemsSerieuxSolo(Joueur joueur) {
 		
-		joueur.setForce(1.02);
+		joueur.setForce(1.01);
 		joueur.setSpeed(1.05);
-		joueur.setResi(1.12);
-		joueur.getPlayer().setMaxHealth(22);
+		joueur.setResi(1.11);
+		joueur.getPlayer().setMaxHealth(20);
+		TexteSoloSerieux(joueur.getPlayer());
 		
         joueur.getPlayer().getInventory().addItem(Main.getItemRole(ItRoles.TRIAL_BENIHIME));
 		
@@ -59,10 +68,12 @@ public class Trial {
 	
 	public static void ItemsFunSolo(Joueur joueur) {
 		
-		joueur.setForce(1.02);
+		TexteSoloFun(joueur.getPlayer());
+		
+		joueur.setForce(1.01);
 		joueur.setSpeed(1.05);
-		joueur.setResi(1.12);
-		joueur.getPlayer().setMaxHealth(22);
+		joueur.setResi(1.11);
+		joueur.getPlayer().setMaxHealth(20);
 		
         joueur.getPlayer().getInventory().addItem(Main.getItemRole(ItRoles.TRIAL_BENIHIME));
         
@@ -70,29 +81,12 @@ public class Trial {
 		
 	}
 	
-	public static void CommandSacrifice(Joueur joueur, String choix) {
+	public static void InteractBouteille(Joueur joueur) {
 		
-		if(joueur.getUtilisationSacrificeTrial() < 4) {
+		if(joueur.getTrialBouteille() > 0) {
 			
-			joueur.addUtilisationSacrificeTrial();
-		
-			if(choix.equalsIgnoreCase("coeur")) {
-				
-				joueur.removeForce(0.02);
-				joueur.getPlayer().setMaxHealth(joueur.getPlayer().getMaxHealth() + 2);
-				
-			}
-			else {
-				
-				joueur.removeForce(0.02);
-				joueur.addSpeed(0.05);
-				
-			}
-			
-		}
-		else {
-			
-			joueur.getPlayer().sendMessage("Vous ne pouvez plus utiliser ce pouvoir");
+			joueur.removeTrialBouteille(1);
+			joueur.addTrialHydratation(100);
 			
 		}
 		
@@ -105,9 +99,27 @@ public class Trial {
         joueur.setInvulnerable(true);
         cible.setInvulnerable(true);
         
+        if(main.getJoueurByRole(Roles.GAMEBLACK) != null && main.getJoueurByRole(Roles.GAMEBLACK).isConsoleGBActif()) {
+			
+			Joueur gb = main.getJoueurByRole(Roles.GAMEBLACK);
+			
+            nb = r.nextInt(100);
+            
+            if(nb <= 80) {
+            	
+            	gb.getPlayer().sendMessage("[CONSOLE]" + ChatColor.MAGIC + "aaaaa" + ChatColor.RESET + " vient d'effectuer une commande");
+            	
+            }
+            else {
+            	
+            	gb.getPlayer().sendMessage("[CONSOLE]" + joueur.getPlayer().getName() + " vient d'effectuer une commande");
+            	
+            }
+			
+		}
+        
         if(nb == 0) {
         	
-        	main.setJeuTrial("soleil");
         	main.getJoueurJeuTrial().add(joueur);
         	main.getJoueurJeuTrial().add(cible);
         	JeuCD cycle = new JeuCD(main, joueur, cible, "soleil", 33);
@@ -121,7 +133,7 @@ public class Trial {
         }
         else { //if(nb == 1) {
         	
-        	main.setJeuTrial("takaoni");
+        	main.setJeuTrial(JeuxTrial.TAKAONI);
         	main.getJoueurJeuTrial().add(joueur);
         	main.getJoueurJeuTrial().add(cible);
         	JeuCD cycle = new JeuCD(main, joueur, cible, "takaoni", 8);
@@ -132,7 +144,7 @@ public class Trial {
         }
         //else {
         	
-        	//main.setJeuTrial("reflex");
+        	//main.setJeuTrial(JeuxTrial.REFLEX);
         	//main.getJoueurJeuTrial().add(joueur);
         	//main.getJoueurJeuTrial().add(cible);
         	//JeuCD cycle = new JeuCD(main, joueur, cible, "reflex", 30);
@@ -220,6 +232,27 @@ public class Trial {
 			
 			joueur.getPlayer().sendMessage("Vous venez d'activer votre pouvoir 'Sakashima Yokoshima'");
 			
+			if(main.getJoueurByRole(Roles.GAMEBLACK) != null && main.getJoueurByRole(Roles.GAMEBLACK).isConsoleGBActif()) {
+				
+				Joueur gb = main.getJoueurByRole(Roles.GAMEBLACK);
+				
+				Random r = new Random();
+				
+	            int nb = r.nextInt(100);
+	            
+	            if(nb <= 80) {
+	            	
+	            	gb.getPlayer().sendMessage("[CONSOLE]" + ChatColor.MAGIC + "aaaaa" + ChatColor.RESET + " vient d'utiliser un item");
+	            	
+	            }
+	            else {
+	            	
+	            	gb.getPlayer().sendMessage("[CONSOLE]" + joueur.getPlayer().getName() + " vient d'utiliser un item");
+	            	
+	            }
+				
+			}
+			
 			joueur.getCD().contains(Pouvoirs.TRIAL_SAKASHIMA);
 		
 			List<Joueur> inZone = new ArrayList<>();
@@ -269,6 +302,27 @@ public class Trial {
 		if(joueur.getCD().contains(Pouvoirs.TRIAL_BENIHIME)) {
 			
 			joueur.getPlayer().sendMessage("Vous venez d'activer votre pouvoir 'Benihime Aratame'");
+			
+			if(main.getJoueurByRole(Roles.GAMEBLACK) != null && main.getJoueurByRole(Roles.GAMEBLACK).isConsoleGBActif()) {
+				
+				Joueur gb = main.getJoueurByRole(Roles.GAMEBLACK);
+				
+				Random r = new Random();
+				
+	            int nb = r.nextInt(100);
+	            
+	            if(nb <= 80) {
+	            	
+	            	gb.getPlayer().sendMessage("[CONSOLE]" + ChatColor.MAGIC + "aaaaa" + ChatColor.RESET + " vient d'utiliser un item");
+	            	
+	            }
+	            else {
+	            	
+	            	gb.getPlayer().sendMessage("[CONSOLE]" + joueur.getPlayer().getName() + " vient d'utiliser un item");
+	            	
+	            }
+				
+			}
 			
 			joueur.getCD().add(Pouvoirs.TRIAL_BENIHIME);
 		
@@ -336,6 +390,26 @@ public class Trial {
 		cible.removeForce(0.02);
 		cible.removeSpeed(0.03);
 		joueur.getPlayer().sendMessage("Vous venez de corrompre " + cible.getPlayer().getName());
+		if(main.getJoueurByRole(Roles.GAMEBLACK) != null && main.getJoueurByRole(Roles.GAMEBLACK).isConsoleGBActif()) {
+			
+			Joueur gb = main.getJoueurByRole(Roles.GAMEBLACK);
+			
+			Random r = new Random();
+			
+            int nb = r.nextInt(100);
+            
+            if(nb <= 80) {
+            	
+            	gb.getPlayer().sendMessage("[CONSOLE]" + ChatColor.MAGIC + "aaaaa" + ChatColor.RESET + " vient d'effectuer une commande");
+            	
+            }
+            else {
+            	
+            	gb.getPlayer().sendMessage("[CONSOLE]" + joueur.getPlayer().getName() + " vient d'effectuer une commande");
+            	
+            }
+			
+		}
 		ItemCD cycle = new ItemCD(main, joueur, "corruption_trial", 600, cible, null, null, 0, null);
         cycle.runTaskTimer(main, 0, 20);
 		
@@ -372,9 +446,52 @@ public class Trial {
 	
 	public static void Texte(Player player) {
 
-        player.sendMessage("____________________________________________________\n \nVous êtes §9Trial\n§rVous devez gagner avec le §9camp staff§r\n \nAvec la commande /rcmode <serieux/fun>, vous pouvez choisir votre mode qui définira vos pouvoirs durant la totalité de la partie\n \nMode Sérieux :\nVous recevez 2% de résistance et 3% de speed permanent\nA chaque kill effectuer, vous obtenez 2% de force supplémentaire (Slup reçoit aussi 2% de force si vous êtes en duo avec lui)\nAvec la commande /rcsacrifice <coeur|regen>, vous perdez 4% de force permanent et vous gagnez 1 coeur permanent ou vous régénérer 2 coeurs\n \nMode fun :\nVous recevez 2% de speed et 2% de force permanent\n \nAvec la commande /rcplay <pseudo>, vous pouvez lancer un jeu avec un autre joueur (pour voir les jeux et les bonus/malus à recevoir, faites la commande /rcinfo). Vous et le joueur choisi seront invulnérables et ne pourrez pas mettre de coup.\n \nLorsque Loup vient à mourrir par un membre du camp UHC, si Slup a choisi le pacte 2 et qu'il n'est pas passé définitivement dans le camp joueur, vous devez gagnez avec lui, vous recevrez le pseudo du tueur de Loup et le tueur de Loup recevra votre pseudo. Sinon vous passez dans le camp UHC et vous recevez le pseudo du tueur de Loup et le tueur recevra votre pseudo.\n \n Si l'évènement 'Fermeture de Golden' vient à se déclancher, vous serez averti et si vous êtes dans le camp UHC lorsque l'évènement se déclance, vous devrez désormais gagner seul et vos pouvoirs changent\n \n____________________________________________________");
+        player.sendMessage("____________________________________________________\n \n"
+        		+ "Vous êtes §9Trial\n§r"
+        		+ "Vous devez gagner avec le §9camp staff§r\n \n"
+        		+ "Avec la commande /rcmode <serieux/fun>, vous pouvez choisir votre mode qui définira vos pouvoirs durant la totalité de la partie\n \n"
+        		+ "Mode Sérieux :\n"
+        		+ "Vous recevez 2% de résistance et 3% de speed permanent\n"
+        		+ "A chaque kill effectuer, vous obtenez 2% de force supplémentaire (Slup reçoit aussi 2% de force si vous êtes en duo avec lui)\n"
+        		+ "Avec la commande /rcsacrifice <coeur|regen>, vous perdez 4% de force permanent et vous gagnez 1 coeur permanent ou vous régénérer 2 coeurs\n \n"
+        		+ "Mode fun :\n"
+        		+ "Vous recevez 2% de speed et 2% de force permanent\n \n"
+        		+ "Avec la commande /rcplay <pseudo>, vous pouvez lancer un jeu avec un autre joueur (pour voir les jeux et les bonus/malus à recevoir, faites la commande /rcinfo). Vous et le joueur choisi seront invulnérables et ne pourrez pas mettre de coup.\n \n"
+        		+ "Lorsque Loup vient à mourrir par un membre du camp UHC, si Slup a choisi le pacte 2 et qu'il n'est pas passé définitivement dans le camp joueur, vous devez gagnez avec lui, vous recevrez le pseudo du tueur de Loup et le tueur de Loup recevra votre pseudo. Sinon vous passez dans le camp UHC et vous recevez le pseudo du tueur de Loup et le tueur recevra votre pseudo.\n \n"
+        		+ "Si l'évènement 'Fermeture de Golden' vient à se déclancher, vous serez averti et si vous êtes dans le camp UHC lorsque l'évènement se déclanche, vous devrez désormais gagner seul et vos pouvoirs changent\n \n"
+        		+ "____________________________________________________");
 
     }
+	
+	public static void TexteSoloFun(Player player) {
+		
+		player.sendMessage("____________________________________________________\n \n"
+        		+ "Vous êtes §6Trial\n§r"
+        		+ "Vous devez gagner §6seul§r\n \n"
+        		+ "Vous recevez 1% de force et de résistance ainsi que 5% de speed permanent\n \n"
+        		+ "Vous recevez un item nommé 'Benihime Aratame' qui vous permet de créer une zone de 20 blocs autour de vous pendant 1 minute.\n"
+        		+ "Les joueurs présent dans cette zone ne peuvent pas utiliser leur pouvoir et les pouvoirs actif sont désactiver.\n"
+        		+ "Pour chaque joueur dans cette zone, vous recevez 1% de force et 2% de speed\n \n"
+        		+ "Avec l'item 'Sakashima Yokoshima', vous créez une zone de 45 blocs pendant 1 minute et 30 secondes.\n"
+        		+ "Dans cette zone, vous serez invisible et les autres joueurs auront leur skins et pseudos mélanger dont vous.\n \n"
+        		+ "____________________________________________________");
+		
+	}
+	
+	public static void TexteSoloSerieux(Player player) {
+		
+		player.sendMessage("____________________________________________________\n \n"
+        		+ "Vous êtes §6Trial\n§r"
+        		+ "Vous devez gagner §6seul§r\n \n"
+        		+ "Vous recevez 1% de force et de résistance ainsi que 5% de speed permanent\n \n"
+        		+ "Vous recevez un item nommé 'Benihime Aratame' qui vous permet de créer une zone de 20 blocs autour de vous pendant 1 minute.\n"
+        		+ "Les joueurs présent dans cette zone ne peuvent pas utiliser leur pouvoir et les pouvoirs actif sont désactiver.\n"
+        		+ "Pour chaque joueur dans cette zone, vous recevez 1% de force et 2% de speed\n"
+        		+ "Avec la commande /rccorruption <pseudo>, vous pouvez corrompre un joueur qui perdra 1% de force ainsi que 3% de speed pendant 10 minutes.\n \n"
+        		+ "Les joueurs se trouvant autour du joueur corrompu perdront 1% de force\n"
+        		+ "____________________________________________________");
+		
+	}
 
 	public static int getNbUtilisationCorruption() {
 		return nbUtilisationCorruption;

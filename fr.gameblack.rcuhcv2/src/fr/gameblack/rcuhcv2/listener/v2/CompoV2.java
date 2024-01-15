@@ -413,15 +413,37 @@ public class CompoV2 {
         
         if(main.getCompo().contains(Roles.THEOOCHOUX)) {
         	
-        	soul.setAmount(1);
+        	lag.setAmount(1);
         	inv_compo.setItem(slot, lag);
         	slot += 1;
         	
         }
         else {
         	
-        	soul.setAmount(0);
+        	lag.setAmount(0);
         	inv_compo.setItem(slot, lag);
+        	slot += 1;
+        	
+        }
+
+        player.openInventory(inv_compo);
+        
+        ItemStack dirt = new ItemStack(Material.GRASS, 1);
+        ItemMeta dirtM = dirt.getItemMeta();
+        dirtM.setDisplayName("§a RomPrems");
+        dirt.setItemMeta(dirtM);
+        
+        if(main.getCompo().contains(Roles.ROMPREMS)) {
+        	
+        	dirt.setAmount(1);
+        	inv_compo.setItem(slot, dirt);
+        	slot += 1;
+        	
+        }
+        else {
+        	
+        	dirt.setAmount(0);
+        	inv_compo.setItem(slot, dirt);
         	slot += 1;
         	
         }
@@ -800,6 +822,24 @@ public class CompoV2 {
         		else {
         			
         			main.getCompo().add(Roles.THEOOCHOUX);
+        			current.setAmount(1);
+        			
+        		}
+        		
+        		break;
+        		
+        	case GRASS:
+        		
+        		if(main.getCompo().contains(Roles.ROMPREMS)) {
+        			
+        			main.getCompo().remove(Roles.ROMPREMS);
+        			current.setAmount(0);
+        			getCompoUHC(player, main, gestion);
+        			
+        		}
+        		else {
+        			
+        			main.getCompo().add(Roles.ROMPREMS);
         			current.setAmount(1);
         			
         		}

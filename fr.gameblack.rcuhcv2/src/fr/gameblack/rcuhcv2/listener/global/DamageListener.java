@@ -25,6 +25,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import fr.gameblack.rcuhcv2.Main;
 import fr.gameblack.rcuhcv2.Statut;
+import fr.gameblack.rcuhcv2.classes.Camps;
 import fr.gameblack.rcuhcv2.classes.Joueur;
 import fr.gameblack.rcuhcv2.classes.Roles;
 import fr.gameblack.rcuhcv2.classes.v2.Classe;
@@ -49,7 +50,7 @@ public class DamageListener implements Listener {
 	
 	public static void respawn(Joueur joueur, Main main) {
 		
-		if(joueur != main.getAdvBedwars() && (joueur.getRole() != Roles.GAMEBLACK || !joueur.getCamp().equalsIgnoreCase("joueur") || !main.getModeTrial().equalsIgnoreCase("fun") || main.getAdvBedwars() == null)) {
+		if(joueur != main.getAdvBedwars() && (joueur.getRole() != Roles.GAMEBLACK || joueur.getCamp() != Camps.JOUEUR || !joueur.getModeTrial().equalsIgnoreCase("fun") || main.getAdvBedwars() == null)) {
 			
 			joueur.setRespawn(false);
 			
@@ -246,6 +247,12 @@ public class DamageListener implements Listener {
 	                    
 	                    res = ((res/100)-1)*nerf_resi;
 	                    
+	                    double nerf_armure = 0.9;
+	                    
+	                    nerf_armure *= event.getDamage(DamageModifier.ARMOR);
+	                    
+	                    event.setDamage(DamageModifier.ARMOR, nerf_armure);
+	                    
 	                    double resi = event.getDamage(DamageModifier.BASE)*res;
 	                    event.setDamage(DamageModifier.RESISTANCE, -resi);
 	                	
@@ -281,7 +288,7 @@ public class DamageListener implements Listener {
 	                if (joueur.isAntiKB()) {
 	
 	                    event.setCancelled(true);
-	                    player.damage(event.getFinalDamage());
+	                    player.damage(event.getFinalDamage()*1.05);
 	
 	                }
 	                
@@ -332,9 +339,11 @@ public class DamageListener implements Listener {
                     
                     if (main.getState() == Statut.PVP_ON && !joueur.isInvulnerable() && !tueur.isInvulnerable()) {
                     	
+                    	event.setDamage(event.getDamage(DamageModifier.BASE)*0.90);
+                    	
                     	if(tueur.getRole() == Roles.GAMEBLACK && tueur.getClasseGB() == Classe.DISTANCE) {
                         	
-                        	event.setDamage(event.getFinalDamage()*1.05);
+                        	event.setDamage(event.getDamage(DamageModifier.BASE)*1.05);
                         	
                         } if(tueur != joueur) {
                         	
@@ -416,6 +425,12 @@ public class DamageListener implements Listener {
         	Joueur joueur = main.getJoueur((Player) victim);
         	
         	Player player = (Player) victim;
+        	
+            if(joueur.isBot()) {
+            	
+            	HitV2.botHit(joueur, null, main);
+            	
+            }
         	
         	if(joueur.isInvulnerable()) {
         		

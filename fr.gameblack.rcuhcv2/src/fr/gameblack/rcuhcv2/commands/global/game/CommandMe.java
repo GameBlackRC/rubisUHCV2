@@ -6,7 +6,9 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import fr.gameblack.rcuhcv2.Main;
+import fr.gameblack.rcuhcv2.classes.Camps;
 import fr.gameblack.rcuhcv2.classes.Joueur;
+import fr.gameblack.rcuhcv2.classes.Modes;
 import fr.gameblack.rcuhcv2.classes.Roles;
 import fr.gameblack.rcuhcv2.roles.v2.joueur.Jeannot;
 import fr.gameblack.rcuhcv2.roles.v2.joueur.Joko;
@@ -62,7 +64,16 @@ public class CommandMe implements CommandExecutor {
             	
             } else if(joueur.getRole() == Roles.SLUP) {
             	
-            	Slup.Texte(player);
+            	if(main.getMode() == Modes.RAPIDE) {
+            		
+            		Slup.TexteRapide(player);
+            		
+            	}
+            	else {
+            	
+            		Slup.Texte(player);
+            		
+            	}
             	
             } else if(joueur.getRole() == Roles.TEAM) {
             	
@@ -70,9 +81,9 @@ public class CommandMe implements CommandExecutor {
             	
             } else if(joueur.getRole() == Roles.GAMEBLACK) {
             	
-            	if(joueur.getCamp().equalsIgnoreCase("joueur")) {
+            	if(joueur.getCamp() == Camps.JOUEUR) {
             		
-            		if(main.getModeTrial().equalsIgnoreCase("fun")) {
+            		if(main.getJoueurByRole(Roles.TRIAL).getModeTrial().equalsIgnoreCase("fun")) {
             		
             			GameBlack.TexteJoueurFun(player);
             			
@@ -84,12 +95,12 @@ public class CommandMe implements CommandExecutor {
             		}
             		
             	}
-            	else if(joueur.getCamp().equalsIgnoreCase("uhc")) {
+            	else if(joueur.getCamp() == Camps.UHC) {
             		
             		GameBlack.TexteUHC(player);
             		
             	}
-            	else if(joueur.getCamp().equalsIgnoreCase("staff")) {
+            	else if(joueur.getCamp() == Camps.STAFF) {
             		
             		GameBlack.Texte(player);
             		

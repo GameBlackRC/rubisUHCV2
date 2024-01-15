@@ -1,6 +1,7 @@
 package fr.gameblack.rcuhcv2.orbes.v1;
 
 import fr.gameblack.rcuhcv2.Main;
+import fr.gameblack.rcuhcv2.classes.Camps;
 import fr.gameblack.rcuhcv2.classes.Joueur;
 import fr.gameblack.rcuhcv2.task.v1.ItemCD;
 
@@ -33,7 +34,7 @@ public class Glace {
         
         if(nb <= 25 && joueur.isOrbeActif()) {
     	
-        	if(joueur.isOrbeActif() && !joueur.getCamp().equalsIgnoreCase("solo")) {
+        	if(joueur.isOrbeActif() && joueur.getCamp() != Camps.SOLOS) {
 	    	
 		    	RemoveEffets(joueur, main);
 		    	joueur.removeForce(0.02);

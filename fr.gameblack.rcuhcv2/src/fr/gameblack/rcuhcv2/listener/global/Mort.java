@@ -5,12 +5,17 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
 import fr.gameblack.rcuhcv2.Main;
+import fr.gameblack.rcuhcv2.classes.Camps;
 import fr.gameblack.rcuhcv2.classes.Joueur;
+import fr.gameblack.rcuhcv2.classes.Modes;
 import fr.gameblack.rcuhcv2.classes.Pouvoirs;
 import fr.gameblack.rcuhcv2.classes.Roles;
 import fr.gameblack.rcuhcv2.classes.v1.Pouvoirs_GB;
@@ -78,12 +83,12 @@ public class Mort {
 		
 		if(tueur.getRole() == Roles.Toinou) {
 			
-			if(tueur.getVol().isEmpty() && joueur.getCamp().equalsIgnoreCase("demon")) {
+			if(tueur.getVol().isEmpty() && joueur.getCamp() == Camps.DEMON) {
 				
 				tueur.getPlayer().removePotionEffect(PotionEffectType.SPEED);
 				
 			}
-			if(joueur.getCamp().equalsIgnoreCase("demon")) {
+			if(joueur.getCamp() == Camps.DEMON) {
 				
 				ToinouV1.kill(tueur, joueur, main);
 				
@@ -96,7 +101,7 @@ public class Mort {
 			
 		}
 		
-		if(tueur.getRole() == Roles.GameBlack && tueur.getPouvoirGB() == Pouvoirs_GB.POURCENT && (joueur.getCamp().equalsIgnoreCase("demon") || joueur.getCamp().equalsIgnoreCase("solo")) && joueur.getGBPourcent() >= 100) {
+		if(tueur.getRole() == Roles.GameBlack && tueur.getPouvoirGB() == Pouvoirs_GB.POURCENT && (joueur.getCamp() == Camps.DEMON || joueur.getCamp() == Camps.SOLOS) && joueur.getGBPourcent() >= 100) {
 			
 			tueur.addSpeed(0.05);
 			
@@ -230,7 +235,7 @@ public class Mort {
 			
 		}
 		
-		if(joueur.getCamp().equalsIgnoreCase("rc") && joueur.isProcheNb(Roles.GameBlack, main, 50)) {
+		if(joueur.getCamp() == Camps.RC && joueur.isProcheNb(Roles.GameBlack, main, 50)) {
 			
 			main.getJoueurByRole(Roles.GameBlack).addSpeed(0.05);
 			
@@ -271,6 +276,64 @@ public class Mort {
 
 	public static void setMortV2(Joueur joueur, Joueur tueur, EntityDamageByEntityEvent event, Main main) {
 		
+		if(tueur.getRole() == Roles.ROMPREMS) {
+			
+			if(main.getMode() == Modes.RAPIDE) {
+				
+				if(tueur.getEnderman().contains(joueur)) {
+					
+					if(tueur.getFirstKill() == null) {
+						
+						tueur.setFirstKill("enderman");
+						
+					}
+					
+					tueur.addSpeed(0.05);
+					
+					if(tueur.getNbKillEnderman() == 0) {
+						
+						ItemStack pearl = new ItemStack(Material.ENDER_PEARL);
+						ItemMeta pearlM = pearl.getItemMeta();
+						pearlM.setDisplayName("§9Pearl");
+						pearl.setItemMeta(pearlM);
+						tueur.getPlayer().getInventory().addItem(pearl);
+						
+					}
+					
+					tueur.addNbKillEnderman();
+					
+				}
+				
+				if(tueur.getBlaze().contains(joueur)) {
+					
+					if(tueur.getFirstKill() == null) {
+						
+						tueur.setFirstKill("blaze");
+						
+					}
+					
+					Random r = new Random();
+					int nb = r.nextInt(2);
+					
+					if(nb == 1) {
+						
+						tueur.addForce(0.01);
+						
+					}
+					else {
+						
+						tueur.addResi(0.01);
+						
+					}
+					
+					tueur.addNbKillBlaze();
+					
+				}
+				
+			}
+			
+		}
+		
 		if(tueur.getRole() == Roles.TOINOU) {
 			
 			tueur.addPoint();
@@ -283,7 +346,7 @@ public class Mort {
 			
 		}
 		
-		if(joueur.isProche(Roles.TEAM, main) && (joueur.getCamp().equalsIgnoreCase("staff") || joueur.getRole() == Roles.GAMEBLACK || joueur.getRole() == Roles.TRIAL)) {
+		if(joueur.isProche(Roles.TEAM, main) && (joueur.getCamp() == Camps.STAFF || joueur.getRole() == Roles.GAMEBLACK || joueur.getRole() == Roles.TRIAL)) {
 			
 			Random r = new Random();
             int nb = r.nextInt(3);
@@ -345,7 +408,7 @@ public class Mort {
 			
 		}
 		
-		if(tueur.getRole() == Roles.NONOBOY && !tueur.getCamp().equalsIgnoreCase("farmeurimmo")) {
+		if(tueur.getRole() == Roles.NONOBOY && tueur.getCamp() != Camps.FARMEURIMMO) {
 			
 			if(tueur.getPlayer().getMaxHealth() <= 21) {
 				
@@ -467,15 +530,15 @@ public class Mort {
 		
 		if(joueur.getRole() == Roles.LOUP && main.getJoueurByRole(Roles.TRIAL) != null) {
 			
-			if(tueur.getCamp().equalsIgnoreCase("uhc")) {
+			if(tueur.getCamp() == Camps.UHC) {
 				
 				Joueur trial = main.getJoueurByRole(Roles.TRIAL);
 				
 				Joueur slup = main.getJoueurByRole(Roles.SLUP);
 				
-				if(trial.getCamp() == "duo" || (slup != null && slup.getPacteSlup() == 2 && ((main.getTemps() <= 600 && main.getEpisode() <= 3 && main.getMode() == "normal") || (main.getEpisode() < 2 && main.getMode() == "rapide")))) {
+				if(trial.getCamp() == Camps.DUO || (slup != null && slup.getPacteSlup() == 2 && ((main.getTemps() <= 600 && main.getEpisode() <= 3 && main.getMode() == Modes.NORMAL) || (main.getEpisode() < 2 && main.getMode() == Modes.RAPIDE)))) {
 					
-					if(trial.getCamp() == "duo") {
+					if(trial.getCamp() == Camps.DUO) {
 						
 						trial.getPlayer().sendMessage("Un joueur du camp UHC vient de tuer Loup. Voici son pseudo : " + tueur.getPlayer().getName());
 						tueur.getPlayer().sendMessage("Trial vient de rejoindre votre camp. Pseudo de Trial : " + trial.getPlayer().getName());
@@ -484,14 +547,14 @@ public class Mort {
 					else {
 						
 						trial.getPlayer().sendMessage("Loup vient de mourir. Vous devez désormais gagner avec Slup. Le tueur de Loup appartient au camp uhc, voici son pseudo : " + tueur.getPlayer().getName());
-						trial.setCamp("duo");
+						trial.setCamp(Camps.DUO);
 						
 					}
 					
 				}
 				else {
 					
-					trial.setCamp("uhc");
+					trial.setCamp(Camps.UHC);
 					trial.getPlayer().sendMessage("Un joueur du camp UHC vient de tuer Loup. Vous devez donc gagnez avec le camp UHC\nPseudo du tueur de Loup : " + tueur.getPlayer().getName());
 					tueur.getPlayer().sendMessage("Trial vient de rejoindre votre camp. Pseudo de Trial : " + trial.getPlayer().getName());
 					
@@ -516,15 +579,13 @@ public class Mort {
 		
 		if(tueur.getRole() == Roles.TRIAL) {
 			
-			if(tueur.getModeTrial(main) == "serieux") {
-			
-				tueur.addForce(0.02);
+			if(joueur.getRole() == Roles.KZOU && tueur.isRespawnTrial()) {
 				
-				if(tueur.getCamp() == "duo" && main.getJoueurByRole(Roles.SLUP) != null) {
+				tueur.getPlayer().setMaxHealth(tueur.getPlayer().getMaxHealth()+10);
+				tueur.addForce(0.02);
+				if(tueur.getCamp() == Camps.DUO) {
 					
-					Joueur slup = main.getJoueurByRole(Roles.SLUP);
-					
-					slup.addForce(0.02);
+					tueur.addSpeed(0.05);
 					
 				}
 				

@@ -2,6 +2,8 @@ package fr.gameblack.rcuhcv2.roles.v2.uhc;
 
 import java.util.Random;
 
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
@@ -14,6 +16,7 @@ import fr.gameblack.rcuhcv2.Main;
 import fr.gameblack.rcuhcv2.classes.ItRoles;
 import fr.gameblack.rcuhcv2.classes.Joueur;
 import fr.gameblack.rcuhcv2.classes.Pouvoirs;
+import fr.gameblack.rcuhcv2.classes.Roles;
 import fr.gameblack.rcuhcv2.task.v2.ItemCD;
 
 public class Malivol {
@@ -23,8 +26,19 @@ public class Malivol {
     	Player player = joueur.getPlayer();
     	
         Texte(player);
+        
+		if(joueur.isBot()) {
+			
+			player.getInventory().setItem(8, Main.getItemRole(ItRoles.MALIVOL_CHEAT));
+			Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(), "tell " + joueur.getPlayer().getName() + " role Malivol");
+			
+		}
+		else {
+			
+			player.getInventory().addItem(Main.getItemRole(ItRoles.MALIVOL_CHEAT));
+			
+		}
 
-        player.getInventory().addItem(Main.getItemRole(ItRoles.MALIVOL_CHEAT));
         player.addPotionEffect(new PotionEffect(PotionEffectType.FAST_DIGGING, 999999, 0, false, false));
         joueur.addSpeed(0.05);
 
@@ -79,6 +93,25 @@ public class Malivol {
 
             Random r = new Random();
             int nb = r.nextInt(4);
+            
+            if(main.getJoueurByRole(Roles.GAMEBLACK) != null && main.getJoueurByRole(Roles.GAMEBLACK).isConsoleGBActif()) {
+				
+				Joueur gb = main.getJoueurByRole(Roles.GAMEBLACK);
+				
+	            nb = r.nextInt(100);
+	            
+	            if(nb <= 80) {
+	            	
+	            	gb.getPlayer().sendMessage("[CONSOLE]" + ChatColor.MAGIC + "aaaaa" + ChatColor.RESET + " vient d'utiliser un item");
+	            	
+	            }
+	            else {
+	            	
+	            	gb.getPlayer().sendMessage("[CONSOLE]" + joueur.getPlayer().getName() + " vient d'utiliser un item");
+	            	
+	            }
+				
+			}
 
             if (nb == 1) {
             	
@@ -155,7 +188,17 @@ public class Malivol {
 
     public static void Texte(Player player) {
 
-        player.sendMessage("____________________________________________________\n \nVous êtes §2Malivol\n§rVous devez gagner avec le §2camp UHC§r\n \nVous avez l'effet haste I ainsi que 5% de speed permanent\n \nA l'annonce des rôles, vous recevez un item nommé 'Cheat' vous permettant d'activer un cheat parmis la liste suivante qui restent actif 1 minute :\n- SpeedHack : vous recevez 15% de speed et depth strider III\n- No fall : vous ne prenez plus de dégât de chute et vous recevez 3% de résistance supplémentaire\n- Full crit : vous recevez 7% de force\n- Anti KB (dure 30 secondes) : vous ne recevez plus de kb\n \nA chaque spawn de minerais, vous avez 50% de chance de recevoir les coordonnées du minerais\n \n____________________________________________________");
+        player.sendMessage("____________________________________________________\n \n"
+        		+ "Vous êtes §2Malivol\n§r"
+        		+ "Vous devez gagner avec le §2camp UHC§r\n \n"
+        		+ "Vous avez l'effet haste I ainsi que 5% de speed permanent\n \n"
+        		+ "A l'annonce des rôles, vous recevez un item nommé 'Cheat' vous permettant d'activer un cheat parmis la liste suivante qui restent actif 1 minute :\n"
+        		+ "- SpeedHack : vous recevez 15% de speed et depth strider III\n"
+        		+ "- No fall : vous ne prenez plus de dégât de chute et vous recevez 3% de résistance supplémentaire\n"
+        		+ "- Full crit (dure 30 secondes) : vous recevez 7% de force\n"
+        		+ "- Anti KB (dure 30 secondes) : vous ne recevez plus de kb\n \n"
+        		+ "A chaque spawn de minerais, vous avez 50% de chance de recevoir les coordonnées du minerais\n \n"
+        		+ "____________________________________________________");
 
     }
 	

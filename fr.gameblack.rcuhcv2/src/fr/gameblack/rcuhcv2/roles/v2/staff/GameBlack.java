@@ -18,8 +18,10 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 import fr.gameblack.rcuhcv2.Main;
+import fr.gameblack.rcuhcv2.classes.Camps;
 import fr.gameblack.rcuhcv2.classes.ItRoles;
 import fr.gameblack.rcuhcv2.classes.Joueur;
+import fr.gameblack.rcuhcv2.classes.Modes;
 import fr.gameblack.rcuhcv2.classes.Pouvoirs;
 import fr.gameblack.rcuhcv2.classes.Roles;
 import fr.gameblack.rcuhcv2.classes.v2.Classe;
@@ -28,9 +30,7 @@ import fr.gameblack.rcuhcv2.task.v2.ItemCD;
 
 public class GameBlack {
 	
-	public static void Items(Joueur joueur) {
-		
-		Texte(joueur.getPlayer());
+	public static void Items(Joueur joueur, Main main) {
 		
 		ItemStack orbes = new ItemStack(Material.SLIME_BALL);
     	
@@ -41,11 +41,70 @@ public class GameBlack {
 		joueur.addSpeed(0.1);
 		joueur.getPlayer().getInventory().addItem(orbes);
 		
+		if(main.getMode() == Modes.RAPIDE) {
+			
+			Random r = new Random();
+	        int nb = r.nextInt(100);
+	        
+	        if(nb <= 10) {
+	        	
+	        	Texte(joueur.getPlayer());
+	        	joueur.setChoixGbCamp(true);
+	    		if(joueur.isBot()) {
+	    			
+	    			Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(), "tell " + joueur.getPlayer().getName() + " role GB_staff");
+	    			
+	    		}
+	        	
+	        }
+	        else if(nb <= 60) {
+	        	
+	        	ItemsUHC(joueur, main);
+	        	joueur.setChoixGbCamp(true);
+	    		if(joueur.isBot()) {
+	    			
+	    			Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(), "tell " + joueur.getPlayer().getName() + " role GB_uhc");
+	    			
+	    		}
+	        	
+	        }
+	        else if(nb <= 80) {
+	        	
+	        	itemJoueurFun(joueur, main);
+	    		if(joueur.isBot()) {
+	    			
+	    			Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(), "tell " + joueur.getPlayer().getName() + " role GB_fun");
+	    			
+	    		}
+	        	
+	        }
+	        else {
+	        	
+	        	itemJoueurSerieux(joueur, main);
+	    		if(joueur.isBot()) {
+	    			
+	    			Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(), "tell " + joueur.getPlayer().getName() + " role GB_serieux");
+	    			
+	    		}
+	        	
+	        }
+			
+		}
+		
 	}
 	
 	public static void ItemsUHC(Joueur joueur, Main main) {
-		
-        joueur.getPlayer().getInventory().addItem(Main.getItemRole(ItRoles.GAMEBLACK_FUITE));
+        
+        if(joueur.isBot()) {
+        	
+        	joueur.getPlayer().getInventory().setItem(8, Main.getItemRole(ItRoles.GAMEBLACK_FUITE));
+        	
+        }
+        else {
+        	
+        	joueur.getPlayer().getInventory().addItem(Main.getItemRole(ItRoles.GAMEBLACK_FUITE));
+        	
+        }
         
         TexteUHC(joueur.getPlayer());
         
@@ -59,7 +118,7 @@ public class GameBlack {
         	joueur.addSpeed(0.02);
         	
         	int nb_2 = r.nextInt(main.getListJoueurs().size());
-        	while(main.getListJoueurs().get(nb_2).getCamp() == "uhc") {
+        	while(main.getListJoueurs().get(nb_2).getCamp() == Camps.UHC) {
         		
         		nb_2 = r.nextInt(main.getListJoueurs().size());
         		
@@ -82,60 +141,72 @@ public class GameBlack {
 		
 	}
 	
-	public static void itemJoueur(Joueur joueur, Main main) {
+	public static void itemJoueurFun(Joueur joueur, Main main) {
 		
-		if(main.getModeTrial().equalsIgnoreCase("fun")) {
+		TexteJoueurFun(joueur.getPlayer());
+		
+		if(main.getCampJoueur().size() >= main.getCampStaff().size() || main.getCampJoueur().size() >= main.getCampUHC().size()) {
 			
-			TexteJoueurFun(joueur.getPlayer());
-			
-			if(main.getCampJoueur().size() >= main.getCampStaff().size() || main.getCampJoueur().size() >= main.getCampUHC().size()) {
+			if(joueur.getOrbe() == Orbe.GLACE || joueur.getOrbe() == Orbe.FEU) {
 				
-				if(joueur.getOrbe() == Orbe.GLACE || joueur.getOrbe() == Orbe.FEU) {
-					
-					joueur.setSpeed(1.05);
-					
-				}
-				else if(joueur.getOrbe() == Orbe.EAU && joueur.isOrbeActif()) {
-					
-					joueur.setSpeed(1.1);
-					
-				}
-				else if(joueur.getOrbe() == Orbe.FOUDRE && joueur.isOrbeActif()) {
-					
-					joueur.setSpeed(1.11);
-					
-				}
+				joueur.setSpeed(1.05);
+				
+			}
+			else if(joueur.getOrbe() == Orbe.EAU && joueur.isOrbeActif()) {
+				
+				joueur.setSpeed(1.1);
+				
+			}
+			else if(joueur.getOrbe() == Orbe.FOUDRE && joueur.isOrbeActif()) {
+				
+				joueur.setSpeed(1.11);
 				
 			}
 			
-			Random r = new Random();
-	        int nb = r.nextInt(2);
-	        
-	        Joueur adv = null;
-	        
-	        List<Joueur> staff = main.getCampStaff();
-	        List<Joueur> uhc = main.getCampUHC();
-	        
-	        if(!uhc.isEmpty() && (nb == 1 || staff.isEmpty())) {
-	        	
-	        	int nb2 = r.nextInt(uhc.size());
-	        	adv = uhc.get(nb2);
-	        	
-	        }
-	        else if(!staff.isEmpty()){
-	        	
-	        	int nb2 = r.nextInt(staff.size());
-	        	adv = staff.get(nb2);
-	        	
-	        }
+		}
+		
+		Random r = new Random();
+        int nb = r.nextInt(2);
+        
+        Joueur adv = null;
+        
+        List<Joueur> staff = main.getCampStaff();
+        List<Joueur> uhc = main.getCampUHC();
+        
+        if(!uhc.isEmpty() && (nb == 1 || staff.isEmpty())) {
+        	
+        	int nb2 = r.nextInt(uhc.size());
+        	adv = uhc.get(nb2);
+        	
+        }
+        else if(!staff.isEmpty()){
+        	
+        	int nb2 = r.nextInt(staff.size());
+        	adv = staff.get(nb2);
+        	
+        }
+		
+		bedwarsLancement(joueur, adv, main);
+		
+	}
+	
+	public static void itemJoueurSerieux(Joueur joueur, Main main) {
+		
+		joueur.removeSpeed(0.1);
+		TexteJoueurSerieux(joueur.getPlayer());
+		
+	}
+	
+	public static void itemJoueur(Joueur joueur, Main main) {
+		
+		if(main.getJoueurByRole(Roles.TRIAL).getModeTrial().equalsIgnoreCase("fun")) {
 			
-			bedwarsLancement(joueur, adv, main);
+			itemJoueurFun(joueur, main);
 			
 		}
 		else {
 			
-			joueur.removeSpeed(0.1);
-			TexteJoueurSerieux(joueur.getPlayer());
+			itemJoueurSerieux(joueur, main);
 			
 		}
 		
@@ -272,16 +343,54 @@ public class GameBlack {
 					
 					Player p = (Player) entity;
 					
-					p.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 100 , 0));
+					Joueur j = main.getJoueur(p);
+					
+					if(j.getRole() == Roles.Obscur && main.isAdaptionObscurActif()) {
+						
+						if(main.getAdaptionAvantObscur().contains(Pouvoirs.GAMEBLACK_FUITE)) {
+                			
+                			main.getAdaptionPermaObscur().add(Pouvoirs.GAMEBLACK_FUITE);
+                			
+                		}
+                		else {
+                			
+                			main.getAdaptionObscur().add(Pouvoirs.GAMEBLACK_FUITE);
+                			
+                			p.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 100 , 0));
+                			
+                		}
+						
+					}
+					else {
+						
+						if(joueur.getRole() != Roles.Obscur && !main.getAdaptionPermaObscur().contains(Pouvoirs.GAMEBLACK_FUITE)) {
+							
+							p.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 100 , 0));
+							
+						}
+						
+					}
 					
 				}
 				
 			}
 			
-			joueur.getCD().add(Pouvoirs.GAMEBLACK_FUITE);
+			if(joueur.isProche(Roles.TOINOU, main)) {
+				
+				main.getJoueurByRole(Roles.TOINOU).addForce(0.01);
+				
+				ItemCD cycle = new ItemCD(main, joueur, "fuite", 60, joueur, null, null, 1, null);
+		        cycle.runTaskTimer(main, 0, 20);
+				
+			}
+			else {
+				
+				ItemCD cycle = new ItemCD(main, joueur, "fuite", 60, joueur, null, null, 0, null);
+		        cycle.runTaskTimer(main, 0, 20);
+				
+			}
 			
-			ItemCD cycle = new ItemCD(main, joueur, "fuite", 60, joueur, null, null, 0, null);
-	        cycle.runTaskTimer(main, 0, 20);
+			joueur.getCD().add(Pouvoirs.GAMEBLACK_FUITE);
 	        
 		}
 		else {
@@ -353,7 +462,7 @@ public class GameBlack {
 		}
 		else if(joueur.getClasseGB() == Classe.DEFENSEUR) {
 			
-			joueur.addSpeed(0.15);
+			joueur.addSpeed(0.20);
 			joueur.removeResi(0.07);
 			
 		}
@@ -387,7 +496,7 @@ public class GameBlack {
 		}
 		else if(classe == Classe.DEFENSEUR) {
 			
-			joueur.removeSpeed(0.15);
+			joueur.removeSpeed(0.20);
 			joueur.addResi(0.07);
 			joueur.getPlayer().sendMessage("Vous avez choisi la classe defenseur");
 			joueur.setClasseGB(classe);
@@ -610,8 +719,8 @@ public class GameBlack {
         		+ "Avec la commande /rccheckorbe <pseudo>, vous pouvez voir quelle orbe possède le joueur ciblé\n \n"
         		+ "Lorsque Kzou ban un joueur, vous recevez un message vous avertissant du ban et vous avez 25% de chance de connaître le pseudo du banni\n \n"
         		+ "Avec la commande /rcconsole, vous pouvez voir la console pendant 30 secondes\n"
-        		+ "Vous recevez un message pour chaque action parmi les suivants : un joueur frappe un autre joueur, un joueur tue un joueur, un joueur a un changemment d'effet, un joueur active son pouvoir.\n"
-        		+ "A la fin des 30 secondes, vous recevez un rôle d'un joueur proche aléatoirement (sans avoir le pseudo du joueur) (50% de chance d'être brouiller)"
+        		+ "Vous recevez un message pour chaque action parmi les suivants : un joueur frappe un autre joueur, un joueur tue un joueur, un joueur a un changement d'effet, un joueur active son pouvoir.\n"
+        		+ "A la fin des 30 secondes, vous recevez un rôle d'un joueur proche aléatoirement (sans avoir le pseudo du joueur) (50% de chance d'être brouiller)\n"
         		+ "Chaque action a une certaine chance d'avoir les pseudos brouiller\n \n"
         		+ "____________________________________________________");
 
@@ -643,10 +752,11 @@ public class GameBlack {
         		+ "Vous devez gagner avec le §acamp joueur§r\n \n"
         		+ "Avec la commande /rcclasse <classe>, vous pouvez choisir une classe parmis les 5 suivants\n \n"
         		+ "Attaquant : vous recevez 10% de force mais vous perdez 7% de résistance\n"
-        		+ "Défenseur : vous recevez 10% de resistance mais vous perdez 20% de speed\n"
-        		+ "Rapide : vous recevez 25% de speed mais vous ne recevez plus d'absorption et vous perdez 3% de force\n"
+        		+ "Défenseur : vous recevez 7% de resistance mais vous perdez 20% de speed\n"
+        		+ "Rapide : vous recevez 20% de speed mais vous ne recevez plus d'absorption et vous perdez 3% de force\n"
         		+ "Distance : vous recevez 5% de speed et vous infliger 5% plus de dégâts à l'arc mais vous perdez 10% de force\n"
-        		+ "Support : vous obtenez 5% de speed et la commande /rcbuff mais vous perdez 2% de résistance. Avec la commande /rcbuff <pseudo>, vous passez un effet au choix au joueur ciblé pendant 1 minute\n"
+        		+ "Support : vous obtenez 5% de speed et la commande /rcbuff mais vous perdez 2% de résistance.\n"
+        		+ "Avec la commande /rcbuff <pseudo>, vous passez un effet au choix au joueur ciblé pendant 1 minute\n"
         		+ "Vous pouvez retirer les effets d'une classe avec la commande /rcclasse rien\n"
         		+ "____________________________________________________");
 
@@ -655,15 +765,17 @@ public class GameBlack {
 	public static void TexteUHC(Player player) {
 
         player.sendMessage("____________________________________________________\n \n"
-        		+ "Vous êtes §9GameBlack\n§rVous devez gagner avec le §2camp UHC§r\n \n"
+        		+ "Vous êtes §9GameBlack\n§r"
+        		+ "Vous devez gagner avec le §2camp UHC§r\n \n"
         		+ "Vous avez 5% de speed permanent\n \n"
         		+ "Si l'évènement 'Fermeture de Golden' se déclanche, vous avez 50% de chance de passer dans le camp Joueur\n \n"
         		+ "Vous avez 50% de chance de ne pas recevoir le malus de votre orbe\n \n"
         		+ "Avec la commande /rcchangeorbe, vous pouvez changer votre orbe\n \n"
         		+ "Avec l'item 'Fuite', vous devenez invulnérable et vous ne poupez plus mettre de coup pendant 2 secondes\n"
         		+ "Vous recevez 10% de speed pendant 1 minute\nLes joueur proche de vous recevront l'effet blindness pendant 10 secondes\n"
-        		+ "Si Toinou est proche de vous lors de l'utilisation, il reçoit 2% de force pendant 1 minute\n \n"
-        		+ "A chaque coup d'épée subi, vous avez 5% de chance de recevoir 1% de speed supplémentaire permanent\n \n____________________________________________________");
+        		+ "Si Toinou est proche de vous lors de l'utilisation, il reçoit 1% de force pendant 1 minute\n \n"
+        		+ "A chaque coup d'épée subi, vous avez 5% de chance de recevoir 1% de speed supplémentaire permanent\n \n"
+        		+ "____________________________________________________");
 
     }
 

@@ -56,6 +56,21 @@ public class Foudre {
     	}
 
     }
+	
+	public static void Active(Joueur joueur, boolean give) {
+		
+		if(give) {
+			
+			joueur.addSpeed(0.03);
+			
+		}
+		else {
+			
+			joueur.removeSpeed(0.03);
+			
+		}
+		
+	}
 
     public static void Bonus(Joueur joueur, Main main, boolean give) {
     	

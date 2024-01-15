@@ -1,5 +1,8 @@
 package fr.gameblack.rcuhcv2.commands.v2.joueur.jeannot;
 
+import java.util.Random;
+
+import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -37,6 +40,26 @@ public class CommandPartage implements CommandExecutor {
 					
 					joueur.setJeannotPartageActif(true);
 					player.sendMessage("Vous partagez désormais votre absorption");
+					if(main.getJoueurByRole(Roles.GAMEBLACK) != null && main.getJoueurByRole(Roles.GAMEBLACK).isConsoleGBActif()) {
+						
+						Joueur gb = main.getJoueurByRole(Roles.GAMEBLACK);
+						
+						Random r = new Random();
+						
+			            int nb = r.nextInt(100);
+			            
+			            if(nb <= 80) {
+			            	
+			            	gb.getPlayer().sendMessage("[CONSOLE]" + ChatColor.MAGIC + "aaaaa" + ChatColor.RESET + " vient d'effectuer une commande");
+			            	
+			            }
+			            else {
+			            	
+			            	gb.getPlayer().sendMessage("[CONSOLE]" + joueur.getPlayer().getName() + " vient d'effectuer une commande");
+			            	
+			            }
+						
+					}
 					
 				}
 				

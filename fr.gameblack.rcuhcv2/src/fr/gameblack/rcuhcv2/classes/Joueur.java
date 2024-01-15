@@ -71,6 +71,7 @@ import fr.gameblack.rcuhcv2.task.v1.GameCycleV1;
 import fr.gameblack.rcuhcv2.task.v2.GameCycle;
 import fr.gameblack.rcuhcv2.task.v2.ItemCD;
 import fr.gameblack.rcuhcv2.roles.v2.uhc.Obscur;
+import fr.gameblack.rcuhcv2.roles.v2.uhc.RomPrems;
 import fr.gameblack.rcuhcv2.roles.v2.uhc.Theoochoux;
 import fr.gameblack.rcuhcv2.roles.v2.uhc.Nonoboy;
 import fr.gameblack.rcuhcv2.roles.v2.solo.Farmeurimmo;
@@ -82,17 +83,11 @@ import java.util.Random;
 
 public class Joueur {
 	
-	private Scoreboard board = Bukkit.getScoreboardManager().getNewScoreboard();
-	private int deco_timer = 600;
-	private boolean deco = false;
-	
 	private Player player;
+	
+	//BASE
+	private Scoreboard board = Bukkit.getScoreboardManager().getNewScoreboard();
 	private Roles role = Roles.NONE;
-	private Orbe orbe = Orbe.NONE;
-	private boolean orbe_actif = false;
-	private boolean orbe_passif_actif = false;
-	private boolean bonus_orbe_actif = false;
-	private boolean malus_orbe_actif = false;
 	private int kill = 0;
 	private boolean invulnerable = true;
 	private Joueur lastHit = null;
@@ -102,108 +97,220 @@ public class Joueur {
 	private double resi = 110;
 	private boolean abso = true;
 	private boolean fire = false;
-	private boolean can_have_malus_bonus_orbe = true;
-	private int malivol_cheat = 0;
 	private boolean antiKB = false;
-	private List<Pouvoirs> vol = new ArrayList<>();
-	private boolean jeannotPartageActif = false;
 	private boolean spec = false;
-	private String camp = "rien";
+	private Camps camp = Camps.NULL;
 	private int comboSubi = 0;
 	private boolean nofall = false;
 	private boolean nofallPerma = false;
-	private boolean cheatToinou = false;
 	private boolean CanFight = true;
-	private int pourcentHack = 0;
-	private int pacteSlup = 0;
-	private boolean bonPapiers = false;
-	private boolean nickoProcheJeannot = false;
-	private boolean cheatRaptorActif = false;
-	private boolean cheatToinouActif = false;
-	private boolean jokoItemActif = false;
-	private int cube = 0;
-	private boolean opKzou = false;
-	private int nbOpKzou = 0;
 	private boolean mort = false;
-	private boolean respawnTrial = false;
-	private boolean choixGbCamp = false;
-	private boolean checkMalusEau = true;
-	private boolean consoleGBActif = false;
-	private Classe classeGB = null;
-	private String forme = "normal";
 	private boolean resiProche = false;
-	private boolean frappeNeko = false;
 	private boolean speedProche = false;
 	private boolean forceProche = false;
-	private int slime = 0;
-	private boolean malusZoneSlup = false;
-	private boolean slupBonusPalierActif = false;
-	private int palierSlup = 0;
-	private boolean malusSlupActif = false;
-	private int timerPalierSlup = 0;
-	private boolean hack = false;
-	private boolean invisible = false;
-	private int utilisationSacrificeTrial = 0;
-	private boolean inZoneBenihime = false;
-	private boolean corrompu = false;
-	private boolean corrompuIndirect = false;
-	private boolean inZoneSkinTrial = false;
-	private boolean tueurToinouKill = false;
-	private boolean inZoneJustice = false;
-	private int points = 10;
-	private boolean firstItemToinou = false;
-	private boolean bonusToinouNuage = false;
-	private boolean bonusToinouMaudit = false;
 	private boolean useRubisBleu = false;
-	private int repairCaptain = 0;
-	private boolean hekowJeuActif = false;
-	private int HekowPourcent = 0;
-	private boolean superBateauLoup = false;
-	private boolean JeannotAbso = false;
-	private boolean pouvoirRaptorActif = false;
-    private Location theoochouxLoc = null;
-    private Location theoochouxLoc3sec = null;
-    private Inventory theoochouxInv = null;
-    private Double theoochouxHP = 20.0;
-    private int theoochouxFood = 20;
-    private int theo = 5;
-    private int stadeTheoochouxBonus = theo;
-    private int stadeTheochouxHack = theo;
-    private List<Pouvoirs> cd = new ArrayList<>();
-    private boolean jokoCanSteal = false;
-    private Joueur traqueToinou = null;
-    private int utilisationTraquerToinou = 0;
-    private boolean traqueToinouEnCours = false;
-    private int achatLivreToinou = 0;
-    private String campGB = null;
+	private List<Pouvoirs> cd = new ArrayList<>();
 	
-	private int NBObscurCopie = 0;
-	private Orbe casqueObscur = Orbe.NONE;
-	private Orbe plastronObscur = Orbe.NONE;
-	private Orbe jambiereObscur = Orbe.NONE;
-	private Orbe bottesObscur = Orbe.NONE;
-	private Orbe epeeObscur = Orbe.NONE;
-	private boolean casqueObscurActif = false;
-	private boolean plastronObscurActif = false;
-	private boolean jambiereObscurActif = false;
-	private boolean bottesObscurActif = false;
-	private boolean epeeObscurActif = false;
-	private List<VolTrial> volTrial = new ArrayList<>();
-	private Pouvoirs_GB pouvoirGB = Pouvoirs_GB.NONE;
-	private boolean flairGB = false;
-	private boolean canUseChoose = false;
-	private boolean useChoose = false;
-	private boolean GBFindThisDemon = false;
-	private int GBPourcent = 0;
-	private int LVLGBRestant = 0;
-	private String bonusPalier10GB = null;
-	private boolean effetProcheGB = false;
-	private boolean nerfFlairGB = false;
-	private boolean makaRageActif = false;
-	private boolean findTueurNeko = false;
-	private int procheSlup = 0;
-	private boolean speedIIActif = false;
-	private boolean saigne = false;
+		//ORBE
+		private Orbe orbe = Orbe.NONE;
+		private boolean orbe_actif = false;
+		private boolean orbe_passif_actif = false;
+		private boolean bonus_orbe_actif = false;
+		private boolean malus_orbe_actif = false;
+		private boolean can_have_malus_bonus_orbe = true;
+		private boolean checkMalusEau = true;
+		
+		//DECO
+		private int deco_timer = 600;
+		private boolean deco = false;
+	
+	//BOT
+	private boolean bot = false;
+	private Joueur cibleBot = null;
+	private String modeBOT = "epee";
+	private boolean BOTMange = false;
+	
+	//V2
+	//ROLES STAFF
+	
+		//TEAM
+		private boolean invisible = false;
+		private boolean inZoneJustice = false;
+	
+		//GAMEBLACK
+		private boolean choixGbCamp = false;
+		private Camps campGB = null;
+		
+			//STAFF
+			private boolean consoleGBActif = false;
+			
+			//UHC
+			private int nbSpeedGBUHC = 0;
+			
+			//JOUEUR - SERIEUX
+			private Classe classeGB = null;
+			
+		//MAKA
+		private String forme = "normal";
+		private boolean frappeNeko = false;
+	
+		//TRIAL
+		private boolean respawnTrial = false;
+		private String modeTrial = null;
+		
+			//SERIEUX
+		    private int TrialHydratation = 100;
+		    private int TrialBouteille = 5;
+		    private int TrialStadeActif = 6;
+		    private String TrialEffetRandom = "";
+		    private boolean bouge = false;
+		
+			//SOLO
+			private boolean inZoneBenihime = false;
+			private boolean corrompu = false;
+			private boolean corrompuIndirect = false;
+			private boolean inZoneSkinTrial = false;
+			
+		//LOUP
+		private boolean superBateauLoup = false;
+			
+		//CAPTAIN
+		private int repairCaptain = 0;
+		
+		//HEKOW
+		private boolean hekowJeuActif = false;
+		private int HekowPourcent = 0;
+	
+	//ROLES JOUEUR
+	
+		//RAPTOR
+		private boolean cheatRaptorActif = false;
+		private boolean pouvoirRaptorActif = false;
+	
+		//JEANNOT
+		private boolean jeannotPartageActif = false;
+		private boolean JeannotAbso = false;
+		
+		//NICKOBOOP
+		private boolean bonPapiers = false;
+		private boolean nickoProcheJeannot = false;
+		
+		//SLUP
+		private int pacteSlup = 0;
+		private int slime = 0;
+		private boolean malusZoneSlup = false;
+		private boolean slupBonusPalierActif = false;
+		private int palierSlup = 0;
+		private boolean malusSlupActif = false;
+		private int timerPalierSlup = 0;
+		
+		//JOKO
+		private boolean jokoItemActif = false;
+		private int cube = 0;
+		private boolean jokoCanSteal = false;
+	
+	//ROLES UHC
+		
+		//MALIVOL
+		private int malivol_cheat = 0;
+		
+		//TOINOU
+		private boolean cheatToinou = false;
+		private boolean cheatToinouActif = false;
+		private int points = 10;
+		private boolean firstItemToinou = false;
+		private boolean bonusToinouNuage = false;
+		private boolean bonusToinouMaudit = false;
+		private Joueur traqueToinou = null;
+	    private int utilisationTraquerToinou = 0;
+	    private boolean traqueToinouEnCours = false;
+	    private int achatLivreToinou = 0;
+		
+		//OBSCUR
+		private boolean tueurToinouKill = false;
+		
+		//THEOOCHOUX
+		private Location theoochouxLoc = null;
+	    private Location theoochouxLoc3sec = null;
+	    private Inventory theoochouxInv = null;
+	    private Double theoochouxHP = 20.0;
+	    private int theoochouxFood = 20;
+	    private int theo = 5;
+	    private int stadeTheoochouxBonus = theo;
+	    private int stadeTheochouxHack = theo;
+		
+	    //ROMPREMS
+	    private List<Joueur> enderman = new ArrayList<>();
+	    private List<Joueur> blaze = new ArrayList<>();
+	    private Joueur dragon = null;
+	    private int nbKillEnderman = 0;
+	    private int nbKillBlaze = 0;
+	    private String firstKill = null;
+	
+	//ROLES SOLO
+	
+		//FARMEURIMMO
+		private List<Pouvoirs> vol = new ArrayList<>();
+		private int pourcentHack = 0;
+		private boolean hack = false;
+
+		//KZOU
+		private boolean opKzou = false;
+		private int nbOpKzou = 0;
+		
+	//V1
+	//ROLES RC
+		
+		//GAMEBLACK
+		private Pouvoirs_GB pouvoirGB = Pouvoirs_GB.NONE;
+		
+			//FLAIR
+			private boolean flairGB = false;
+			private boolean canUseChoose = false;
+			private boolean useChoose = false;
+			private boolean nerfFlairGB = false;
+			
+			//POURCENT
+			private boolean GBFindThisDemon = false;
+			private int GBPourcent = 0;
+			private int LVLGBRestant = 0;
+			private String bonusPalier10GB = null;
+			private boolean effetProcheGB = false;
+			
+		//MAKA
+		private boolean makaRageActif = false;
+		private boolean findTueurNeko = false;
+		
+		
+		
+	//ROLES DEMON
+		
+		//TRIAL
+		private List<VolTrial> volTrial = new ArrayList<>();
+		
+		//SLUP
+		private int procheSlup = 0;
+		
+		//OBSCUR
+		private int NBObscurCopie = 0;
+		private Orbe casqueObscur = Orbe.NONE;
+		private Orbe plastronObscur = Orbe.NONE;
+		private Orbe jambiereObscur = Orbe.NONE;
+		private Orbe bottesObscur = Orbe.NONE;
+		private Orbe epeeObscur = Orbe.NONE;
+		private boolean casqueObscurActif = false;
+		private boolean plastronObscurActif = false;
+		private boolean jambiereObscurActif = false;
+		private boolean bottesObscurActif = false;
+		private boolean epeeObscurActif = false;
+		
+		//DEMON TRONCONNEUSE
+		private boolean saigne = false;
+		
+	//ROLES SOLO
+		
+		//FARMEURIMMO
+		private boolean speedIIActif = false;
 
 	public Joueur(Player player) {
 		
@@ -228,6 +335,7 @@ public class Joueur {
 	public void reset(Main main) {
 		
 		role = Roles.NONE;
+		modeTrial = null;
 		orbe = Orbe.NONE;
 		orbe_actif = false;
 		bonus_orbe_actif = false;
@@ -247,7 +355,7 @@ public class Joueur {
 		vol = new ArrayList<>();
 		jeannotPartageActif = false;
 		spec = false;
-		camp = "rien";
+		camp = Camps.NULL;
 		comboSubi = 0;
 		nofall = false;
 		cheatToinou = false;
@@ -272,7 +380,6 @@ public class Joueur {
 		resiProche = false;
 		frappeNeko = false;
 		speedProche = false;
-		setRespawnTrial(false);
 		slime = 0;
 		show(main);
 		malusZoneSlup = false;
@@ -282,7 +389,6 @@ public class Joueur {
 		timerPalierSlup = 0;
 		hack = false;
 		invisible = false;
-		utilisationSacrificeTrial = 0;
 		inZoneBenihime = false;
 		corrompu = false;
 		corrompuIndirect = false;
@@ -311,10 +417,14 @@ public class Joueur {
 		deco = false;
 		pouvoirRaptorActif = false;
 		cd.clear();
-		Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(), "skin set " + player.getName() + " " + player.getName());
 		if(main.getScenarios().contains(Scenarios.CATS_EYES) && player.hasPotionEffect(PotionEffectType.NIGHT_VISION)) {
 			
 			player.removePotionEffect(PotionEffectType.NIGHT_VISION);
+			
+		}
+		if(main.getScenarios().contains(Scenarios.SKIN)) {
+			
+			Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(), "skin set " + player.getName() + " " + player.getName());
 			
 		}
 		
@@ -344,6 +454,34 @@ public class Joueur {
 		findTueurNeko = false;
 		procheSlup = 0;
 		setSpeedIIActif(false);
+		saigne = false;
+		bouge = false;
+		
+		cibleBot = null;
+		modeBOT = "epee";
+		BOTMange = false;
+		
+		orbe_passif_actif = false;
+		nofallPerma = false;
+		forceProche = false;
+	    jokoCanSteal = false;
+	    traqueToinou = null;
+	    utilisationTraquerToinou = 0;
+	    traqueToinouEnCours = false;
+	    achatLivreToinou = 0;
+	    campGB = null;
+	    nbSpeedGBUHC = 0;
+	    TrialHydratation = 100;
+	    TrialBouteille = 5;
+	    TrialStadeActif = 6;
+	    TrialEffetRandom = "";
+	    modeTrial = null;
+	    enderman = new ArrayList<>();
+	    blaze = new ArrayList<>();
+	    dragon = null;
+	    nbKillEnderman = 0;
+	    nbKillBlaze = 0;
+	    firstKill = null;
 		
 		if(main.getListHost().contains(this)) {
 			
@@ -408,7 +546,7 @@ public class Joueur {
 
             	nb_ = r.nextInt(3);
             	
-            	if(getRole() != Roles.MAKA) {
+            	if(getRole() != Roles.MAKA && getRole() != Roles.ROMPREMS) {
             	
 	            	setOrbe(Orbe.FEU);
 	            	Feu.Passif(this, main, true);
@@ -551,68 +689,6 @@ public class Joueur {
 
             }
 			
-		}
-		
-	}
-	
-	public String getCouleurCamp(Main main) {
-		
-		if(main.getVersion() == 2) {
-		
-			if(camp.equalsIgnoreCase("joueur")) {
-				
-				return "§a";
-				
-			}
-			else if(camp.equalsIgnoreCase("uhc")) {
-				
-				return "§2";
-				
-			}
-			else if(camp.equalsIgnoreCase("staff")) {
-				
-				return "§9";
-				
-			}
-			else if(camp.equalsIgnoreCase("duo")) {
-				
-				return "§5";
-				
-			}
-			else if(camp.equalsIgnoreCase("farmeurimmo")) {
-				
-				return "§c";
-				
-			}
-			else {
-				
-				return "§6";
-				
-			}
-			
-		}
-		else if(main.getVersion() == 1) {
-			
-			if(camp.equalsIgnoreCase("rc")) {
-				
-				return "§a";
-				
-			}
-			else if(camp.equalsIgnoreCase("demon")) {
-				
-				return "§c";
-				
-			}
-			else {
-				
-				return "§6";
-				
-			}
-			
-		}
-		else {
-			
-			return "";			
 		}
 		
 	}
@@ -762,7 +838,7 @@ public class Joueur {
 			}
 			else if(role == Roles.SLUP) {
 				
-				Slup.Items(this);
+				Slup.Items(this, main);
 				this.bonPapiers = true;
 				
 			}
@@ -779,7 +855,7 @@ public class Joueur {
 			}
 			else if(role == Roles.GAMEBLACK) {
 				
-				GameBlack.Items(this);
+				GameBlack.Items(this, main);
 				
 				this.bonPapiers = true;
 				
@@ -832,6 +908,11 @@ public class Joueur {
 			else if(role == Roles.THEOOCHOUX) {
 				
 				Theoochoux.Items(this, main);
+				
+			}
+			else if(role == Roles.ROMPREMS) {
+				
+				RomPrems.Items(this, main);
 				
 			}
 			else if(role == Roles.FARMEURIMMO) {
@@ -1004,6 +1085,31 @@ public class Joueur {
 	}
 	
 	public void setStatutOrbe(boolean orbe_actif) {
+		
+		if(Main.getStaticVersion() == 2) {
+			
+			if(orbe == Orbe.EAU) {
+				
+				Eau.Active(this, orbe_actif);
+				
+			}
+			else if(orbe == Orbe.FEU) {
+				
+				Feu.Active(this, orbe_actif);
+				
+			}
+			else if(orbe == Orbe.GLACE) {
+				
+				Glace.Active(this, orbe_actif);
+				
+			}
+			else if(orbe == Orbe.FOUDRE) {
+				
+				Foudre.Active(this, orbe_actif);
+				
+			}
+			
+		}
 		
 		this.orbe_actif = orbe_actif;
 		
@@ -1215,11 +1321,11 @@ public class Joueur {
 		this.spec = spec;
 	}
 
-	public String getCamp() {
+	public Camps getCamp() {
 		return camp;
 	}
 
-	public void setCamp(String camp) {
+	public void setCamp(Camps camp) {
 		this.camp = camp;
 	}
 
@@ -1255,12 +1361,12 @@ public class Joueur {
 		CanFight = canFight;
 	}
 
-	public String getModeTrial(Main main) {
-		return main.getModeTrial();
+	public String getModeTrial() {
+		return modeTrial;
 	}
 
-	public void setModeTrial(String modeTrial, Main main) {
-		main.setModeTrial(modeTrial);
+	public void setModeTrial(String modeTrial) {
+		this.modeTrial = modeTrial;
 	}
 	
 	public boolean isFarmeurimmoProche(Main main) {
@@ -1944,18 +2050,6 @@ public class Joueur {
 		this.invisible = invisible;
 	}
 
-	public int getUtilisationSacrificeTrial() {
-		return utilisationSacrificeTrial;
-	}
-
-	public void setUtilisationSacrificeTrial(int utilisationSacrificeTrial) {
-		this.utilisationSacrificeTrial = utilisationSacrificeTrial;
-	}
-	
-	public void addUtilisationSacrificeTrial() {
-		this.utilisationSacrificeTrial += 1;
-	}
-
 	public boolean isInZoneBenihime() {
 		return inZoneBenihime;
 	}
@@ -2584,12 +2678,174 @@ public class Joueur {
 		this.achatLivreToinou = achatLivreToinou;
 	}
 
-	public String getCampGB() {
+	public Camps getCampGB() {
 		return campGB;
 	}
 
-	public void setCampGB(String campGB) {
+	public void setCampGB(Camps campGB) {
 		this.campGB = campGB;
+	}
+
+	public int getNbSpeedGBUHC() {
+		return nbSpeedGBUHC;
+	}
+
+	public void setNbSpeedGBUHC(int nbSpeedGBUHC) {
+		this.nbSpeedGBUHC = nbSpeedGBUHC;
+	}
+	
+	public void addNbSpeedGBUHC(int nbSpeedGBUHC) {
+		this.nbSpeedGBUHC += nbSpeedGBUHC;
+	}
+
+	public boolean isBot() {
+		return bot;
+	}
+
+	public void setBot(boolean bot) {
+		this.bot = bot;
+	}
+
+	public int getTrialHydratation() {
+		return TrialHydratation;
+	}
+
+	public void setTrialHydratation(int trialHydratation) {
+		TrialHydratation = trialHydratation;
+	}
+	
+	public void addTrialHydratation(int trialHydratation) {
+		TrialHydratation += trialHydratation;
+	}
+	
+	public void removeTrialHydratation(int trialHydratation) {
+		TrialHydratation -= trialHydratation;
+	}
+
+	public int getTrialBouteille() {
+		return TrialBouteille;
+	}
+
+	public void setTrialBouteille(int trialBouteille) {
+		TrialBouteille = trialBouteille;
+	}
+	
+	public void addTrialBouteille(int trialBouteille) {
+		TrialBouteille += trialBouteille;
+	}
+	
+	public void removeTrialBouteille(int trialBouteille) {
+		TrialBouteille -= trialBouteille;
+	}
+
+	public int getTrialStadeActif() {
+		return TrialStadeActif;
+	}
+
+	public void setTrialStadeActif(int trialStadeActif) {
+		TrialStadeActif = trialStadeActif;
+	}
+
+	public boolean isBouge() {
+		return bouge;
+	}
+
+	public void setBouge(boolean bouge) {
+		this.bouge = bouge;
+	}
+
+	public String getTrialEffetRandom() {
+		return TrialEffetRandom;
+	}
+
+	public void setTrialEffetRandom(String trialEffetRandom) {
+		TrialEffetRandom = trialEffetRandom;
+	}
+
+	public Joueur getCibleBot() {
+		return cibleBot;
+	}
+
+	public void setCibleBot(Joueur cibleBot) {
+		this.cibleBot = cibleBot;
+	}
+
+	public String getModeBOT() {
+		return modeBOT;
+	}
+
+	public void setModeBOT(String modeBOT) {
+		this.modeBOT = modeBOT;
+	}
+
+	public boolean isBOTMange() {
+		return BOTMange;
+	}
+
+	public void setBOTMange(boolean bOTMange) {
+		BOTMange = bOTMange;
+	}
+
+	public List<Joueur> getEnderman() {
+		
+		return enderman;
+		
+	}
+	
+	public List<Joueur> getBlaze() {
+		
+		return blaze;
+		
+	}
+	
+	public Joueur getDragon() {
+		
+		return dragon;
+		
+	}
+
+	public void setDragon(Joueur dragon) {
+		this.dragon = dragon;
+	}
+
+	public int getNbKillEnderman() {
+		return nbKillEnderman;
+	}
+
+	public void setNbKillEnderman(int nbKillEnderman) {
+		this.nbKillEnderman = nbKillEnderman;
+	}
+	
+	public void addNbKillEnderman(int nbKillEnderman) {
+		this.nbKillEnderman += nbKillEnderman;
+	}
+	
+	public void addNbKillEnderman() {
+		this.nbKillEnderman += 1;
+	}
+
+	public int getNbKillBlaze() {
+		return nbKillBlaze;
+	}
+
+	public void setNbKillBlaze(int nbKillBlaze) {
+		this.nbKillBlaze = nbKillBlaze;
+	}
+	
+	public void addNbKillBlaze(int nbKillBlaze) {
+		this.nbKillBlaze += nbKillBlaze;
+	}
+	
+	public void addNbKillBlaze() {
+		this.nbKillBlaze += 1;
+	}
+
+	public String getFirstKill() {
+		return firstKill;
+	}
+
+	public void setFirstKill(String firstKill) {
+		this.firstKill = firstKill;
 	}
 	
 }

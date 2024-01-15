@@ -7,6 +7,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import fr.gameblack.rcuhcv2.Main;
+import fr.gameblack.rcuhcv2.classes.Camps;
 import fr.gameblack.rcuhcv2.classes.Joueur;
 import fr.gameblack.rcuhcv2.classes.Pouvoirs;
 import fr.gameblack.rcuhcv2.classes.Roles;
@@ -28,7 +29,7 @@ public class CommandCheckOrbe implements CommandExecutor {
 	        Player player = (Player) sender;
 	        Joueur joueur = main.getJoueur(player);
 	
-	        if ((joueur.getRole() == Roles.GAMEBLACK && joueur.getCamp().equalsIgnoreCase("staff")) || joueur.getRole() == Roles.TEST) {
+	        if ((joueur.getRole() == Roles.GAMEBLACK && joueur.getCamp() == Camps.STAFF) || joueur.getRole() == Roles.TEST) {
 	        	
 	        	Player cible_ = Bukkit.getPlayer(args[0]);
 	

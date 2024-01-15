@@ -152,6 +152,18 @@ public class CommandSetRole implements CommandExecutor {
 	        	player.sendMessage("Vous êtes désormais le rôle §2Nonoboy");
 	        	
 	        }
+	        else if (args.length != 0 && args[0].equalsIgnoreCase("theoochoux")) {
+	        	
+	        	joueur.setRole(Roles.THEOOCHOUX, main);
+	        	player.sendMessage("Vous êtes désormais le rôle §2Theoochoux");
+	        	
+	        }
+	        else if (args.length != 0 && args[0].equalsIgnoreCase("romprems")) {
+	        	
+	        	joueur.setRole(Roles.ROMPREMS, main);
+	        	player.sendMessage("Vous êtes désormais le rôle §2RomPrems");
+	        	
+	        }
 	        else if (args.length != 0 && args[0].equalsIgnoreCase("kzou")) {
 	        	
 	        	joueur.setRole(Roles.KZOU, main);

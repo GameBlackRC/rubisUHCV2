@@ -34,7 +34,7 @@ private Main main;
         		
         		Joueur cible = main.getJoueur(cible_);
         	
-        		Slup.CommandTrial(joueur, cible);
+        		Slup.CommandTrial(joueur, cible, main);
         		
         	}
 

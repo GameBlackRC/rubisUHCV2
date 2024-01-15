@@ -49,7 +49,7 @@ private Main main;
 	
 	            if (cible_ != null && (joueur.getRole() == Roles.CAPTAIN || (joueur.getRole() == Roles.FARMEURIMMO && joueur.getVol().add(Pouvoirs.CAPTAIN_REPAIR)))) {
 	                	
-	            	Captain.commandRepair(joueur, cible);
+	            	Captain.commandRepair(joueur, cible, main);
 	            	
 	            }
             

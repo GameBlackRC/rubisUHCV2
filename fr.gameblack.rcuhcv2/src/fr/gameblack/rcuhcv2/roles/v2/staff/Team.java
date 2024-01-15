@@ -2,13 +2,18 @@ package fr.gameblack.rcuhcv2.roles.v2.staff;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
 import fr.gameblack.rcuhcv2.Main;
+import fr.gameblack.rcuhcv2.classes.Camps;
 import fr.gameblack.rcuhcv2.classes.ItRoles;
 import fr.gameblack.rcuhcv2.classes.Joueur;
+import fr.gameblack.rcuhcv2.classes.Modes;
 import fr.gameblack.rcuhcv2.classes.Pouvoirs;
 import fr.gameblack.rcuhcv2.classes.Roles;
 import fr.gameblack.rcuhcv2.task.v2.ItemCD;
@@ -18,8 +23,18 @@ public class Team {
 	public static void Items(Joueur joueur) {
 		
 		Texte(joueur.getPlayer());
-        joueur.getPlayer().getInventory().addItem(Main.getItemRole(ItRoles.TEAM_JUSTICE));
         joueur.addSpeed(0.1);
+		if(joueur.isBot()) {
+			
+			joueur.getPlayer().getInventory().setItem(8, Main.getItemRole(ItRoles.TEAM_JUSTICE));
+			Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(), "tell " + joueur.getPlayer().getName() + " role Team");
+			
+		}
+		else {
+			
+			joueur.getPlayer().getInventory().addItem(Main.getItemRole(ItRoles.TEAM_JUSTICE));
+			
+		}
 		
 	}
 	
@@ -30,6 +45,27 @@ public class Team {
 			joueur.getCD().add(Pouvoirs.TEAM_JUSTICE);
 			joueur.getPlayer().sendMessage("Vous venez d'activer votre pouvoir 'Justice'");
 			main.setZoneJusticeActif(true);
+			
+			if(main.getJoueurByRole(Roles.GAMEBLACK) != null && main.getJoueurByRole(Roles.GAMEBLACK).isConsoleGBActif()) {
+				
+				Joueur gb = main.getJoueurByRole(Roles.GAMEBLACK);
+				
+				Random r = new Random();
+				
+	            int nb = r.nextInt(100);
+	            
+	            if(nb <= 80) {
+	            	
+	            	gb.getPlayer().sendMessage("[CONSOLE]" + ChatColor.MAGIC + "aaaaa" + ChatColor.RESET + " vient d'utiliser un item");
+	            	
+	            }
+	            else {
+	            	
+	            	gb.getPlayer().sendMessage("[CONSOLE]" + joueur.getPlayer().getName() + " vient d'utiliser un item");
+	            	
+	            }
+				
+			}
 			
 			joueur.addSpeed(0.05);
 			ItemCD cycle = new ItemCD(main, joueur, "justice_team", 60, joueur, null, null, 0, null);
@@ -58,15 +94,46 @@ public class Team {
 						
 						joueur.setInZoneJustice(true);
 						
-						if(!main.getMode().equalsIgnoreCase("rapide") && (joueur.getCamp().equalsIgnoreCase("staff") || joueur.getRole() == Roles.TRIAL || joueur.getRole() == Roles.GAMEBLACK)) {
+						if(main.getMode() != Modes.RAPIDE && (joueur.getCamp() == Camps.STAFF || joueur.getRole() == Roles.TRIAL || joueur.getRole() == Roles.GAMEBLACK)) {
 							
 							joueur.addSpeed(0.05);
 							
 						}
 						else {
 							
-							joueur.removeResi(0.01);
-							joueur.removeForce(0.01);
+							if(joueur.getRole() == Roles.Obscur && main.isAdaptionObscurActif()) {
+								
+								if(main.getAdaptionAvantObscur().contains(Pouvoirs.TEAM_JUSTICE)) {
+		                			
+		                			main.getAdaptionPermaObscur().add(Pouvoirs.TEAM_JUSTICE);
+		                			joueur.setInZoneJustice(false);
+		                			
+		                		}
+		                		else {
+		                			
+		                			main.getAdaptionObscur().add(Pouvoirs.TEAM_JUSTICE);
+		                			
+		                			joueur.removeResi(0.01);
+									joueur.removeForce(0.01);
+		                			
+		                		}
+								
+							}
+							else {
+								
+								if(joueur.getRole() != Roles.Obscur && !main.getAdaptionPermaObscur().contains(Pouvoirs.TEAM_JUSTICE)) {
+									
+									joueur.removeResi(0.01);
+									joueur.removeForce(0.01);
+									
+								}
+								else {
+									
+									joueur.setInZoneJustice(false);
+									
+								}
+								
+							}
 							
 						}
 						
@@ -84,7 +151,7 @@ public class Team {
 					
 					j.setInZoneJustice(false);
 
-					if(j.getCamp().equalsIgnoreCase("staff") || j.getRole() == Roles.TRIAL || j.getRole() == Roles.GAMEBLACK) {
+					if(j.getCamp() == Camps.STAFF || j.getRole() == Roles.TRIAL || j.getRole() == Roles.GAMEBLACK) {
 						
 						j.removeSpeed(0.05);
 						

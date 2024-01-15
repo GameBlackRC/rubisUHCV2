@@ -16,11 +16,27 @@ public class Feu {
     	else {
     		
     		joueur.setOrbePassifActif(false);
+    		if(joueur.isOrbeActif())
     		joueur.setStatutOrbe(false);
     		
     	}
 
     }
+	
+	public static void Active(Joueur joueur, boolean give) {
+		
+		if(give) {
+			
+			joueur.getPlayer().setMaxHealth(joueur.getPlayer().getMaxHealth()+2);
+			
+		}
+		else if(joueur.isOrbeActif()) {
+			
+			joueur.getPlayer().setMaxHealth(joueur.getPlayer().getMaxHealth()-2);
+			
+		}
+		
+	}
 
     public static void Bonus(Joueur joueur, Main main, boolean give) {
     	

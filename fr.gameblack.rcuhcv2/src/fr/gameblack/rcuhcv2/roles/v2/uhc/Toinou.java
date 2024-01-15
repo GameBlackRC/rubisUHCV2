@@ -3,6 +3,8 @@ package fr.gameblack.rcuhcv2.roles.v2.uhc;
 import java.util.Random;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
+import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -11,8 +13,11 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
 
 import fr.gameblack.rcuhcv2.Main;
+import fr.gameblack.rcuhcv2.classes.ItRoles;
 import fr.gameblack.rcuhcv2.classes.Joueur;
 import fr.gameblack.rcuhcv2.classes.JoueurMort;
+import fr.gameblack.rcuhcv2.classes.Modes;
+import fr.gameblack.rcuhcv2.classes.Roles;
 import fr.gameblack.rcuhcv2.task.v2.ItemCD;
 
 public class Toinou {
@@ -22,6 +27,12 @@ public class Toinou {
 		Texte(joueur.getPlayer());
 		joueur.addSpeed(0.05);
 		joueur.addForce(0.01);
+		
+		if(joueur.isBot()) {
+			
+			Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(), "tell " + joueur.getPlayer().getName() + " role Toinou");
+			
+		}
 		
 	}
 	
@@ -43,7 +54,7 @@ public class Toinou {
 		joueur.hide(main);
 		joueur.addSpeed(0.1);
 		
-		if(main.getMode().equalsIgnoreCase("rapide")) {
+		if(main.getMode() == Modes.RAPIDE) {
 			
 			ItemCD cycle = new ItemCD(main, joueur, "vacance_toinou", 15, joueur, null, null, 0, null);
 			cycle.runTaskTimer(main, 0, 20);
@@ -53,6 +64,27 @@ public class Toinou {
 		
 			ItemCD cycle = new ItemCD(main, joueur, "vacance_toinou", 120, joueur, null, null, 0, null);
 			cycle.runTaskTimer(main, 0, 20);
+			
+		}
+		
+		if(main.getJoueurByRole(Roles.GAMEBLACK) != null && main.getJoueurByRole(Roles.GAMEBLACK).isConsoleGBActif()) {
+			
+			Joueur gb = main.getJoueurByRole(Roles.GAMEBLACK);
+			
+			Random r = new Random();
+			
+            int nb = r.nextInt(100);
+            
+            if(nb <= 80) {
+            	
+            	gb.getPlayer().sendMessage("[CONSOLE]" + ChatColor.MAGIC + "aaaaa" + ChatColor.RESET + " vient d'effectuer une commande");
+            	
+            }
+            else {
+            	
+            	gb.getPlayer().sendMessage("[CONSOLE]" + joueur.getPlayer().getName() + " vient d'effectuer une commande");
+            	
+            }
 			
 		}
 		
@@ -139,6 +171,8 @@ public class Toinou {
         
         j.getPlayer().setMaxHealth(j.getPlayer().getMaxHealth()-4);
         
+        j.getPlayer().setGameMode(GameMode.SURVIVAL);
+        
         ItemCD cycle2 = new ItemCD(main, joueur, "respawn", 5, joueur, null, null, 0, null);
         cycle2.runTaskTimer(main, 0, 20);
 		
@@ -155,7 +189,7 @@ public class Toinou {
 			
 			Player pls = Bukkit.getPlayer(j.getPseudo());
 			
-			if(j.getCamp().equalsIgnoreCase(joueur.getCamp()) && Bukkit.getOnlinePlayers().contains(pls)) {
+			if(j.getCamp() == joueur.getCamp() && Bukkit.getOnlinePlayers().contains(pls)) {
 				
 				hasMortInCamp = true;
     	
@@ -201,6 +235,8 @@ public class Toinou {
         	joueur.getPlayer().sendMessage("Le rôle du tueur de " + mort.getPseudoCouleur() + "§r est : " + mort.getRoleTueur());
         	
         }
+        
+        joueur.getPlayer().getInventory().remove(Main.getItemRole(ItRoles.TOINOU_LIVRE));
 		
 	}
 
@@ -230,7 +266,14 @@ public class Toinou {
 	
 	public static void Texte(Player player) {
 
-        player.sendMessage("____________________________________________________\n \nVous êtes §2Toinou\n§rVous devez gagner avec le §2camp UHC§r\n \nAvec la commande /rcvacance, vous devenez invisible avec votre armure pendant 2 minutes et vous ne pouvez pas recevoir ou mettre de coup pendant que vous êtes invisible\n \nSi Raptor active son cheat contre vous, vous recevez 10% de speed pendant 2 minutes et vos coup mis à Raptor auront 5% de force supplémentaire\n \nAvec la commande /rcshop, vous pouvez acheter des objects avec vos points\nA chaque kill vous obtenez 1 point supplémentaire et à l'annonce des rôles, vous pouvez acheter un objet avec un coût maximum de 2 points hormis les gaps\n \n____________________________________________________");
+        player.sendMessage("____________________________________________________\n \n"
+        		+ "Vous êtes §2Toinou\n§r"
+        		+ "Vous devez gagner avec le §2camp UHC§r\n \n"
+        		+ "Avec la commande /rcvacance, vous devenez invisible avec votre armure pendant 2 minutes et vous ne pouvez pas recevoir ou mettre de coup pendant que vous êtes invisible\n \n"
+        		+ "Si Raptor active son cheat contre vous, vous recevez 10% de speed pendant 2 minutes et vos coup mis à Raptor auront 5% de force supplémentaire\n \n"
+        		+ "Avec la commande /rcshop, vous pouvez acheter des objects avec vos points\n"
+        		+ "A chaque kill vous obtenez 1 point supplémentaire et à l'annonce des rôles, vous pouvez acheter un objet avec un coût maximum de 2 points hormis les pommes d'or\n \n"
+        		+ "____________________________________________________");
 
     }
 

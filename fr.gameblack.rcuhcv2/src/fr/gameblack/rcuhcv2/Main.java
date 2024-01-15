@@ -7,6 +7,7 @@ import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
+import org.bukkit.generator.ChunkGenerator;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -17,11 +18,13 @@ import org.bukkit.scoreboard.Score;
 import org.bukkit.scoreboard.Scoreboard;
 
 import fr.gameblack.rcuhcv2.database.DatabaseManager;
+import fr.gameblack.rcuhcv2.classes.Camps;
 import fr.gameblack.rcuhcv2.classes.ItRoles;
 import fr.gameblack.rcuhcv2.classes.Joueur;
 import fr.gameblack.rcuhcv2.classes.JoueurMort;
 import fr.gameblack.rcuhcv2.classes.Pouvoirs;
 import fr.gameblack.rcuhcv2.classes.Roles;
+import fr.gameblack.rcuhcv2.classes.Modes;
 import fr.gameblack.rcuhcv2.scenarios.Scenarios;
 import fr.gameblack.rcuhcv2.commands.global.admin.CommandEpisode;
 import fr.gameblack.rcuhcv2.commands.global.admin.CommandSetOrbe;
@@ -41,6 +44,7 @@ import fr.gameblack.rcuhcv2.commands.global.host.CommandAddAllRole;
 import fr.gameblack.rcuhcv2.commands.global.host.CommandAddAllRolePVP;
 import fr.gameblack.rcuhcv2.commands.global.host.CommandAddrole;
 import fr.gameblack.rcuhcv2.commands.global.host.CommandCreate;
+import fr.gameblack.rcuhcv2.commands.global.host.CommandFastcreate;
 import fr.gameblack.rcuhcv2.commands.global.host.CommandRemoverole;
 import fr.gameblack.rcuhcv2.commands.global.host.CommandSetGroup;
 import fr.gameblack.rcuhcv2.commands.global.host.CommandStart;
@@ -99,6 +103,8 @@ import fr.gameblack.rcuhcv2.listener.v2.BoatActionListener;
 import fr.gameblack.rcuhcv2.listener.v2.PlayerActionListener;
 import fr.gameblack.rcuhcv2.orbes.Craft;
 import fr.gameblack.rcuhcv2.orbes.Orbe;
+import fr.gameblack.rcuhcv2.roles.v2.staff.JeuxTrial;
+import fr.gameblack.rcuhcv2.utils.CustomChunkGenerator;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -118,10 +124,10 @@ public class Main extends JavaPlugin {
     private int episode = 1;
     private int temps_episode = 600;
     private boolean jour = false;
-    private String mode = "normal";
+    private Modes mode = Modes.NORMAL;
     private List<Joueur> joueurs = new ArrayList<>();
     private List<Roles> compo = new ArrayList<>();
-    private String jeuTrial = null;
+    private JeuxTrial jeuTrial = null;
     private List<Joueur> joueurJeuTrial = new ArrayList<>();
     private boolean fermetureGolden = false;
     private boolean fermetureGoldenActif = false;
@@ -135,7 +141,6 @@ public class Main extends JavaPlugin {
     private int niv_maledition = 0;
     private Location locZoneSlup = null;
     private Joueur advBedwars = null;
-    private String modeTrial = null;
     private boolean zoneBenihimeActif = false;
     private List<Pouvoirs> adaptionObscur = new ArrayList<>();
     private List<Pouvoirs> adaptionPermaObscur = new ArrayList<>();
@@ -148,7 +153,7 @@ public class Main extends JavaPlugin {
     private List<Joueur> giveBoostNicko = new ArrayList<>();
     private Joueur passagerSuperBateau = null;
     private List<Scenarios> scenarios = new ArrayList<>();
-    private int version = 0;
+    private static int version = 0;
     private boolean trialReflexActif = false;
     
     private Orbe orbeCopieObscur = Orbe.NONE;
@@ -174,6 +179,8 @@ public class Main extends JavaPlugin {
     	databaseManager = new DatabaseManager();
     	
     	Craft.setCraft(this);
+    	
+    	getCommand("fastcreate").setExecutor(new CommandFastcreate(this));
     	
     	getCommand("addpoints").setExecutor(new CommandaddPoints(this));
     	getCommand("skipepisode").setExecutor(new CommandEpisode(this));
@@ -263,13 +270,8 @@ public class Main extends JavaPlugin {
     	
     	System.out.println("Le plugin viens de s'allumer");
     	setState(Statut.WAITING);
-    	
-    	if(Bukkit.getWorld("uhc") != null) {
-    		
-    		world = Bukkit.getWorld("uhc");
-    		
-    	}
-    	
+    
+    	//Enregistre tous les joueurs en ligne dans le plugin
     	for(Player player : Bukkit.getOnlinePlayers()) {
     		
     		addJoueur(player);
@@ -281,12 +283,18 @@ public class Main extends JavaPlugin {
     
     public void onDisable() {
 
+    	//Retire les permissions d'hosts
     	for(Joueur host : hosts) {
     		
     		Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(), "lp user " + host.getPlayer().getName() + " parent remove host");
     		
     	}
 
+    }
+    
+    @Override
+    public ChunkGenerator getDefaultWorldGenerator(String worldName, String id) {
+        return new CustomChunkGenerator();
     }
     
 	public DatabaseManager getDatabaseManager() {
@@ -349,12 +357,12 @@ public class Main extends JavaPlugin {
         joueur.setOrbe(Orbe.NONE);
         if(joueur.isInZoneJustice() && getJoueurByRole(Roles.TEAM) != null) {
         	
-        	getJoueurByRole(Roles.TEAM).getPlayer().sendMessage("_________________________\n" + joueur.getPlayer().getName() + " est mort. Il était : \n" + joueur.getCouleurCamp(this) + role.getTxt() + "§r\n_________________________\nCe joueur étant mort dans votre zone, seul vous voyez le message de mort");
+        	getJoueurByRole(Roles.TEAM).getPlayer().sendMessage("_________________________\n" + joueur.getPlayer().getName() + " est mort. Il était : \n" + joueur.getCamp().getCouleur() + role.getTxt() + "§r\n_________________________\nCe joueur étant mort dans votre zone, seul vous voyez le message de mort");
         	
         }
         else {
         	
-        	Bukkit.broadcastMessage("_________________________\n" + joueur.getPlayer().getName() + " est mort. Il était : \n" + joueur.getCouleurCamp(this) + role.getTxt() + "§r\n_________________________");
+        	Bukkit.broadcastMessage("_________________________\n" + joueur.getPlayer().getName() + " est mort. Il était : \n" + joueur.getCamp().getCouleur() + role.getTxt() + "§r\n_________________________");
         	
     	}
         
@@ -381,7 +389,7 @@ public class Main extends JavaPlugin {
     	
     	for(Joueur j : getListJoueurs()) {
     		
-    		if(j.getCamp().equalsIgnoreCase("rc") && !j.isMort()) {
+    		if(j.getCamp() == Camps.RC && !j.isMort()) {
     			
     			joueurs.add(j);
     			
@@ -399,7 +407,7 @@ public class Main extends JavaPlugin {
     	
     	for(Joueur j : getListJoueurs()) {
     		
-    		if(j.getCamp().equalsIgnoreCase("demon") && !j.isMort()) {
+    		if(j.getCamp() == Camps.DEMON && !j.isMort()) {
     			
     			joueurs.add(j);
     			
@@ -417,7 +425,7 @@ public class Main extends JavaPlugin {
     	
     	for(Joueur j : getListJoueurs()) {
     		
-    		if(j.getCamp().equalsIgnoreCase("solo") && !j.isMort()) {
+    		if(j.getCamp() == Camps.SOLOS && !j.isMort()) {
     			
     			joueurs.add(j);
     			
@@ -435,7 +443,7 @@ public class Main extends JavaPlugin {
     	
     	for(Joueur joueur : joueurs) {
     		
-    		if(joueur.getCamp() == "joueur" && !joueur.isMort()) {
+    		if(joueur.getCamp() == Camps.JOUEUR && !joueur.isMort()) {
     			
     			camp_joueur.add(joueur);
     			
@@ -453,7 +461,7 @@ public class Main extends JavaPlugin {
     	
     	for(Joueur joueur : joueurs) {
     		
-    		if(joueur.getCamp() == "staff" && !joueur.isMort()) {
+    		if(joueur.getCamp() == Camps.STAFF && !joueur.isMort()) {
     			
     			camp_staff.add(joueur);
     			
@@ -471,7 +479,7 @@ public class Main extends JavaPlugin {
     	
     	for(Joueur joueur : joueurs) {
     		
-    		if(joueur.getCamp() == "uhc" && !joueur.isMort()) {
+    		if(joueur.getCamp() == Camps.UHC && !joueur.isMort()) {
     			
     			camp_uhc.add(joueur);
     			
@@ -489,7 +497,7 @@ public class Main extends JavaPlugin {
     	
     	for(Joueur joueur : joueurs) {
     		
-    		if(joueur.getCamp() == "solo" && !joueur.isMort()) {
+    		if(joueur.getCamp() == Camps.SOLOS && !joueur.isMort()) {
     			
     			camp_solo.add(joueur);
     			
@@ -507,7 +515,7 @@ public class Main extends JavaPlugin {
     	
     	for(Joueur joueur : joueurs) {
     		
-    		if(joueur.getCamp() == "duo" && !joueur.isMort()) {
+    		if(joueur.getCamp() == Camps.DUO && !joueur.isMort()) {
     			
     			camp_duo.add(joueur);
     			
@@ -525,7 +533,7 @@ public class Main extends JavaPlugin {
     	
     	for(Joueur joueur : joueurs) {
     		
-    		if(joueur.getCamp() == "farmeurimmo" && !joueur.isMort()) {
+    		if(joueur.getCamp() == Camps.FARMEURIMMO && !joueur.isMort()) {
     			
     			camp_farmeurimmo.add(joueur);
     			
@@ -539,7 +547,7 @@ public class Main extends JavaPlugin {
     
     public void checkWin() {
     	
-    	if(!getMode().equalsIgnoreCase("rapide") || getJoueurInGame().size() <= 1) {
+    	if(getMode() != Modes.RAPIDE) {
 
 	        if (getCampStaff().isEmpty() && getCampUHC().isEmpty() && getCampFarmeurimmo().isEmpty() && getDuo().isEmpty() && getSolos().isEmpty()) {
 	
@@ -590,6 +598,15 @@ public class Main extends JavaPlugin {
 	        }
 	        
     	}
+    	else if(getJoueurInGame().size() <= 1) {
+    		
+    		Joueur joueur = getJoueurInGame().get(0);
+    		
+    		Bukkit.broadcastMessage(joueur.getCamp().getCouleur() + joueur.getRole().getTxt() + " remporte la partie !");
+            
+            state = Statut.FINISH;
+    		
+    	}
 
     }
     
@@ -623,7 +640,6 @@ public class Main extends JavaPlugin {
         niv_maledition = 0;
         locZoneSlup = null;
         advBedwars = null;
-        modeTrial = null;
         zoneBenihimeActif = false;
         adaptionObscur = new ArrayList<>();
         adaptionPermaObscur = new ArrayList<>();
@@ -645,6 +661,8 @@ public class Main extends JavaPlugin {
         gbKill = null;
         connaissanceTeam = null;
         killCosmos = null;
+        effetDemon = "";
+        pourcentEffetDemon = 0;
     	
     }
     
@@ -712,12 +730,12 @@ public class Main extends JavaPlugin {
     	
     }
     
-    public List<Joueur> getJoueurInCamp(String camp) {
+    public List<Joueur> getJoueurInCamp(Camps camp) {
     	
     	List<Joueur> joueurs_camps = new ArrayList<>();
     	for(Joueur joueur : joueurs) {
     		
-    		if(joueur.getCamp().equalsIgnoreCase(camp)) {
+    		if(joueur.getCamp() == camp) {
     			
     			joueurs_camps.add(joueur);
     			
@@ -801,13 +819,13 @@ public class Main extends JavaPlugin {
         this.state = state;
     }
     
-    public String getMode() {
+    public Modes getMode() {
     	
     	return mode;
     	
     }
     
-    public void setMode(String mode) {
+    public void setMode(Modes mode) {
     	
     	this.mode = mode;
     	
@@ -950,11 +968,11 @@ public class Main extends JavaPlugin {
 		
 	}
 
-	public String getJeuTrial() {
+	public JeuxTrial getJeuTrial() {
 		return jeuTrial;
 	}
 
-	public void setJeuTrial(String jeuTrial) {
+	public void setJeuTrial(JeuxTrial jeuTrial) {
 		this.jeuTrial = jeuTrial;
 	}
 
@@ -1058,14 +1076,6 @@ public class Main extends JavaPlugin {
 		this.advBedwars = advBedwars;
 	}
 
-	public String getModeTrial() {
-		return modeTrial;
-	}
-
-	public void setModeTrial(String modeTrial) {
-		this.modeTrial = modeTrial;
-	}
-
 	public boolean isZoneBenihimeActif() {
 		return zoneBenihimeActif;
 	}
@@ -1165,9 +1175,13 @@ public class Main extends JavaPlugin {
 	public int getVersion() {
 		return version;
 	}
+	
+	public static int getStaticVersion() {
+		return version;
+	}
 
 	public void setVersion(int version) {
-		this.version = version;
+		Main.version = version;
 	}
 
 	public Orbe getOrbeCopieObscur() {
@@ -1449,7 +1463,7 @@ public class Main extends JavaPlugin {
 		}
 		else if(item == ItRoles.TEAM_JUSTICE) {
 			
-			ItemStack coffre = new ItemStack(Material.NETHER_STAR, 1);
+			ItemStack coffre = new ItemStack(Material.BLAZE_POWDER, 1);
 	        ItemMeta coffreM = coffre.getItemMeta();
 	        coffreM.setDisplayName(item.getNom());
 	        coffre.setItemMeta(coffreM);
@@ -1465,6 +1479,36 @@ public class Main extends JavaPlugin {
 	        coffre.setItemMeta(coffreM);
 	        
 	        return coffre;
+			
+		}
+		else if(item == ItRoles.ROMPREMS_PEARL) {
+			
+			ItemStack coffre = new ItemStack(Material.ENDER_PEARL, 1);
+	        ItemMeta coffreM = coffre.getItemMeta();
+	        coffreM.setDisplayName(item.getNom());
+	        coffre.setItemMeta(coffreM);
+	        
+	        return coffre;
+			
+		}
+		else if(item == ItRoles.ROMPREMS_EYE) {
+			
+			ItemStack coffre = new ItemStack(Material.EYE_OF_ENDER, 1);
+	        ItemMeta coffreM = coffre.getItemMeta();
+	        coffreM.setDisplayName(item.getNom());
+	        coffre.setItemMeta(coffreM);
+	        
+	        return coffre;
+			
+		}
+		else if(item == ItRoles.TRIAL_COLA) {
+			
+			ItemStack ames = new ItemStack(Material.NETHER_STAR, 1);
+            ItemMeta amesM = ames.getItemMeta();
+            amesM.setDisplayName(item.getNom());
+            ames.setItemMeta(amesM);
+	        
+	        return ames;
 			
 		}
 		else if(item == ItRoles.TRIAL_BENIHIME) {

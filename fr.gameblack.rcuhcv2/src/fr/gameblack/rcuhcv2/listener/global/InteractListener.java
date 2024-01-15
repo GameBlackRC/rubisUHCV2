@@ -54,7 +54,7 @@ public class InteractListener implements Listener {
         	}
         	else if(main.getVersion() == 2) {
         		
-        		InteractItemV2.whenInteract(joueur, it, action, main);
+        		InteractItemV2.whenInteract(joueur, it, event, main);
         		
         	}
         	

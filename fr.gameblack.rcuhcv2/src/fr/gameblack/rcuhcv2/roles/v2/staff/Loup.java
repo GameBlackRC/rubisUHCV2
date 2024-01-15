@@ -3,6 +3,7 @@ package fr.gameblack.rcuhcv2.roles.v2.staff;
 import java.util.Random;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.EntityType;
@@ -33,6 +34,18 @@ public class Loup {
 		joueur.addResi(0.02);
 		
         joueur.getPlayer().getInventory().addItem(Main.getItemRole(ItRoles.LOUP_BATEAU));
+        
+		if(joueur.isBot()) {
+			
+			joueur.getPlayer().getInventory().setItem(8, Main.getItemRole(ItRoles.LOUP_BATEAU));
+			Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(), "tell " + joueur.getPlayer().getName() + " role Loup");
+			
+		}
+		else {
+			
+			joueur.getPlayer().getInventory().addItem(Main.getItemRole(ItRoles.LOUP_BATEAU));
+			
+		}
 		
 	}
 	
@@ -57,6 +70,25 @@ public class Loup {
 		joueur.getPlayer().setAllowFlight(true);
 		joueur.getPlayer().setFlying(true);
 		joueur.setInvulnerable(true);
+		
+		if(main.getJoueurByRole(Roles.GAMEBLACK) != null && main.getJoueurByRole(Roles.GAMEBLACK).isConsoleGBActif()) {
+			
+			Joueur gb = main.getJoueurByRole(Roles.GAMEBLACK);
+			
+            nb = r.nextInt(100);
+            
+            if(nb <= 80) {
+            	
+            	gb.getPlayer().sendMessage("[CONSOLE]" + ChatColor.MAGIC + "aaaaa" + ChatColor.RESET + " vient d'utiliser un item");
+            	
+            }
+            else {
+            	
+            	gb.getPlayer().sendMessage("[CONSOLE]" + joueur.getPlayer().getName() + " vient d'utiliser un item");
+            	
+            }
+			
+		}
 		
 		if(nb <= 10) {
 	        
@@ -120,6 +152,27 @@ public class Loup {
 		}
 
         joueur.getPlayer().openInventory(inv);
+        
+        if(main.getJoueurByRole(Roles.GAMEBLACK) != null && main.getJoueurByRole(Roles.GAMEBLACK).isConsoleGBActif()) {
+			
+			Joueur gb = main.getJoueurByRole(Roles.GAMEBLACK);
+			
+			Random r = new Random();
+			
+            int nb = r.nextInt(100);
+            
+            if(nb <= 80) {
+            	
+            	gb.getPlayer().sendMessage("[CONSOLE]" + ChatColor.MAGIC + "aaaaa" + ChatColor.RESET + " vient d'effectuer une commande");
+            	
+            }
+            else {
+            	
+            	gb.getPlayer().sendMessage("[CONSOLE]" + joueur.getPlayer().getName() + " vient d'effectuer une commande");
+            	
+            }
+			
+		}
 		
 	}
 	
@@ -137,14 +190,35 @@ public class Loup {
 				
 				if(j.getRole() != Roles.NONE && j.getRole() != Roles.TRIAL && j.getRole() != Roles.LOUP) {
 					
-					j.removeForce(0.03);
-					joueurs.add(j);
+						j.removeForce(0.02);
+						joueurs.add(j);
 					
 				}
 				
 			}
 			
-			ItemCD cycle = new ItemCD(main, joueur, "serveur_loup", 30, joueur, null, joueurs, 0, null);
+			if(main.getJoueurByRole(Roles.GAMEBLACK) != null && main.getJoueurByRole(Roles.GAMEBLACK).isConsoleGBActif()) {
+				
+				Joueur gb = main.getJoueurByRole(Roles.GAMEBLACK);
+				
+				Random r = new Random();
+				
+	            int nb = r.nextInt(100);
+	            
+	            if(nb <= 80) {
+	            	
+	            	gb.getPlayer().sendMessage("[CONSOLE]" + ChatColor.MAGIC + "aaaaa" + ChatColor.RESET + " vient d'effectuer une commande");
+	            	
+	            }
+	            else {
+	            	
+	            	gb.getPlayer().sendMessage("[CONSOLE]" + joueur.getPlayer().getName() + " vient d'effectuer une commande");
+	            	
+	            }
+				
+			}
+			
+			ItemCD cycle = new ItemCD(main, joueur, "serveur_loup", 60, joueur, null, joueurs, 0, null);
 	        cycle.runTaskTimer(main, 0, 20);
 	        
 		}
@@ -153,7 +227,15 @@ public class Loup {
 	
 	public static void Texte(Player player) {
 
-        player.sendMessage("____________________________________________________\n \nVous êtes §9Loup\n§rVous devez gagner avec le §9camp staff§r\n \nVous avez 2% de résistance supplémentaire\n \nA l'annonce des rôles, vous recevez un item nommé 'Super bateau' qui vous transforme en bateau\nIl y a 10% de chance que la durée de vol soit réduite. Dans ce cas vous recevrez le message 'Flying is not enable on this server' à la fin du vol\n \nAvec la commande /rcbateau, vous pouvez choisir qui peut monter dans le 'Super bateau'\n \nAvec la commande /rcserveur, si Trial est proche de vous, tous les joueurs de la partie, sauf vous et Trial, perdent 5% de force pendant 30 secondes\n \n____________________________________________________");
+        player.sendMessage("____________________________________________________\n \n"
+        		+ "Vous êtes §9Loup\n§r"
+        		+ "Vous devez gagner avec le §9camp staff§r\n \n"
+        		+ "Vous avez 2% de résistance supplémentaire\n \n"
+        		+ "A l'annonce des rôles, vous recevez un item nommé 'Super bateau' qui vous transforme en bateau pendant 20 secondes\n"
+        		+ "Il y a 10% de chance que la durée de vol soit réduite à 10 secondes. Dans ce cas vous recevrez le message 'Flying is not enable on this server' à la fin du vol\n \n"
+        		+ "Avec la commande /rcbateau, vous pouvez choisir qui peut monter dans le 'Super bateau'\n \n"
+        		+ "Avec la commande /rcserveur, si Trial est proche de vous, tous les joueurs de la partie, sauf vous et Trial, perdent 2% de force pendant 1 minute\n \n"
+        		+ "____________________________________________________");
 
     }
 

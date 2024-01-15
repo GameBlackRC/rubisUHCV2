@@ -10,8 +10,10 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import fr.gameblack.rcuhcv2.Main;
+import fr.gameblack.rcuhcv2.classes.Camps;
 import fr.gameblack.rcuhcv2.classes.ItRoles;
 import fr.gameblack.rcuhcv2.classes.Joueur;
+import fr.gameblack.rcuhcv2.classes.Modes;
 import fr.gameblack.rcuhcv2.classes.Pouvoirs;
 import fr.gameblack.rcuhcv2.classes.Roles;
 import fr.gameblack.rcuhcv2.orbes.Orbe;
@@ -31,12 +33,25 @@ public class Farmeurimmo {
 		joueur.addForce(0.03);
 		
 		Texte(joueur.getPlayer());
+		if(joueur.isBot()) {
+			
+			Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(), "tell " + joueur.getPlayer().getName() + " role Farmeurimmo");
+			
+		}
 		
 	}
 	
 	public static void Texte(Player player) {
 
-        player.sendMessage("____________________________________________________\n \nVous êtes §6Farmeurimmo\n§rVous devez gagner §6seul§r\n \nVous avez 3% de force ainsi que 1 coeur permanent supplémentaire\n \nAu dessus de chaque joueur, vous voyez un poucentage de hack. Losqu'un joueur atteint 50%, vous pouvez utiliser la commande /rchack <joueur> sur lui. Lorsqu'un joueur atteint les 100%, vous pouvez utiliser la commande /rcvol <joueur> sur lui.\n \nAvec la commande /rcvol, vous volez un pouvoir du joueur (effets, commandes ou items). Le cooldown du pouvoir voler seras partager avec l'autre joueur. Une fois cette commande utiliser sur un joueur, la commande /rchack n'est plus utilisable sur lui.\n \nAvec la commande /rchack <joueur>, vous pouvez modifier/récuperer des informations sur le joueur (voir les possibilités avec la commande /rcinfo ou sur le doc).\n \nAvec la commande /rccamp <joueur>, vous pouvez modifier le camp d'un joueur qui devra désormais gagner avec vous. La commande est utilisable uniquement sur les joueurs que vous avez voler et qui ont atteint une 2ème fois les 100%. Le pouvoir volé seras innutilisable par le joueur.\n \n____________________________________________________");
+        player.sendMessage("____________________________________________________\n \n"
+        		+ "Vous êtes §6Farmeurimmo\n§r"
+        		+ "Vous devez gagner §6seul§r\n \n"
+        		+ "Vous avez 3% de force ainsi que 1 coeur permanent supplémentaire\n \n"
+        		+ "Au dessus de chaque joueur, vous voyez un poucentage de hack. Losqu'un joueur atteint 50%, vous pouvez utiliser la commande /rchack <joueur> sur lui. Lorsqu'un joueur atteint les 100%, vous pouvez utiliser la commande /rcvol <joueur> sur lui.\n \n"
+        		+ "Avec la commande /rcvol, vous volez un pouvoir du joueur (effets, commandes ou items). Une fois cette commande utiliser sur un joueur, la commande /rchack n'est plus utilisable sur lui.\n \n"
+        		+ "Avec la commande /rchack <joueur>, vous pouvez modifier/récuperer des informations sur le joueur (voir les possibilités avec la commande /rcinfo ou sur le doc).\n \n"
+        		+ "Avec la commande /rccamp <joueur>, vous pouvez modifier le camp d'un joueur qui devra désormais gagner avec vous en échange d'1 coeur permanent. La commande est utilisable uniquement sur les joueurs que vous avez voler et qui ont atteint une 2ème fois les 100%. Le pouvoir volé seras innutilisable par le joueur.\n \n"
+        		+ "____________________________________________________");
 
     }
 	
@@ -85,27 +100,26 @@ public class Farmeurimmo {
 						
 					} else if(cible.getRole() == Roles.TEAM) {
 						
-						joueur.addResi(0.02);
-						joueur.getVol().add(Pouvoirs.EFFET);
+						joueur.getVol().add(Pouvoirs.TEAM_INVISIBLE);
 						cible.setHack(true);
-						joueur.getPlayer().sendMessage("Vous recevez la résistance de Team");
+						joueur.getPlayer().sendMessage("Vous pouvez désormais devenir invisible en retirant votre armure grâce au pouvoir de Team");
 						
 					} else if(cible.getRole() == Roles.GAMEBLACK) {
 						
-						if(cible.getCamp().equalsIgnoreCase("staff")) {
+						if(cible.getCamp() == Camps.STAFF) {
 							
 							joueur.getVol().add(Pouvoirs.GAMEBLACK_MALUS_ORBE);
 							cible.setHack(true);
 							joueur.getPlayer().sendMessage("Vous ne pouvez plus recevoir de malus avec votre orbe grâce au pouvoir de GameBlack");
 							
-						} else if(cible.getCamp().equalsIgnoreCase("joueur")) {
+						} else if(cible.getCamp() == Camps.JOUEUR) {
 							
 							joueur.addSpeed(0.1);
 							joueur.getVol().add(Pouvoirs.EFFET);
 							joueur.getPlayer().sendMessage("Vous venez de recevoir la speed de GameBlack");
 							cible.setHack(true);
 							
-						} else if(cible.getCamp().equalsIgnoreCase("uhc")) {
+						} else if(cible.getCamp() == Camps.UHC) {
 							
 							joueur.getPlayer().getInventory().addItem(Main.getItemRole(ItRoles.GAMEBLACK_FUITE));
 							
@@ -117,7 +131,7 @@ public class Farmeurimmo {
 						
 					} else if(cible.getRole() == Roles.TRIAL) {
 						
-						if(cible.getModeTrial(main).equalsIgnoreCase("fun")) {
+						if(cible.getModeTrial().equalsIgnoreCase("fun")) {
 							
 							joueur.addForce(0.02);
 							joueur.getVol().add(Pouvoirs.EFFET);
@@ -187,7 +201,29 @@ public class Farmeurimmo {
 						joueur.getPlayer().getInventory().addItem(Main.getItemRole(ItRoles.THEOCHOUX_ROLLBACK));
 						joueur.getPlayer().sendMessage("Vous venez de recevoir le pouvoir 'Mini Rollback' de Theoochoux");
 						
-					} else if(cible.getRole() == Roles.KZOU) {
+					} else if(cible.getRole() == Roles.ROMPREMS) {
+						
+						if(main.getMode() == Modes.RAPIDE) {
+							
+							if(cible.getFirstKill() == null) {
+						        	
+						        joueur.addForce(0.01);
+								
+							}
+							else if(cible.getFirstKill().equalsIgnoreCase("blaze")) {
+								
+								joueur.addResi(0.02);
+								
+							}
+							else {
+								
+								joueur.addSpeed(0.05);
+								
+							}
+							
+						}
+						
+					} if(cible.getRole() == Roles.KZOU) {
 						
 						joueur.getVol().add(Pouvoirs.KZOU_BAN);
 						cible.setHack(true);
@@ -222,9 +258,14 @@ public class Farmeurimmo {
 		
 		if(cible.isHack() && cible.getPourcentHack() >= 100) {
 			
-			cible.setCamp("farmeurimmo");
-			cible.getPlayer().sendMessage("Farmeurimmo vient de changer votre camp, vous devez désormais gagner avec lui");
-			joueur.getPlayer().sendMessage(cible.getPlayer().getName() + " doit désormais gagner avec vous");
+			if(main.getMode() != Modes.RAPIDE) {
+			
+				cible.setCamp(Camps.FARMEURIMMO);
+				cible.getPlayer().sendMessage("Farmeurimmo vient de changer votre camp, vous devez désormais gagner avec lui");
+				joueur.getPlayer().sendMessage(cible.getPlayer().getName() + " doit désormais gagner avec vous");
+			
+			}
+			
 			joueur.getPlayer().setMaxHealth(joueur.getPlayer().getMaxHealth()-2);
 			
 			if(cible.getRole() == Roles.RAPTOR) {
@@ -253,21 +294,20 @@ public class Farmeurimmo {
 				
 			} else if(cible.getRole() == Roles.TEAM) {
 				
-				cible.removeResi(0.02);
-				cible.getPlayer().sendMessage("Vous perdez donc 2% de résistance");
+				cible.getPlayer().sendMessage("Vous perdez donc votre pouvoir d'invisibilité");
 				
 			} else if(cible.getRole() == Roles.GAMEBLACK) {
 				
-				if(cible.getCamp().equalsIgnoreCase("staff")) {
+				if(cible.getCamp() == Camps.STAFF) {
 					
 					cible.getPlayer().sendMessage("Vous recevez donc à 100% le malus de votre orbe");
 					
-				} else if(cible.getCamp().equalsIgnoreCase("joueur")) {
+				} else if(cible.getCamp() == Camps.JOUEUR) {
 					
 					cible.removeSpeed(0.1);
 					cible.getPlayer().sendMessage("Vous perdez donc 10% de speed");
 					
-				} else if(cible.getCamp().equalsIgnoreCase("uhc")) {
+				} else if(cible.getCamp() == Camps.UHC) {
 					
 					cible.getPlayer().getInventory().remove(Main.getItemRole(ItRoles.GAMEBLACK_FUITE));
 					cible.getPlayer().sendMessage("Vous perdez donc votre pouvoir 'Fuite'");
@@ -276,7 +316,7 @@ public class Farmeurimmo {
 				
 			} else if(cible.getRole() == Roles.TRIAL) {
 				
-				if(cible.getModeTrial(main).equalsIgnoreCase("fun")) {
+				if(cible.getModeTrial().equalsIgnoreCase("fun")) {
 					
 					cible.removeForce(0.02);
 					cible.getPlayer().sendMessage("Vous perdez donc 2% de force");

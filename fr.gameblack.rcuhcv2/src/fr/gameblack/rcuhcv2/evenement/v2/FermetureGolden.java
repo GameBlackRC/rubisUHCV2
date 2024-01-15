@@ -5,6 +5,7 @@ import java.util.Random;
 import org.bukkit.Sound;
 
 import fr.gameblack.rcuhcv2.Main;
+import fr.gameblack.rcuhcv2.classes.Camps;
 import fr.gameblack.rcuhcv2.classes.Joueur;
 import fr.gameblack.rcuhcv2.classes.Roles;
 import fr.gameblack.rcuhcv2.roles.v2.staff.GameBlack;
@@ -17,9 +18,10 @@ public class FermetureGolden {
 		
 		main.setFermetureGolden(false);
 		main.setFermetureGoldenActif(true);
-		if(main.getModeTrial() == null) {
+		String modeTrial = "fun";
+		if(main.getJoueurByRole(Roles.TRIAL).getModeTrial() != null) {
 			
-			main.setModeTrial("fun");
+			modeTrial = main.getJoueurByRole(Roles.TRIAL).getModeTrial();
 			
 		}
 		
@@ -38,12 +40,12 @@ public class FermetureGolden {
 				
 			}
 			
-			if((main.getJoueurByRole(Roles.TRIAL).getCamp() == "uhc" && nb <= 50) || main.getJoueurByRole(Roles.TRIAL).getCamp() != "duo" && nb <= 5) {
+			if((main.getJoueurByRole(Roles.TRIAL).getCamp() == Camps.UHC && nb <= 50) || main.getJoueurByRole(Roles.TRIAL).getCamp() != Camps.DUO && nb <= 5) {
 				
-				trial.setCamp("solo");
+				trial.setCamp(Camps.SOLOS);
 				trial.getPlayer().sendMessage("Vous devez désormais gagner seul");
 				
-				if(main.getModeTrial().equalsIgnoreCase("fun")) {
+				if(modeTrial.equalsIgnoreCase("fun")) {
 				
 					Trial.ItemsFunSolo(trial);
 				
@@ -62,7 +64,7 @@ public class FermetureGolden {
 			Random r = new Random();
             int nb = r.nextInt(100);
             
-            if((main.getJoueurByRole(Roles.GAMEBLACK).getCamp() == "uhc" && nb <= 50) || nb <= 5) {
+            if((main.getJoueurByRole(Roles.GAMEBLACK).getCamp() == Camps.UHC && nb <= 50) || nb <= 5) {
             	
     			if(main.getScenarios().contains(Scenarios.SON_EN_FOLIE)) {
     				
@@ -70,7 +72,7 @@ public class FermetureGolden {
     				
     			}
             	
-            	main.getJoueurByRole(Roles.GAMEBLACK).setCamp("joueur");
+            	main.getJoueurByRole(Roles.GAMEBLACK).setCamp(Camps.JOUEUR);
             	GameBlack.itemJoueur(main.getJoueurByRole(Roles.GAMEBLACK), main);
             	main.getJoueurByRole(Roles.GAMEBLACK).getPlayer().sendMessage("Golden ferme ses portes. Vous passez dans le camp joueur");
             	

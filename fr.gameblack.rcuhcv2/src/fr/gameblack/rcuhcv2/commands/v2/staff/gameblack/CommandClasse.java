@@ -37,7 +37,7 @@ private Main main;
         	
         	System.out.println(args[0]);
 
-            if ((joueur.getRole() == Roles.GAMEBLACK && joueur.getModeTrial(main) == "serieux")) {
+            if ((joueur.getRole() == Roles.GAMEBLACK && joueur.getModeTrial() == "serieux")) {
             	
             	if(classe != null) {
             	

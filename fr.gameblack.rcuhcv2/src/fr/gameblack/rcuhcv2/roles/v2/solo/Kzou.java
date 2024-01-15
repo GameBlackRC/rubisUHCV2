@@ -9,6 +9,7 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 import fr.gameblack.rcuhcv2.Main;
+import fr.gameblack.rcuhcv2.classes.Camps;
 import fr.gameblack.rcuhcv2.classes.Joueur;
 import fr.gameblack.rcuhcv2.classes.Pouvoirs;
 import fr.gameblack.rcuhcv2.classes.Roles;
@@ -19,7 +20,12 @@ public class Kzou {
 	public static void Items(Joueur joueur) {
 		
 		Texte(joueur.getPlayer());
-		joueur.addSpeed(0.05);
+		joueur.addSpeed(0.1);
+		if(joueur.isBot()) {
+			
+			Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(), "tell " + joueur.getPlayer().getName() + " role Kzou");
+			
+		}
 		
 	}
 
@@ -49,7 +55,7 @@ public class Kzou {
                 joueur.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, 600, 0, false, false));
 
             }
-            if(main.getJoueurByRole(Roles.GAMEBLACK) != null && main.getJoueurByRole(Roles.GAMEBLACK).getCamp().equalsIgnoreCase("staff")) {
+            if(main.getJoueurByRole(Roles.GAMEBLACK) != null && main.getJoueurByRole(Roles.GAMEBLACK).getCamp() == Camps.STAFF) {
             	
             	int nb2 = r.nextInt(100);
             	
@@ -121,7 +127,17 @@ public class Kzou {
 
     public static void Texte(Player player) {
 
-        player.sendMessage("____________________________________________________\n \nVous êtes §6Kzou\n§rVous devez gagner §6seul§r\n \nVous avez 5% de speed permanent ainsi que 2% de résistance de jour\n \nAvec la commande /rcdisperse <pseudo>, vous pouvez téléporter un joueur aléatoirement sur la map\n \nAvec la commande /rcban <pseudo>, le joueur cibler ne peut plus bouger et devient invulnérable pendant 30 secondes\n \nEn sortant du ban, le joueur perd 5% de force pendant 1 minute\n \nA chaque ban que vous faites, vous avez 5% de chance de perdre 10% de force pendant 30 secondes\n \nAvec la commande /rcop, vous pouvez, 2 fois par partie avant que le message de mort s'affiche, changer le rôle du joueur mort (un autre rôle en vie seras choisi aléatoirement et vous recevrez le véritable rôle du joueur)\n \n____________________________________________________");
+        player.sendMessage("____________________________________________________\n \n"
+        		+ "Vous êtes §6Kzou\n§r"
+        		+ "Vous devez gagner §6seul§r\n \n"
+        		+ "Vous avez 10% de speed permanent ainsi que 2% de résistance de jour\n \n"
+        		+ "Avec la commande /rcdisperse <pseudo>, vous pouvez téléporter un joueur aléatoirement sur la map\n \n"
+        		+ "Avec la commande /rcban <pseudo>, le joueur ciblé ne peut plus bouger et devient invulnérable pendant 30 secondes\n \n"
+        		+ "En sortant du ban, le joueur perd 2% de force pendant 1 minute\n \n"
+        		+ "Si vous bannez un joueur en train de cheat, vous recevez 2% de force supplémentaire pendant 5 minutes\n \n"
+        		+ "A chaque ban que vous faites, vous avez 5% de chance de perdre 2% de force pendant 30 secondes\n \n"
+        		+ "Avec la commande /rcop, vous pouvez, 2 fois par partie avant que le message de mort s'affiche, changer le rôle du joueur mort (un autre rôle en vie seras choisi aléatoirement et vous recevrez le véritable rôle du joueur)\n \n"
+        		+ "____________________________________________________");
 
     }
 	

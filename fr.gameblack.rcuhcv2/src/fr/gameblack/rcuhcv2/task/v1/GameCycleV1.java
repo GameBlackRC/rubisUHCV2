@@ -17,7 +17,9 @@ import org.bukkit.scoreboard.Scoreboard;
 
 import fr.gameblack.rcuhcv2.Main;
 import fr.gameblack.rcuhcv2.Statut;
+import fr.gameblack.rcuhcv2.classes.Camps;
 import fr.gameblack.rcuhcv2.classes.Joueur;
+import fr.gameblack.rcuhcv2.classes.Modes;
 import fr.gameblack.rcuhcv2.classes.Pouvoirs;
 import fr.gameblack.rcuhcv2.classes.Roles;
 import fr.gameblack.rcuhcv2.classes.v1.Pouvoirs_GB;
@@ -381,7 +383,7 @@ public class GameCycleV1 extends BukkitRunnable {
 		
 		            pls.setHealth(pls.getMaxHealth());
 		            
-		            if((main.getMode().equalsIgnoreCase("rapide") || main.getMode().equalsIgnoreCase("meetup")) && (j.getCamp().equalsIgnoreCase("rc") || j.getRole() == Roles.Slup || j.getRole() == Roles.Farmeurimmo || j.getRole() == Roles.Kzou)) {
+		            if((main.getMode() == Modes.RAPIDE || main.getMode() == Modes.MEETUP) && (j.getCamp() == Camps.RC || j.getRole() == Roles.Slup || j.getRole() == Roles.Farmeurimmo || j.getRole() == Roles.Kzou)) {
 		            
 		            	j.addOrbe(main);
 		            	
@@ -399,7 +401,7 @@ public class GameCycleV1 extends BukkitRunnable {
 	        		j.setInvulnerable(false);
 	        		pls.setHealth(pls.getMaxHealth());
 	        		
-		            if((main.getMode().equalsIgnoreCase("rapide") || main.getMode().equalsIgnoreCase("meetup")) && (j.getCamp().equalsIgnoreCase("rc") || j.getRole() == Roles.Slup || j.getRole() == Roles.Farmeurimmo || j.getRole() == Roles.Kzou)) {
+		            if((main.getMode() == Modes.RAPIDE || main.getMode() == Modes.MEETUP) && (j.getCamp() == Camps.RC || j.getRole() == Roles.Slup || j.getRole() == Roles.Farmeurimmo || j.getRole() == Roles.Kzou)) {
 			            
 		            	j.addOrbe(main);
 		            	
@@ -445,7 +447,7 @@ public class GameCycleV1 extends BukkitRunnable {
         score2.setScore(8);
         Score scorekill = objective.getScore("Kill : " + j.getKill() );
         scorekill.setScore(7);
-        Score score3 = objective.getScore("Role: " + j.getCouleurCamp(main) + j.getRole().getTxt());
+        Score score3 = objective.getScore("Role: " + j.getCamp().getCouleur() + j.getRole().getTxt());
         score3.setScore(6);
         Score score4;
         if(j.getOrbe() == Orbe.EAU) {
@@ -521,7 +523,7 @@ public class GameCycleV1 extends BukkitRunnable {
         objective_hp.setDisplaySlot(DisplaySlot.BELOW_NAME);
         objective_hp.setDisplayName("HP");
         
-        if((main.getEpisode() > 1 || (main.getEpisode() == 2 && main.getTemps() > 2)) || (main.getTemps() > 10 && main.getEpisode() >= 1 && (main.getMode().equalsIgnoreCase("rapide") || main.getMode().equalsIgnoreCase("meetup")))) {
+        if((main.getEpisode() > 1 || (main.getEpisode() == 2 && main.getTemps() > 2)) || (main.getTemps() > 10 && main.getEpisode() >= 1 && (main.getMode() == Modes.RAPIDE || main.getMode() == Modes.MEETUP))) {
         	
         	if(main.getCompo().contains(Roles.GameBlack) && main.getJoueurByRole(Roles.GameBlack) != null) {
             		
@@ -868,7 +870,7 @@ public class GameCycleV1 extends BukkitRunnable {
 		
 		if(timer % 200 == 0 && !main.getMaudit().isEmpty() && main.getNiv_maledition() != 3) {
 			
-			if(main.getMode().equalsIgnoreCase("rapide")) {
+			if(main.getMode() == Modes.RAPIDE) {
 				
 				Joueur cible1 = main.getMaudit().get(0);
 				Joueur malediction = main.getMaudit().get(1);
@@ -911,7 +913,7 @@ public class GameCycleV1 extends BukkitRunnable {
 		
 		if(timer % 150 == 0 && !main.getMaudit().isEmpty() && main.getNiv_maledition() == 3) {
 			
-			if(main.getMode().equalsIgnoreCase("rapide")) {
+			if(main.getMode() == Modes.RAPIDE) {
 				
 				Joueur cible1 = main.getMaudit().get(0);
 				Joueur malediction = main.getMaudit().get(1);
@@ -1030,7 +1032,7 @@ public class GameCycleV1 extends BukkitRunnable {
         	
         	if(!main.getMaudit().isEmpty() && main.getNiv_maledition() > 1) {
         		
-        		if(main.getMode().equalsIgnoreCase("rapide")) {
+        		if(main.getMode() == Modes.RAPIDE) {
         			
             		Joueur cible1 = main.getMaudit().get(0);
         			Joueur malediction = main.getMaudit().get(1);
@@ -1089,7 +1091,7 @@ public class GameCycleV1 extends BukkitRunnable {
 
             }
         	
-        	if(main.getTemps() == 10 && main.getEpisode() == 1 && main.getMode().equalsIgnoreCase("rapide")) {
+        	if(main.getTemps() == 10 && main.getEpisode() == 1 && main.getMode() == Modes.RAPIDE) {
         		
         		Bukkit.broadcastMessage("Attribution des rôles");
         		setRole(main);
@@ -1117,7 +1119,7 @@ public class GameCycleV1 extends BukkitRunnable {
                 			Player player = (Player) entity;
                 			Joueur joueur = main.getJoueur(player);
                 			
-                			if((joueur.getCamp().equalsIgnoreCase("demon") && joueur.getRole() != Roles.Slup) || joueur.getRole() == Roles.Experimental) {
+                			if((joueur.getCamp() == Camps.DEMON && joueur.getRole() != Roles.Slup) || joueur.getRole() == Roles.Experimental) {
                 				
                 				nb_demons ++;
                 				
@@ -1149,7 +1151,7 @@ public class GameCycleV1 extends BukkitRunnable {
                 	
                 }
 
-                if (main.getEpisode() == 1 && main.getMode().equalsIgnoreCase("normal")) {
+                if (main.getEpisode() == 1 && main.getMode() == Modes.NORMAL) {
 
                 	Bukkit.broadcastMessage("Attribution des rôles");
                 	setRole(main);

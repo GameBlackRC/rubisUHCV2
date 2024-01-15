@@ -2,6 +2,7 @@ package fr.gameblack.rcuhcv2.orbes.v2;
 
 import fr.gameblack.rcuhcv2.Main;
 import fr.gameblack.rcuhcv2.classes.Joueur;
+import fr.gameblack.rcuhcv2.classes.Roles;
 import fr.gameblack.rcuhcv2.task.v2.ItemCD;
 
 import org.bukkit.enchantments.Enchantment;
@@ -19,6 +20,11 @@ public class Eau {
     		
     		joueur.setOrbePassifActif(true);
     		joueur.addSpeed(0.02);
+    		if(joueur.getRole() == Roles.MAKA) {
+    			
+    			joueur.addSpeed(0.01);
+    			
+    		}
 
 	        if (player.getInventory().getBoots().getType() != null) {
 	
@@ -35,6 +41,12 @@ public class Eau {
     		
     		joueur.setOrbePassifActif(false);
     		joueur.setStatutOrbe(false);
+    		joueur.removeSpeed(0.02);
+    		if(joueur.getRole() == Roles.MAKA) {
+    			
+    			joueur.removeSpeed(0.01);
+    			
+    		}
     		
             if (player.getInventory().getBoots().getType() != null) {
 
@@ -49,6 +61,21 @@ public class Eau {
     	}
 
     }
+	
+	public static void Active(Joueur joueur, boolean give) {
+		
+		if(give) {
+			
+			joueur.addSpeed(0.02);
+			
+		}
+		else {
+			
+			joueur.removeSpeed(0.02);
+			
+		}
+		
+	}
 
     public static void Bonus(Joueur joueur, Main main, boolean give) {
     	

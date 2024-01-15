@@ -2,6 +2,7 @@ package fr.gameblack.rcuhcv2.task.v2;
 
 import fr.gameblack.rcuhcv2.Main;
 import fr.gameblack.rcuhcv2.classes.Joueur;
+import fr.gameblack.rcuhcv2.roles.v2.staff.JeuxTrial;
 import fr.gameblack.rcuhcv2.roles.v2.staff.Trial;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.ClickEvent;
@@ -74,7 +75,7 @@ public class JeuCD extends BukkitRunnable {
         
         if(timer == 30 && jeu == "soleil") {
         	
-        	main.setJeuTrial("soleil");
+        	main.setJeuTrial(JeuxTrial.SOLEIL);
         	
         }
 
@@ -82,9 +83,9 @@ public class JeuCD extends BukkitRunnable {
             cancel();
             if (jeu == "soleil") {
 
-                if(main.getJeuTrial() != "rien") {
+                if(main.getJeuTrial() != null) {
                 	
-                	main.setJeuTrial("rien");
+                	main.setJeuTrial(null);
                 	joueur1.setInvulnerable(false);
                 	joueur2.setInvulnerable(false);
                 	joueur1.getPlayer().sendMessage("Le jeu est désormais fini, vous pouvez bouger");

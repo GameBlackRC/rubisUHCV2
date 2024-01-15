@@ -22,7 +22,9 @@ import org.bukkit.scoreboard.Scoreboard;
 
 import fr.gameblack.rcuhcv2.Main;
 import fr.gameblack.rcuhcv2.Statut;
+import fr.gameblack.rcuhcv2.classes.Camps;
 import fr.gameblack.rcuhcv2.classes.Joueur;
+import fr.gameblack.rcuhcv2.classes.Modes;
 import fr.gameblack.rcuhcv2.classes.Pouvoirs;
 import fr.gameblack.rcuhcv2.classes.Roles;
 import fr.gameblack.rcuhcv2.evenement.v2.FermetureGolden;
@@ -31,6 +33,7 @@ import fr.gameblack.rcuhcv2.roles.v2.joueur.Nickoboop;
 import fr.gameblack.rcuhcv2.roles.v2.staff.GameBlack;
 import fr.gameblack.rcuhcv2.roles.v2.staff.Team;
 import fr.gameblack.rcuhcv2.roles.v2.staff.Trial;
+import fr.gameblack.rcuhcv2.roles.v2.uhc.RomPrems;
 import fr.gameblack.rcuhcv2.scenarios.Scenarios;
 import fr.gameblack.rcuhcv2.scenarios.v2.Skin;
 
@@ -75,7 +78,7 @@ public class GameCycle extends BukkitRunnable {
     	
     	if(main.isFermetureGolden()) {
 
-	        if(main.getEpisode() == 1 && (main.getMode().equalsIgnoreCase("rapide") || main.getMode().equalsIgnoreCase("meetup"))) {
+	        if(main.getEpisode() == 1 && (main.getMode() == Modes.RAPIDE || main.getMode() == Modes.MEETUP)) {
 	        	
 	        	Random r = new Random();
 	            int nb = r.nextInt(100);
@@ -101,7 +104,7 @@ public class GameCycle extends BukkitRunnable {
 	        }
 	        else if(main.getEpisode() == 3) {
 	        	
-	        	if(main.getMode().equalsIgnoreCase("rapide") || main.getMode().equalsIgnoreCase("meetup")) {
+	        	if(main.getMode() == Modes.RAPIDE || main.getMode() == Modes.MEETUP) {
 	        		
 	        		FermetureGolden.Active(main);
 	        		
@@ -120,7 +123,7 @@ public class GameCycle extends BukkitRunnable {
 	        	}
 	        	
 	        }
-	        else if(main.getEpisode() == 4 && main.getMode().equalsIgnoreCase("normal")) {
+	        else if(main.getEpisode() == 4 && main.getMode() == Modes.NORMAL) {
 	        	
 	        	Random r = new Random();
 	            int nb = r.nextInt(100);
@@ -132,7 +135,7 @@ public class GameCycle extends BukkitRunnable {
 	            }
 	        	
 	        }
-	        else if(main.getEpisode() == 5 && main.getMode().equalsIgnoreCase("normal")) {
+	        else if(main.getEpisode() == 5 && main.getMode() == Modes.NORMAL) {
 	            	
 	            FermetureGolden.Active(main);
 	        	
@@ -152,7 +155,7 @@ public class GameCycle extends BukkitRunnable {
     	
     	if(main.isFermetureGolden()) {
 
-	    	if(main.getEpisode() == 1 && (main.getMode().equalsIgnoreCase("rapide") || main.getMode().equalsIgnoreCase("meetup"))) {
+	    	if(main.getEpisode() == 1 && (main.getMode() == Modes.RAPIDE || main.getMode() == Modes.MEETUP)) {
 	        	
 	        	Random r = new Random();
 	            int nb = r.nextInt(100);
@@ -178,7 +181,7 @@ public class GameCycle extends BukkitRunnable {
 	        }
 	        else if(main.getEpisode() == 3) {
 	        	
-	        	if(main.getMode().equalsIgnoreCase("rapide") || main.getMode().equalsIgnoreCase("meetup")) {
+	        	if(main.getMode() == Modes.RAPIDE || main.getMode() == Modes.MEETUP) {
 	        		
 	        		FermetureGolden.Active(main);
 	        		
@@ -197,7 +200,7 @@ public class GameCycle extends BukkitRunnable {
 	        	}
 	        	
 	        }
-	        else if(main.getEpisode() == 4 && main.getMode().equalsIgnoreCase("normal")) {
+	        else if(main.getEpisode() == 4 && main.getMode() == Modes.NORMAL) {
 	        	
 	        	Random r = new Random();
 	            int nb = r.nextInt(100);
@@ -209,7 +212,7 @@ public class GameCycle extends BukkitRunnable {
 	            }
 	        	
 	        }
-	        else if(main.getEpisode() == 5 && main.getMode().equalsIgnoreCase("normal")) {
+	        else if(main.getEpisode() == 5 && main.getMode() == Modes.NORMAL) {
 	            	
 	            FermetureGolden.Active(main);
 	        	
@@ -367,6 +370,11 @@ public class GameCycle extends BukkitRunnable {
 		            System.out.println("Random (nb) : " + nb);
 		            
 		            Roles role = compo.get(nb);
+		            
+	            	System.out.println("Joueur : " + j.getPlayer().getName());
+	            	System.out.println("Role : " + role.getTxt());
+	            	System.out.println("____________________________");
+		            
 		            compo_.add(role);
 		            j.setRole(role, main);
 		            compo.remove(role);
@@ -375,7 +383,7 @@ public class GameCycle extends BukkitRunnable {
 		
 		            pls.setHealth(pls.getMaxHealth());
 		            
-		            if(main.getMode().equalsIgnoreCase("rapide") || main.getMode().equalsIgnoreCase("meetup")) {
+		            if(main.getMode() == Modes.RAPIDE || main.getMode() == Modes.MEETUP) {
 			            
 		            	j.addOrbe(main);
 		            	
@@ -393,7 +401,7 @@ public class GameCycle extends BukkitRunnable {
 	        		j.setInvulnerable(false);
 	        		pls.setHealth(pls.getMaxHealth());
 	        		
-		            if(main.getMode().equalsIgnoreCase("rapide") || main.getMode().equalsIgnoreCase("meetup")) {
+		            if(main.getMode() == Modes.RAPIDE || main.getMode() == Modes.MEETUP) {
 			            
 		            	j.addOrbe(main);
 		            	
@@ -406,6 +414,21 @@ public class GameCycle extends BukkitRunnable {
         }
         
         main.setCompo(compo_);
+        
+        if(main.getCompo().contains(Roles.ROMPREMS)) {
+        	
+        	if(main.getMode() == Modes.RAPIDE) {
+        		
+        		RomPrems.setEndermanBlazeRapide(main.getJoueurByRole(Roles.ROMPREMS), main);
+        		
+        	}
+        	else {
+        		
+        		RomPrems.setEndermanBlazeBase(main.getJoueurByRole(Roles.ROMPREMS), main);
+        		
+        	}
+        	
+        }
         
         if(main.getCompo().contains(Roles.JEANNOT) && main.getCompo().contains(Roles.NICKOBOOP)) {
         	
@@ -521,7 +544,7 @@ public class GameCycle extends BukkitRunnable {
         score2.setScore(8);
         Score scorekill = objective.getScore("Kill : " + j.getKill() );
         scorekill.setScore(7);
-        Score score3 = objective.getScore("Role: " + j.getCouleurCamp(main) + j.getRole().getTxt());
+        Score score3 = objective.getScore("Role: " + j.getCamp().getCouleur() + j.getRole().getTxt());
         score3.setScore(6);
         Score score4;
         if(j.getOrbe() == Orbe.EAU) {
@@ -621,10 +644,17 @@ public class GameCycle extends BukkitRunnable {
         	}
         	
         }
-        else if(j.getRole() == Roles.TRIAL) {
+        else if(j.getRole() == Roles.TRIAL && j.getModeTrial() != null) {
         	
-        	Score scoremode_trial = objective.getScore("Mode : " + main.getModeTrial());
+        	Score scoremode_trial = objective.getScore("Mode : " + j.getModeTrial());
 	        scoremode_trial.setScore(3);
+	        
+	        if(j.getModeTrial().equalsIgnoreCase("serieux") && j.getCamp() != Camps.SOLOS) {
+	        	
+	        	Score scorecola_trial = objective.getScore("Hydratation : " + j.getTrialHydratation());
+		        scorecola_trial.setScore(2);
+	        	
+	        }
         	
         }
         else if(j.getRole() == Roles.HEKOW) {
@@ -749,9 +779,9 @@ public class GameCycle extends BukkitRunnable {
 			
 		}
 		
-		if((timer > 2400 && timer < 3600 && timer%600 == 0 && main.getMode().equalsIgnoreCase("normal")) || (timer > 0 && timer < 12000 && timer%600 == 0 && (main.getMode().equalsIgnoreCase("rapide") || main.getMode().equalsIgnoreCase("meetup")))) {
+		if((timer > 2400 && timer < 3600 && timer%600 == 0 && main.getMode() == Modes.NORMAL) || (timer > 0 && timer < 12000 && timer%600 == 0 && (main.getMode() == Modes.RAPIDE || main.getMode() == Modes.MEETUP))) {
 			
-			if(main.getJoueurByRole(Roles.TRIAL) != null && main.getJoueurByRole(Roles.SLUP) != null && main.getJoueurByRole(Roles.SLUP).getCamp() != "duo" && main.getJoueurByRole(Roles.SLUP).getPacteSlup() == 2) {
+			if(main.getJoueurByRole(Roles.TRIAL) != null && main.getJoueurByRole(Roles.SLUP) != null && main.getJoueurByRole(Roles.SLUP).getCamp() != Camps.DUO && main.getJoueurByRole(Roles.SLUP).getPacteSlup() == 2) {
 				
 				Joueur slup = main.getJoueurByRole(Roles.SLUP);
 				
@@ -772,7 +802,7 @@ public class GameCycle extends BukkitRunnable {
 		
 		if(timer % 200 == 0 && !main.getMaudit().isEmpty() && main.getNiv_maledition() != 3) {
 			
-			if(main.getMode().equalsIgnoreCase("rapide")) {
+			if(main.getMode() == Modes.RAPIDE) {
 				
 				Joueur cible1 = main.getMaudit().get(0);
 				Joueur nono = main.getMaudit().get(1);
@@ -815,7 +845,7 @@ public class GameCycle extends BukkitRunnable {
 		
 		if(timer % 150 == 0 && !main.getMaudit().isEmpty() && main.getNiv_maledition() == 3) {
 			
-			if(main.getMode().equalsIgnoreCase("rapide")) {
+			if(main.getMode() == Modes.RAPIDE) {
 				
 				Joueur cible1 = main.getMaudit().get(0);
 				Joueur nono = main.getMaudit().get(1);
@@ -856,7 +886,7 @@ public class GameCycle extends BukkitRunnable {
 			
 		}
 		
-		if(timer % 140 == 0 && ((main.getEpisode() > 2 && main.getTemps() > 1 && main.getMode().equalsIgnoreCase("normal")) || (main.getEpisode() >= 1 && main.getTemps() > 11 && (main.getMode().equalsIgnoreCase("rapide") || main.getMode().equalsIgnoreCase("meetup"))))) {
+		if(timer % 140 == 0 && ((main.getEpisode() > 2 && main.getTemps() > 1 && main.getMode() == Modes.NORMAL) || (main.getEpisode() >= 1 && main.getTemps() > 11 && (main.getMode() == Modes.RAPIDE || main.getMode() == Modes.MEETUP)))) {
 			
 			if(!main.getJoueursByRole(Roles.FARMEURIMMO).isEmpty()) {
 			
@@ -911,6 +941,422 @@ public class GameCycle extends BukkitRunnable {
     	}
         
         if(timer % 10 == 0) {
+        	
+        	if(!main.getJoueursByRole(Roles.TRIAL).isEmpty()) {
+        		
+        		List<Joueur> trial_list = main.getJoueursByRole(Roles.TRIAL);
+        		
+        		for(Joueur trial : trial_list) {
+        			
+        			if(trial.getModeTrial() != null && trial.getModeTrial().equalsIgnoreCase("serieux")) {
+        				
+        				if(trial.isBouge()) {
+        					
+        					trial.setBouge(false);
+        					
+        					Random r = new Random();
+        					
+        		            int nb = r.nextInt(100);
+        		            
+        		            if(nb <= 1) {
+        		            	
+        		            	trial.removeTrialHydratation(1);
+        		            	
+        		            }
+        					
+        				}
+        				
+        				boolean changeStade = false;
+        				
+        				if(trial.getTrialStadeActif() == 0 && !(trial.getTrialHydratation() < 11)) {
+        					
+        					trial.addForce(0.01);
+        					trial.addResi(0.01);
+        					trial.addSpeed(0.05);
+        					changeStade = true;
+        					
+        				}
+        				else if(trial.getTrialStadeActif() == 1 && !(trial.getTrialHydratation() > 10 && trial.getTrialHydratation() < 26)) {
+        					
+        					trial.addSpeed(0.05);
+        					
+        					if(trial.getTrialEffetRandom().equalsIgnoreCase("force")) {
+        						
+        						trial.addForce(0.01);
+        						
+        					}
+        					else {
+        						
+        						trial.addResi(0.01);
+        						
+        					}
+        					
+        					changeStade = true;
+        					
+        				}
+        				else if(trial.getTrialStadeActif() == 2 && !(trial.getTrialHydratation() > 25 && trial.getTrialHydratation() < 51)) {
+        					
+        					trial.addSpeed(0.03);
+        					
+        					if(trial.getTrialEffetRandom().equalsIgnoreCase("force")) {
+        						
+        						trial.addForce(0.01);
+        						
+        					}
+        					else {
+        						
+        						trial.addResi(0.01);
+        						
+        					}
+        					
+        					changeStade = true;
+        					
+        				}
+        				else if(trial.getTrialStadeActif() == 3 && !(trial.getTrialHydratation() > 50 && trial.getTrialHydratation() < 76)) {
+        					
+        					changeStade = true;
+        					
+        				}
+        				else if(trial.getTrialStadeActif() == 4 && !(trial.getTrialHydratation() > 75 && trial.getTrialHydratation() < 91)) {
+        					
+        					if(trial.getTrialEffetRandom().equalsIgnoreCase("force")) {
+        						
+        						trial.removeForce(0.01);
+        						
+        					}
+        					else {
+        						
+        						trial.removeResi(0.01);
+        						
+        					}
+        					
+        					changeStade = true;
+        					
+        				}
+        				else if(trial.getTrialStadeActif() == 5 && !(trial.getTrialHydratation() > 90 && trial.getTrialHydratation() < 96)) {
+        					
+        					trial.removeSpeed(0.03);
+        					
+        					if(trial.getTrialEffetRandom().equalsIgnoreCase("force")) {
+        						
+        						trial.removeForce(0.01);
+        						
+        					}
+        					else {
+        						
+        						trial.removeResi(0.01);
+        						
+        					}
+        					
+        					changeStade = true;
+        					
+        				}
+        				else if(trial.getTrialStadeActif() == 6 && !(trial.getTrialHydratation() > 95 && trial.getTrialHydratation() < 106)) {
+        					
+        					trial.removeSpeed(0.03);
+        					trial.removeForce(0.01);
+        					trial.removeResi(0.01);
+        					
+        					changeStade = true;
+        					
+        				}
+        				else if(trial.getTrialStadeActif() == 7 && !(trial.getTrialHydratation() > 105 && trial.getTrialHydratation() < 111)) {
+        					
+        					trial.removeSpeed(0.03);
+        					
+        					if(trial.getTrialEffetRandom().equalsIgnoreCase("force")) {
+        						
+        						trial.removeForce(0.01);
+        						
+        					}
+        					else {
+        						
+        						trial.removeResi(0.01);
+        						
+        					}
+        					
+        					changeStade = true;
+        					
+        				}
+        				else if(trial.getTrialStadeActif() == 8 && !(trial.getTrialHydratation() > 110 && trial.getTrialHydratation() < 126)) {
+        					
+        					if(trial.getTrialEffetRandom().equalsIgnoreCase("force")) {
+        						
+        						trial.removeForce(0.01);
+        						
+        					}
+        					else {
+        						
+        						trial.removeResi(0.01);
+        						
+        					}
+        					
+        					changeStade = true;
+        					
+        				}
+        				else if(trial.getTrialStadeActif() == 9 && !(trial.getTrialHydratation() > 125 && trial.getTrialHydratation() < 151)) {
+        					
+        					changeStade = true;
+        					
+        				}
+        				else if(trial.getTrialStadeActif() == 10 && !(trial.getTrialHydratation() > 150 && trial.getTrialHydratation() < 176)) {
+        					
+        					if(trial.getTrialEffetRandom().equalsIgnoreCase("force")) {
+        						
+        						trial.addForce(0.01);
+        						
+        					}
+        					else {
+        						
+        						trial.addResi(0.01);
+        						
+        					}
+        					
+        					changeStade = true;
+        					
+        				}
+        				else if(trial.getTrialStadeActif() == 11 && !(trial.getTrialHydratation() > 175)) {
+        					
+        					trial.addSpeed(0.03);
+        					
+        					if(trial.getTrialEffetRandom().equalsIgnoreCase("force")) {
+        						
+        						trial.addForce(0.01);
+        						
+        					}
+        					else {
+        						
+        						trial.addResi(0.01);
+        						
+        					}
+        					
+        					changeStade = true;
+        					
+        				}
+        				
+        				if(changeStade) {
+        					
+        					if(trial.getTrialHydratation() < 11) {
+            					
+            					trial.removeForce(0.01);
+            					trial.removeResi(0.01);
+            					trial.removeSpeed(0.05);
+            					trial.setTrialStadeActif(0);
+            					
+            				}
+            				else if(trial.getTrialHydratation() > 10 && trial.getTrialHydratation() < 26) {
+            					
+            					trial.removeSpeed(0.05);
+            					
+            					Random r = new Random();
+            					
+            		            int nb = r.nextInt(2);
+            		            
+            		            if(nb == 1) {
+            						
+            						trial.removeForce(0.01);
+            						trial.setTrialEffetRandom("force");
+            						
+            					}
+            					else {
+            						
+            						trial.removeResi(0.01);
+            						trial.setTrialEffetRandom("resi");
+            						
+            					}
+            					
+            					trial.setTrialStadeActif(1);
+            					
+            				}
+            				else if(trial.getTrialHydratation() > 25 && trial.getTrialHydratation() < 51) {
+            					
+            					trial.removeSpeed(0.03);
+            					
+            					Random r = new Random();
+            					
+            		            int nb = r.nextInt(2);
+            		            
+            		            if(nb == 1) {
+            						
+            						trial.removeForce(0.01);
+            						trial.setTrialEffetRandom("force");
+            						
+            					}
+            					else {
+            						
+            						trial.removeResi(0.01);
+            						trial.setTrialEffetRandom("resi");
+            						
+            					}
+            					
+            					trial.setTrialStadeActif(2);
+            					
+            				}
+            				else if(trial.getTrialHydratation() > 50 && trial.getTrialHydratation() < 76) {
+            					
+            					trial.setTrialStadeActif(3);
+            					
+            				}
+            				else if(trial.getTrialHydratation() > 75 && trial.getTrialHydratation() < 91) {
+            					
+            					Random r = new Random();
+            					
+            		            int nb = r.nextInt(2);
+            		            
+            		            if(nb == 1) {
+            						
+            						trial.addForce(0.01);
+            						trial.setTrialEffetRandom("force");
+            						
+            					}
+            					else {
+            						
+            						trial.addResi(0.01);
+            						trial.setTrialEffetRandom("resi");
+            						
+            					}
+            					
+            					trial.setTrialStadeActif(4);
+            					
+            				}
+            				else if(trial.getTrialHydratation() > 90 && trial.getTrialHydratation() < 96) {
+            					
+            					trial.addSpeed(0.03);
+            					
+            					Random r = new Random();
+            					
+            		            int nb = r.nextInt(2);
+            		            
+            		            if(nb == 1) {
+            						
+            						trial.addForce(0.01);
+            						trial.setTrialEffetRandom("force");
+            						
+            					}
+            					else {
+            						
+            						trial.addResi(0.01);
+            						trial.setTrialEffetRandom("resi");
+            						
+            					}
+            					
+            		            trial.setTrialStadeActif(5);
+            					
+            				}
+            				else if(trial.getTrialHydratation() > 95 && trial.getTrialHydratation() < 106) {
+            					
+            					trial.addSpeed(0.03);
+            					trial.addForce(0.01);
+            					trial.addResi(0.01);
+            					
+            					trial.setTrialStadeActif(6);
+            					
+            				}
+            				else if(trial.getTrialHydratation() > 105 && trial.getTrialHydratation() < 111) {
+            					
+            					trial.addSpeed(0.03);
+            					
+            					Random r = new Random();
+            					
+            		            int nb = r.nextInt(2);
+            		            
+            		            if(nb == 1) {
+            						
+            						trial.addForce(0.01);
+            						trial.setTrialEffetRandom("force");
+            						
+            					}
+            					else {
+            						
+            						trial.addResi(0.01);
+            						trial.setTrialEffetRandom("resi");
+            						
+            					}
+            					
+            		            trial.setTrialStadeActif(7);
+            					
+            				}
+            				else if(trial.getTrialHydratation() > 110 && trial.getTrialHydratation() < 126) {
+            					
+            					Random r = new Random();
+            					
+            		            int nb = r.nextInt(2);
+            		            
+            		            if(nb == 1) {
+            						
+            						trial.addForce(0.01);
+            						trial.setTrialEffetRandom("force");
+            						
+            					}
+            					else {
+            						
+            						trial.addResi(0.01);
+            						trial.setTrialEffetRandom("resi");
+            						
+            					}
+            					
+            		            trial.setTrialStadeActif(8);
+            					
+            				}
+            				else if(trial.getTrialHydratation() > 125 && trial.getTrialHydratation() < 151) {
+            					
+            					trial.setTrialStadeActif(9);
+            					
+            				}
+            				else if(trial.getTrialHydratation() > 150 && trial.getTrialHydratation() < 176) {
+            					
+            					Random r = new Random();
+            					
+            		            int nb = r.nextInt(2);
+            		            
+            		            if(nb == 1) {
+            						
+            						trial.removeForce(0.01);
+            						trial.setTrialEffetRandom("force");
+            						
+            					}
+            					else {
+            						
+            						trial.removeResi(0.01);
+            						trial.setTrialEffetRandom("resi");
+            						
+            					}
+            					
+            		            trial.setTrialStadeActif(10);
+            					
+            				}
+            				else if(trial.getTrialHydratation() > 175) {
+            					
+            					trial.removeSpeed(0.03);
+            					
+            					Random r = new Random();
+            					
+            		            int nb = r.nextInt(2);
+            		            
+            		            if(nb == 1) {
+            						
+            						trial.removeForce(0.01);
+            						trial.setTrialEffetRandom("force");
+            						
+            					}
+            					else {
+            						
+            						trial.removeResi(0.01);
+            						trial.setTrialEffetRandom("resi");
+            						
+            					}
+            					
+            		            trial.setTrialStadeActif(11);
+            					
+            				}
+        					
+        				}
+        				
+        			}
+        			
+        		}
+        		
+        	}
         	
         	if(!main.getJoueursByRole(Roles.TOINOU).isEmpty()) {
         		
@@ -973,10 +1419,44 @@ public class GameCycle extends BukkitRunnable {
         			j_.removeDecoTimer();
         			if(j_.getDeco_timer() <= 0) {
         				
-        				Bukkit.broadcastMessage("_________________________\n" + j_.getPlayer().getName() + " est mort. Il était : \n" + j_.getCouleurCamp(main) + j_.getRole().getTxt() + "§r\n_________________________");
+        				Bukkit.broadcastMessage("_________________________\n" + j_.getPlayer().getName() + " est mort. Il était : \n" + j_.getCamp().getCouleur() + j_.getRole().getTxt() + "§r\n_________________________");
         				main.getListJoueurs().remove(j_);
         				
         			}
+        			
+        		}
+        		
+        	}
+        	
+        	if(main.getJoueurByRole(Roles.FARMEURIMMO) != null && main.getJoueurByRole(Roles.FARMEURIMMO).getVol().contains(Pouvoirs.TEAM_INVISIBLE)) {
+        		
+        		Joueur team = main.getJoueurByRole(Roles.FARMEURIMMO);
+        		
+        		if(team.getPlayer().hasPotionEffect(PotionEffectType.INVISIBILITY) && (team.getPlayer().getInventory().getHelmet() != null || team.getPlayer().getInventory().getChestplate() != null || team.getPlayer().getInventory().getLeggings() != null || team.getPlayer().getInventory().getBoots() != null)) {
+        			
+        			team.getPlayer().removePotionEffect(PotionEffectType.INVISIBILITY);
+        			team.removeSpeed(0.20);
+        			team.setNofall(false);
+        			team.removeResi(0.05);
+        			team.removeForce(0.02);
+        			if(main.getMode() == Modes.RAPIDE) {
+	        			ItemCD cycle = new ItemCD(main, team, "force_team", 15, team, null, null, 0, null);
+	        	        cycle.runTaskTimer(main, 0, 20);
+        			}
+        			else {
+        				
+        				ItemCD cycle = new ItemCD(main, team, "force_team", 60, team, null, null, 0, null);
+	        	        cycle.runTaskTimer(main, 0, 20);
+        				
+        			}
+        			
+        		}
+        		else if(!team.getPlayer().hasPotionEffect(PotionEffectType.INVISIBILITY) && team.getPlayer().getInventory().getHelmet() == null && team.getPlayer().getInventory().getChestplate() == null && team.getPlayer().getInventory().getLeggings() == null && team.getPlayer().getInventory().getBoots() == null){
+        			
+        			team.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, 999999, 0, false, false));
+        			team.addSpeed(0.20);
+        			team.setNofall(true);
+        			team.addResi(0.05);
         			
         		}
         		
@@ -995,7 +1475,7 @@ public class GameCycle extends BukkitRunnable {
 	        			team.setNofall(false);
 	        			team.removeResi(0.05);
 	        			team.removeForce(0.02);
-	        			if(main.getMode().equalsIgnoreCase("rapide")) {
+	        			if(main.getMode() == Modes.RAPIDE) {
 		        			ItemCD cycle = new ItemCD(main, team, "force_team", 30, team, null, null, 0, null);
 		        	        cycle.runTaskTimer(main, 0, 20);
 	        			}
@@ -1007,7 +1487,7 @@ public class GameCycle extends BukkitRunnable {
 	        			}
 	        			
 	        		}
-	        		else if(!team.getPlayer().hasPotionEffect(PotionEffectType.INVISIBILITY) && team.getPlayer().getInventory().getHelmet() == null && team.getPlayer().getInventory().getChestplate() == null && team.getPlayer().getInventory().getLeggings() == null && team.getPlayer().getInventory().getBoots() == null){
+	        		else if(team.getCamp() != Camps.FARMEURIMMO && !team.getPlayer().hasPotionEffect(PotionEffectType.INVISIBILITY) && team.getPlayer().getInventory().getHelmet() == null && team.getPlayer().getInventory().getChestplate() == null && team.getPlayer().getInventory().getLeggings() == null && team.getPlayer().getInventory().getBoots() == null){
 	        			
 	        			team.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, 999999, 0, false, false));
 	        			team.addSpeed(0.20);
@@ -1022,7 +1502,7 @@ public class GameCycle extends BukkitRunnable {
         	
         	Bukkit.getWorld("world").setStorm(false);
         	
-        	if((main.getEpisode() == 2 && main.getMode().equalsIgnoreCase("normal")) || !main.getMode().equalsIgnoreCase("normal")) {
+        	if((main.getEpisode() == 2 && main.getMode() == Modes.NORMAL) || main.getMode() != Modes.NORMAL) {
         		
         		if(timer % 3000 == 0 && main.getJoueurByRole(Roles.THEOOCHOUX) != null) {
         			
@@ -1049,16 +1529,25 @@ public class GameCycle extends BukkitRunnable {
         		
         		for(Joueur theo_ : main.getJoueursByRole(Roles.THEOOCHOUX)) {
         		
-        			Player theo = theo_.getPlayer();
-        		
-        			RollBackCD cycle = new RollBackCD(main, theo.getLocation(), theo.getInventory(), theo.getHealth(), theo.getFoodLevel(), theo_);
-        			cycle.runTaskTimer(main, 0, 20);
+	        			Player theo = theo_.getPlayer();
+	        		
+	        			RollBackCD cycle = new RollBackCD(main, theo.getLocation(), theo.getInventory(), theo.getHealth(), theo.getFoodLevel(), theo_);
+	        			cycle.runTaskTimer(main, 0, 20);
                 
         		}
         		
         	}
         	
-        	if(main.getJoueurByRole(Roles.NICKOBOOP) != null && !main.getSpecNicko().isEmpty() && main.getMode().equalsIgnoreCase("rapide")) {
+        	if(main.getJoueurByRole(Roles.FARMEURIMMO) != null && main.getJoueurByRole(Roles.FARMEURIMMO).getVol().contains(Pouvoirs.THEOOCHOUX_MINIROLLBACK)) {
+        		
+        		Player theo = main.getJoueurByRole(Roles.FARMEURIMMO).getPlayer();
+        		
+        		RollBackCD cycle = new RollBackCD(main, theo.getLocation(), theo.getInventory(), theo.getHealth(), theo.getFoodLevel(), main.getJoueurByRole(Roles.FARMEURIMMO));
+    			cycle.runTaskTimer(main, 0, 20);
+        		
+        	}
+        	
+        	if(main.getJoueurByRole(Roles.NICKOBOOP) != null && !main.getSpecNicko().isEmpty() && main.getMode() == Modes.RAPIDE) {
         		
         		Joueur nicko = main.getJoueurByRole(Roles.NICKOBOOP);
         		
@@ -1215,7 +1704,7 @@ public class GameCycle extends BukkitRunnable {
         	
         	if(!main.getMaudit().isEmpty() && main.getNiv_maledition() > 1) {
         		
-        		if(main.getMode().equalsIgnoreCase("rapide")) {
+        		if(main.getMode() == Modes.RAPIDE) {
         			
             		Joueur cible1 = main.getMaudit().get(0);
         			Joueur nono = main.getMaudit().get(1);
@@ -1403,7 +1892,7 @@ public class GameCycle extends BukkitRunnable {
         		else if(main.getJoueurByRole(Roles.TEAM) == null && main.getJoueurByRole(Roles.MAKA) == null) {
         			
         			gameblack.setChoixGbCamp(true);
-        			gameblack.setCamp("uhc");
+        			gameblack.setCamp(Camps.UHC);
         			GameBlack.ItemsUHC(gameblack, main);
         			
         		}
@@ -1412,7 +1901,7 @@ public class GameCycle extends BukkitRunnable {
         			if(gameblack.isProche(Roles.MALIVOL, main)) {
         				
         				gameblack.setChoixGbCamp(true);
-        				gameblack.setCamp("uhc");
+        				gameblack.setCamp(Camps.UHC);
         				GameBlack.ItemsUHC(gameblack, main);
         				
         			}
@@ -1428,7 +1917,7 @@ public class GameCycle extends BukkitRunnable {
         	
         	if(main.getJoueurByRole(Roles.JEANNOT) != null) {
         		
-        		if(main.getJoueurByRole(Roles.NICKOBOOP) != null && (main.getJoueurByRole(Roles.FARMEURIMMO) == null || !main.getJoueurByRole(Roles.NICKOBOOP).getCamp().equalsIgnoreCase("farmeurimmo"))) {
+        		if(main.getJoueurByRole(Roles.NICKOBOOP) != null && (main.getJoueurByRole(Roles.FARMEURIMMO) == null || main.getJoueurByRole(Roles.NICKOBOOP).getCamp() != Camps.FARMEURIMMO)) {
         		
         			Nickoboop.checkProcheJeannot(main.getJoueurByRole(Roles.NICKOBOOP), main);
         			
@@ -1468,7 +1957,7 @@ public class GameCycle extends BukkitRunnable {
 
             }
         	
-        	if(main.getTemps() == 10 && main.getEpisode() == 1 && (main.getMode().equalsIgnoreCase("rapide") || main.getMode().equalsIgnoreCase("meetup"))) {
+        	if(main.getTemps() == 10 && main.getEpisode() == 1 && (main.getMode() == Modes.RAPIDE || main.getMode() == Modes.MEETUP)) {
         		
         		Bukkit.broadcastMessage("Attribution des rôles");
         		setRole(main);
@@ -1483,7 +1972,7 @@ public class GameCycle extends BukkitRunnable {
 
                 Bukkit.broadcastMessage("_________________________\n \nEpisode " + episode + "\n_________________________");
 
-                if (main.getEpisode() == 1 && main.getMode().equalsIgnoreCase("normal")) {
+                if (main.getEpisode() == 1 && main.getMode() == Modes.NORMAL) {
 
                 	Bukkit.broadcastMessage("Attribution des rôles");
                 	setRole(main);

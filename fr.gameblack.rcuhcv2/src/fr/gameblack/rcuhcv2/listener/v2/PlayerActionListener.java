@@ -1,6 +1,7 @@
 package fr.gameblack.rcuhcv2.listener.v2;
 
 import java.util.List;
+import java.util.Random;
 
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
@@ -24,10 +25,12 @@ import org.bukkit.potion.PotionEffectType;
 import fr.gameblack.rcuhcv2.Main;
 import fr.gameblack.rcuhcv2.Statut;
 import fr.gameblack.rcuhcv2.classes.Joueur;
+import fr.gameblack.rcuhcv2.classes.Modes;
 import fr.gameblack.rcuhcv2.classes.Roles;
 import fr.gameblack.rcuhcv2.evenement.v2.Minerais;
 import fr.gameblack.rcuhcv2.roles.v2.joueur.Jeannot;
 import fr.gameblack.rcuhcv2.roles.v2.staff.GameBlack;
+import fr.gameblack.rcuhcv2.roles.v2.staff.JeuxTrial;
 import fr.gameblack.rcuhcv2.roles.v2.staff.Trial;
 import fr.gameblack.rcuhcv2.scenarios.Scenarios;
 import fr.gameblack.rcuhcv2.scenarios.global.CutClean;
@@ -55,11 +58,32 @@ public class PlayerActionListener implements Listener{
 				
 				Joueur joueur = main.getJoueur(event.getPlayer());
 				
+				if(joueur.isBot()) {
+					
+					Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(), "tell " + joueur.getPlayer().getName() + " pvp " + joueur.getLastHit().getPlayer().getName());
+					joueur.setCibleBot(joueur.getLastHit());
+					
+				}
+				
+				if(joueur.getRole() == Roles.TRIAL && joueur.getModeTrial().equalsIgnoreCase("serieux")) {
+					
+					Random r = new Random();
+					
+		            int nb = r.nextInt(100);
+		            
+		            if(nb <= 20) {
+					
+		            	joueur.removeTrialHydratation(5);
+					
+		            }
+					
+				}
+				
 				if(joueur.getRole() == Roles.HEKOW) {
 					
 					if(joueur.isHekowJeuActif()) {
 						
-						joueur.addHekowPourcent(3);
+						joueur.addHekowPourcent(4);
 						
 					}
 					
@@ -153,17 +177,68 @@ public class PlayerActionListener implements Listener{
 	        
 	        if(joueur != null) {
 	        	
+	        	if(joueur.isBot() && joueur.getCibleBot() != null && !joueur.getCibleBot().isMort()) {
+	        		
+	        		double distance = 0;
+	        		
+	        		double x;
+	        		
+	        		if(joueur.getPlayer().getLocation().getX() < joueur.getCibleBot().getPlayer().getLocation().getX()) {
+	        			x = joueur.getCibleBot().getPlayer().getLocation().getX() - joueur.getPlayer().getLocation().getX();
+	        		}
+	        		else {
+	        			x = joueur.getPlayer().getLocation().getX() - joueur.getCibleBot().getPlayer().getLocation().getX();
+	        		}
+	        		
+	        		double z;
+	        		
+	        		if(joueur.getPlayer().getLocation().getZ() < joueur.getCibleBot().getPlayer().getLocation().getZ()) {
+	        			z = joueur.getCibleBot().getPlayer().getLocation().getZ() - joueur.getPlayer().getLocation().getZ();
+	        		}
+	        		else {
+	        			z = joueur.getPlayer().getLocation().getZ() - joueur.getCibleBot().getPlayer().getLocation().getZ();
+	        		}
+	        		
+	        		distance = (x+z)/2;
+	        		
+	        		if(distance > 7) {
+	        			
+	        			if(joueur.getModeBOT().equalsIgnoreCase("epee") && joueur.getPlayer().getInventory().contains(Material.ARROW)) {
+	        				
+	        				joueur.setModeBOT("arc");
+	        				Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(), "tell " + joueur.getPlayer().getName() + " stoppvp ");
+	        				Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(), "tell " + joueur.getPlayer().getName() + " bow " + joueur.getCibleBot().getPlayer().getName());
+	        				
+	        			}
+	        			
+	        		}
+	        		else if(joueur.getModeBOT().equalsIgnoreCase("arc")) {
+	        			
+	        			joueur.setModeBOT("epee");
+	        			Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(), "tell " + joueur.getPlayer().getName() + " stopbow ");
+	        			Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(), "tell " + joueur.getPlayer().getName() + " pvp " + joueur.getCibleBot().getPlayer().getName());
+	        			
+	        		}
+	        		
+	        	}
+	        	
 	        	if(!joueur.isAbsoOn()) {
 	        		
 	        		player.removePotionEffect(PotionEffectType.ABSORPTION);
 	        		
 	        	}
 	        	
-	        	if(main.getJeuTrial() == "soleil") {
+	        	if(joueur.getRole() == Roles.TRIAL && joueur.getModeTrial().equalsIgnoreCase("serieux")) {
+	        		
+	        		joueur.setBouge(true);
+	        		
+	        	}
+	        	
+	        	if(main.getJeuTrial() == JeuxTrial.SOLEIL) {
 	        		
 	        		if(main.getJoueurJeuTrial().contains(joueur)) {
 	        			
-	        			main.setJeuTrial("rien");
+	        			main.setJeuTrial(null);
 	        			List<Joueur> joueurs = main.getJoueurJeuTrial();
 	        			joueurs.remove(joueur);
 	        			Trial.FinJeuSoleil(joueurs.get(0), joueur, main);
@@ -229,13 +304,13 @@ public class PlayerActionListener implements Listener{
 			
 		}
 		
-		if(event.getBlock().getType() == Material.BED_BLOCK && (main.getJoueurByRole(Roles.GAMEBLACK) != null && main.getModeTrial().equalsIgnoreCase("fun")) && ((event.getBlock().getLocation().getX() == 200 && event.getBlock().getLocation().getY() == 100 && event.getBlock().getLocation().getZ() == 200) || (event.getBlock().getLocation().getX() == 200 && event.getBlock().getLocation().getY() == 100 && event.getBlock().getLocation().getZ() == 201))) {
+		if(event.getBlock().getType() == Material.BED_BLOCK && (main.getJoueurByRole(Roles.GAMEBLACK) != null && joueur.getModeTrial().equalsIgnoreCase("fun")) && ((event.getBlock().getLocation().getX() == 200 && event.getBlock().getLocation().getY() == 100 && event.getBlock().getLocation().getZ() == 200) || (event.getBlock().getLocation().getX() == 200 && event.getBlock().getLocation().getY() == 100 && event.getBlock().getLocation().getZ() == 201))) {
 			
 			Bukkit.broadcastMessage("Lit de GameBlack casser");
 			GameBlack.litGBCasser(joueur, main);
 			
 		}
-		else if(event.getBlock().getType() == Material.BED_BLOCK && (main.getJoueurByRole(Roles.GAMEBLACK) != null && main.getModeTrial().equalsIgnoreCase("fun")) && ((event.getBlock().getLocation().getX() == 200 && event.getBlock().getLocation().getY() == 100 && event.getBlock().getLocation().getZ() == -200) || (event.getBlock().getLocation().getX() == 200 && event.getBlock().getLocation().getY() == 100 && event.getBlock().getLocation().getZ() == -199))) {
+		else if(event.getBlock().getType() == Material.BED_BLOCK && (main.getJoueurByRole(Roles.GAMEBLACK) != null && joueur.getModeTrial().equalsIgnoreCase("fun")) && ((event.getBlock().getLocation().getX() == 200 && event.getBlock().getLocation().getY() == 100 && event.getBlock().getLocation().getZ() == -200) || (event.getBlock().getLocation().getX() == 200 && event.getBlock().getLocation().getY() == 100 && event.getBlock().getLocation().getZ() == -199))) {
 			
 			Bukkit.broadcastMessage("Lit de l'autre casser");
 			GameBlack.litAutreCasser(joueur, main);
@@ -263,7 +338,7 @@ public class PlayerActionListener implements Listener{
     @EventHandler
     public void onPlayerWrite(AsyncPlayerChatEvent event) {
 
-        if (main.getState() == Statut.PVP_ON && !main.getMode().equalsIgnoreCase("rapide")) {
+        if (main.getState() == Statut.PVP_ON && main.getMode() != Modes.RAPIDE) {
 
             event.setCancelled(true);
 

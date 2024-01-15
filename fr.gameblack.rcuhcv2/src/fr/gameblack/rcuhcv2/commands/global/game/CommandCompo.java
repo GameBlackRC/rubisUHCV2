@@ -141,6 +141,11 @@ public class CommandCompo implements CommandExecutor {
 		                    txt += "\n §2Theoochoux§r(1)";
 		
 		                }
+		                if ((main.getCompo().size() != 0 && main.getCompo().contains(Roles.ROMPREMS))) {
+		                	
+		                    txt += "\n §2RomPrems§r(1)";
+		
+		                }
 		
 		                txt += "\n§6Solos :§r";
 		

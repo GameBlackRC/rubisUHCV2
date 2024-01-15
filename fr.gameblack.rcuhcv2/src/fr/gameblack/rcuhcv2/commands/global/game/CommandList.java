@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import fr.gameblack.rcuhcv2.Main;
 import fr.gameblack.rcuhcv2.classes.Joueur;
 import fr.gameblack.rcuhcv2.classes.JoueurMort;
+import fr.gameblack.rcuhcv2.classes.Modes;
 import fr.gameblack.rcuhcv2.classes.Roles;
 
 public class CommandList implements CommandExecutor {
@@ -62,7 +63,7 @@ public class CommandList implements CommandExecutor {
 		    		    SkullMeta skull = (SkullMeta) item.getItemMeta();
 		    		    skull.setDisplayName(j.getPlayer().getName());
 		    		    ArrayList<String> lore = new ArrayList<String>();
-		    		    lore.add("Role : " + j.getCouleurCamp(main) + j.getRole().toString());
+		    		    lore.add("Role : " + j.getCamp().getCouleur() + j.getRole().toString());
 		    		    lore.add("Orbe : " + j.getOrbe().toString());
 		    		    lore.add("Kill : " + j.getKill());
 		    		    lore.add("Poucent Hack : " + j.getPourcentHack());
@@ -81,7 +82,7 @@ public class CommandList implements CommandExecutor {
 		    		    	}
 		    		    	
 		    		    }
-		    		    if(j.getRole() == Roles.JEANNOT && main.getMode().equalsIgnoreCase("rapide")) {
+		    		    if(j.getRole() == Roles.JEANNOT && main.getMode() == Modes.RAPIDE) {
 		    		    	
 		    		    	if(j.isJeannotAbso()) {
 		    		    		
@@ -117,7 +118,7 @@ public class CommandList implements CommandExecutor {
 		    		    }
 		    		    if(j.getRole() == Roles.TRIAL) {
 		    		    	
-		    		    	lore.add("Mode : " + main.getModeTrial()); 
+		    		    	lore.add("Mode : " + j.getModeTrial()); 
 		    		    	
 		    		    }
 		    		    skull.setLore(lore);
@@ -139,7 +140,7 @@ public class CommandList implements CommandExecutor {
 		    		    lore.add("Kill : " + j.getKill());
 		    		    if(j.getRole() == Roles.TRIAL) {
 		    		    	
-		    		    	lore.add("Mode : " + main.getModeTrial()); 
+		    		    	lore.add("Mode : " + j.getModeTrial()); 
 		    		    	
 		    		    }
 		    		    skull.setLore(lore);
@@ -172,7 +173,7 @@ public class CommandList implements CommandExecutor {
     	    		    SkullMeta skull = (SkullMeta) item.getItemMeta();
     	    		    skull.setDisplayName(j.getPlayer().getName());
     	    		    ArrayList<String> lore = new ArrayList<String>();
-    	    		    lore.add("Role : " + j.getCouleurCamp(main) + j.getRole().toString());
+    	    		    lore.add("Role : " + j.getCamp().getCouleur() + j.getRole().toString());
     	    		    lore.add("Orbe : " + j.getOrbe().toString());
     	    		    lore.add("Kill : " + j.getKill());
     	    		    lore.add("Poucent GameBlack : " + j.getGBPourcent());

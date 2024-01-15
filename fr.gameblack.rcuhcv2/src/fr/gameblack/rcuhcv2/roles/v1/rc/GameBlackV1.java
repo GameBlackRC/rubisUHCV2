@@ -9,6 +9,7 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 import fr.gameblack.rcuhcv2.Main;
+import fr.gameblack.rcuhcv2.classes.Camps;
 import fr.gameblack.rcuhcv2.classes.Joueur;
 import fr.gameblack.rcuhcv2.classes.Pouvoirs;
 import fr.gameblack.rcuhcv2.classes.Roles;
@@ -337,7 +338,7 @@ public class GameBlackV1 {
     	
     	Player player = joueur.getPlayer();
     	
-    	if(cible.getCamp().equalsIgnoreCase("demon")) {
+    	if(cible.getCamp() == Camps.DEMON) {
     		
     		player.sendMessage(cible.getPlayer().getName() + " est bien un démon");
     		cible.setGBFindThisDemon(true);
@@ -508,7 +509,7 @@ public class GameBlackV1 {
         			
         			if(j.getGBPourcent() >= 30) {
         				
-        				if(j.getCamp().equalsIgnoreCase("rc")) {
+        				if(j.getCamp() == Camps.RC) {
         					
         					if(!j.isEffetProcheGB()) {
         					
@@ -554,7 +555,7 @@ public class GameBlackV1 {
         			}
         			else if(j.getGBPourcent() >= 10) {
         				
-        				if(j.getCamp().equalsIgnoreCase("rc")) {
+        				if(j.getCamp() == Camps.RC) {
         					
         					if(!j.isEffetProcheGB()) {
         					
@@ -609,7 +610,7 @@ public class GameBlackV1 {
             			
             			if(j.getGBPourcent() >= 30) {
             				
-            				if(j.getCamp().equalsIgnoreCase("rc")) {
+            				if(j.getCamp() == Camps.RC) {
             					
             					if(j.getBonusPalier10GB().equalsIgnoreCase("force")) {
         							
@@ -643,7 +644,7 @@ public class GameBlackV1 {
             			}
             			else if(j.getGBPourcent() >= 10) {
             				
-            				if(j.getCamp().equalsIgnoreCase("rc")) {
+            				if(j.getCamp() == Camps.RC) {
             					
             					if(j.getBonusPalier10GB().equalsIgnoreCase("force")) {
         							
@@ -717,7 +718,7 @@ public class GameBlackV1 {
     					        Joueur cible = proche.get(nb);
     					        String txt = "Voici 4 rôles possible pour " + cible.getPlayer().getName() + " : ";
     					        
-    					        if(cible.getCamp().equalsIgnoreCase("rc")) {
+    					        if(cible.getCamp() == Camps.RC) {
     					        	
     					        	int nb1_rc = r.nextInt(main.getCampRCVie().size());
     					        	while(main.getCampRCVie().get(nb1_rc) == cible || main.getCampRCVie().get(nb1_rc).getRole() == Roles.GameBlack) {
@@ -751,7 +752,7 @@ public class GameBlackV1 {
     					        	gb.getPlayer().sendMessage(txt);
     					        	
     					        }
-    					        else if(cible.getCamp().equalsIgnoreCase("demon")) {
+    					        else if(cible.getCamp() == Camps.DEMON) {
     					        	
     					        	int nb1_demon = r.nextInt(main.getCampDemonVie().size());
     					        	while(main.getCampDemonVie().get(nb1_demon) == cible) {
@@ -819,7 +820,7 @@ public class GameBlackV1 {
     					        Joueur cible = proche.get(nb);
     					        String txt = "Voici 4 rôles possible pour " + cible.getPlayer().getName() + " : ";
     					        
-    					        if(cible.getCamp().equalsIgnoreCase("rc")) {
+    					        if(cible.getCamp() == Camps.RC) {
     					        	
     					        	int nb1_rc = r.nextInt(main.getCampRCVie().size());
     					        	while(main.getCampRCVie().get(nb1_rc) == cible || main.getCampRCVie().get(nb1_rc).getRole() == Roles.GameBlack) {
@@ -854,7 +855,7 @@ public class GameBlackV1 {
     					        	gb.getPlayer().sendMessage(txt);
     					        	
     					        }
-    					        else if(cible.getCamp().equalsIgnoreCase("demon")) {
+    					        else if(cible.getCamp() == Camps.DEMON) {
     					        	
     					        	int nb1_demon = r.nextInt(main.getCampDemonVie().size());
     					        	while(main.getCampDemonVie().get(nb1_demon) == cible) {
@@ -943,7 +944,7 @@ public class GameBlackV1 {
         			
         			Joueur j = main.getJoueur(player);
         			
-        			if((j.getCamp().equalsIgnoreCase("demon") && j.getRole() != Roles.Slup) || j.getRole() == Roles.Experimental) {
+        			if((j.getCamp() == Camps.DEMON && j.getRole() != Roles.Slup) || j.getRole() == Roles.Experimental) {
         				
         				nb_demon += 1;
         				
@@ -985,7 +986,7 @@ public class GameBlackV1 {
         			Player player = (Player) entity;
         			Joueur j = main.getJoueur(player);
         			
-        			if((j.getCamp().equalsIgnoreCase("demon") && j.getRole() != Roles.Slup) || j.getRole() == Roles.Experimental) {
+        			if((j.getCamp() == Camps.DEMON && j.getRole() != Roles.Slup) || j.getRole() == Roles.Experimental) {
         				
         				nb_demon += 1;
         				

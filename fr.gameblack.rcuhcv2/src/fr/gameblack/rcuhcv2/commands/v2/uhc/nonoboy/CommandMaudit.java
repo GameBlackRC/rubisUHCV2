@@ -8,6 +8,7 @@ import org.bukkit.entity.Player;
 
 import fr.gameblack.rcuhcv2.Main;
 import fr.gameblack.rcuhcv2.classes.Joueur;
+import fr.gameblack.rcuhcv2.classes.Modes;
 import fr.gameblack.rcuhcv2.classes.Pouvoirs;
 import fr.gameblack.rcuhcv2.classes.Roles;
 import fr.gameblack.rcuhcv2.roles.v1.demons.Malediction;
@@ -30,7 +31,7 @@ public class CommandMaudit implements CommandExecutor {
 	    	
 	    	Joueur joueur = main.getJoueur(player);
 	
-	        if (args.length >= 3 || (main.getMode().equalsIgnoreCase("rapide") && args.length >= 2)) {
+	        if (args.length >= 3 || (main.getMode() == Modes.RAPIDE && args.length >= 2)) {
 	
 	            Player cible1_ = Bukkit.getPlayer(args[0]);
 	            
@@ -42,7 +43,7 @@ public class CommandMaudit implements CommandExecutor {
 	            
 	            int niveau;
 	            
-	            if(main.getMode().equalsIgnoreCase("rapide")) {
+	            if(main.getMode() == Modes.RAPIDE) {
 	            	niveau = Integer.parseInt(args[1]);
 	            }
 	            else {
@@ -55,7 +56,7 @@ public class CommandMaudit implements CommandExecutor {
 	
 	                    if (main.getNiv_maledition() == 0) {
 	                    	
-	                    	if(!main.getMode().equalsIgnoreCase("rapide")) {
+	                    	if(main.getMode() != Modes.RAPIDE) {
 	                    		
 	                    		if(joueur.getRole() == Roles.NONOBOY && main.getVersion() == 2) {
 	                    	

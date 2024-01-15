@@ -6,6 +6,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import fr.gameblack.rcuhcv2.Main;
+import fr.gameblack.rcuhcv2.classes.Camps;
 import fr.gameblack.rcuhcv2.classes.Joueur;
 import fr.gameblack.rcuhcv2.classes.Pouvoirs;
 import fr.gameblack.rcuhcv2.classes.Roles;
@@ -32,7 +33,7 @@ public class CommandVacance implements CommandExecutor {
             	
             	if(!joueur.getCD().contains(Pouvoirs.TOINOU_VACANCES)) {
 
-		            if ((joueur.getRole() == Roles.TOINOU && (main.getJoueurByRole(Roles.FARMEURIMMO) == null || !main.getJoueurByRole(Roles.FARMEURIMMO).getVol().contains(Pouvoirs.TOINOU_VACANCES) || !joueur.getCamp().equalsIgnoreCase("farmeurimmo"))) || (joueur.getRole() == Roles.FARMEURIMMO && joueur.getVol().contains(Pouvoirs.TOINOU_VACANCES))) {
+		            if ((joueur.getRole() == Roles.TOINOU && (main.getJoueurByRole(Roles.FARMEURIMMO) == null || !main.getJoueurByRole(Roles.FARMEURIMMO).getVol().contains(Pouvoirs.TOINOU_VACANCES) || joueur.getCamp() != Camps.FARMEURIMMO)) || (joueur.getRole() == Roles.FARMEURIMMO && joueur.getVol().contains(Pouvoirs.TOINOU_VACANCES))) {
 		            	
 		            	Toinou.CommandVacance(joueur, main);
 		

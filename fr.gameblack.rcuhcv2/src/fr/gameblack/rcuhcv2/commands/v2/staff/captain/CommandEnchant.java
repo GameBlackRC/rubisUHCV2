@@ -41,7 +41,7 @@ private Main main;
             			
             			joueur.getCD().add(Pouvoirs.CAPTAIN_ENCHANT_OTHER);
                 	
-            			Captain.commandEnchant(joueur, cible);
+            			Captain.commandEnchant(joueur, cible, main);
             		
             		}
             	
@@ -52,7 +52,7 @@ private Main main;
             			
             			joueur.getCD().add(Pouvoirs.CAPTAIN_ENCHANT_SELF);
             			
-            			Captain.commandEnchant(joueur, joueur);
+            			Captain.commandEnchant(joueur, joueur, main);
             			
             		}
             		

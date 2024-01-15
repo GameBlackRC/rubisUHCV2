@@ -158,6 +158,18 @@ public class CommandSetRoleOther implements CommandExecutor {
 		        	cible_.sendMessage("Vous êtes désormais le rôle §2Nonoboy");
 		        	
 		        }
+		        else if (args.length > 1 && args[1].equalsIgnoreCase("theoochoux")) {
+		        	
+		        	cible.setRole(Roles.THEOOCHOUX, main);
+		        	cible_.sendMessage("Vous êtes désormais le rôle §2Theoochoux");
+		        	
+		        }
+		        else if (args.length > 1 && args[1].equalsIgnoreCase("romprems")) {
+		        	
+		        	cible.setRole(Roles.ROMPREMS, main);
+		        	cible_.sendMessage("Vous êtes désormais le rôle §2RomPrems");
+		        	
+		        }
 		        else if (args.length > 1 && args[1].equalsIgnoreCase("kzou")) {
 		        	
 		        	cible.setRole(Roles.KZOU, main);

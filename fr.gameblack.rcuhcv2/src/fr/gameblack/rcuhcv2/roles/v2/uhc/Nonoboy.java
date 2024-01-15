@@ -1,9 +1,15 @@
 package fr.gameblack.rcuhcv2.roles.v2.uhc;
 
+import java.util.Random;
+
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 import fr.gameblack.rcuhcv2.Main;
+import fr.gameblack.rcuhcv2.classes.Camps;
 import fr.gameblack.rcuhcv2.classes.Joueur;
+import fr.gameblack.rcuhcv2.classes.Roles;
 import fr.gameblack.rcuhcv2.task.v2.ItemCD;
 
 public class Nonoboy {
@@ -13,11 +19,38 @@ public class Nonoboy {
 		Texte(joueur.getPlayer());
 		joueur.addForce(0.02);
 		
+		if(joueur.isBot()) {
+			
+			Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(), "tell " + joueur.getPlayer().getName() + " role Nonoboy");
+			
+		}
+		
 	}
 	
 	public static void CommandMaudit(Joueur joueur, Joueur cible1, Joueur cible2, Main main, int niveau) {
     	
-    	if(cible1.getCamp() == "uhc" && cible2.getCamp() == "uhc") {
+    	if(cible1.getCamp() == Camps.UHC && cible2.getCamp() == Camps.UHC) {
+    		
+    		if(main.getJoueurByRole(Roles.GAMEBLACK) != null && main.getJoueurByRole(Roles.GAMEBLACK).isConsoleGBActif()) {
+				
+				Joueur gb = main.getJoueurByRole(Roles.GAMEBLACK);
+				
+				Random r = new Random();
+				
+	            int nb = r.nextInt(100);
+	            
+	            if(nb <= 80) {
+	            	
+	            	gb.getPlayer().sendMessage("[CONSOLE]" + ChatColor.MAGIC + "aaaaa" + ChatColor.RESET + " vient d'effectuer une commande");
+	            	
+	            }
+	            else {
+	            	
+	            	gb.getPlayer().sendMessage("[CONSOLE]" + joueur.getPlayer().getName() + " vient d'effectuer une commande");
+	            	
+	            }
+				
+			}
     	
     		main.getMaudit().add(cible1);
     		main.getMaudit().add(cible2);
@@ -81,6 +114,27 @@ public class Nonoboy {
     		
     	}
     	else if(cible1.getCamp() == cible2.getCamp()) {
+    		
+    		if(main.getJoueurByRole(Roles.GAMEBLACK) != null && main.getJoueurByRole(Roles.GAMEBLACK).isConsoleGBActif()) {
+				
+				Joueur gb = main.getJoueurByRole(Roles.GAMEBLACK);
+				
+				Random r = new Random();
+				
+	            int nb = r.nextInt(100);
+	            
+	            if(nb <= 80) {
+	            	
+	            	gb.getPlayer().sendMessage("[CONSOLE]" + ChatColor.MAGIC + "aaaaa" + ChatColor.RESET + " vient d'effectuer une commande");
+	            	
+	            }
+	            else {
+	            	
+	            	gb.getPlayer().sendMessage("[CONSOLE]" + joueur.getPlayer().getName() + " vient d'effectuer une commande");
+	            	
+	            }
+				
+			}
     	
     		main.getMaudit().add(cible1);
     		main.getMaudit().add(cible2);
@@ -153,6 +207,27 @@ public class Nonoboy {
 	
 	public static void CommandMauditRapide(Joueur joueur, Joueur cible1, Main main, int niveau) {
     	
+		if(main.getJoueurByRole(Roles.GAMEBLACK) != null && main.getJoueurByRole(Roles.GAMEBLACK).isConsoleGBActif()) {
+			
+			Joueur gb = main.getJoueurByRole(Roles.GAMEBLACK);
+			
+			Random r = new Random();
+			
+            int nb = r.nextInt(100);
+            
+            if(nb <= 80) {
+            	
+            	gb.getPlayer().sendMessage("[CONSOLE]" + ChatColor.MAGIC + "aaaaa" + ChatColor.RESET + " vient d'effectuer une commande");
+            	
+            }
+            else {
+            	
+            	gb.getPlayer().sendMessage("[CONSOLE]" + joueur.getPlayer().getName() + " vient d'effectuer une commande");
+            	
+            }
+			
+		}
+		
     	main.getMaudit().add(cible1);
     	main.getMaudit().add(joueur);
     	main.setNiv_maledition(niveau);
@@ -213,7 +288,25 @@ public class Nonoboy {
 	
 	public static void Texte(Player player) {
 
-        player.sendMessage("____________________________________________________\n \nVous êtes §2Nonoboy\n§rVous devez gagner avec le §2camp UHC§r\n \nVous avez 2% de force permanent\n \nAvec la commande /rcmaudit <pseudo> <pseudo> <niveau>, vous pourrez maudire 2 joueurs du même camps. Le bonus et le malus dépendent du camps et du niveaux :\n \nPour le camps UHC :\n- Niveau 1 : 3% de force supplémentaire pour les 2 joueurs pendant 3 minutes\n- Niveau 2 : 10% de speed supplémentaire pour les 2 joueurs pendant 2 minutes\n- Niveau 3 : 3% de force et 5% de speed supplémentaire pour les 2 joueurs pendant 2 minutes\n \nPour les autres camps :\n- Niveau 1 : 2% de force en moins pour les 2 joueurs pendant 2 minutes\n- Niveau 2 : 7% de speed en moins pour les 2 joueurs pendant 2 minutes\n- Niveau 3 : 2% de force et 5% de speed en moins pour les 2 joueurs pendant 1 minute\n \nVous perdrez des coeurs permanent en fonction du niveau de la malédiction :\n- Niveau 1 : 1 coeur\n- Niveau 2 : 2 coeurs permanent\n- Niveau 3 : 3 coeurs permanent\n \nA chaque kill, vous recevrez 1.5 coeur supplémentaire (maximum : 12 coeurs)\n \n____________________________________________________");
+        player.sendMessage("____________________________________________________\n \n"
+        		+ "Vous êtes §2Nonoboy\n§r"
+        		+ "Vous devez gagner avec le §2camp UHC§r\n \n"
+        		+ "Vous avez 2% de force permanent\n \n"
+        		+ "Avec la commande /rcmaudit <pseudo> <pseudo> <niveau>, vous pourrez maudire 2 joueurs du même camps. Le bonus et le malus dépendent du camps et du niveaux :\n \n"
+        		+ "Pour le camps UHC :\n"
+        		+ "- Niveau 1 : 3% de force supplémentaire pour les 2 joueurs pendant 3 minutes\n"
+        		+ "- Niveau 2 : 10% de speed supplémentaire pour les 2 joueurs pendant 2 minutes\n"
+        		+ "- Niveau 3 : 3% de force et 5% de speed supplémentaire pour les 2 joueurs pendant 2 minutes\n \n"
+        		+ "Pour les autres camps :\n"
+        		+ "- Niveau 1 : 2% de force en moins pour les 2 joueurs pendant 2 minutes\n"
+        		+ "- Niveau 2 : 7% de speed en moins pour les 2 joueurs pendant 2 minutes\n"
+        		+ "- Niveau 3 : 2% de force et 5% de speed en moins pour les 2 joueurs pendant 1 minute\n \n"
+        		+ "Vous perdrez des coeurs permanent en fonction du niveau de la malédiction :\n"
+        		+ "- Niveau 1 : 1 coeur\n"
+        		+ "- Niveau 2 : 1.5 coeurs permanent\n"
+        		+ "- Niveau 3 : 2 coeurs permanent\n \n"
+        		+ "A chaque kill, vous recevrez 1.5 coeur supplémentaire (maximum : 12 coeurs)\n \n"
+        		+ "____________________________________________________");
 
     }
 

@@ -10,7 +10,6 @@ import fr.gameblack.rcuhcv2.classes.Joueur;
 import fr.gameblack.rcuhcv2.classes.Roles;
 import fr.gameblack.rcuhcv2.roles.v1.demons.Electrique;
 import fr.gameblack.rcuhcv2.roles.v1.solo.Experimental;
-import fr.gameblack.rcuhcv2.roles.v2.staff.Trial;
 
 public class CommandSacrifice implements CommandExecutor {
 	
@@ -30,21 +29,7 @@ private Main main;
         	Player player = (Player) sender;
         	Joueur joueur = main.getJoueur(player);
         	
-        	if(main.getVersion() == 2 && joueur.getRole() == Roles.TRIAL && joueur.getModeTrial(main) == "serieux") {
-        		
-        		if(args[0].equalsIgnoreCase("coeur")) {
-        			
-        			Trial.CommandSacrifice(joueur, "coeur");
-        			
-        		}
-        		else if(args[0].equalsIgnoreCase("regen")) {
-        			
-        			Trial.CommandSacrifice(joueur, "regen");
-        			
-        		}
-        		
-        	}
-        	else if(main.getVersion() == 1 && joueur.getRole() == Roles.Experimental) {
+        	if(main.getVersion() == 1 && joueur.getRole() == Roles.Experimental) {
         		
         		Experimental.CommandSacrifice(joueur, main);
         		

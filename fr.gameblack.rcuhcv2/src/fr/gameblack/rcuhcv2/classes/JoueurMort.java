@@ -11,21 +11,23 @@ public class JoueurMort {
 	private String tueur;
 	private Roles roleTueur;
 	private String roletxt;
-	private String camp;
+	private Camps camp;
 	private int kill;
 	private Orbe orbe;
+	private String modeTrial = null;
 	
 	public JoueurMort(Joueur joueur, Joueur tueur, Main main) {
 		
 		setPseudo(joueur.getPlayer().getName());
 		setRole(joueur.getRole());
 		this.setTueur(tueur.getPlayer().getName());
-		setRoletxt(joueur.getCouleurCamp(main) + role.getTxt());
+		setRoletxt(joueur.getCamp().getCouleur() + role.getTxt());
 		setCamp(joueur.getCamp());
 		setKill(joueur.getKill());
-		pseudoCouleur = joueur.getCouleurCamp(main) + pseudo;
+		pseudoCouleur = joueur.getCamp().getCouleur() + pseudo;
 		this.orbe = joueur.getOrbe();
 		roleTueur = tueur.getRole();
+		modeTrial = joueur.getModeTrial();
 		
 	}
 
@@ -53,11 +55,11 @@ public class JoueurMort {
 		this.roletxt = roletxt;
 	}
 
-	public String getCamp() {
+	public Camps getCamp() {
 		return camp;
 	}
 
-	public void setCamp(String camp) {
+	public void setCamp(Camps camp) {
 		this.camp = camp;
 	}
 
@@ -99,6 +101,14 @@ public class JoueurMort {
 
 	public void setOrbe(Orbe orbe) {
 		this.orbe = orbe;
+	}
+
+	public String getModeTrial() {
+		return modeTrial;
+	}
+
+	public void setModeTrial(String modeTrial) {
+		this.modeTrial = modeTrial;
 	}
 
 }

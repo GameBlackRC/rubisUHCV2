@@ -19,6 +19,7 @@ import org.bukkit.scoreboard.Scoreboard;
 import fr.gameblack.rcuhcv2.Main;
 import fr.gameblack.rcuhcv2.Statut;
 import fr.gameblack.rcuhcv2.classes.Joueur;
+import fr.gameblack.rcuhcv2.classes.Modes;
 import fr.gameblack.rcuhcv2.scenarios.Scenarios;
 import fr.gameblack.rcuhcv2.task.v2.GameCycle;
 import fr.gameblack.rcuhcv2.task.v1.GameCycleV1;
@@ -122,7 +123,7 @@ public class Autostart extends BukkitRunnable {
                 if (pls.hasPotionEffect(PotionEffectType.FIRE_RESISTANCE))
                     pls.removePotionEffect(PotionEffectType.FIRE_RESISTANCE);
                 
-                if(main.getMode().equalsIgnoreCase("rapide")) {
+                if(main.getMode() == Modes.RAPIDE) {
                 	
                 	int cos_y = world.getHighestBlockYAt(cos_x, cos_z);
 
@@ -180,18 +181,20 @@ public class Autostart extends BukkitRunnable {
 	                pls.getInventory().addItem(new ItemStack(Material.GOLDEN_CARROT, 64));
 	                pls.getInventory().addItem(new ItemStack(Material.ARROW, 64));
 	                pls.getInventory().addItem(new ItemStack(Material.WATER_BUCKET, 1));
-	                pls.getInventory().addItem(new ItemStack(Material.COBBLESTONE, 64));
-	                pls.getInventory().addItem(new ItemStack(Material.COBBLESTONE, 64));
-	                pls.getInventory().addItem(new ItemStack(Material.COBBLESTONE, 64));
-	                pls.getInventory().addItem(new ItemStack(Material.LAVA_BUCKET, 2));
-	                pls.getInventory().addItem(new ItemStack(Material.WATER_BUCKET, 1));
-	                pls.getInventory().addItem(new ItemStack(Material.WORKBENCH, 1));
-	                pls.getInventory().addItem(new ItemStack(Material.DIAMOND_PICKAXE, 1));
+	                if(!j.isBot()) {
+		                pls.getInventory().addItem(new ItemStack(Material.COBBLESTONE, 64));
+		                pls.getInventory().addItem(new ItemStack(Material.COBBLESTONE, 64));
+		                pls.getInventory().addItem(new ItemStack(Material.COBBLESTONE, 64));
+		                pls.getInventory().addItem(new ItemStack(Material.LAVA_BUCKET, 2));
+		                pls.getInventory().addItem(new ItemStack(Material.WATER_BUCKET, 1));
+		                pls.getInventory().addItem(new ItemStack(Material.WORKBENCH, 1));
+		                pls.getInventory().addItem(new ItemStack(Material.DIAMOND_PICKAXE, 1));
+	                }
 
 	                pls.teleport(new Location(world, cos_x, cos_y, cos_z));
 	                
             	}
-                else if(main.getMode().equalsIgnoreCase("meetup")) {
+                else if(main.getMode() == Modes.MEETUP) {
                 	
                 	System.out.println("Mode meetup detecter");
                 	

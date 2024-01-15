@@ -5,11 +5,9 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.potion.PotionEffectType;
 
 import fr.gameblack.rcuhcv2.Main;
 import fr.gameblack.rcuhcv2.classes.Joueur;
-import fr.gameblack.rcuhcv2.classes.Roles;
 
 public class CommandaddPoints implements CommandExecutor {
 	
@@ -26,11 +24,13 @@ public class CommandaddPoints implements CommandExecutor {
 		
 		//if(main.isV2Actif()) {
 		
+			@SuppressWarnings("unused")
 			Player player = (Player) sender;
 	        
 	        Player cible_ = Bukkit.getPlayer(args[0]);
 	        
-	        String nb_ = args[1];
+	        @SuppressWarnings("unused")
+			String nb_ = args[1];
 	
 	        if (cible_ != null) {
 	        	

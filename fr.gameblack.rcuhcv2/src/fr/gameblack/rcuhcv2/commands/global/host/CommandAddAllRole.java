@@ -4,9 +4,6 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.scoreboard.DisplaySlot;
-import org.bukkit.scoreboard.Objective;
-import org.bukkit.scoreboard.Score;
 
 import fr.gameblack.rcuhcv2.Main;
 import fr.gameblack.rcuhcv2.classes.Joueur;
@@ -51,6 +48,7 @@ public class CommandAddAllRole implements CommandExecutor {
 	                main.getCompo().add(Roles.OBSCUR);
 	                main.getCompo().add(Roles.NONOBOY);
 	                main.getCompo().add(Roles.THEOOCHOUX);
+	                main.getCompo().add(Roles.ROMPREMS);
 	                
 	                main.getCompo().add(Roles.FARMEURIMMO);
 	                main.getCompo().add(Roles.KZOU);
