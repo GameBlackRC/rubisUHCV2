@@ -27,6 +27,7 @@ import fr.gameblack.rcuhcv2.Statut;
 import fr.gameblack.rcuhcv2.classes.Joueur;
 import fr.gameblack.rcuhcv2.classes.Modes;
 import fr.gameblack.rcuhcv2.classes.Roles;
+import fr.gameblack.rcuhcv2.classes.Stats;
 import fr.gameblack.rcuhcv2.evenement.v2.Minerais;
 import fr.gameblack.rcuhcv2.roles.v2.joueur.Jeannot;
 import fr.gameblack.rcuhcv2.roles.v2.staff.GameBlack;
@@ -57,6 +58,7 @@ public class PlayerActionListener implements Listener{
 			if(event.getItem().getType() == Material.GOLDEN_APPLE) {
 				
 				Joueur joueur = main.getJoueur(event.getPlayer());
+				main.addStat(Stats.GAPS_MANGER, joueur);
 				
 				if(joueur.isBot()) {
 					
@@ -103,6 +105,17 @@ public class PlayerActionListener implements Listener{
 					
 				}
 				
+				if(joueur.getRole() == Roles.TEAM && joueur.getPlayer().hasPotionEffect(PotionEffectType.INVISIBILITY)) {
+					
+					joueur.getPlayer().getInventory().removeItem(new ItemStack(Material.GOLDEN_APPLE, 1));
+					
+					event.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 100, 1));
+					event.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.ABSORPTION, 2400, 0, false, false));
+					
+					event.setCancelled(true);
+					
+				}
+				
 				if(!joueur.isAbsoOn()) {
 					
 					joueur.getPlayer().getInventory().removeItem(new ItemStack(Material.GOLDEN_APPLE, 1));
@@ -124,7 +137,7 @@ public class PlayerActionListener implements Listener{
 		
 		Player player = event.getPlayer();
 		Joueur joueur = main.getJoueur(player);
-		if(!joueur.isMort() && main.getState() != Statut.PVP_ON && main.getState() != Statut.PVP_OFF) {
+		if(!joueur.isMort() && (main.getState() == Statut.PVP_ON || main.getState() == Statut.PVP_OFF)) {
 			joueur.setDeco(true);
 		}
 		else {
@@ -143,6 +156,13 @@ public class PlayerActionListener implements Listener{
 			if(main.getJoueur(event.getPlayer()) == null && (main.getState() == Statut.WAITING || main.getState() == Statut.STARTING)) {
 			
 				main.addJoueur(event.getPlayer());
+				if(main.getBoard_base() == null) {
+					
+					main.setBoard_spec(Bukkit.getScoreboardManager().getNewScoreboard());
+	                main.setBoard_pourcent(Bukkit.getScoreboardManager().getNewScoreboard());
+	                main.setBoard_base(Bukkit.getScoreboardManager().getNewScoreboard());
+					
+				}
 				event.getPlayer().setScoreboard(main.getBoard_base());
 				
 			}

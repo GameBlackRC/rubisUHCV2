@@ -18,12 +18,14 @@ import org.bukkit.scoreboard.Score;
 import org.bukkit.scoreboard.Scoreboard;
 
 import fr.gameblack.rcuhcv2.database.DatabaseManager;
+import fr.gameblack.rcuhcv2.database.DbConnection;
 import fr.gameblack.rcuhcv2.classes.Camps;
 import fr.gameblack.rcuhcv2.classes.ItRoles;
 import fr.gameblack.rcuhcv2.classes.Joueur;
 import fr.gameblack.rcuhcv2.classes.JoueurMort;
 import fr.gameblack.rcuhcv2.classes.Pouvoirs;
 import fr.gameblack.rcuhcv2.classes.Roles;
+import fr.gameblack.rcuhcv2.classes.Stats;
 import fr.gameblack.rcuhcv2.classes.Modes;
 import fr.gameblack.rcuhcv2.scenarios.Scenarios;
 import fr.gameblack.rcuhcv2.commands.global.admin.CommandEpisode;
@@ -47,6 +49,7 @@ import fr.gameblack.rcuhcv2.commands.global.host.CommandCreate;
 import fr.gameblack.rcuhcv2.commands.global.host.CommandFastcreate;
 import fr.gameblack.rcuhcv2.commands.global.host.CommandRemoverole;
 import fr.gameblack.rcuhcv2.commands.global.host.CommandSetGroup;
+import fr.gameblack.rcuhcv2.commands.global.host.CommandSpec;
 import fr.gameblack.rcuhcv2.commands.global.host.CommandStart;
 import fr.gameblack.rcuhcv2.commands.v1.demons.cosmos.CommandKill;
 import fr.gameblack.rcuhcv2.commands.v1.demons.obscur.CommandCopie;
@@ -106,6 +109,10 @@ import fr.gameblack.rcuhcv2.orbes.Orbe;
 import fr.gameblack.rcuhcv2.roles.v2.staff.JeuxTrial;
 import fr.gameblack.rcuhcv2.utils.CustomChunkGenerator;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -114,6 +121,10 @@ import java.util.Random;
 public class Main extends JavaPlugin {
 	
 	private Scoreboard board_base;
+	private Scoreboard board_spec;
+	private Scoreboard board_pourcent;
+	
+	private int IDGame = 0;
 	
 	private List<JoueurMort> morts = new ArrayList<>();
 
@@ -174,9 +185,9 @@ public class Main extends JavaPlugin {
     @Override
     public void onEnable() {
     	
-    	setBoard_base(Bukkit.getScoreboardManager().getNewScoreboard());
-    	
     	databaseManager = new DatabaseManager();
+    	
+    	setID();
     	
     	Craft.setCraft(this);
     	
@@ -200,6 +211,7 @@ public class Main extends JavaPlugin {
     	getCommand("rcme").setExecutor(new CommandMe(this));
     	getCommand("rclist").setExecutor(new CommandList(this));
     	
+    	getCommand("spec").setExecutor(new CommandSpec(this));
     	getCommand("addallrole").setExecutor(new CommandAddAllRole(this));
     	getCommand("addallrolepvp").setExecutor(new CommandAddAllRolePVP(this));
     	getCommand("addrole").setExecutor(new CommandAddrole(this));
@@ -295,6 +307,439 @@ public class Main extends JavaPlugin {
     @Override
     public ChunkGenerator getDefaultWorldGenerator(String worldName, String id) {
         return new CustomChunkGenerator();
+    }
+    
+    public void setID() {
+    	
+    	final DbConnection gradeConnection = this.getDatabaseManager().getGradeConnection();
+		
+		try {
+			
+			final Connection connection = gradeConnection.getConnection();
+			
+			final PreparedStatement preparedStatement = connection.prepareStatement("SELECT id_game FROM `Stats_UHC` ORDER BY `Stats_UHC`.`id_game` DESC");
+			
+			final ResultSet resultSet = preparedStatement.executeQuery();
+			
+			if(resultSet.next()) {
+				
+				IDGame = resultSet.getInt("id_game");
+				
+				
+			}
+			
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+			
+		}
+    	
+    }
+    
+    public void addStatBDD(Joueur joueur) {
+    	
+    	if(!this.getScenarios().contains(Scenarios.INTROUVABLE)) {
+    	
+	    	final DbConnection gradeConnection = this.getDatabaseManager().getGradeConnection();
+			
+			Bukkit.getScheduler().runTaskAsynchronously(this, ()-> {
+				
+				try {
+					
+					final Connection connection = gradeConnection.getConnection();
+					
+					final PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM Joueurs WHERE pseudo_mc = ?");
+					
+					preparedStatement.setString(1, joueur.getPlayer().getName());
+					
+					final ResultSet resultSet = preparedStatement.executeQuery();
+					
+					if(resultSet.next()) {
+						
+						int id_j = resultSet.getInt("id");
+					
+						final PreparedStatement prepared_Statement = connection.prepareStatement("INSERT INTO Stats_UHC (id_joueur, id_game, mode, role) VALUES (?, ?, ?, ?)");
+						
+						prepared_Statement.setInt(1, id_j);
+						prepared_Statement.setInt(2, IDGame);
+						prepared_Statement.setString(3, mode.toString());
+						prepared_Statement.setString(4, joueur.getRole().getTxt());
+						
+						prepared_Statement.executeUpdate();
+						
+					}
+					
+				} catch (SQLException e) {
+					
+					e.printStackTrace();
+					
+				}
+				
+			});
+			
+    	}
+    	
+    }
+    
+    public void setStat(Stats stat, Joueur joueur) {
+    	
+    	if(!this.getScenarios().contains(Scenarios.INTROUVABLE)) {
+    	
+	    	if(stat == Stats.CAMP_FINAL) {
+	    		
+	    		final DbConnection gradeConnection = this.getDatabaseManager().getGradeConnection();
+	    		
+	    		Bukkit.getScheduler().runTaskAsynchronously(this, ()-> {
+	    			
+	    			try {
+	    				
+	    				final Connection connection = gradeConnection.getConnection();
+	    				
+	    				final PreparedStatement preparedStatement = connection.prepareStatement("UPDATE Stats_UHC JOIN Joueurs ON Joueurs.id = Stats_UHC.id_joueur SET camp_final = ? WHERE pseudo_mc = ? AND id_game = ?");
+	    				
+	    				preparedStatement.setString(1, joueur.getCamp().toString());
+	    				preparedStatement.setString(2, joueur.getPlayer().getName());
+	    				preparedStatement.setInt(3, IDGame);
+	    				
+	    				preparedStatement.executeUpdate();
+	    				
+	    			} catch (SQLException e) {
+	    				
+	    				e.printStackTrace();
+	    				
+	    			}
+	    			
+	    		});
+	    		
+	    	} else if(stat == Stats.FORCE_FINAL) {
+	    		
+	    		final DbConnection gradeConnection = this.getDatabaseManager().getGradeConnection();
+	    		
+	    		Bukkit.getScheduler().runTaskAsynchronously(this, ()-> {
+	    			
+	    			try {
+	    				
+	    				final Connection connection = gradeConnection.getConnection();
+	    				
+	    				final PreparedStatement preparedStatement = connection.prepareStatement("UPDATE Stats_UHC JOIN Joueurs ON Joueurs.id = Stats_UHC.id_joueur SET force_final = ? WHERE pseudo_mc = ? AND id_game = ?");
+	    				
+	    				preparedStatement.setInt(1, (int)(joueur.getForce()));
+	    				preparedStatement.setString(2, joueur.getPlayer().getName());
+	    				preparedStatement.setInt(3, IDGame);
+	    				
+	    				preparedStatement.executeUpdate();
+	    				
+	    			} catch (SQLException e) {
+	    				
+	    				e.printStackTrace();
+	    				
+	    			}
+	    			
+	    		});
+	    		
+	    	} else if(stat == Stats.RESI_FINAL) {
+	    		
+	    		final DbConnection gradeConnection = this.getDatabaseManager().getGradeConnection();
+	    		
+	    		Bukkit.getScheduler().runTaskAsynchronously(this, ()-> {
+	    			
+	    			try {
+	    				
+	    				final Connection connection = gradeConnection.getConnection();
+	    				
+	    				final PreparedStatement preparedStatement = connection.prepareStatement("UPDATE Stats_UHC JOIN Joueurs ON Joueurs.id = Stats_UHC.id_joueur SET resi = ? WHERE pseudo_mc = ? AND id_game = ?");
+	    				
+	    				preparedStatement.setInt(1, (int)(joueur.getResi()-10));
+	    				preparedStatement.setString(2, joueur.getPlayer().getName());
+	    				preparedStatement.setInt(3, IDGame);
+	    				
+	    				preparedStatement.executeUpdate();
+	    				
+	    			} catch (SQLException e) {
+	    				
+	    				e.printStackTrace();
+	    				
+	    			}
+	    			
+	    		});
+	    		
+	    	} else if(stat == Stats.SPEED_FINAL) {
+	    		
+	    		final DbConnection gradeConnection = this.getDatabaseManager().getGradeConnection();
+	    		
+	    		Bukkit.getScheduler().runTaskAsynchronously(this, ()-> {
+	    			
+	    			try {
+	    				
+	    				final Connection connection = gradeConnection.getConnection();
+	    				
+	    				final PreparedStatement preparedStatement = connection.prepareStatement("UPDATE Stats_UHC JOIN Joueurs ON Joueurs.id = Stats_UHC.id_joueur SET speed = ? WHERE pseudo_mc = ? AND id_game = ?");
+	    				
+	    				preparedStatement.setInt(1, (int)(joueur.getSpeed()));
+	    				preparedStatement.setString(2, joueur.getPlayer().getName());
+	    				preparedStatement.setInt(3, IDGame);
+	    				
+	    				preparedStatement.executeUpdate();
+	    				
+	    			} catch (SQLException e) {
+	    				
+	    				e.printStackTrace();
+	    				
+	    			}
+	    			
+	    		});
+	    		
+	    	} else if(stat == Stats.ORBE) {
+	    		
+	    		final DbConnection gradeConnection = this.getDatabaseManager().getGradeConnection();
+	    		
+	    		Bukkit.getScheduler().runTaskAsynchronously(this, ()-> {
+	    			
+	    			try {
+	    				
+	    				final Connection connection = gradeConnection.getConnection();
+	    				
+	    				final PreparedStatement preparedStatement = connection.prepareStatement("UPDATE Stats_UHC JOIN Joueurs ON Joueurs.id = Stats_UHC.id_joueur SET orbe = ? WHERE pseudo_mc = ? AND id_game = ?");
+	    				
+	    				preparedStatement.setString(1, joueur.getOrbe().toString());
+	    				preparedStatement.setString(2, joueur.getPlayer().getName());
+	    				preparedStatement.setInt(3, IDGame);
+	    				
+	    				preparedStatement.executeUpdate();
+	    				
+	    			} catch (SQLException e) {
+	    				
+	    				e.printStackTrace();
+	    				
+	    			}
+	    			
+	    		});
+	    		
+	    	}
+	    	
+    	}
+    	
+    }
+    
+    public void setStat(Stats stat, Joueur joueur, boolean bool) {
+    	
+    	if(!this.getScenarios().contains(Scenarios.INTROUVABLE)) {
+    	
+	    	if(stat == Stats.VICTOIRE) {
+	    		
+	    		final DbConnection gradeConnection = this.getDatabaseManager().getGradeConnection();
+	    		
+	    		Bukkit.getScheduler().runTaskAsynchronously(this, ()-> {
+	    			
+	    			try {
+	    				
+	    				final Connection connection = gradeConnection.getConnection();
+	    				
+	    				final PreparedStatement preparedStatement = connection.prepareStatement("UPDATE Stats_UHC JOIN Joueurs ON Joueurs.id = Stats_UHC.id_joueur SET victoire = ? WHERE pseudo_mc = ? AND id_game = ?");
+	    				
+	    				preparedStatement.setBoolean(1, bool);
+	    				preparedStatement.setString(2, joueur.getPlayer().getName());
+	    				preparedStatement.setInt(3, IDGame);
+	    				
+	    				preparedStatement.executeUpdate();
+	    				
+	    			} catch (SQLException e) {
+	    				
+	    				e.printStackTrace();
+	    				
+	    			}
+	    			
+	    		});
+	    		
+	    	}
+	    	
+    	}
+    	
+    }
+    
+    public void addStat(Stats stat, Joueur joueur) {
+    	
+    	if(!this.getScenarios().contains(Scenarios.INTROUVABLE)) {
+    	
+	    	if(stat == Stats.BONUS_ORBE) {
+	    		
+	    		final DbConnection gradeConnection = this.getDatabaseManager().getGradeConnection();
+	    		
+	    		Bukkit.getScheduler().runTaskAsynchronously(this, ()-> {
+	    			
+	    			try {
+	    				
+	    				final Connection connection = gradeConnection.getConnection();
+	    				
+	    				final PreparedStatement preparedStatement = connection.prepareStatement("UPDATE Stats_UHC JOIN Joueurs ON Joueurs.id = Stats_UHC.id_joueur SET bonus_orbe = bonus_orbe + 1 WHERE pseudo_mc = ? AND id_game = ?");
+	    				
+	    				preparedStatement.setString(1, joueur.getPlayer().getName());
+	    				preparedStatement.setInt(2, IDGame);
+	    				
+	    				preparedStatement.executeUpdate();
+	    				
+	    			} catch (SQLException e) {
+	    				
+	    				e.printStackTrace();
+	    				
+	    			}
+	    			
+	    		});
+	    		
+	    	} else if(stat == Stats.MALUS_ORBE) {
+	    		
+	    		final DbConnection gradeConnection = this.getDatabaseManager().getGradeConnection();
+	    		
+	    		Bukkit.getScheduler().runTaskAsynchronously(this, ()-> {
+	    			
+	    			try {
+	    				
+	    				final Connection connection = gradeConnection.getConnection();
+	    				
+	    				final PreparedStatement preparedStatement = connection.prepareStatement("UPDATE Stats_UHC JOIN Joueurs ON Joueurs.id = Stats_UHC.id_joueur SET malus_orbe = malus_orbe + 1 WHERE pseudo_mc = ? AND id_game = ?");
+	    				
+	    				preparedStatement.setString(1, joueur.getPlayer().getName());
+	    				preparedStatement.setInt(2, IDGame);
+	    				
+	    				preparedStatement.executeUpdate();
+	    				
+	    			} catch (SQLException e) {
+	    				
+	    				e.printStackTrace();
+	    				
+	    			}
+	    			
+	    		});
+	    		
+	    	} else if(stat == Stats.DIAMS_MINER) {
+	    		
+	    		final DbConnection gradeConnection = this.getDatabaseManager().getGradeConnection();
+	    		
+	    		Bukkit.getScheduler().runTaskAsynchronously(this, ()-> {
+	    			
+	    			try {
+	    				
+	    				final Connection connection = gradeConnection.getConnection();
+	    				
+	    				final PreparedStatement preparedStatement = connection.prepareStatement("UPDATE Stats_UHC JOIN Joueurs ON Joueurs.id = Stats_UHC.id_joueur SET diams_miner = diams_miner + 1 WHERE pseudo_mc = ? AND id_game = ?");
+	    				
+	    				preparedStatement.setString(1, joueur.getPlayer().getName());
+	    				preparedStatement.setInt(2, IDGame);
+	    				
+	    				preparedStatement.executeUpdate();
+	    				
+	    			} catch (SQLException e) {
+	    				
+	    				e.printStackTrace();
+	    				
+	    			}
+	    			
+	    		});
+	    		
+	    	} else if(stat == Stats.GAPS_MANGER) {
+	    		
+	    		final DbConnection gradeConnection = this.getDatabaseManager().getGradeConnection();
+	    		
+	    		Bukkit.getScheduler().runTaskAsynchronously(this, ()-> {
+	    			
+	    			try {
+	    				
+	    				final Connection connection = gradeConnection.getConnection();
+	    				
+	    				final PreparedStatement preparedStatement = connection.prepareStatement("UPDATE Stats_UHC JOIN Joueurs ON Joueurs.id = Stats_UHC.id_joueur SET gaps_manger = gaps_manger + 1 WHERE pseudo_mc = ? AND id_game = ?");
+	    				
+	    				preparedStatement.setString(1, joueur.getPlayer().getName());
+	    				preparedStatement.setInt(2, IDGame);
+	    				
+	    				preparedStatement.executeUpdate();
+	    				
+	    			} catch (SQLException e) {
+	    				
+	    				e.printStackTrace();
+	    				
+	    			}
+	    			
+	    		});
+	    		
+	    	} else if(stat == Stats.KILLS) {
+	    		
+	    		final DbConnection gradeConnection = this.getDatabaseManager().getGradeConnection();
+	    		
+	    		Bukkit.getScheduler().runTaskAsynchronously(this, ()-> {
+	    			
+	    			try {
+	    				
+	    				final Connection connection = gradeConnection.getConnection();
+	    				
+	    				final PreparedStatement preparedStatement = connection.prepareStatement("UPDATE Stats_UHC JOIN Joueurs ON Joueurs.id = Stats_UHC.id_joueur SET kills = kills + 1 WHERE pseudo_mc = ? AND id_game = ?");
+	    				
+	    				preparedStatement.setString(1, joueur.getPlayer().getName());
+	    				preparedStatement.setInt(2, IDGame);
+	    				
+	    				preparedStatement.executeUpdate();
+	    				
+	    			} catch (SQLException e) {
+	    				
+	    				e.printStackTrace();
+	    				
+	    			}
+	    			
+	    		});
+	    		
+	    	} else if(stat == Stats.MORT) {
+	    		
+	    		final DbConnection gradeConnection = this.getDatabaseManager().getGradeConnection();
+	    		
+	    		Bukkit.getScheduler().runTaskAsynchronously(this, ()-> {
+	    			
+	    			try {
+	    				
+	    				final Connection connection = gradeConnection.getConnection();
+	    				
+	    				final PreparedStatement preparedStatement = connection.prepareStatement("UPDATE Stats_UHC JOIN Joueurs ON Joueurs.id = Stats_UHC.id_joueur SET mort = mort + 1 WHERE pseudo_mc = ? AND id_game = ?");
+	    				
+	    				preparedStatement.setString(1, joueur.getPlayer().getName());
+	    				preparedStatement.setInt(2, IDGame);
+	    				
+	    				preparedStatement.executeUpdate();
+	    				
+	    			} catch (SQLException e) {
+	    				
+	    				e.printStackTrace();
+	    				
+	    			}
+	    			
+	    		});
+	    		
+	    	} else if(stat == Stats.OR_MINER) {
+	    		
+	    		final DbConnection gradeConnection = this.getDatabaseManager().getGradeConnection();
+	    		
+	    		Bukkit.getScheduler().runTaskAsynchronously(this, ()-> {
+	    			
+	    			try {
+	    				
+	    				final Connection connection = gradeConnection.getConnection();
+	    				
+	    				final PreparedStatement preparedStatement = connection.prepareStatement("UPDATE Stats_UHC JOIN Joueurs ON Joueurs.id = Stats_UHC.id_joueur SET or_miner = or_miner + 1 WHERE pseudo_mc = ? AND id_game = ?");
+	    				
+	    				preparedStatement.setString(1, joueur.getPlayer().getName());
+	    				preparedStatement.setInt(2, IDGame);
+	    				
+	    				preparedStatement.executeUpdate();
+	    				
+	    			} catch (SQLException e) {
+	    				
+	    				e.printStackTrace();
+	    				
+	    			}
+	    			
+	    		});
+	    		
+	    	}
+	    	
+    	}
+    	
     }
     
 	public DatabaseManager getDatabaseManager() {
@@ -610,9 +1055,24 @@ public class Main extends JavaPlugin {
 
     }
     
-    public void reloadGame() {
+    public void reloadGame(boolean fin) {
     	
     	for(Joueur joueur : joueurs) {
+    		
+    		if(fin) {
+    			
+    			if(this.mode == Modes.RAPIDE) {
+    			
+    				this.setStat(Stats.VICTOIRE, joueur, joueur.isMort());
+    			
+    			}
+    			
+    			this.setStat(Stats.CAMP_FINAL, joueur);
+    			this.setStat(Stats.FORCE_FINAL, joueur);
+    			this.setStat(Stats.RESI_FINAL, joueur);
+    			this.setStat(Stats.SPEED_FINAL, joueur);
+    			
+    		}
     		
     		joueur.reset(this);
     		
@@ -1606,6 +2066,32 @@ public class Main extends JavaPlugin {
         	
         }
 		
+	}
+
+	public int getIDGame() {
+		return IDGame;
+	}
+	
+	public void addIDGame() {
+		
+		IDGame += 1;
+		
+	}
+
+	public Scoreboard getBoard_spec() {
+		return board_spec;
+	}
+
+	public void setBoard_spec(Scoreboard board_spec) {
+		this.board_spec = board_spec;
+	}
+
+	public Scoreboard getBoard_pourcent() {
+		return board_pourcent;
+	}
+
+	public void setBoard_pourcent(Scoreboard board_pourcent) {
+		this.board_pourcent = board_pourcent;
 	}
 	
 }

@@ -1,4 +1,4 @@
-package fr.gameblack.rcuhcv2.task.v2;
+ package fr.gameblack.rcuhcv2.task.v2;
 
 import java.util.List;
 import java.util.Random;
@@ -27,6 +27,7 @@ import fr.gameblack.rcuhcv2.classes.Joueur;
 import fr.gameblack.rcuhcv2.classes.Modes;
 import fr.gameblack.rcuhcv2.classes.Pouvoirs;
 import fr.gameblack.rcuhcv2.classes.Roles;
+import fr.gameblack.rcuhcv2.classes.Stats;
 import fr.gameblack.rcuhcv2.evenement.v2.FermetureGolden;
 import fr.gameblack.rcuhcv2.orbes.Orbe;
 import fr.gameblack.rcuhcv2.roles.v2.joueur.Nickoboop;
@@ -35,6 +36,7 @@ import fr.gameblack.rcuhcv2.roles.v2.staff.Team;
 import fr.gameblack.rcuhcv2.roles.v2.staff.Trial;
 import fr.gameblack.rcuhcv2.roles.v2.uhc.RomPrems;
 import fr.gameblack.rcuhcv2.scenarios.Scenarios;
+import fr.gameblack.rcuhcv2.scenarios.v2.Introuvable;
 import fr.gameblack.rcuhcv2.scenarios.v2.Skin;
 
 public class GameCycle extends BukkitRunnable {
@@ -380,12 +382,16 @@ public class GameCycle extends BukkitRunnable {
 		            compo.remove(role);
 		            nombre -= 1;
 		            j.setInvulnerable(false);
+		            
+		            main.addStatBDD(j);
 		
 		            pls.setHealth(pls.getMaxHealth());
 		            
 		            if(main.getMode() == Modes.RAPIDE || main.getMode() == Modes.MEETUP) {
 			            
 		            	j.addOrbe(main);
+		            	
+		            	main.setStat(Stats.ORBE, j);
 		            	
 		            }
 		            
@@ -401,9 +407,12 @@ public class GameCycle extends BukkitRunnable {
 	        		j.setInvulnerable(false);
 	        		pls.setHealth(pls.getMaxHealth());
 	        		
+	        		main.addStatBDD(j);
+	        		
 		            if(main.getMode() == Modes.RAPIDE || main.getMode() == Modes.MEETUP) {
 			            
 		            	j.addOrbe(main);
+		            	main.setStat(Stats.ORBE, j);
 		            	
 		            }
 	        		
@@ -773,7 +782,7 @@ public class GameCycle extends BukkitRunnable {
 		
 		if(main.getState() == Statut.FINISH) {
 			
-			main.reloadGame();
+			main.reloadGame(true);
 			
 			cancel();
 			
@@ -937,6 +946,12 @@ public class GameCycle extends BukkitRunnable {
     		}
     		
     		//Loup.getBoat().teleport(main.getJoueurByRole(Roles.LOUP).getPlayer().getLocation());
+    		
+    	}
+    	
+    	if(timer % 300 == 0 && main.getScenarios().contains(Scenarios.INTROUVABLE)) {
+    		
+    		Introuvable.reveal(main);
     		
     	}
         
@@ -1428,38 +1443,42 @@ public class GameCycle extends BukkitRunnable {
         		
         	}
         	
-        	if(main.getJoueurByRole(Roles.FARMEURIMMO) != null && main.getJoueurByRole(Roles.FARMEURIMMO).getVol().contains(Pouvoirs.TEAM_INVISIBLE)) {
-        		
-        		Joueur team = main.getJoueurByRole(Roles.FARMEURIMMO);
-        		
-        		if(team.getPlayer().hasPotionEffect(PotionEffectType.INVISIBILITY) && (team.getPlayer().getInventory().getHelmet() != null || team.getPlayer().getInventory().getChestplate() != null || team.getPlayer().getInventory().getLeggings() != null || team.getPlayer().getInventory().getBoots() != null)) {
-        			
-        			team.getPlayer().removePotionEffect(PotionEffectType.INVISIBILITY);
-        			team.removeSpeed(0.20);
-        			team.setNofall(false);
-        			team.removeResi(0.05);
-        			team.removeForce(0.02);
-        			if(main.getMode() == Modes.RAPIDE) {
-	        			ItemCD cycle = new ItemCD(main, team, "force_team", 15, team, null, null, 0, null);
-	        	        cycle.runTaskTimer(main, 0, 20);
-        			}
-        			else {
-        				
-        				ItemCD cycle = new ItemCD(main, team, "force_team", 60, team, null, null, 0, null);
-	        	        cycle.runTaskTimer(main, 0, 20);
-        				
-        			}
-        			
-        		}
-        		else if(!team.getPlayer().hasPotionEffect(PotionEffectType.INVISIBILITY) && team.getPlayer().getInventory().getHelmet() == null && team.getPlayer().getInventory().getChestplate() == null && team.getPlayer().getInventory().getLeggings() == null && team.getPlayer().getInventory().getBoots() == null){
-        			
-        			team.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, 999999, 0, false, false));
-        			team.addSpeed(0.20);
-        			team.setNofall(true);
-        			team.addResi(0.05);
-        			
-        		}
-        		
+        	if(!main.getScenarios().contains(Scenarios.INTROUVABLE)) {
+        	
+	        	if(main.getJoueurByRole(Roles.FARMEURIMMO) != null && main.getJoueurByRole(Roles.FARMEURIMMO).getVol().contains(Pouvoirs.TEAM_INVISIBLE)) {
+	        		
+	        		Joueur team = main.getJoueurByRole(Roles.FARMEURIMMO);
+	        		
+	        		if(team.getPlayer().hasPotionEffect(PotionEffectType.INVISIBILITY) && (team.getPlayer().getInventory().getHelmet() != null || team.getPlayer().getInventory().getChestplate() != null || team.getPlayer().getInventory().getLeggings() != null || team.getPlayer().getInventory().getBoots() != null)) {
+	        			
+	        			team.getPlayer().removePotionEffect(PotionEffectType.INVISIBILITY);
+	        			team.removeSpeed(0.20);
+	        			team.setNofall(false);
+	        			team.removeResi(0.05);
+	        			team.removeForce(0.02);
+	        			if(main.getMode() == Modes.RAPIDE) {
+		        			ItemCD cycle = new ItemCD(main, team, "force_team", 15, team, null, null, 0, null);
+		        	        cycle.runTaskTimer(main, 0, 20);
+	        			}
+	        			else {
+	        				
+	        				ItemCD cycle = new ItemCD(main, team, "force_team", 60, team, null, null, 0, null);
+		        	        cycle.runTaskTimer(main, 0, 20);
+	        				
+	        			}
+	        			
+	        		}
+	        		else if(!team.getPlayer().hasPotionEffect(PotionEffectType.INVISIBILITY) && team.getPlayer().getInventory().getHelmet() == null && team.getPlayer().getInventory().getChestplate() == null && team.getPlayer().getInventory().getLeggings() == null && team.getPlayer().getInventory().getBoots() == null){
+	        			
+	        			team.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, 999999, 0, false, false));
+	        			team.addSpeed(0.20);
+	        			team.setNofall(true);
+	        			team.addResi(0.05);
+	        			
+	        		}
+	        		
+	        	}
+	        	
         	}
         	
         	if(!main.getJoueursByRole(Roles.TEAM).isEmpty()) {
@@ -1470,29 +1489,37 @@ public class GameCycle extends BukkitRunnable {
         		
 	        		if(team.getPlayer().hasPotionEffect(PotionEffectType.INVISIBILITY) && (team.getPlayer().getInventory().getHelmet() != null || team.getPlayer().getInventory().getChestplate() != null || team.getPlayer().getInventory().getLeggings() != null || team.getPlayer().getInventory().getBoots() != null)) {
 	        			
-	        			team.getPlayer().removePotionEffect(PotionEffectType.INVISIBILITY);
-	        			team.removeSpeed(0.20);
-	        			team.setNofall(false);
-	        			team.removeResi(0.05);
-	        			team.removeForce(0.02);
-	        			if(main.getMode() == Modes.RAPIDE) {
-		        			ItemCD cycle = new ItemCD(main, team, "force_team", 30, team, null, null, 0, null);
-		        	        cycle.runTaskTimer(main, 0, 20);
-	        			}
-	        			else {
-	        				
-	        				ItemCD cycle = new ItemCD(main, team, "force_team", 120, team, null, null, 0, null);
-		        	        cycle.runTaskTimer(main, 0, 20);
-	        				
+	        			if(!main.getScenarios().contains(Scenarios.INTROUVABLE)) {
+	        			
+		        			team.getPlayer().removePotionEffect(PotionEffectType.INVISIBILITY);
+		        			team.removeSpeed(0.20);
+		        			team.setNofall(false);
+		        			team.removeResi(0.05);
+		        			team.removeForce(0.02);
+		        			if(main.getMode() == Modes.RAPIDE) {
+			        			ItemCD cycle = new ItemCD(main, team, "force_team", 30, team, null, null, 0, null);
+			        	        cycle.runTaskTimer(main, 0, 20);
+		        			}
+		        			else {
+		        				
+		        				ItemCD cycle = new ItemCD(main, team, "force_team", 120, team, null, null, 0, null);
+			        	        cycle.runTaskTimer(main, 0, 20);
+		        				
+		        			}
+		        			
 	        			}
 	        			
 	        		}
 	        		else if(team.getCamp() != Camps.FARMEURIMMO && !team.getPlayer().hasPotionEffect(PotionEffectType.INVISIBILITY) && team.getPlayer().getInventory().getHelmet() == null && team.getPlayer().getInventory().getChestplate() == null && team.getPlayer().getInventory().getLeggings() == null && team.getPlayer().getInventory().getBoots() == null){
 	        			
-	        			team.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, 999999, 0, false, false));
-	        			team.addSpeed(0.20);
-	        			team.setNofall(true);
-	        			team.addResi(0.05);
+	        			if(!main.getScenarios().contains(Scenarios.INTROUVABLE)) {
+	        			
+		        			team.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, 999999, 0, false, false));
+		        			team.addSpeed(0.20);
+		        			team.setNofall(true);
+		        			team.addResi(0.05);
+		        			
+	        			}
 	        			
 	        		}
         		
@@ -1959,8 +1986,17 @@ public class GameCycle extends BukkitRunnable {
         	
         	if(main.getTemps() == 10 && main.getEpisode() == 1 && (main.getMode() == Modes.RAPIDE || main.getMode() == Modes.MEETUP)) {
         		
-        		Bukkit.broadcastMessage("Attribution des rôles");
-        		setRole(main);
+        		if(!main.getScenarios().contains(Scenarios.INTROUVABLE)) {
+        		
+	        		Bukkit.broadcastMessage("Attribution des rôles");
+	        		setRole(main);
+	        		
+        		}
+        		else {
+        			
+        			main.setState(Statut.PVP_ON);
+        			
+        		}
         		
         	}
         	

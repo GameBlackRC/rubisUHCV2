@@ -18,6 +18,7 @@ import fr.gameblack.rcuhcv2.classes.Joueur;
 import fr.gameblack.rcuhcv2.classes.Modes;
 import fr.gameblack.rcuhcv2.classes.Pouvoirs;
 import fr.gameblack.rcuhcv2.classes.Roles;
+import fr.gameblack.rcuhcv2.classes.Stats;
 import fr.gameblack.rcuhcv2.classes.v1.Pouvoirs_GB;
 import fr.gameblack.rcuhcv2.orbes.Orbe;
 import fr.gameblack.rcuhcv2.roles.v1.demons.Tronconeuse;
@@ -39,6 +40,8 @@ public class Mort {
 		else if(main.getVersion() == 2) {
 			
 			setMortV2(joueur, tueur, event, main);
+			main.addStat(Stats.MORT, joueur);
+			main.addStat(Stats.KILLS, tueur);
 			
 		}
 		

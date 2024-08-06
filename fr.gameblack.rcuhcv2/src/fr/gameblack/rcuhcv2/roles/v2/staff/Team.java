@@ -16,11 +16,12 @@ import fr.gameblack.rcuhcv2.classes.Joueur;
 import fr.gameblack.rcuhcv2.classes.Modes;
 import fr.gameblack.rcuhcv2.classes.Pouvoirs;
 import fr.gameblack.rcuhcv2.classes.Roles;
+import fr.gameblack.rcuhcv2.scenarios.Scenarios;
 import fr.gameblack.rcuhcv2.task.v2.ItemCD;
 
 public class Team {
 	
-	public static void Items(Joueur joueur) {
+	public static void Items(Joueur joueur, Main main) {
 		
 		Texte(joueur.getPlayer());
         joueur.addSpeed(0.1);
@@ -32,7 +33,9 @@ public class Team {
 		}
 		else {
 			
-			joueur.getPlayer().getInventory().addItem(Main.getItemRole(ItRoles.TEAM_JUSTICE));
+			if(!main.getScenarios().contains(Scenarios.INTROUVABLE)) {
+				joueur.getPlayer().getInventory().addItem(Main.getItemRole(ItRoles.TEAM_JUSTICE));
+			}
 			
 		}
 		

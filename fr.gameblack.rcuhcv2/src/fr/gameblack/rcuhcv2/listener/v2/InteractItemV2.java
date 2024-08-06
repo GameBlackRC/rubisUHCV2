@@ -13,6 +13,7 @@ import fr.gameblack.rcuhcv2.classes.ItRoles;
 import fr.gameblack.rcuhcv2.classes.Joueur;
 import fr.gameblack.rcuhcv2.classes.Pouvoirs;
 import fr.gameblack.rcuhcv2.classes.Roles;
+import fr.gameblack.rcuhcv2.classes.Stats;
 import fr.gameblack.rcuhcv2.evenement.v2.Minerais;
 import fr.gameblack.rcuhcv2.orbes.Orbe;
 import fr.gameblack.rcuhcv2.orbes.v2.Eau;
@@ -286,6 +287,8 @@ public class InteractItemV2 {
             }
             
             player.getInventory().remove(it);
+            
+            main.setStat(Stats.ORBE, joueur);
         	
         }
 		

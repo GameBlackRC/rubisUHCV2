@@ -37,6 +37,12 @@ public class CommandCreate implements CommandExecutor {
 	                inv_.setItem(14, Main.getItem(Material.DIAMOND_SWORD, "RC UHC V2", ""));
 	                
 	                player.openInventory(inv_);
+	                
+	                if(main.getBoard_base() == null) {
+	                	main.setBoard_spec(Bukkit.getScoreboardManager().getNewScoreboard());
+	                	main.setBoard_pourcent(Bukkit.getScoreboardManager().getNewScoreboard());
+	                	main.setBoard_base(Bukkit.getScoreboardManager().getNewScoreboard());
+	                }
 	
 	            }
 	            else {

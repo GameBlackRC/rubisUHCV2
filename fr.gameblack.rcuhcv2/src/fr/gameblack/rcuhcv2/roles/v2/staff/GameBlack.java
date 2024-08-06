@@ -32,6 +32,8 @@ public class GameBlack {
 	
 	public static void Items(Joueur joueur, Main main) {
 		
+		int test = 0;
+		
 		ItemStack orbes = new ItemStack(Material.SLIME_BALL);
     	
     	ItemMeta orbesM = orbes.getItemMeta();
@@ -41,7 +43,7 @@ public class GameBlack {
 		joueur.addSpeed(0.1);
 		joueur.getPlayer().getInventory().addItem(orbes);
 		
-		if(main.getMode() == Modes.RAPIDE) {
+		if(main.getMode() == Modes.RAPIDE && test == 1) {
 			
 			Random r = new Random();
 	        int nb = r.nextInt(100);
@@ -88,6 +90,11 @@ public class GameBlack {
 	    		}
 	        	
 	        }
+			
+		}
+		else {
+			
+			Texte(joueur.getPlayer());
 			
 		}
 		

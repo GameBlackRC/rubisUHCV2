@@ -5,7 +5,6 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.scoreboard.Scoreboard;
 
 import fr.gameblack.rcuhcv2.Main;
 import fr.gameblack.rcuhcv2.Statut;
@@ -15,10 +14,6 @@ import fr.gameblack.rcuhcv2.task.Autostart;
 public class CommandStart implements CommandExecutor {
 
     private Main main;
-    
-    private Scoreboard board_base = Bukkit.getScoreboardManager().getNewScoreboard();
-    
-    private Scoreboard board_pourcent = Bukkit.getScoreboardManager().getNewScoreboard();
 
     public CommandStart(Main main) {
         this.main = main;
@@ -41,6 +36,8 @@ public class CommandStart implements CommandExecutor {
 
 	                    main.setState(Statut.STARTING);
 	                    
+	                    main.addIDGame();
+	                    
 	                    for(Joueur j : main.getListJoueurs()) {
 	                    
 	                    	j.getPlayer().sendTitle("§cAttention ", "Si vous n'avez pas le ressource pack, il est conseillé désactiver le son des créatures");
@@ -49,7 +46,7 @@ public class CommandStart implements CommandExecutor {
 	                    
 	                    Bukkit.getScheduler().runTaskAsynchronously(main, () -> {
 	
-	                        Autostart start = new Autostart(main, board_base, board_pourcent);
+	                        Autostart start = new Autostart(main, main.getBoard_spec(), main.getBoard_pourcent());
 	                        start.runTaskTimer(main, 0, 20);
 	
 	                    });

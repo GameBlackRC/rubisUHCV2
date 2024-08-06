@@ -1,0 +1,5 @@
+package fr.gameblack.rcuhcv2.classes;
+
+public enum Stats {
+	CAMP_FINAL, KILLS, VICTOIRE, MORT, DIAMS_MINER, OR_MINER, GAPS_MANGER, FORCE_FINAL, RESI_FINAL, SPEED_FINAL, ORBE, MALUS_ORBE, BONUS_ORBE
+}

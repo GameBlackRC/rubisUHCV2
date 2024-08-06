@@ -191,6 +191,16 @@ public class ItemCD extends BukkitRunnable {
     	}
 
     	else if (timer == 0) {
+    		
+    		if(item == "fun_invi") {
+    			
+    			for(Joueur j : players) {
+    				
+    				j.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, 999999, 0, false, false));
+    				
+    			}
+    			
+    		}
         	
         	if(item == "mortNeko") {
         		

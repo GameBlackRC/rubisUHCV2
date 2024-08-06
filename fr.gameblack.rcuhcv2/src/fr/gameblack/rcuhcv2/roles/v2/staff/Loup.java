@@ -32,8 +32,6 @@ public class Loup {
 		Texte(joueur.getPlayer());
 		
 		joueur.addResi(0.02);
-		
-        joueur.getPlayer().getInventory().addItem(Main.getItemRole(ItRoles.LOUP_BATEAU));
         
 		if(joueur.isBot()) {
 			

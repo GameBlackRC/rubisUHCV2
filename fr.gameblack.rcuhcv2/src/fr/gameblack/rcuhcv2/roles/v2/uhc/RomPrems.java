@@ -57,7 +57,7 @@ public class RomPrems {
 	    		
 				Joueur blaze1 = list.get(r.nextInt(list.size()));
 				
-				romprems.getEnderman().add(blaze1);
+				romprems.getBlaze().add(blaze1);
 		        list.remove(blaze1);
 		        
 				if(list.size() > 0) {
@@ -71,7 +71,7 @@ public class RomPrems {
 			    		
 						Joueur blaze2 = list.get(r.nextInt(list.size()));
 						
-						romprems.getEnderman().add(blaze2);
+						romprems.getBlaze().add(blaze2);
 				        list.remove(blaze2);
 				        	
 				        romprems.getPlayer().sendMessage("§5Enderman : " + enderman1.getPlayer().getName() + ", " + enderman2.getPlayer().getName() + "§r\n \n§6Blaze : " + blaze1.getPlayer().getName() + ", " + blaze2.getPlayer().getName());

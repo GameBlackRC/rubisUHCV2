@@ -318,20 +318,36 @@ public class Joueur {
 		
 	}
 
+	/**
+
+	 * Renvoie l'objet 'Player' (Bukkit) du joueur
+	 */
 	public Player getPlayer() {
 		return player;
 	}
 	
+	/**
+
+	 * Défini un nouveau 'Player' (Bukkit) pour ce joueur
+	 */
 	public void setPlayer(Player player) {
 		this.player = player;
 	}
 	
+	/**
+
+	 * Renvoie le rôle du joueur
+	 */
 	public Roles getRole() {
 		
 		return role;
 		
 	}
 	
+	/**
+
+	 * Permet de réinitialiser le joueur
+	 */
 	public void reset(Main main) {
 		
 		role = Roles.NONE;
@@ -499,6 +515,10 @@ public class Joueur {
 		
 	}
 	
+	/**
+
+	 * Permet de choisir et de définir une orbe aléatoire pour ce joueur
+	 */
 	public void addOrbe(Main main) {
 		
 		if(main.getVersion() == 2) {
@@ -693,6 +713,10 @@ public class Joueur {
 		
 	}
 	
+	/**
+
+	 * Permet de vérifier si un rôle précis est dans un rayon de 20 blocs de ce joueur
+	 */
 	public boolean isProche(Roles role, Main main) {
 		
 		for(Entity entity : player.getNearbyEntities(20, 20, 20)) {
@@ -716,6 +740,10 @@ public class Joueur {
 		
 	}
 	
+	/**
+
+	 * Permet de vérifier si un joueur précis est dans un rayon de 20 blocs de ce joueur
+	 */
 	public boolean isProche(Joueur joueur, Main main) {
 		
 		for(Entity entity : player.getNearbyEntities(20, 20, 20)) {
@@ -739,6 +767,10 @@ public class Joueur {
 		
 	}
 	
+	/**
+
+	 * Permet de vérifier si un rôle précis est dans un rayon de 10 blocs de ce joueur
+	 */
 	public boolean isProche10(Roles role, Main main) {
 		
 		for(Entity entity : player.getNearbyEntities(10, 10, 10)) {
@@ -762,6 +794,10 @@ public class Joueur {
 		
 	}
 	
+	/**
+
+	 * Permet de vérifier si un rôle précis est dans un rayon de x blocs de ce joueur
+	 */
 	public boolean isProcheNb(Roles role, Main main, int nb) {
 		
 		for(Entity entity : player.getNearbyEntities(nb, nb, nb)) {
@@ -785,6 +821,10 @@ public class Joueur {
 		
 	}
 	
+	/**
+
+	 * Permet de vérifier si ce joueur peut monter dans le bateau du rôle Loup
+	 */
 	public boolean isAccesSuperBateau(Main main) {
 		
 		if(main.getAccesBateauLoup().contains(this)) {
@@ -800,6 +840,10 @@ public class Joueur {
 		
 	}
 	
+	/**
+
+	 * Permet de vérifier si le rôle Nickoboop a vérifié les papiers de ce joueur
+	 */
 	public boolean isNickoSpecPapier(Main main) {
 		
 		if(main.getSpecNicko().contains(this)) {
@@ -811,6 +855,10 @@ public class Joueur {
 		
 	}
 	
+	/**
+
+	 * Défini le rôle de ce joueur
+	 */
 	public void setRole(Roles role, Main main) {
 		
 		this.role = role;
@@ -850,7 +898,7 @@ public class Joueur {
 			}
 			else if(role == Roles.TEAM) {
 				
-				Team.Items(this);
+				Team.Items(this, main);
 				
 			}
 			else if(role == Roles.GAMEBLACK) {
@@ -1066,24 +1114,40 @@ public class Joueur {
 		
 	}
 	
+	/**
+
+	 * Renvoie l'orbe du joueur
+	 */
 	public Orbe getOrbe() {
 		
 		return orbe;
 		
 	}
 	
+	/**
+
+	 * Défini l'orbe du joueur
+	 */
 	public void setOrbe(Orbe orbe) {
 		
 		this.orbe = orbe;
 		
 	}
 	
+	/**
+
+	 * Permet de vérifier si l'orbe de ce joueur est active
+	 */
 	public boolean isOrbeActif() {
 		
 		return orbe_actif;
 		
 	}
 	
+	/**
+
+	 * Défini si l'orbe est active ou non
+	 */
 	public void setStatutOrbe(boolean orbe_actif) {
 		
 		if(Main.getStaticVersion() == 2) {
@@ -1115,6 +1179,10 @@ public class Joueur {
 		
 	}
 	
+	/**
+
+	 * Permet de vérifier si le bonus de l'orbe de ce joueur est actif
+	 */
 	public boolean isBonusOrbeActif() {
 		
 		return bonus_orbe_actif;

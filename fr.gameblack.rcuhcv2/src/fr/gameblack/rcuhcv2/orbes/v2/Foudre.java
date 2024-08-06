@@ -6,6 +6,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import fr.gameblack.rcuhcv2.Main;
 import fr.gameblack.rcuhcv2.classes.Joueur;
+import fr.gameblack.rcuhcv2.classes.Stats;
 import fr.gameblack.rcuhcv2.task.v2.ItemCD;
 
 public class Foudre {
@@ -77,6 +78,8 @@ public class Foudre {
     	if(give) {
     		
     		if(joueur.canHaveMalusBonusOrbe() && joueur.isOrbeActif()) {
+    			
+    			main.addStat(Stats.BONUS_ORBE, joueur);
     		
     			joueur.getPlayer().sendMessage("Le bonus de votre orbe vient de s'activer");
 	    		joueur.addSpeed(0.05);
@@ -103,6 +106,8 @@ public class Foudre {
     	if(give) {
     		
     		if(joueur.canHaveMalusBonusOrbe() && joueur.isOrbeActif()) {
+    			
+    			main.addStat(Stats.MALUS_ORBE, joueur);
     		
     			joueur.getPlayer().sendMessage("Le malus de votre orbe vient de s'activer");
 	    		joueur.removeForce(0.01);

@@ -862,7 +862,7 @@ public class GameCycleV1 extends BukkitRunnable {
 		
 		if(main.getState() == Statut.FINISH) {
 			
-			main.reloadGame();
+			main.reloadGame(false);
 			
 			cancel();
 			

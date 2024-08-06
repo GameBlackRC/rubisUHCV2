@@ -15,6 +15,7 @@ import fr.gameblack.rcuhcv2.Main;
 import fr.gameblack.rcuhcv2.classes.Joueur;
 import fr.gameblack.rcuhcv2.listener.v1.InteractItemV1;
 import fr.gameblack.rcuhcv2.listener.v2.InteractItemV2;
+import fr.gameblack.rcuhcv2.scenarios.Scenarios;
 
 public class InteractListener implements Listener {
 
@@ -44,6 +45,11 @@ public class InteractListener implements Listener {
 
             player.openInventory(inv_pacte);
 
+        }
+        else if(main.getScenarios().contains(Scenarios.NOLAVA) && it.getType() == Material.LAVA_BUCKET) {
+        	
+        	event.setCancelled(true);
+        	
         }
         else {
         	

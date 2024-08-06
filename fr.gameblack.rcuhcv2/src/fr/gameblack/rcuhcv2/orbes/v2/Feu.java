@@ -2,6 +2,7 @@ package fr.gameblack.rcuhcv2.orbes.v2;
 
 import fr.gameblack.rcuhcv2.Main;
 import fr.gameblack.rcuhcv2.classes.Joueur;
+import fr.gameblack.rcuhcv2.classes.Stats;
 import fr.gameblack.rcuhcv2.task.v2.ItemCD;
 
 public class Feu {
@@ -43,6 +44,8 @@ public class Feu {
     	if(give) {
     		
     		if(joueur.canHaveMalusBonusOrbe() && joueur.isOrbeActif()) {
+    			
+    			main.addStat(Stats.BONUS_ORBE, joueur);
     		
     			joueur.getPlayer().sendMessage("Le bonus de votre orbe vient de s'activer");
 	    		joueur.addForce(0.01);
@@ -69,6 +72,8 @@ public class Feu {
     	if(give) {
     		
     		if(joueur.canHaveMalusBonusOrbe() && joueur.isOrbeActif()) {
+    			
+    			main.addStat(Stats.MALUS_ORBE, joueur);
     			
     			joueur.getPlayer().sendMessage("Le malus de votre orbe vient de s'activer");
 	    		joueur.setCanHaveMalusBonusOrbe(false);

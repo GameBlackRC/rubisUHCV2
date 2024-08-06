@@ -3,6 +3,7 @@ package fr.gameblack.rcuhcv2.orbes.v2;
 import fr.gameblack.rcuhcv2.Main;
 import fr.gameblack.rcuhcv2.classes.Joueur;
 import fr.gameblack.rcuhcv2.classes.Roles;
+import fr.gameblack.rcuhcv2.classes.Stats;
 import fr.gameblack.rcuhcv2.task.v2.ItemCD;
 
 import org.bukkit.enchantments.Enchantment;
@@ -84,6 +85,7 @@ public class Eau {
     		if(joueur.canHaveMalusBonusOrbe() && joueur.isOrbeActif()) {
     			
     			joueur.getPlayer().sendMessage("Le bonus de votre orbe vient de s'activer");
+    			main.addStat(Stats.BONUS_ORBE, joueur);
     		
 	    		joueur.addSpeed(0.05);
 	    		joueur.setCanHaveMalusBonusOrbe(false);
@@ -109,6 +111,8 @@ public class Eau {
     	if(give) {
     		
     		if(joueur.canHaveMalusBonusOrbe() && joueur.isOrbeActif()) {
+    			
+    			main.addStat(Stats.MALUS_ORBE, joueur);
     		
     			joueur.getPlayer().sendMessage("Le malus de votre orbe vient de s'activer");
 	    		joueur.removeSpeed(0.05);
