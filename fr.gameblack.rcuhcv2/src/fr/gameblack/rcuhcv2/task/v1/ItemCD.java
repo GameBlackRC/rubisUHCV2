@@ -139,7 +139,7 @@ public class ItemCD extends BukkitRunnable {
 	    	        }
 	    	        cible.getPlayer().getWorld().dropItemNaturally(loc, bottes);
 	
-	                Mort.setMort(cible, joueur, event, main);
+	                Mort.setMort(cible, joueur, main);
 	
 	            } else if(item == "maudit_uhc_1") {
             		

@@ -118,20 +118,20 @@ public class GameBlack {
         Random r = new Random();
         int nb = r.nextInt(100);
         
-        if(nb <= 10) {
+        if(nb <= 10 && main.getJoueurInCamp(Camps.UHC).size() < main.getJoueurInGame().size()) {
         	
-        	joueur.getPlayer().sendMessage("Vous êtes touché par la malédiction de Gyomei");
-        	joueur.addSpeed(0.02);
-        	joueur.addSpeed(0.02);
-        	
-        	int nb_2 = r.nextInt(main.getListJoueurs().size());
-        	while(main.getListJoueurs().get(nb_2).getCamp() == Camps.UHC) {
-        		
-        		nb_2 = r.nextInt(main.getListJoueurs().size());
-        		
-        	}
-	        main.setMaledictionGyomei(main.getListJoueurs().get(nb_2));
-	        main.getMaledictionGyomei().getPlayer().sendMessage("Vous venez de recevoir " + joueur.getPlayer().getName() + " pour cible. SI vous parvenez à le tuer, vous recevrez 2% de force supplémentaire");
+	        	joueur.getPlayer().sendMessage("Vous êtes touché par la malédiction de Gyomei");
+	        	joueur.addSpeed(0.02);
+	        	joueur.addResi(0.02);
+	        	
+	        	int nb_2 = r.nextInt(main.getListJoueurs().size());
+	        	while(main.getListJoueurs().get(nb_2).getCamp() == Camps.UHC) {
+	        		
+	        		nb_2 = r.nextInt(main.getListJoueurs().size());
+	        		
+	        	}
+		        main.setMaledictionGyomei(main.getListJoueurs().get(nb_2));
+		        main.getMaledictionGyomei().getPlayer().sendMessage("Vous venez de recevoir " + joueur.getPlayer().getName() + " pour cible. SI vous parvenez à le tuer, vous recevrez 2% de force supplémentaire");
         	
         }
 		
@@ -208,11 +208,13 @@ public class GameBlack {
 		
 		if(main.getJoueurByRole(Roles.TRIAL).getModeTrial().equalsIgnoreCase("fun")) {
 			
+			joueur.setModeTrial("fun");
 			itemJoueurFun(joueur, main);
 			
 		}
 		else {
 			
+			joueur.setModeTrial("serieux");
 			itemJoueurSerieux(joueur, main);
 			
 		}

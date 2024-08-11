@@ -100,11 +100,16 @@ public class Kzou {
             }
 
             cible.getPlayer().teleport(new Location(Bukkit.getWorld("world"), cos_x, 100, cos_y));
+            
+            joueur.setNofall(true);
 
             ItemCD cycle = new ItemCD(main, joueur, "disperse", 5, cible, null, null, 0, null);
             cycle.runTaskTimer(main, 0, 20);
+            ItemCD cycle2 = new ItemCD(main, joueur, "disnofall", 10, cible, null, null, 0, null);
+            cycle2.runTaskTimer(main, 0, 20);
             joueur.getCD().add(Pouvoirs.KZOU_DISPERSE);
             joueur.getPlayer().sendMessage("Vous venez de disperse " + cible.getPlayer().getName());
+            
 
         } else {
 

@@ -28,6 +28,7 @@ import fr.gameblack.rcuhcv2.roles.v2.staff.Hekow;
 import fr.gameblack.rcuhcv2.roles.v2.staff.Loup;
 import fr.gameblack.rcuhcv2.roles.v2.staff.Team;
 import fr.gameblack.rcuhcv2.roles.v2.staff.Trial;
+import fr.gameblack.rcuhcv2.roles.v2.staff.Yuri;
 import fr.gameblack.rcuhcv2.roles.v2.uhc.Malivol;
 import fr.gameblack.rcuhcv2.roles.v2.uhc.Obscur;
 import fr.gameblack.rcuhcv2.roles.v2.uhc.Theoochoux;
@@ -142,6 +143,11 @@ public class InteractItemV2 {
         } else if (it.getType() == Material.REDSTONE_BLOCK && it.hasItemMeta() && it.getItemMeta().hasDisplayName() && it.getItemMeta().getDisplayName().equalsIgnoreCase(ItRoles.TOINOU_TOTEM.getNom())) {
 
             Toinou.InteractTotem(joueur, main);
+
+        } else if (it.hasItemMeta() && it.getItemMeta().hasDisplayName() && it.getItemMeta().getDisplayName().equalsIgnoreCase(ItRoles.YURI_AZIZ.getNom())) {
+        	
+        	event.setCancelled(true);
+            Yuri.ItemAziz(joueur, main);
 
         } else if (it.hasItemMeta() && it.getItemMeta().hasDisplayName() && it.getItemMeta().getDisplayName().equalsIgnoreCase(ItRoles.LOUP_BATEAU.getNom())) {
 

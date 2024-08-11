@@ -36,6 +36,11 @@ public class CommandRemoverole implements CommandExecutor {
 	                    main.getCompo().remove(Roles.RAPTOR);
 	                    player.sendMessage("Tu as retiré le rôle Raptor");
 	
+	                } else if (args.length != 0 && args[0].equalsIgnoreCase("yuri")) {
+	                	
+	                    main.getCompo().remove(Roles.YURI);
+	                    player.sendMessage("Tu as retiré le rôle Yuri");
+	
 	                } else if (args.length != 0 && args[0].equalsIgnoreCase("jeannot")) {
 	
 	                    //KILL RC -> A FAIRE

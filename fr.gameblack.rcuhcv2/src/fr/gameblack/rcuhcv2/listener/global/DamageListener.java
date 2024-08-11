@@ -2,9 +2,11 @@ package fr.gameblack.rcuhcv2.listener.global;
 
 import java.util.Random;
 
+import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.World;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Boat;
@@ -12,6 +14,7 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Vehicle;
+import org.bukkit.entity.Zombie;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.vehicle.VehicleDamageEvent;
 import org.bukkit.event.Listener;
@@ -20,8 +23,11 @@ import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.event.entity.EntityDamageEvent.DamageModifier;
 import org.bukkit.event.entity.EntityDeathEvent;
+import org.bukkit.event.entity.EntityTargetEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
 import fr.gameblack.rcuhcv2.Main;
 import fr.gameblack.rcuhcv2.Statut;
@@ -35,6 +41,7 @@ import fr.gameblack.rcuhcv2.orbes.Orbe;
 import fr.gameblack.rcuhcv2.orbes.v2.HitOrbeV2;
 import fr.gameblack.rcuhcv2.roles.v2.staff.Loup;
 import fr.gameblack.rcuhcv2.roles.v2.staff.Trial;
+import fr.gameblack.rcuhcv2.roles.v2.staff.Yuri;
 import fr.gameblack.rcuhcv2.scenarios.Scenarios;
 import fr.gameblack.rcuhcv2.task.v2.ItemCD;
 
@@ -50,7 +57,16 @@ public class DamageListener implements Listener {
 	
 	public static void respawn(Joueur joueur, Main main) {
 		
-		if(joueur != main.getAdvBedwars() && (joueur.getRole() != Roles.GAMEBLACK || joueur.getCamp() != Camps.JOUEUR || !joueur.getModeTrial().equalsIgnoreCase("fun") || main.getAdvBedwars() == null)) {
+		if(main.getScenarios().contains(Scenarios.DEBUG)) {
+			
+			System.out.println("ADV BED -> " + main.getAdvBedwars());
+			System.out.println("Joueur -> " + joueur.getPlayer().getDisplayName());
+			
+		}
+		
+		joueur.setInvulnerable(true);
+		
+		if((joueur.getRole() != Roles.GAMEBLACK || joueur.getCamp() != Camps.JOUEUR || joueur.getModeTrial() == null || !joueur.getModeTrial().equalsIgnoreCase("fun") || main.getAdvBedwars() == null) && joueur != main.getAdvBedwars()) {
 			
 			joueur.setRespawn(false);
 			
@@ -89,8 +105,6 @@ public class DamageListener implements Listener {
 			
 		}
 		
-		joueur.setInvulnerable(true);
-		
 		Random r = new Random();
         int signe_x = r.nextInt(2);
         int signe_y = r.nextInt(2);
@@ -105,28 +119,40 @@ public class DamageListener implements Listener {
         if (signe_y == 1) {
             cos_y = -cos_y;
         }
+        
+        World world;
+        
+        if(main.getWorld() == null) {
+        	
+        	world = Bukkit.getWorld("world");
+        	
+        }
+        else {
+        	
+        	world = main.getWorld();
+        	
+        }
+        
+        int h = world.getHighestBlockYAt(cos_x, cos_y);
 
         joueur.getPlayer().setFoodLevel(20);
 
-        joueur.getPlayer().setHealth(20);
+        joueur.getPlayer().setHealth(joueur.getPlayer().getMaxHealth());
         
-        joueur.getPlayer().teleport(new Location(joueur.getPlayer().getWorld(), cos_x, 100, cos_y));
+        joueur.getPlayer().teleport(new Location(joueur.getPlayer().getWorld(), cos_x, h+1, cos_y));
         
         ItemCD cycle2 = new ItemCD(main, joueur, "respawn", 5, joueur, null, null, 0, null);
         cycle2.runTaskTimer(main, 0, 20);
 		
 	}
 	
+	@SuppressWarnings("deprecation")
 	@EventHandler
 	public void onPvp(EntityDamageByEntityEvent event) {
 		
 		Entity victim = event.getEntity();
 		
-		System.out.println(victim.getCustomName());
-		
 		if(victim instanceof Boat) {
-			
-			System.out.println("Bateau taper");
         	
         	Boat boat = (Boat) victim;
         	
@@ -156,7 +182,7 @@ public class DamageListener implements Listener {
 	
 	            if (main.getState() == Statut.PVP_ON && !joueur.isInvulnerable() && !tueur.isInvulnerable()) {
 	            	
-	            	if(main.isDebug()) {
+	            	if(main.getScenarios().contains(Scenarios.DEBUG)) {
 	                	
 	                	System.out.println("_________________________________________");
 	                	System.out.println("Abso : " + event.getDamage(DamageModifier.ABSORPTION));
@@ -171,7 +197,7 @@ public class DamageListener implements Listener {
 	                	
 	                }
 	                
-	                if(main.isDebug()) {
+	                if(main.getScenarios().contains(Scenarios.DEBUG)) {
 	                	
 	                	System.out.println("Abso : " + event.getDamage(DamageModifier.ABSORPTION));
 	                	System.out.println("Armure : " + event.getDamage(DamageModifier.ARMOR));
@@ -307,8 +333,9 @@ public class DamageListener implements Listener {
 		                		
 		                	}
 		                	else {
-		
-			                    ItemCD cycle = new ItemCD(main, tueur, "mort", 0, joueur, event, null, 0, joueur.getPlayer().getLocation());
+		                		
+		                		Mort.setMortV2(joueur, joueur.getLastHit(), main);
+			                    ItemCD cycle = new ItemCD(main, tueur, "mort", 2, joueur, event, null, 0, joueur.getPlayer().getLocation());
 			                    cycle.runTaskTimer(main, 0, 20);
 			                    event.setDamage(0);
 			                    player.setGameMode(GameMode.SPECTATOR);
@@ -342,7 +369,7 @@ public class DamageListener implements Listener {
                     	
                     	if(tueur.getRole() == Roles.GAMEBLACK && tueur.getClasseGB() == Classe.DISTANCE) {
                         	
-                        	event.setDamage(event.getDamage(DamageModifier.BASE)*1.05);
+                        	event.setDamage(event.getDamage(DamageModifier.BASE)*1.15);
                         	
                         } if(tueur != joueur) {
                         	
@@ -386,8 +413,9 @@ public class DamageListener implements Listener {
     		                		
     		                	}
     		                	else {
-    		
-    			                    ItemCD cycle = new ItemCD(main, tueur, "mort", 0, joueur, event, null, 0, joueur.getPlayer().getLocation());
+    		                		
+    		                		Mort.setMortV2(joueur, joueur.getLastHit(), main);
+    			                    ItemCD cycle = new ItemCD(main, tueur, "mort", 2, joueur, event, null, 0, joueur.getPlayer().getLocation());
     			                    cycle.runTaskTimer(main, 0, 20);
     			                    event.setDamage(0);
     			                    player.setGameMode(GameMode.SPECTATOR);
@@ -409,8 +437,60 @@ public class DamageListener implements Listener {
                 }
             	
             }
+            else if(damager instanceof Zombie) {
+            	
+            	Zombie zombie = (Zombie) damager;
+            	
+            	if(zombie == Yuri.getAziz()) {
+            		
+            		joueur.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 100, 4, false, false));
+            		joueur.removeForce(0.02);
+            		ItemCD cycle = new ItemCD(main, joueur, "stun_aziz", 5, joueur, null, null, 0, null);
+        	        cycle.runTaskTimer(main, 0, 20);
+            		Location loc = zombie.getLocation();
+            		zombie.remove();
+            		main.getWorld().getBlockAt(loc).setType(Material.ENDER_CHEST);
+            		ItemCD cycle2 = new ItemCD(main, joueur, "ec_aziz", 15, joueur, null, null, 0, loc);
+        	        cycle2.runTaskTimer(main, 0, 20);
+            		
+            	}
+            	
+            }
             
         }
+		
+	}
+	
+	@EventHandler
+	public void onTarget(EntityTargetEvent event) {
+		
+		Entity victim = event.getTarget();
+		
+		Entity mob = event.getEntity();
+		
+		if(mob instanceof Zombie) {
+			
+			Zombie zombie = (Zombie) mob;
+			
+			if(mob == Yuri.getAziz()) {
+				
+				if(victim instanceof Player) {
+					
+					Player player = (Player) victim;
+					
+					Joueur joueur = main.getJoueur(player);
+					
+					if(joueur.getRole() == Roles.YURI) {
+						
+						event.setCancelled(true);
+						
+					}
+					
+				}
+				
+			}
+			
+		}
 		
 	}
 	
@@ -464,7 +544,7 @@ public class DamageListener implements Listener {
         	
         	if (player.getHealth() <= event.getFinalDamage()) {
         		
-        		if(joueur.getRole() == Roles.TRIAL && joueur.getLastHit().getRole() == Roles.KZOU && !joueur.isRespawnTrial()) {
+        		if(joueur.getRole() == Roles.TRIAL && joueur.getLastHit() != null && joueur.getLastHit().getRole() == Roles.KZOU && !joueur.isRespawnTrial()) {
         			
         			Trial.mortKzou(joueur, main);
         			
@@ -478,8 +558,9 @@ public class DamageListener implements Listener {
 	        			
 	        		}
 	        		else {
-	
-		                ItemCD cycle = new ItemCD(main, joueur.getLastHit(), "mort", 0, joueur, null, null, 0, joueur.getPlayer().getLocation());
+	        			
+	        			Mort.setMortV2(joueur, joueur.getLastHit(), main);
+		                ItemCD cycle = new ItemCD(main, joueur.getLastHit(), "mort", 2, joueur, null, null, 0, joueur.getPlayer().getLocation());
 		                cycle.runTaskTimer(main, 0, 20);
 		                event.setDamage(0);
 		                player.setGameMode(GameMode.SPECTATOR);
@@ -515,11 +596,8 @@ public class DamageListener implements Listener {
     public void onDamageBoat(VehicleDamageEvent event) {
 
         Vehicle victim = event.getVehicle();
-        System.out.println(victim.getCustomName());
         
         if(victim instanceof Boat) {
-        	
-        	System.out.println("Bateau taper");
         	
         	Boat boat = (Boat) victim;
         	

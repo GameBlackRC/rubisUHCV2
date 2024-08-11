@@ -299,6 +299,26 @@ public class CompoV2 {
         	slot += 1;
         	
         }
+        
+        ItemStack aziz = new ItemStack(397, 1, (short) 2);
+        ItemMeta azizM = aziz.getItemMeta();
+        azizM.setDisplayName("§9 Yuri");
+        aziz.setItemMeta(azizM);
+        
+        if(main.getCompo().contains(Roles.YURI)) {
+        	
+        	aziz.setAmount(1);
+        	inv_compo.setItem(slot, aziz);
+        	slot += 1;
+        	
+        }
+        else {
+        	
+        	aziz.setAmount(0);
+        	inv_compo.setItem(slot, aziz);
+        	slot += 1;
+        	
+        }
 
         player.openInventory(inv_compo);
 		
@@ -750,6 +770,24 @@ public class CompoV2 {
         		else {
         			
         			main.getCompo().add(Roles.HEKOW);
+        			current.setAmount(1);
+        			
+        		}
+        		
+        		break;
+        		
+        	case SKULL_ITEM:
+        		
+        		if(main.getCompo().contains(Roles.YURI)) {
+        			
+        			main.getCompo().remove(Roles.YURI);
+        			current.setAmount(0);
+        			getCompoStaff(player, main, gestion);
+        			
+        		}
+        		else {
+        			
+        			main.getCompo().add(Roles.YURI);
         			current.setAmount(1);
         			
         		}

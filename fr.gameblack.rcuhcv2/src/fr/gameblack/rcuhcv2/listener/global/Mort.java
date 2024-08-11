@@ -23,23 +23,24 @@ import fr.gameblack.rcuhcv2.classes.v1.Pouvoirs_GB;
 import fr.gameblack.rcuhcv2.orbes.Orbe;
 import fr.gameblack.rcuhcv2.roles.v1.demons.Tronconeuse;
 import fr.gameblack.rcuhcv2.roles.v1.rc.ToinouV1;
+import fr.gameblack.rcuhcv2.scenarios.Scenarios;
 import fr.gameblack.rcuhcv2.task.v2.ItemCD;
 
 public class Mort {
 	
-	public static void setMort(Joueur joueur, Joueur tueur, EntityDamageByEntityEvent event, Main main) {
+	public static void setMort(Joueur joueur, Joueur tueur, Main main) {
 		
 		tueur.addKill();
 		main.addMort(joueur, tueur);
 		
 		if(main.getVersion() == 1) {
 			
-			setMortV1(joueur, tueur, event, main);
+			setMortV1(joueur, tueur, main);
 			
 		}
 		else if(main.getVersion() == 2) {
 			
-			setMortV2(joueur, tueur, event, main);
+			//setMortV2(joueur, tueur, main);
 			main.addStat(Stats.MORT, joueur);
 			main.addStat(Stats.KILLS, tueur);
 			
@@ -47,7 +48,7 @@ public class Mort {
 		
 	}
 	
-	public static void setMortV1(Joueur joueur, Joueur tueur, EntityDamageByEntityEvent event, Main main) {
+	public static void setMortV1(Joueur joueur, Joueur tueur, Main main) {
 		
 		if(tueur.getRole() == Roles.Demon) {
 			
@@ -277,332 +278,362 @@ public class Mort {
 		
 	}
 
-	public static void setMortV2(Joueur joueur, Joueur tueur, EntityDamageByEntityEvent event, Main main) {
+	public static void setMortV2(Joueur joueur, Joueur tueur, Main main) {
 		
-		if(tueur.getRole() == Roles.ROMPREMS) {
-			
-			if(main.getMode() == Modes.RAPIDE) {
+		if(!joueur.canRespawn()) {
+		
+			if(tueur != null && tueur.getRole() == Roles.ROMPREMS) {
 				
-				if(tueur.getEnderman().contains(joueur)) {
+				if(main.getMode() == Modes.RAPIDE) {
 					
-					if(tueur.getFirstKill() == null) {
+					if(tueur.getEnderman().contains(joueur)) {
 						
-						tueur.setFirstKill("enderman");
+						if(tueur.getFirstKill() == null) {
+							
+							tueur.setFirstKill("enderman");
+							
+						}
+						
+						tueur.addSpeed(0.05);
+						
+						if(tueur.getNbKillEnderman() == 0) {
+							
+							ItemStack pearl = new ItemStack(Material.ENDER_PEARL);
+							ItemMeta pearlM = pearl.getItemMeta();
+							pearlM.setDisplayName("§9Pearl");
+							pearl.setItemMeta(pearlM);
+							tueur.getPlayer().getInventory().addItem(pearl);
+							
+						}
+						
+						tueur.addNbKillEnderman();
 						
 					}
 					
-					tueur.addSpeed(0.05);
-					
-					if(tueur.getNbKillEnderman() == 0) {
+					if(tueur.getBlaze().contains(joueur)) {
 						
-						ItemStack pearl = new ItemStack(Material.ENDER_PEARL);
-						ItemMeta pearlM = pearl.getItemMeta();
-						pearlM.setDisplayName("§9Pearl");
-						pearl.setItemMeta(pearlM);
-						tueur.getPlayer().getInventory().addItem(pearl);
+						if(tueur.getFirstKill() == null) {
+							
+							tueur.setFirstKill("blaze");
+							
+						}
 						
-					}
-					
-					tueur.addNbKillEnderman();
-					
-				}
-				
-				if(tueur.getBlaze().contains(joueur)) {
-					
-					if(tueur.getFirstKill() == null) {
+						Random r = new Random();
+						int nb = r.nextInt(2);
 						
-						tueur.setFirstKill("blaze");
+						if(nb == 1) {
+							
+							tueur.addForce(0.01);
+							
+						}
+						else {
+							
+							tueur.addResi(0.01);
+							
+						}
 						
-					}
-					
-					Random r = new Random();
-					int nb = r.nextInt(2);
-					
-					if(nb == 1) {
-						
-						tueur.addForce(0.01);
+						tueur.addNbKillBlaze();
 						
 					}
-					else {
-						
-						tueur.addResi(0.01);
-						
-					}
-					
-					tueur.addNbKillBlaze();
 					
 				}
 				
 			}
 			
-		}
-		
-		if(tueur.getRole() == Roles.TOINOU) {
+			if(tueur != null && tueur.getRole() == Roles.TOINOU) {
+				
+				tueur.addPoint();
+				
+			}
 			
-			tueur.addPoint();
+			if(tueur != null && tueur.getRole() == Roles.HEKOW && tueur.isHekowJeuActif()) {
+				
+				tueur.addHekowPourcent(15);
+				
+			}
 			
-		}
-		
-		if(tueur.getRole() == Roles.HEKOW && tueur.isHekowJeuActif()) {
-			
-			tueur.addHekowPourcent(15);
-			
-		}
-		
-		if(joueur.isProche(Roles.TEAM, main) && (joueur.getCamp() == Camps.STAFF || joueur.getRole() == Roles.GAMEBLACK || joueur.getRole() == Roles.TRIAL)) {
-			
-			Random r = new Random();
-            int nb = r.nextInt(3);
-            
-            if(nb == 1) {
-            	
-            	main.getJoueurByRole(Roles.TEAM).addForce(0.01);
-            	main.getJoueurByRole(Roles.TEAM).getPlayer().sendMessage("Un joueur du staff vient de mourir dans un rayon de 20 blocs, vous recevez donc 1% de force");
-            	
-            }
-            else if(nb == 2) {
-            	
-            	main.getJoueurByRole(Roles.TEAM).addResi(0.01);
-            	main.getJoueurByRole(Roles.TEAM).getPlayer().sendMessage("Un joueur du staff vient de mourir dans un rayon de 20 blocs, vous recevez donc 1% de résistance");
-            	
-            }
-            else {
-            	
-            	main.getJoueurByRole(Roles.TEAM).addSpeed(0.02);
-            	main.getJoueurByRole(Roles.TEAM).getPlayer().sendMessage("Un joueur du staff vient de mourir dans un rayon de 20 blocs, vous recevez donc 2% de speed");
-            	
-            }
-			
-		}
-		
-		if(main.getJoueurByRole(Roles.GAMEBLACK) != null) {
-        	
-        	Joueur gb = main.getJoueurByRole(Roles.GAMEBLACK);
-        	
-        	if(joueur == gb && tueur == main.getMaledictionGyomei()) {
-        		
-        		tueur.addForce(0.02);
-        		
-        	}
-        	
-        	Random r = new Random();
-            int nb = r.nextInt(100);
-        	
-        	if(main.getJoueurByRole(Roles.GAMEBLACK).isConsoleGBActif()) {
+			if(joueur.isProche(Roles.TEAM, main) && (joueur.getCamp() == Camps.STAFF || joueur.getRole() == Roles.GAMEBLACK || joueur.getRole() == Roles.TRIAL)) {
+				
+				Random r = new Random();
+	            int nb = r.nextInt(3);
 	            
-	            if(nb <= 10) {
+	            if(nb == 1) {
 	            	
-	            	gb.getPlayer().sendMessage("[CONSOLE] " + ChatColor.MAGIC + "aaaaa" + ChatColor.RESET + " vient de tuer " + ChatColor.MAGIC + "aaaaa");
+	            	main.getJoueurByRole(Roles.TEAM).addForce(0.01);
+	            	main.getJoueurByRole(Roles.TEAM).getPlayer().sendMessage("Un joueur du staff vient de mourir dans un rayon de 20 blocs, vous recevez donc 1% de force");
+	            	
+	            }
+	            else if(nb == 2) {
+	            	
+	            	main.getJoueurByRole(Roles.TEAM).addResi(0.01);
+	            	main.getJoueurByRole(Roles.TEAM).getPlayer().sendMessage("Un joueur du staff vient de mourir dans un rayon de 20 blocs, vous recevez donc 1% de résistance");
 	            	
 	            }
 	            else {
 	            	
-	            	gb.getPlayer().sendMessage("[CONSOLE] " + tueur.getPlayer().getName() + " vient de tuer " + joueur.getPlayer().getName());
+	            	main.getJoueurByRole(Roles.TEAM).addSpeed(0.02);
+	            	main.getJoueurByRole(Roles.TEAM).getPlayer().sendMessage("Un joueur du staff vient de mourir dans un rayon de 20 blocs, vous recevez donc 2% de speed");
 	            	
 	            }
-	            
-        	}
-        	
-        }
-		
-		if(tueur.getRole() == Roles.SLUP) {
-			
-			tueur.addSlime(4);
-			
-		}
-		
-		if(tueur.getRole() == Roles.NONOBOY && tueur.getCamp() != Camps.FARMEURIMMO) {
-			
-			if(tueur.getPlayer().getMaxHealth() <= 21) {
-				
-				tueur.getPlayer().setMaxHealth(tueur.getPlayer().getMaxHealth()+3);
-				
-			}
-			else {
-				
-				tueur.getPlayer().setMaxHealth(24);
 				
 			}
 			
-		}
-		
-		if(main.getNeko() != null && joueur.getRole() == Roles.MAKA && !main.getNeko().isMort()) {
+			if(main.getJoueurByRole(Roles.GAMEBLACK) != null) {
+	        	
+	        	Joueur gb = main.getJoueurByRole(Roles.GAMEBLACK);
+	        	
+	        	if(main.getScenarios().contains(Scenarios.DEBUG) && tueur != null) {
+	        		
+	        		System.out.println("GB : " + joueur.getPlayer().getDisplayName());
+	        		System.out.println("Tueur : " + tueur.getPlayer().getDisplayName());
+	        		System.out.println("Malediction : " + main.getMaledictionGyomei().getPlayer().getDisplayName());
+	        		
+	        	}
+	        	
+	        	if(joueur == gb && tueur != null && tueur == main.getMaledictionGyomei()) {
+	        		
+	        		tueur.addForce(0.02);
+	        		
+	        	}
+	        	
+	        	Random r = new Random();
+	            int nb = r.nextInt(100);
+	        	
+	        	if(main.getJoueurByRole(Roles.GAMEBLACK).isConsoleGBActif() && tueur != null) {
+		            
+		            if(nb <= 10) {
+		            	
+		            	gb.getPlayer().sendMessage("[CONSOLE] " + ChatColor.MAGIC + "aaaaa" + ChatColor.RESET + " vient de tuer " + ChatColor.MAGIC + "aaaaa");
+		            	
+		            }
+		            else {
+		            	
+		            	gb.getPlayer().sendMessage("[CONSOLE] " + tueur.getPlayer().getName() + " vient de tuer " + joueur.getPlayer().getName());
+		            	
+		            }
+		            
+	        	}
+	        	
+	        }
 			
-			if(main.getNbJoueursStaff() == 6) {
-    			main.getNeko().addSpeed(0.01);
-    		}
-    		else if(main.getNbJoueursStaff() == 5) {
-    			main.getNeko().addForce(0.01);
-    		}
-    		else if(main.getNbJoueursStaff() == 4) {
-    			main.getNeko().addSpeed(0.05);
-    		}
-    		else if(main.getNbJoueursStaff() == 3) {
-    			main.getNeko().addSpeed(0.05);
-    			main.getNeko().addForce(0.01);
-    		}
-    		else if(main.getNbJoueursStaff() == 2) {
-    			main.getNeko().addSpeed(0.07);
-    			main.getNeko().addForce(0.01);
-    		}
-    		else if(main.getNbJoueursStaff() == 1) {
-    			main.getNeko().addSpeed(0.07);
-    			main.getNeko().addForce(0.02);
-    		}
-			
-		}
-		
-		if(main.getTueurNeko() == joueur && tueur.getRole() == Roles.MAKA) {
-			
-			if(tueur.getPlayer().getMaxHealth() <= 18) {
+			if(tueur != null && tueur.getRole() == Roles.SLUP) {
 				
-				tueur.getPlayer().setMaxHealth(18);
-				
-			}
-				
-			main.setTueurNeko(null);
-			if(main.getNbJoueursStaff() == 6) {
-	    		tueur.addSpeed(0.01);
-	    		tueur.addForce(0.01);
-	    		tueur.addResi(0.01);
-	    	}
-			else if(main.getNbJoueursStaff() == 5) {
-				tueur.addSpeed(0.03);
-	    		tueur.addForce(0.01);
-	    		tueur.addResi(0.01);
-	    	}
-	    	else if(main.getNbJoueursStaff() == 4) {
-	    		tueur.addSpeed(0.07);
-	    		tueur.addForce(0.01);
-	    		tueur.addResi(0.01);
-	    	}
-	    	else if(main.getNbJoueursStaff() == 3) {
-	    		tueur.addSpeed(0.07);
-	    		tueur.addForce(0.02);
-	    		tueur.addResi(0.01);
-	    	}
-	    	else if(main.getNbJoueursStaff() == 2) {
-	    		tueur.addSpeed(0.1);
-	    		tueur.addForce(0.02);
-	    		tueur.addResi(0.02);
-	    	}
-	    	else if(main.getNbJoueursStaff() == 1) {
-	    		tueur.addSpeed(0.15);
-	    		tueur.addForce(0.02);
-	    		tueur.addResi(0.02);
-	    	}
-			
-		}
-		
-		if(main.getJoueurByRole(Roles.MAKA) != null && main.getNeko() == joueur) {
-			
-			Joueur maka = main.getJoueurByRole(Roles.MAKA);
-			
-			main.setTueurNeko(tueur);
-			
-			maka.getPlayer().sendMessage("Neko vient de mourrir, vous perdrez donc 1 coeur permanent toutes les 5 minutes");
-			
-			ItemCD cycle = new ItemCD(main, maka, "mortNeko", 30, maka, null, null, 0, null);
-	        cycle.runTaskTimer(main, 0, 20);
-			
-		}
-		
-		if(main.getJoueurByRole(Roles.OBSCUR) != null && joueur == main.getTueurToinou()) {
-			
-			Joueur obscur = main.getJoueurByRole(Roles.OBSCUR);
-			
-			if(main.isAdaptionObscurActif()) {
-				
-				obscur.addForce(0.01);
-				
-			} else {
-				
-				obscur.addForce(0.02);
+				tueur.addSlime(4);
 				
 			}
-			obscur.setTueurToinouKill(true);
 			
-		}
-		
-		if(main.getJoueurByRole(Roles.OBSCUR) != null && joueur.getRole() == Roles.TOINOU) {
-			
-			Joueur obscur = main.getJoueurByRole(Roles.OBSCUR);
-			obscur.getPlayer().sendMessage(tueur.getPlayer().getName() + " vient de tuer Toinou. Si vous parvenez à l'éliminer, vous obtiendrez 2% de force permanent");
-			
-		}
-		
-		if(joueur.getRole() == Roles.LOUP && main.getJoueurByRole(Roles.TRIAL) != null) {
-			
-			if(tueur.getCamp() == Camps.UHC) {
+			if(tueur != null && tueur.getRole() == Roles.NONOBOY && tueur.getCamp() != Camps.FARMEURIMMO) {
 				
-				Joueur trial = main.getJoueurByRole(Roles.TRIAL);
-				
-				Joueur slup = main.getJoueurByRole(Roles.SLUP);
-				
-				if(trial.getCamp() == Camps.DUO || (slup != null && slup.getPacteSlup() == 2 && ((main.getTemps() <= 600 && main.getEpisode() <= 3 && main.getMode() == Modes.NORMAL) || (main.getEpisode() < 2 && main.getMode() == Modes.RAPIDE)))) {
+				if(tueur.getPlayer().getMaxHealth() <= 21) {
 					
-					if(trial.getCamp() == Camps.DUO) {
-						
-						trial.getPlayer().sendMessage("Un joueur du camp UHC vient de tuer Loup. Voici son pseudo : " + tueur.getPlayer().getName());
-						tueur.getPlayer().sendMessage("Trial vient de rejoindre votre camp. Pseudo de Trial : " + trial.getPlayer().getName());
-						
-					}
-					else {
-						
-						trial.getPlayer().sendMessage("Loup vient de mourir. Vous devez désormais gagner avec Slup. Le tueur de Loup appartient au camp uhc, voici son pseudo : " + tueur.getPlayer().getName());
-						trial.setCamp(Camps.DUO);
-						
-					}
+					tueur.getPlayer().setMaxHealth(tueur.getPlayer().getMaxHealth()+3);
 					
 				}
 				else {
 					
-					trial.setCamp(Camps.UHC);
-					trial.getPlayer().sendMessage("Un joueur du camp UHC vient de tuer Loup. Vous devez donc gagnez avec le camp UHC\nPseudo du tueur de Loup : " + tueur.getPlayer().getName());
-					tueur.getPlayer().sendMessage("Trial vient de rejoindre votre camp. Pseudo de Trial : " + trial.getPlayer().getName());
+					tueur.getPlayer().setMaxHealth(24);
 					
 				}
 				
 			}
 			
-			
-		}
-		
-		if(tueur.getRole() == Roles.FARMEURIMMO && tueur.getVol().contains(Pouvoirs.TRIAL_FORCE_KILL)) {
-			
-			tueur.addForce(0.02);
-			
-		}
-		
-		if(tueur.getRole() == Roles.FARMEURIMMO && tueur.getVol().contains(Pouvoirs.NONOBOY_COEUR_KILL)) {
-			
-			tueur.getPlayer().setMaxHealth(tueur.getPlayer().getMaxHealth()+1);
-			
-		}
-		
-		if(tueur.getRole() == Roles.TRIAL) {
-			
-			if(joueur.getRole() == Roles.KZOU && tueur.isRespawnTrial()) {
+			if(main.getNeko() != null && joueur.getRole() == Roles.MAKA && !main.getNeko().isMort()) {
 				
-				tueur.getPlayer().setMaxHealth(tueur.getPlayer().getMaxHealth()+10);
+				if(main.getNbJoueursStaff() == 6) {
+	    			main.getNeko().addSpeed(0.01);
+	    		}
+	    		else if(main.getNbJoueursStaff() == 5) {
+	    			main.getNeko().addForce(0.01);
+	    		}
+	    		else if(main.getNbJoueursStaff() == 4) {
+	    			main.getNeko().addSpeed(0.05);
+	    		}
+	    		else if(main.getNbJoueursStaff() == 3) {
+	    			main.getNeko().addSpeed(0.05);
+	    			main.getNeko().addForce(0.01);
+	    		}
+	    		else if(main.getNbJoueursStaff() == 2) {
+	    			main.getNeko().addSpeed(0.07);
+	    			main.getNeko().addForce(0.01);
+	    		}
+	    		else if(main.getNbJoueursStaff() == 1) {
+	    			main.getNeko().addSpeed(0.07);
+	    			main.getNeko().addForce(0.02);
+	    		}
+				
+			}
+			
+			if(main.getTueurNeko() == joueur && tueur != null && tueur.getRole() == Roles.MAKA) {
+				
+				if(tueur.getPlayer().getMaxHealth() <= 18) {
+					
+					tueur.getPlayer().setMaxHealth(18);
+					
+				}
+					
+				main.setTueurNeko(null);
+				if(main.getNbJoueursStaff() == 6) {
+		    		tueur.addSpeed(0.01);
+		    		tueur.addForce(0.01);
+		    		tueur.addResi(0.01);
+		    	}
+				else if(main.getNbJoueursStaff() == 5) {
+					tueur.addSpeed(0.03);
+		    		tueur.addForce(0.01);
+		    		tueur.addResi(0.01);
+		    	}
+		    	else if(main.getNbJoueursStaff() == 4) {
+		    		tueur.addSpeed(0.07);
+		    		tueur.addForce(0.01);
+		    		tueur.addResi(0.01);
+		    	}
+		    	else if(main.getNbJoueursStaff() == 3) {
+		    		tueur.addSpeed(0.07);
+		    		tueur.addForce(0.02);
+		    		tueur.addResi(0.01);
+		    	}
+		    	else if(main.getNbJoueursStaff() == 2) {
+		    		tueur.addSpeed(0.1);
+		    		tueur.addForce(0.02);
+		    		tueur.addResi(0.02);
+		    	}
+		    	else if(main.getNbJoueursStaff() == 1) {
+		    		tueur.addSpeed(0.15);
+		    		tueur.addForce(0.02);
+		    		tueur.addResi(0.02);
+		    	}
+				
+			}
+			
+			if(main.getJoueurByRole(Roles.MAKA) != null && main.getNeko() == joueur) {
+				
+				Joueur maka = main.getJoueurByRole(Roles.MAKA);
+				
+				main.setTueurNeko(tueur);
+				
+				maka.getPlayer().sendMessage("Neko vient de mourrir, vous perdrez donc 1 coeur permanent toutes les 5 minutes");
+				
+				if(main.getMode() == Modes.RAPIDE) {
+				
+					ItemCD cycle = new ItemCD(main, maka, "mortNeko", 30, maka, null, null, 0, null);
+			        cycle.runTaskTimer(main, 0, 20);
+		        
+				}
+				else {
+					
+					ItemCD cycle = new ItemCD(main, maka, "mortNeko", 300, maka, null, null, 0, null);
+			        cycle.runTaskTimer(main, 0, 20);
+					
+				}
+				
+			}
+			
+			if(main.getJoueurByRole(Roles.OBSCUR) != null && joueur == main.getTueurToinou()) {
+				
+				Joueur obscur = main.getJoueurByRole(Roles.OBSCUR);
+				
+				if(main.isAdaptionObscurActif()) {
+					
+					obscur.addForce(0.01);
+					
+				} else {
+					
+					obscur.addForce(0.02);
+					
+				}
+				obscur.setTueurToinouKill(true);
+				
+			}
+			
+			if(tueur != null && main.getJoueurByRole(Roles.OBSCUR) != null && joueur.getRole() == Roles.TOINOU) {
+				
+				Joueur obscur = main.getJoueurByRole(Roles.OBSCUR);
+				obscur.getPlayer().sendMessage(tueur.getPlayer().getName() + " vient de tuer Toinou. Si vous parvenez à l'éliminer, vous obtiendrez 2% de force permanent");
+				
+			}
+			
+			if(joueur.getRole() == Roles.LOUP && main.getJoueurByRole(Roles.TRIAL) != null) {
+				
+				if(tueur != null && tueur.getCamp() == Camps.UHC) {
+					
+					Joueur trial = main.getJoueurByRole(Roles.TRIAL);
+					
+					Joueur slup = main.getJoueurByRole(Roles.SLUP);
+					
+					if(trial.getCamp() == Camps.DUO || (slup != null && slup.getPacteSlup() == 2 && ((main.getTemps() <= 600 && main.getEpisode() <= 3 && main.getMode() == Modes.NORMAL) || (main.getEpisode() < 2 && main.getMode() == Modes.RAPIDE)))) {
+						
+						if(trial.getCamp() == Camps.DUO) {
+							
+							trial.getPlayer().sendMessage("Un joueur du camp UHC vient de tuer Loup. Voici son pseudo : " + tueur.getPlayer().getName());
+							tueur.getPlayer().sendMessage("Trial vient de rejoindre votre camp. Pseudo de Trial : " + trial.getPlayer().getName());
+							
+						}
+						else {
+							
+							trial.getPlayer().sendMessage("Loup vient de mourir. Vous devez désormais gagner avec Slup. Le tueur de Loup appartient au camp uhc, voici son pseudo : " + tueur.getPlayer().getName());
+							trial.setCamp(Camps.DUO);
+							
+						}
+						
+					}
+					else {
+						
+						trial.setCamp(Camps.UHC);
+						trial.getPlayer().sendMessage("Un joueur du camp UHC vient de tuer Loup. Vous devez donc gagnez avec le camp UHC\nPseudo du tueur de Loup : " + tueur.getPlayer().getName());
+						tueur.getPlayer().sendMessage("Trial vient de rejoindre votre camp. Pseudo de Trial : " + trial.getPlayer().getName());
+						
+					}
+					
+				}
+				
+				
+			}
+			
+			if(tueur != null && tueur.getRole() == Roles.FARMEURIMMO && tueur.getVol().contains(Pouvoirs.TRIAL_FORCE_KILL)) {
+				
 				tueur.addForce(0.02);
-				if(tueur.getCamp() == Camps.DUO) {
+				
+			}
+			
+			if(tueur != null && tueur.getRole() == Roles.FARMEURIMMO && tueur.getVol().contains(Pouvoirs.NONOBOY_COEUR_KILL)) {
+				
+				tueur.getPlayer().setMaxHealth(tueur.getPlayer().getMaxHealth()+1);
+				
+			}
+			
+			if(tueur != null && tueur.getRole() == Roles.TRIAL) {
+				
+				if(main.getScenarios().contains(Scenarios.DEBUG)) {
 					
-					tueur.addSpeed(0.05);
+					System.out.println("Trial ok");
+					System.out.println("Role tué : " + joueur.getRole().getTxt());
+					
+				}
+				
+				if(joueur.getRole() == Roles.KZOU && tueur.isRespawnTrial()) {
+					
+					tueur.getPlayer().setMaxHealth(tueur.getPlayer().getMaxHealth()+10);
+					tueur.addForce(0.02);
+					if(tueur.getCamp() == Camps.DUO) {
+						
+						tueur.addSpeed(0.05);
+						
+					}
 					
 				}
 				
 			}
 			
-		}
-		if(joueur.isBonPapiers() && tueur.getRole() != Roles.TRIAL && tueur.getRole() != Roles.MAKA && tueur.getRole() != Roles.MALIVOL) {
-			
-			tueur.setBonPapiers(true);
-			
-		}
-		else if(!joueur.isBonPapiers()) {
-			
-			tueur.setBonPapiers(false);
+			if(joueur.isBonPapiers() && tueur != null && tueur.getRole() != Roles.TRIAL && tueur.getRole() != Roles.MAKA && tueur.getRole() != Roles.MALIVOL) {
+				
+				tueur.setBonPapiers(true);
+				
+			}
+			else if(!joueur.isBonPapiers()) {
+				
+				tueur.setBonPapiers(false);
+				
+			}
 			
 		}
 		

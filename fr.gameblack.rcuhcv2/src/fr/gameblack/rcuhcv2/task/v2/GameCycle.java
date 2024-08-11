@@ -233,6 +233,12 @@ public class GameCycle extends BukkitRunnable {
 	    		j.getCD().remove(Pouvoirs.MALIVOL_CHEAT);
 	    		
 	    	}
+	    	else if(j.getCD().contains(Pouvoirs.YURI_AZIZ)) {
+	    		
+	    		j.getCD().remove(Pouvoirs.YURI_AZIZ);
+	    		j.setAziz(true);
+	    		
+	    	}
 	    	else if(j.getCD().contains(Pouvoirs.HEKOW_JEU)) {
 	    		
 	    		j.getCD().remove(Pouvoirs.HEKOW_JEU);
@@ -956,6 +962,38 @@ public class GameCycle extends BukkitRunnable {
     	}
         
         if(timer % 10 == 0) {
+        	
+        	if(!main.getJoueursByRole(Roles.YURI).isEmpty()) {
+        		
+        		List<Joueur> yuri_list = main.getJoueursByRole(Roles.YURI);
+        		
+        		for(Joueur yuri : yuri_list) {
+        			
+        			if(yuri.isForceProche()) {
+        				
+        				if(!yuri.hasAziz()) {
+        					
+        					yuri.removeForce(0.02);
+        					yuri.setForceProche(false);
+        					
+        				}
+        				
+        			}
+        			
+        			if(!yuri.isForceProche()) {
+        				
+        				if(yuri.hasAziz()) {
+        					
+        					yuri.addForce(0.02);
+        					yuri.setForceProche(true);
+        					
+        				}
+        				
+        			}
+        			
+        		}
+        		
+        	}
         	
         	if(!main.getJoueursByRole(Roles.TRIAL).isEmpty()) {
         		
@@ -1835,58 +1873,70 @@ public class GameCycle extends BukkitRunnable {
         		if(main.getNbJoueursStaff() == 6) {
         			main.getNeko().removeSpeed(0.01);
         			main.getNeko().removeForce(0.01);
-        			main.getJoueurByRole(Roles.MAKA).removeSpeed(0.01);
-        			main.getJoueurByRole(Roles.MAKA).removeForce(0.01);
+        			if(!main.getJoueurByRole(Roles.MAKA).isMort()) {
+	        			main.getJoueurByRole(Roles.MAKA).removeSpeed(0.01);
+	        			main.getJoueurByRole(Roles.MAKA).removeForce(0.01);
+	        			main.getJoueurByRole(Roles.MAKA).setSpeedProche(false);
+        			}
         			main.getNeko().setSpeedProche(false);
-        			main.getJoueurByRole(Roles.MAKA).setSpeedProche(false);
         		}
         		else if(main.getNbJoueursStaff() == 5) {
         			main.getNeko().removeSpeed(0.02);
         			main.getNeko().removeForce(0.01);
-        			main.getJoueurByRole(Roles.MAKA).removeSpeed(0.02);
-        			main.getJoueurByRole(Roles.MAKA).removeForce(0.01);
+        			if(!main.getJoueurByRole(Roles.MAKA).isMort()) {
+	        			main.getJoueurByRole(Roles.MAKA).removeSpeed(0.02);
+	        			main.getJoueurByRole(Roles.MAKA).removeForce(0.01);
+	        			main.getJoueurByRole(Roles.MAKA).setSpeedProche(false);
+        			}
         			main.getNeko().setSpeedProche(false);
-        			main.getJoueurByRole(Roles.MAKA).setSpeedProche(false);
         		}
         		else if(main.getNbJoueursStaff() == 4) {
         			main.getNeko().removeSpeed(0.05);
         			main.getNeko().removeForce(0.01);
         			main.getNeko().removeResi(0.01);
-        			main.getJoueurByRole(Roles.MAKA).removeSpeed(0.05);
-        			main.getJoueurByRole(Roles.MAKA).removeForce(0.01);
-        			main.getJoueurByRole(Roles.MAKA).removeResi(0.01);
+        			if(!main.getJoueurByRole(Roles.MAKA).isMort()) {
+	        			main.getJoueurByRole(Roles.MAKA).removeSpeed(0.05);
+	        			main.getJoueurByRole(Roles.MAKA).removeForce(0.01);
+	        			main.getJoueurByRole(Roles.MAKA).removeResi(0.01);
+	        			main.getJoueurByRole(Roles.MAKA).setSpeedProche(false);
+        			}
         			main.getNeko().setSpeedProche(false);
-        			main.getJoueurByRole(Roles.MAKA).setSpeedProche(false);
         		}
         		else if(main.getNbJoueursStaff() == 3) {
         			main.getNeko().removeSpeed(0.05);
         			main.getNeko().removeForce(0.02);
         			main.getNeko().removeResi(0.01);
-        			main.getJoueurByRole(Roles.MAKA).removeSpeed(0.05);
-        			main.getJoueurByRole(Roles.MAKA).removeForce(0.02);
-        			main.getJoueurByRole(Roles.MAKA).removeResi(0.01);
+        			if(!main.getJoueurByRole(Roles.MAKA).isMort()) {
+	        			main.getJoueurByRole(Roles.MAKA).removeSpeed(0.05);
+	        			main.getJoueurByRole(Roles.MAKA).removeForce(0.02);
+	        			main.getJoueurByRole(Roles.MAKA).removeResi(0.01);
+	        			main.getJoueurByRole(Roles.MAKA).setSpeedProche(false);
+        			}
         			main.getNeko().setSpeedProche(false);
-        			main.getJoueurByRole(Roles.MAKA).setSpeedProche(false);
         		}
         		else if(main.getNbJoueursStaff() == 2) {
         			main.getNeko().removeSpeed(0.07);
         			main.getNeko().removeForce(0.02);
         			main.getNeko().removeResi(0.02);
-        			main.getJoueurByRole(Roles.MAKA).removeSpeed(0.07);
-        			main.getJoueurByRole(Roles.MAKA).removeForce(0.02);
-        			main.getJoueurByRole(Roles.MAKA).removeResi(0.02);
+        			if(!main.getJoueurByRole(Roles.MAKA).isMort()) {
+	        			main.getJoueurByRole(Roles.MAKA).removeSpeed(0.07);
+	        			main.getJoueurByRole(Roles.MAKA).removeForce(0.02);
+	        			main.getJoueurByRole(Roles.MAKA).removeResi(0.02);
+	        			main.getJoueurByRole(Roles.MAKA).setSpeedProche(false);
+        			}
         			main.getNeko().setSpeedProche(false);
-        			main.getJoueurByRole(Roles.MAKA).setSpeedProche(false);
         		}
         		else if(main.getNbJoueursStaff() == 1) {
         			main.getNeko().removeSpeed(0.1);
         			main.getNeko().removeForce(0.02);
         			main.getNeko().removeResi(0.02);
-        			main.getJoueurByRole(Roles.MAKA).removeSpeed(0.1);
-        			main.getJoueurByRole(Roles.MAKA).removeForce(0.02);
-        			main.getJoueurByRole(Roles.MAKA).removeResi(0.02);
+        			if(!main.getJoueurByRole(Roles.MAKA).isMort()) {
+	        			main.getJoueurByRole(Roles.MAKA).removeSpeed(0.1);
+	        			main.getJoueurByRole(Roles.MAKA).removeForce(0.02);
+	        			main.getJoueurByRole(Roles.MAKA).removeResi(0.02);
+	        			main.getJoueurByRole(Roles.MAKA).setSpeedProche(false);
+        			}
         			main.getNeko().setSpeedProche(false);
-        			main.getJoueurByRole(Roles.MAKA).setSpeedProche(false);
         		}
         		
         	}

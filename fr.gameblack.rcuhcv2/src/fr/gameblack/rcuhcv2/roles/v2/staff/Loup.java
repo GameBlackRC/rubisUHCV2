@@ -16,6 +16,7 @@ import org.bukkit.inventory.meta.SkullMeta;
 import fr.gameblack.rcuhcv2.Main;
 import fr.gameblack.rcuhcv2.classes.ItRoles;
 import fr.gameblack.rcuhcv2.classes.Joueur;
+import fr.gameblack.rcuhcv2.classes.Modes;
 import fr.gameblack.rcuhcv2.classes.Pouvoirs;
 import fr.gameblack.rcuhcv2.classes.Roles;
 import fr.gameblack.rcuhcv2.task.v2.ItemCD;
@@ -178,46 +179,29 @@ public class Loup {
 		
 		if(!joueur.getCD().contains(Pouvoirs.LOUP_SERVEUR)) {
 			
-			joueur.getPlayer().sendMessage("Vous activez votre pouvoirs");
+			if(main.getMode() == Modes.RAPIDE || joueur.isProche(Roles.TRIAL, main)) {
 			
-			joueur.getCD().add(Pouvoirs.LOUP_SERVEUR);
-		
-			List<Joueur> joueurs = new ArrayList<>();
-			
-			for(Joueur j : main.getJoueurInGame()) {
+				joueur.getPlayer().sendMessage("Vous activez votre pouvoirs");
 				
-				if(j.getRole() != Roles.NONE && j.getRole() != Roles.TRIAL && j.getRole() != Roles.LOUP) {
+				joueur.getCD().add(Pouvoirs.LOUP_SERVEUR);
+			
+				List<Joueur> joueurs = new ArrayList<>();
+				
+				for(Joueur j : main.getJoueurInGame()) {
 					
-						j.removeForce(0.02);
-						joueurs.add(j);
+					if(j.getRole() != Roles.NONE && j.getRole() != Roles.TRIAL && j.getRole() != Roles.LOUP) {
+						
+							j.removeForce(0.02);
+							joueurs.add(j);
+						
+					}
 					
 				}
 				
+				ItemCD cycle = new ItemCD(main, joueur, "serveur_loup", 60, joueur, null, joueurs, 0, null);
+		        cycle.runTaskTimer(main, 0, 20);
+		        
 			}
-			
-			if(main.getJoueurByRole(Roles.GAMEBLACK) != null && main.getJoueurByRole(Roles.GAMEBLACK).isConsoleGBActif()) {
-				
-				Joueur gb = main.getJoueurByRole(Roles.GAMEBLACK);
-				
-				Random r = new Random();
-				
-	            int nb = r.nextInt(100);
-	            
-	            if(nb <= 80) {
-	            	
-	            	gb.getPlayer().sendMessage("[CONSOLE]" + ChatColor.MAGIC + "aaaaa" + ChatColor.RESET + " vient d'effectuer une commande");
-	            	
-	            }
-	            else {
-	            	
-	            	gb.getPlayer().sendMessage("[CONSOLE]" + joueur.getPlayer().getName() + " vient d'effectuer une commande");
-	            	
-	            }
-				
-			}
-			
-			ItemCD cycle = new ItemCD(main, joueur, "serveur_loup", 60, joueur, null, joueurs, 0, null);
-	        cycle.runTaskTimer(main, 0, 20);
 	        
 		}
 		

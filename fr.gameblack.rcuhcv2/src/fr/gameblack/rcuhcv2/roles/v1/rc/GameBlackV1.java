@@ -44,8 +44,8 @@ public class GameBlackV1 {
         }
         else {
         	
-        	//PouvoirPourcent(joueur);
-        	PouvoirSpeed(joueur);
+        	PouvoirPourcent(joueur);
+        	//PouvoirSpeed(joueur);
         	
         }
 

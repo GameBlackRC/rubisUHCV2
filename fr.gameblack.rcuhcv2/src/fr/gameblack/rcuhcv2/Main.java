@@ -1861,6 +1861,16 @@ public class Main extends JavaPlugin {
 	        return coffre;
 			
 		}
+		else if(item == ItRoles.YURI_AZIZ) {
+			
+			ItemStack coffre = new ItemStack(397, 1, (short) 2);
+	        ItemMeta coffreM = coffre.getItemMeta();
+	        coffreM.setDisplayName(item.getNom());
+	        coffre.setItemMeta(coffreM);
+	        
+	        return coffre;
+			
+		}
 		else if(item == ItRoles.LOUP_BATEAU) {
 			
 			ItemStack coffre = new ItemStack(Material.NETHER_STAR, 1);

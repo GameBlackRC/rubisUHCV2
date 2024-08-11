@@ -115,6 +115,11 @@ public class CommandCompo implements CommandExecutor {
 		                    txt += "\n §9Hekow§r(1)";
 		
 		                }
+		                if ((main.getCompo().size() != 0 && main.getCompo().contains(Roles.YURI))) {
+		            		
+		                    txt += "\n §9Yuri§r(1)";
+		
+		                }
 		                txt += "\n§2Camp UHC :§r";
 		                if ((main.getCompo().size() != 0 && main.getCompo().contains(Roles.MALIVOL))) {
 		

@@ -32,67 +32,71 @@ private Main main;
         	
         	Player player = (Player) sender;
         	Joueur joueur = main.getJoueur(player);
-
-        	String classe = args[0];
         	
-        	System.out.println(args[0]);
+        	if(args.length > 0) {
 
-            if ((joueur.getRole() == Roles.GAMEBLACK && joueur.getModeTrial() == "serieux")) {
-            	
-            	if(classe != null) {
-            	
-	            	if(classe.equalsIgnoreCase("attaquant")) {
+	        	String classe = args[0];
+	        	
+	        	System.out.println(args[0]);
+	
+	            if ((joueur.getRole() == Roles.GAMEBLACK && joueur.getModeTrial() == "serieux")) {
 	            	
-	            		GameBlack.CommandeClasse(joueur, Classe.ATTAQUANT, main);
+	            	if(classe != null) {
 	            	
-	            	} else if(classe.equalsIgnoreCase("defenseur")) {
-	            	
-	            		GameBlack.CommandeClasse(joueur, Classe.DEFENSEUR, main);
-	            	
-	            	} else if(classe.equalsIgnoreCase("rapide")) {
-	            	
-	            		GameBlack.CommandeClasse(joueur, Classe.RAPIDE, main);
-	            	
-	            	} else if(classe.equalsIgnoreCase("distance")) {
-	            	
-	            		GameBlack.CommandeClasse(joueur, Classe.DISTANCE, main);
-	            	
-	            	} else if(classe.equalsIgnoreCase("support")) {
-	            	
-	            		GameBlack.CommandeClasse(joueur, Classe.ATTAQUANT, main);
-	            	
-	            	} else if(classe.equalsIgnoreCase("rien")) {
-	            	
-	            		GameBlack.CommandeClasse(joueur, Classe.RIEN, main);
-	            	
-	            	} else {
+		            	if(classe.equalsIgnoreCase("attaquant")) {
+		            	
+		            		GameBlack.CommandeClasse(joueur, Classe.ATTAQUANT, main);
+		            	
+		            	} else if(classe.equalsIgnoreCase("defenseur")) {
+		            	
+		            		GameBlack.CommandeClasse(joueur, Classe.DEFENSEUR, main);
+		            	
+		            	} else if(classe.equalsIgnoreCase("rapide")) {
+		            	
+		            		GameBlack.CommandeClasse(joueur, Classe.RAPIDE, main);
+		            	
+		            	} else if(classe.equalsIgnoreCase("distance")) {
+		            	
+		            		GameBlack.CommandeClasse(joueur, Classe.DISTANCE, main);
+		            	
+		            	} else if(classe.equalsIgnoreCase("support")) {
+		            	
+		            		GameBlack.CommandeClasse(joueur, Classe.ATTAQUANT, main);
+		            	
+		            	} else if(classe.equalsIgnoreCase("rien")) {
+		            	
+		            		GameBlack.CommandeClasse(joueur, Classe.RIEN, main);
+		            	
+		            	} else {
+		            		
+		            		joueur.getPlayer().sendMessage("Cette classe n'existe pas");
+		            		
+		            	}
+		            	
+	            	}
+	            	else {
 	            		
-	            		joueur.getPlayer().sendMessage("Cette classe n'existe pas");
+	            		Inventory inv_orbe = Bukkit.createInventory(null, 36, "§8Choix de la classe");
+	                	
+	                    inv_orbe.setItem(11, Main.getItem(Material.IRON_SWORD, "Attaquant", ""));
+	                    inv_orbe.setItem(13, Main.getItem(Material.IRON_CHESTPLATE, "Défenseur", ""));
+	                    inv_orbe.setItem(15, Main.getItem(Material.BOW, "Distance", ""));
+	                    inv_orbe.setItem(19, Main.getItem(Material.FEATHER, "Rapide", ""));
+	                    inv_orbe.setItem(21, Main.getItem(Material.APPLE, "Support", ""));
+	                    inv_orbe.setItem(22, Main.getItem(Material.BARRIER, "Rien", ""));
+	
+	                    joueur.getPlayer().openInventory(inv_orbe);
 	            		
 	            	}
 	            	
-            	}
-            	else {
-            		
-            		Inventory inv_orbe = Bukkit.createInventory(null, 36, "§8Choix de la classe");
-                	
-                    inv_orbe.setItem(11, Main.getItem(Material.IRON_SWORD, "Attaquant", ""));
-                    inv_orbe.setItem(13, Main.getItem(Material.IRON_CHESTPLATE, "Défenseur", ""));
-                    inv_orbe.setItem(15, Main.getItem(Material.BOW, "Distance", ""));
-                    inv_orbe.setItem(19, Main.getItem(Material.FEATHER, "Rapide", ""));
-                    inv_orbe.setItem(21, Main.getItem(Material.APPLE, "Support", ""));
-                    inv_orbe.setItem(22, Main.getItem(Material.BARRIER, "Rien", ""));
-
-                    joueur.getPlayer().openInventory(inv_orbe);
-            		
-            	}
-            	
-            }
-            else {
-            	
-            	player.sendMessage("Erreur CommandPlay.java");
-            	
-            }
+	            }
+	            else {
+	            	
+	            	player.sendMessage("Erreur CommandPlay.java");
+	            	
+	            }
+	            
+        	}
 
         }
 

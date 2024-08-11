@@ -18,6 +18,7 @@ import fr.gameblack.rcuhcv2.classes.Roles;
 import fr.gameblack.rcuhcv2.roles.v2.joueur.Raptor;
 import fr.gameblack.rcuhcv2.roles.v2.uhc.Theoochoux;
 import fr.gameblack.rcuhcv2.roles.v2.uhc.Toinou;
+import fr.gameblack.rcuhcv2.scenarios.Scenarios;
 import fr.gameblack.rcuhcv2.task.v2.GameCycle;
 import fr.gameblack.rcuhcv2.task.v2.ItemCD;
 
@@ -92,7 +93,7 @@ public class HitV2 {
         	
         }
         
-        if(tueur.getRole() == Roles.TRIAL && tueur.getModeTrial().equalsIgnoreCase("serieux")) {
+        if(tueur.getRole() == Roles.TRIAL && tueur.getModeTrial() != null && tueur.getModeTrial().equalsIgnoreCase("serieux")) {
 			
         	nb = r.nextInt(100);
             
@@ -191,7 +192,7 @@ public class HitV2 {
     		
             nb = r.nextInt(100);
         	
-    		if(nb <= 5 && main.getJoueurByRole(Roles.GAMEBLACK).getNbSpeedGBUHC() < 10) {
+    		if(nb <= 10 && main.getJoueurByRole(Roles.GAMEBLACK).getNbSpeedGBUHC() < 15) {
     			
     			main.getJoueurByRole(Roles.GAMEBLACK).addSpeed(0.01);
     			main.getJoueurByRole(Roles.GAMEBLACK).addNbSpeedGBUHC(1);
@@ -336,7 +337,13 @@ public class HitV2 {
             if (joueur.getCube() != 0 && !main.getJokoStun().contains(joueur)) {
 
                 nb = r.nextInt(100);
-                int pourcent = joueur.getCube() * 3;
+                int pourcent_nb = 3;
+                if(main.getMode() == Modes.RAPIDE) {
+                	
+                	pourcent_nb = 7;
+                	
+                }
+                int pourcent = joueur.getCube() * pourcent_nb;
 
                 if (nb < pourcent + 1 && !(joueur.getRole() == Roles.OBSCUR && main.getAdaptionPermaObscur().contains(Pouvoirs.JOKO_CUBE))) {
                 	

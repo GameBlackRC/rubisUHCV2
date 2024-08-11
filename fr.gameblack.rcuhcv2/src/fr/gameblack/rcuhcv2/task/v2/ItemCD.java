@@ -236,6 +236,8 @@ public class ItemCD extends BukkitRunnable {
 	    	        for (ItemStack item : cible.getPlayer().getInventory().getContents()) {
 	    	
 	    	        	if (item != null && item.getType() != Material.NETHER_STAR && item.getTypeId() != 351) {
+	    	        		
+	    	        		
 	    	
 	    	        		if (item.getItemMeta().hasEnchant(Enchantment.DEPTH_STRIDER)) {
 	    	
@@ -275,49 +277,93 @@ public class ItemCD extends BukkitRunnable {
 	    	
 	    	        }
 	    	        
-	                if (cible.getPlayer().getInventory().getHelmet().getItemMeta().hasEnchant(Enchantment.THORNS)) {
-	        	    	
-	                   	ItemMeta itemM = cible.getPlayer().getInventory().getHelmet().getItemMeta();
-	                    itemM.removeEnchant(Enchantment.THORNS);
-	                    cible.getPlayer().getInventory().getHelmet().setItemMeta(itemM);
+	                if (cible.getPlayer().getInventory().getHelmet() != null) {
+	                	
+	                	if (cible.getPlayer().getInventory().getHelmet().hasItemMeta() && cible.getPlayer().getInventory().getHelmet().getItemMeta().hasEnchant(Enchantment.THORNS)) {
+	                		
+	                		ItemMeta itemM = cible.getPlayer().getInventory().getHelmet().getItemMeta();
+		                    itemM.removeEnchant(Enchantment.THORNS);
+		                    cible.getPlayer().getInventory().getHelmet().setItemMeta(itemM);
+	                		
+	                	}
+	                	if (cible.getPlayer().getInventory().getHelmet().hasItemMeta() && cible.getPlayer().getInventory().getHelmet().getItemMeta().spigot().isUnbreakable()) {
+	                		
+	                		ItemMeta itemM = cible.getPlayer().getInventory().getHelmet().getItemMeta();
+		                    itemM.spigot().setUnbreakable(false);
+		                    cible.getPlayer().getInventory().getHelmet().setItemMeta(itemM);
+	                		
+	                	}
+	                	cible.getPlayer().getWorld().dropItemNaturally(loc, cible.getPlayer().getInventory().getHelmet());
 	
 	                }
 	                
-	                if (cible.getPlayer().getInventory().getChestplate().getItemMeta().hasEnchant(Enchantment.THORNS)) {
-	        	    	
-	                   	ItemMeta itemM = cible.getPlayer().getInventory().getChestplate().getItemMeta();
-	                    itemM.removeEnchant(Enchantment.THORNS);
-	                    cible.getPlayer().getInventory().getChestplate().setItemMeta(itemM);
+	                if (cible.getPlayer().getInventory().getChestplate() != null) {
+	                	
+	                	if (cible.getPlayer().getInventory().getChestplate().hasItemMeta() && cible.getPlayer().getInventory().getChestplate().getItemMeta().hasEnchant(Enchantment.THORNS)) {
+	                		
+	                		ItemMeta itemM = cible.getPlayer().getInventory().getChestplate().getItemMeta();
+		                    itemM.removeEnchant(Enchantment.THORNS);
+		                    cible.getPlayer().getInventory().getChestplate().setItemMeta(itemM);
+	                		
+	                	}
+	                	cible.getPlayer().getWorld().dropItemNaturally(loc, cible.getPlayer().getInventory().getChestplate());
 	
 	                }
 	                
-	                if (cible.getPlayer().getInventory().getLeggings().getItemMeta().hasEnchant(Enchantment.THORNS)) {
+	                if (cible.getPlayer().getInventory().getLeggings() != null) {
+	                	
+	                	if (cible.getPlayer().getInventory().getLeggings().hasItemMeta() && cible.getPlayer().getInventory().getLeggings().getItemMeta().hasEnchant(Enchantment.THORNS)) {
 	        	    	
-	                   	ItemMeta itemM = cible.getPlayer().getInventory().getLeggings().getItemMeta();
-	                    itemM.removeEnchant(Enchantment.THORNS);
-	                    cible.getPlayer().getInventory().getLeggings().setItemMeta(itemM);
+		                   	ItemMeta itemM = cible.getPlayer().getInventory().getLeggings().getItemMeta();
+		                    itemM.removeEnchant(Enchantment.THORNS);
+		                    cible.getPlayer().getInventory().getLeggings().setItemMeta(itemM);
+	                    
+	                	}
+	                	if (cible.getPlayer().getInventory().getLeggings().hasItemMeta() && cible.getPlayer().getInventory().getLeggings().getItemMeta().spigot().isUnbreakable()) {
+	                		
+	                		ItemMeta itemM = cible.getPlayer().getInventory().getLeggings().getItemMeta();
+	                		itemM.spigot().setUnbreakable(false);
+		                    cible.getPlayer().getInventory().getLeggings().setItemMeta(itemM);
+	                		
+	                	}
+	                	cible.getPlayer().getWorld().dropItemNaturally(loc, cible.getPlayer().getInventory().getLeggings());
 	
 	                }
 	                
-	                if (cible.getPlayer().getInventory().getBoots().getItemMeta().hasEnchant(Enchantment.THORNS)) {
+	                if (cible.getPlayer().getInventory().getBoots() != null) {
+	                	
+	                	if (cible.getPlayer().getInventory().getBoots().hasItemMeta() && cible.getPlayer().getInventory().getBoots().getItemMeta().hasEnchant(Enchantment.THORNS)) {
 	        	    	
-	                   	ItemMeta itemM = cible.getPlayer().getInventory().getBoots().getItemMeta();
-	                    itemM.removeEnchant(Enchantment.THORNS);
-	                    cible.getPlayer().getInventory().getBoots().setItemMeta(itemM);
+		                   	ItemMeta itemM = cible.getPlayer().getInventory().getBoots().getItemMeta();
+		                    itemM.removeEnchant(Enchantment.THORNS);
+		                    cible.getPlayer().getInventory().getBoots().setItemMeta(itemM);
+	                    
+	                	}
+	                	if (cible.getPlayer().getInventory().getBoots().hasItemMeta() && cible.getPlayer().getInventory().getBoots().getItemMeta().spigot().isUnbreakable()) {
+	                		
+	                		ItemMeta itemM = cible.getPlayer().getInventory().getBoots().getItemMeta();
+	                		itemM.spigot().setUnbreakable(false);
+		                    cible.getPlayer().getInventory().getBoots().setItemMeta(itemM);
+	                		
+	                	}
+	                	ItemStack bottes = cible.getPlayer().getInventory().getBoots();
+		    	        if(bottes.containsEnchantment(Enchantment.DEPTH_STRIDER)) {
+		    	        	bottes.removeEnchantment(Enchantment.DEPTH_STRIDER);
+		    	        }
+		    	        cible.getPlayer().getWorld().dropItemNaturally(loc, bottes);
 	
 	                }
-	    	        
-	    	        cible.getPlayer().getWorld().dropItemNaturally(loc, cible.getPlayer().getInventory().getHelmet());
-	    	        cible.getPlayer().getWorld().dropItemNaturally(loc, cible.getPlayer().getInventory().getChestplate());
-	    	        cible.getPlayer().getWorld().dropItemNaturally(loc, cible.getPlayer().getInventory().getLeggings());
-	    	        ItemStack bottes = cible.getPlayer().getInventory().getBoots();
-	    	        if(bottes.containsEnchantment(Enchantment.DEPTH_STRIDER)) {
-	    	        	bottes.removeEnchantment(Enchantment.DEPTH_STRIDER);
-	    	        }
-	    	        cible.getPlayer().getWorld().dropItemNaturally(loc, bottes);
 	
-	                Mort.setMort(cible, joueur, event, main);
+	                Mort.setMort(cible, joueur, main);
 	
+	            } else if(item == "disnofall") {
+	            	
+	            	if(!joueur.isNofallPerma()) {
+	            	
+	            		joueur.setNofall(false);
+	            	
+	            	}
+	            	
 	            } else if(item == "BOTmange") {
             		
             		joueur.setBOTMange(false);
@@ -463,8 +509,18 @@ public class ItemCD extends BukkitRunnable {
 	
 	                joueur.setCanHaveMalusBonusOrbe(true);
 	
-	            } 
-	            
+	            }
+	            else if(item == "stun_aziz") {
+	            	
+	            	joueur.addForce(0.02);
+	            	
+	            }
+	            else if(item == "ec_aziz") {
+	            	
+	            	main.getWorld().getBlockAt(loc).setType(Material.AIR);
+	            	main.getJoueurByRole(Roles.YURI).setAziz(false);
+	            	
+	            }
 	            else if (item == "speed_reflex_trial") {
 	            	
 	            	joueur.removeSpeed(0.05);
@@ -488,8 +544,12 @@ public class ItemCD extends BukkitRunnable {
 	            	main.getJoueurJeuTrial().clear();
 	            	
 	            } else if(item == "no_fall") {
+	            	
+	            	if(!joueur.isNofallPerma()) {
 	            		
-	            	joueur.setNofall(false);
+	            		joueur.setNofall(false);
+	            		
+	            	}
 	            		
 	            } else if (joueur.getRole() == Roles.MALIVOL || joueur.getVol().contains(Pouvoirs.MALIVOL_CHEAT) && joueur.getMalivolCheat() != 0) {
 
@@ -919,7 +979,7 @@ public class ItemCD extends BukkitRunnable {
 	            		
 	            		if(nombre == 1) {
 	            			
-	            			main.getJoueurByRole(Roles.TOINOU);
+	            			main.getJoueurByRole(Roles.TOINOU).removeForce(0.01);
 	            			
 	            		}
 	            		

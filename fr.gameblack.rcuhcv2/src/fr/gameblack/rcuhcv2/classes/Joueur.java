@@ -61,6 +61,7 @@ import fr.gameblack.rcuhcv2.roles.v2.staff.Team;
 import fr.gameblack.rcuhcv2.roles.v2.staff.GameBlack;
 import fr.gameblack.rcuhcv2.roles.v2.staff.Maka;
 import fr.gameblack.rcuhcv2.roles.v2.staff.Trial;
+import fr.gameblack.rcuhcv2.roles.v2.staff.Yuri;
 import fr.gameblack.rcuhcv2.roles.v2.staff.Loup;
 import fr.gameblack.rcuhcv2.roles.v2.staff.Captain;
 import fr.gameblack.rcuhcv2.roles.v2.staff.Hekow;
@@ -180,6 +181,9 @@ public class Joueur {
 		//HEKOW
 		private boolean hekowJeuActif = false;
 		private int HekowPourcent = 0;
+		
+		//YURI
+		private boolean aziz = false;
 	
 	//ROLES JOUEUR
 	
@@ -821,6 +825,18 @@ public class Joueur {
 		
 	}
 	
+	public boolean hasAziz() {
+		
+		return aziz;
+		
+	}
+	
+	public void setAziz(boolean bool) {
+		
+		aziz = bool;
+		
+	}
+	
 	/**
 
 	 * Permet de vérifier si ce joueur peut monter dans le bateau du rôle Loup
@@ -931,6 +947,11 @@ public class Joueur {
 			else if(role == Roles.HEKOW) {
 				
 				Hekow.Items(this);
+				
+			}
+			else if(role == Roles.YURI) {
+				
+				Yuri.Items(this);
 				
 			}
 			else if(role == Roles.MALIVOL) {

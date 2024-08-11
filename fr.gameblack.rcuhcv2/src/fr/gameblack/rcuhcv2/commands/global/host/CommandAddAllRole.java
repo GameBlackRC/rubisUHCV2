@@ -36,6 +36,7 @@ public class CommandAddAllRole implements CommandExecutor {
 	                main.getCompo().add(Roles.JOKO);
 	                
 	                main.getCompo().add(Roles.TEAM);
+	                main.getCompo().add(Roles.YURI);
 	                main.getCompo().add(Roles.GAMEBLACK);
 	                main.getCompo().add(Roles.MAKA);
 	                main.getCompo().add(Roles.TRIAL);

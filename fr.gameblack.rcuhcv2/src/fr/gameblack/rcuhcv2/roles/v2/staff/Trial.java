@@ -6,6 +6,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Sound;
+import org.bukkit.World;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
@@ -434,8 +435,23 @@ public class Trial {
         if (signe_y == 1) {
             cos_y = -cos_y;
         }
+        
+        World world;
+        
+        if(main.getWorld() == null) {
+        	
+        	world = Bukkit.getWorld("world");
+        	
+        }
+        else {
+        	
+        	world = main.getWorld();
+        	
+        }
+        
+        int h = world.getHighestBlockYAt(cos_x, cos_y);
 		
-		joueur.getPlayer().teleport(new Location(Bukkit.getWorld("world"), cos_x, 100, cos_y));
+		joueur.getPlayer().teleport(new Location(world, cos_x, h, cos_y));
 		joueur.getPlayer().setMaxHealth(10);
 		joueur.getPlayer().setHealth(10);
 		

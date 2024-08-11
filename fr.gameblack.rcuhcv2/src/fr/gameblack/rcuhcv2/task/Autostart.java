@@ -98,6 +98,8 @@ public class Autostart extends BukkitRunnable {
                 	world = main.getWorld();
                 	
                 }
+                
+                main.setWorld(world);
             	
             	Player pls = j.getPlayer();
 
@@ -110,6 +112,10 @@ public class Autostart extends BukkitRunnable {
                 pls.setHealth(20);
 
                 pls.getInventory().clear();
+                pls.getInventory().setBoots(new ItemStack(Material.AIR));
+                pls.getInventory().setLeggings(new ItemStack(Material.AIR));
+                pls.getInventory().setChestplate(new ItemStack(Material.AIR));
+                pls.getInventory().setHelmet(new ItemStack(Material.AIR));
 
                 if (pls.hasPotionEffect(PotionEffectType.INCREASE_DAMAGE))
                     pls.removePotionEffect(PotionEffectType.INCREASE_DAMAGE);
@@ -297,10 +303,12 @@ public class Autostart extends BukkitRunnable {
                 	
                 }
                 else {
+                	
+                	giveRapide(pls);
 	
 	                ItemStack epee_ = new ItemStack(Material.IRON_PICKAXE, 1);
 	                ItemMeta epee_M = epee_.getItemMeta();
-	                epee_M.addEnchant(Enchantment.DIG_SPEED, 4, false);
+	                epee_M.addEnchant(Enchantment.DIG_SPEED, 3, false);
 	                epee_.setItemMeta(epee_M);
 	                
 	                pls.getInventory().addItem(epee_);
@@ -412,6 +420,72 @@ public class Autostart extends BukkitRunnable {
     	}
     	
     	timer--;
+    	
+    }
+    
+    public void giveRapide(Player pls) {
+    	
+    	ItemStack bottes = new ItemStack(Material.DIAMOND_BOOTS, 1);
+        ItemMeta bottesM = bottes.getItemMeta();
+        bottesM.addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 2, false);
+        bottes.setItemMeta(bottesM);
+
+        pls.getInventory().setBoots(bottes);
+
+        ItemStack chestplate = new ItemStack(Material.DIAMOND_CHESTPLATE, 1);
+        ItemMeta chestplateM = chestplate.getItemMeta();
+        chestplateM.addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 2, false);
+        chestplate.setItemMeta(chestplateM);
+
+        pls.getInventory().setChestplate(chestplate);
+
+        ItemStack jambiere = new ItemStack(Material.IRON_LEGGINGS, 1);
+        ItemMeta jambiereM = jambiere.getItemMeta();
+        jambiereM.addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 3, false);
+        jambiereM.addEnchant(Enchantment.DURABILITY, 3, false);
+        jambiere.setItemMeta(jambiereM);
+
+        pls.getInventory().setLeggings(jambiere);
+
+        ItemStack casque = new ItemStack(Material.IRON_HELMET, 1);
+        ItemMeta casqueM = casque.getItemMeta();
+        casqueM.addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 3, false);
+        casqueM.addEnchant(Enchantment.DURABILITY, 3, false);
+        casque.setItemMeta(casqueM);
+
+        pls.getInventory().setHelmet(casque);
+
+        ItemStack arc = new ItemStack(Material.BOW, 1);
+        ItemMeta arcM = arc.getItemMeta();
+        arcM.addEnchant(Enchantment.ARROW_DAMAGE, 3, false);
+        arc.setItemMeta(arcM);
+
+        pls.getInventory().setHelmet(casque);
+
+        ItemStack epee = new ItemStack(Material.DIAMOND_SWORD, 1);
+        ItemMeta epeeM = epee.getItemMeta();
+        epeeM.addEnchant(Enchantment.DAMAGE_ALL, 3, false);
+        epee.setItemMeta(epeeM);
+
+        ItemStack epee_ = new ItemStack(Material.BOW, 1);
+        ItemMeta epee_M = epee_.getItemMeta();
+        epee_M.addEnchant(Enchantment.ARROW_DAMAGE, 2, false);
+        epee_.setItemMeta(epee_M);
+
+        pls.getInventory().addItem(epee);
+        pls.getInventory().addItem(epee_);
+
+        pls.getInventory().addItem(new ItemStack(Material.GOLDEN_APPLE, 32));
+        pls.getInventory().addItem(new ItemStack(Material.GOLDEN_CARROT, 64));
+        pls.getInventory().addItem(new ItemStack(Material.ARROW, 64));
+        pls.getInventory().addItem(new ItemStack(Material.WATER_BUCKET, 1));
+        pls.getInventory().addItem(new ItemStack(Material.COBBLESTONE, 64));
+        pls.getInventory().addItem(new ItemStack(Material.COBBLESTONE, 64));
+        pls.getInventory().addItem(new ItemStack(Material.COBBLESTONE, 64));
+        pls.getInventory().addItem(new ItemStack(Material.LAVA_BUCKET, 2));
+        pls.getInventory().addItem(new ItemStack(Material.WATER_BUCKET, 1));
+        pls.getInventory().addItem(new ItemStack(Material.WORKBENCH, 1));
+        pls.getInventory().addItem(new ItemStack(Material.DIAMOND_PICKAXE, 1));
     	
     }
 

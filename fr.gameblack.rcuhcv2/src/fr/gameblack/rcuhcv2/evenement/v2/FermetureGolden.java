@@ -64,6 +64,12 @@ public class FermetureGolden {
 			Random r = new Random();
             int nb = r.nextInt(100);
             
+            if(main.getScenarios().contains(Scenarios.DEBUG)) {
+            	
+            	System.out.println("Pourcent : " + nb);
+            	
+            }
+            
             if((main.getJoueurByRole(Roles.GAMEBLACK).getCamp() == Camps.UHC && nb <= 50) || nb <= 5) {
             	
     			if(main.getScenarios().contains(Scenarios.SON_EN_FOLIE)) {

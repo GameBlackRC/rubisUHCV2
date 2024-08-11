@@ -1994,7 +1994,6 @@ public class InventoryInteractListener implements Listener {
                 		
                 		main.setMode(Modes.RAPIDE);
                 		player.sendMessage("Vous avez selectionner le mode rapide");
-                		System.out.println("Mode : " + main.getMode());
                 		main.setHostBase(joueur);
                 		player.getInventory().clear();
                 		
@@ -2025,7 +2024,6 @@ public class InventoryInteractListener implements Listener {
                 		
                 		main.setMode(Modes.RAPIDE);
                 		player.sendMessage("Vous avez selectionner le mode meetup");
-                		System.out.println("Mode : " + main.getMode());
                 		main.setHostBase(joueur);
                 		player.getInventory().clear();
                 		
@@ -2056,7 +2054,6 @@ public class InventoryInteractListener implements Listener {
                 		
                 		main.setMode(Modes.NORMAL);
                 		player.sendMessage("Vous avez selectionner le mode normal");
-                		System.out.println("Mode : " + main.getMode());
                 		main.setHostBase(joueur);
                 		player.getInventory().clear();
                 		

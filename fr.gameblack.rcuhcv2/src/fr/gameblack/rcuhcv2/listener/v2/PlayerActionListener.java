@@ -5,6 +5,7 @@ import java.util.Random;
 
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -26,6 +27,7 @@ import fr.gameblack.rcuhcv2.Main;
 import fr.gameblack.rcuhcv2.Statut;
 import fr.gameblack.rcuhcv2.classes.Joueur;
 import fr.gameblack.rcuhcv2.classes.Modes;
+import fr.gameblack.rcuhcv2.classes.Pouvoirs;
 import fr.gameblack.rcuhcv2.classes.Roles;
 import fr.gameblack.rcuhcv2.classes.Stats;
 import fr.gameblack.rcuhcv2.evenement.v2.Minerais;
@@ -39,6 +41,7 @@ import fr.gameblack.rcuhcv2.scenarios.global.HasteyBoys;
 import fr.gameblack.rcuhcv2.scenarios.global.Rodless;
 import fr.gameblack.rcuhcv2.scenarios.global.Timber;
 import fr.gameblack.rcuhcv2.task.v2.GameCycle;
+import fr.gameblack.rcuhcv2.task.v2.ItemCD;
 
 public class PlayerActionListener implements Listener{
 	
@@ -248,7 +251,7 @@ public class PlayerActionListener implements Listener{
 	        		
 	        	}
 	        	
-	        	if(joueur.getRole() == Roles.TRIAL && joueur.getModeTrial().equalsIgnoreCase("serieux")) {
+	        	if(joueur.getRole() == Roles.TRIAL && joueur.getModeTrial() != null && joueur.getModeTrial().equalsIgnoreCase("serieux")) {
 	        		
 	        		joueur.setBouge(true);
 	        		
@@ -305,6 +308,24 @@ public class PlayerActionListener implements Listener{
 		Player player = event.getPlayer();
 		Joueur joueur = main.getJoueur(player);
 		
+		if(event.getBlock().getType() == Material.ENDER_CHEST) {
+			
+			if(joueur.getRole() == Roles.YURI) {
+				
+				main.getWorld().getBlockAt(event.getBlock().getLocation()).setType(Material.AIR);
+				if(joueur.getCD().contains(Pouvoirs.YURI_AZIZ)) {
+					joueur.getCD().remove(Pouvoirs.YURI_AZIZ);
+				}
+				
+			}
+			else {
+				
+				event.setCancelled(true);
+				
+			}
+			
+		}
+		
 		if(main.getScenarios().contains(Scenarios.TIMBERPVP) && main.getState() == Statut.PVP_OFF) {
 			
 			Timber.breakTree(event.getBlock());
@@ -324,16 +345,22 @@ public class PlayerActionListener implements Listener{
 			
 		}
 		
-		if(event.getBlock().getType() == Material.BED_BLOCK && (main.getJoueurByRole(Roles.GAMEBLACK) != null && joueur.getModeTrial().equalsIgnoreCase("fun")) && ((event.getBlock().getLocation().getX() == 200 && event.getBlock().getLocation().getY() == 100 && event.getBlock().getLocation().getZ() == 200) || (event.getBlock().getLocation().getX() == 200 && event.getBlock().getLocation().getY() == 100 && event.getBlock().getLocation().getZ() == 201))) {
+		if(event.getBlock().getType() == Material.BED_BLOCK && (main.getJoueurByRole(Roles.GAMEBLACK) != null && main.getJoueurByRole(Roles.GAMEBLACK).getModeTrial().equalsIgnoreCase("fun")) && ((event.getBlock().getLocation().getX() == 200 && event.getBlock().getLocation().getY() == 100 && event.getBlock().getLocation().getZ() == 200) || (event.getBlock().getLocation().getX() == 200 && event.getBlock().getLocation().getY() == 100 && event.getBlock().getLocation().getZ() == 201))) {
 			
 			Bukkit.broadcastMessage("Lit de GameBlack casser");
 			GameBlack.litGBCasser(joueur, main);
+			joueur.setNofall(true);
+			ItemCD cycle = new ItemCD(main, joueur, "no_fall", 10, joueur, null, null, 0, null);
+	        cycle.runTaskTimer(main, 0, 20);
 			
 		}
-		else if(event.getBlock().getType() == Material.BED_BLOCK && (main.getJoueurByRole(Roles.GAMEBLACK) != null && joueur.getModeTrial().equalsIgnoreCase("fun")) && ((event.getBlock().getLocation().getX() == 200 && event.getBlock().getLocation().getY() == 100 && event.getBlock().getLocation().getZ() == -200) || (event.getBlock().getLocation().getX() == 200 && event.getBlock().getLocation().getY() == 100 && event.getBlock().getLocation().getZ() == -199))) {
+		else if(event.getBlock().getType() == Material.BED_BLOCK && (main.getJoueurByRole(Roles.GAMEBLACK) != null && main.getJoueurByRole(Roles.GAMEBLACK).getModeTrial().equalsIgnoreCase("fun")) && ((event.getBlock().getLocation().getX() == 200 && event.getBlock().getLocation().getY() == 100 && event.getBlock().getLocation().getZ() == -200) || (event.getBlock().getLocation().getX() == 200 && event.getBlock().getLocation().getY() == 100 && event.getBlock().getLocation().getZ() == -199))) {
 			
 			Bukkit.broadcastMessage("Lit de l'autre casser");
 			GameBlack.litAutreCasser(joueur, main);
+			joueur.setNofall(true);
+			ItemCD cycle = new ItemCD(main, joueur, "no_fall", 10, joueur, null, null, 0, null);
+	        cycle.runTaskTimer(main, 0, 20);
 			
 		}
 		

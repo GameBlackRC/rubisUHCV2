@@ -36,7 +36,7 @@ public class InteractListener implements Listener {
 
         if (it == null) return;
 
-        else if (it.getType() == Material.NETHER_STAR && it.hasItemMeta() && it.getItemMeta().hasDisplayName() && it.getItemMeta().getDisplayName().equalsIgnoreCase("§8Paramètre de la partie")) {
+        else if (it.getType() == Material.NETHER_STAR && it.hasItemMeta() && it.getItemMeta().hasDisplayName() && it.getItemMeta().getDisplayName().equalsIgnoreCase("§8Paramètre de la partie") && main.getListHost().contains(joueur)) {
 
         	Inventory inv_pacte = Bukkit.createInventory(null, 27, "§8Paramètre de la partie");
         	inv_pacte.setItem(11, Main.getItem(Material.DIAMOND_PICKAXE, "Mode", ""));

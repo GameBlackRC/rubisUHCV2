@@ -36,6 +36,11 @@ public class CommandAddrole implements CommandExecutor {
 	                    main.getCompo().add(Roles.RAPTOR);
 	                    player.sendMessage("Tu as ajouté le rôle Raptor");
 	
+	                } else if (args.length != 0 && args[0].equalsIgnoreCase("yuri")) {
+	                	
+	                    main.getCompo().add(Roles.YURI);
+	                    player.sendMessage("Tu as ajouté le rôle Yuri");
+	
 	                } else if (args.length != 0 && args[0].equalsIgnoreCase("jeannot")) {
 	
 	                    //KILL RC -> A FAIRE
